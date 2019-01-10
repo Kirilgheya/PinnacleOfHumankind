@@ -3,3 +3,10 @@
 ################################################################################
 
 /.vs
+/Code/.vs/Game/v15/Server/sqlite3
+/Code/Game/bin/Debug/netcoreapp2.0/Game.runtimeconfig.json
+/Code/Game/bin/Debug/netcoreapp2.0/Game.runtimeconfig.dev.json
+/Code/Game/bin/Debug/netcoreapp2.0/Game.pdb
+/Code/Game/bin/Debug/netcoreapp2.0/Game.dll
+/Code/Game/bin/Debug/netcoreapp2.0/Game.deps.json
+/Code/Game/obj
