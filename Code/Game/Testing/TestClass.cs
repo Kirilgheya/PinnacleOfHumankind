@@ -11,6 +11,9 @@ namespace Game.Applicazione
 		{
 			ChemicalEngine engine = new ChemicalEngine();
 			engine.initDefaultPeriodicTable();
+
+			Star sun = new Star(ParametriUtente.Science.r_sun*5.43);
+			sun.initStar();
 		}
     }
 }
