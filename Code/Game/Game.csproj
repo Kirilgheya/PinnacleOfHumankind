@@ -6,4 +6,8 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Applicazione\Engine\Nuova cartella\" />
+  </ItemGroup>
+
 </Project>
