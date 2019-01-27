@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Game.Applicazione.DataModel;
+using Game.Applicazione.Engine;
+
 namespace Game.Applicazione
 {
     class TestClass
@@ -9,11 +11,10 @@ namespace Game.Applicazione
 	
 		public static void Main(string[] Args)
 		{
-			ChemicalEngine engine = new ChemicalEngine();
-			engine.initDefaultPeriodicTable();
+			DataEngine engine = new DataEngine();
+			Star star = engine.getPresetStarData(245);
 
-			Star sun = new Star(ParametriUtente.Science.r_sun*5.43);
-			sun.initStar();
+			int x = 0;
 		}
     }
 }

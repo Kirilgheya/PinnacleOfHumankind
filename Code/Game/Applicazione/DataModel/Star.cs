@@ -9,6 +9,7 @@ namespace Game.Applicazione.DataModel
 
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
 		private double luminosity;
+		protected double relluminosity;
 		private double metallicity;
 		private double age;
 
@@ -30,45 +31,23 @@ namespace Game.Applicazione.DataModel
 			this.starRadius = _starRadius;
 		}
 
-		public void initStar(List<ChemicalElement> _elements = null)
+		public Star(
+				double _relluminosity,
+				double _surfaceTemperature,
+				double _relmass
+			)
 		{
 
-			if(stellarCompositionMats == null)
-			{
+			this.relativeMass = _relmass;
+			this.temperature = _surfaceTemperature;
+			this.relluminosity = _relluminosity;
+			
+		}
 
-				stellarCompositionMats = _elements;
-			}
+			public void initStar()
+		{
 
-			ChemicalElement hydrogen = new ChemicalElement();
-			ChemicalElement helium = new ChemicalElement();
-			hydrogen.name = "Hydrogen";
-			helium.name = "Helium";
-			//TODO implement search by name
-
-			hydrogen.density = 0.0899 / 1000.0; // km / m^3 -> g/cm^3
-			helium.density = 0.1785 / 1000.0; // km / m^3 -> g/cm^3
-			Random gen = new Random();
-			double mass = gen.NextDouble() * 100;
-			double volume = 4 / 3 * Math.PI * (Math.Pow(this.starRadius, 3.0));
-			double density = (mass * ParametriUtente.Science.m_sun) / volume;
-			if(density > hydrogen.density)
-			{
-					
-			}
-			double hidro_2_helium_rate = 2.50; //70,28,2 Hi,he,stuff
-			gen = new Random();
-
-			double hidroperc = (0.70- (gen.NextDouble() * (0.70/7.5)));
-			gen = new Random();
-
-			double heliumperc = (0.28 - (gen.NextDouble() * (0.28/4)));
-			double hidroMass = (mass * ParametriUtente.Science.m_sun) * hidroperc;
-			double heliumMass = (mass * ParametriUtente.Science.m_sun) * heliumperc;
-
-			int x = 0;
-
-			metallicity = 1 - hidroperc - heliumperc;
-
+			
 		}
 
 
