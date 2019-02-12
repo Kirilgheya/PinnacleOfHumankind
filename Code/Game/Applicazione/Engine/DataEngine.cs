@@ -30,11 +30,13 @@ namespace Game.Applicazione.Engine
 					starValues = Lines.Split(';');
 					double mass;
 					double surfaceTemp;
-					double luminosity;	
+					double luminosity;
+					int lumClass;
 					Double.TryParse(starValues[4], out mass);
 					Double.TryParse(starValues[1], out surfaceTemp);
 					Double.TryParse(starValues[2], out luminosity);
-					generatedStar = new DataModel.Star(luminosity, surfaceTemp, mass);
+					int.TryParse(starValues[0], out lumClass);
+					generatedStar = new Star(luminosity, surfaceTemp, mass, lumClass);
 					break;
 				}
 				

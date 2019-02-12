@@ -12,6 +12,17 @@ namespace Game.Applicazione.DataModel
 		protected double relluminosity;
 		private double metallicity;
 		private double age;
+	
+		private StarClass luminosityClass;
+		enum StarClass
+		{
+			None = 0,
+			Supergiganti = 1,
+			Giganti_brillanti = 2,
+			Giganti = 3,
+			Sotto_giganti = 4,
+			Standard = 5
+		}
 
 		private double temperature;
 		private List<ChemicalElement> stellarCompositionMats;
@@ -34,14 +45,15 @@ namespace Game.Applicazione.DataModel
 		public Star(
 				double _relluminosity,
 				double _surfaceTemperature,
-				double _relmass
+				double _relmass,
+				int _class
 			)
 		{
 
 			this.relativeMass = _relmass;
 			this.temperature = _surfaceTemperature;
 			this.relluminosity = _relluminosity;
-			
+			this.luminosityClass = (StarClass)Enum.ToObject(typeof(StarClass), _class);
 		}
 
 			public void initStar()
@@ -50,6 +62,7 @@ namespace Game.Applicazione.DataModel
 			
 		}
 
+		
 
 	}
 }
