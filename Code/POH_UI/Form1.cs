@@ -17,7 +17,7 @@ namespace POH_UI
 	public partial class Form1 : Form
 	{
 		private Partita sessione;
-		private List<MainGame.Applicazione.DataModel.ChemicalElement> periodicTable;
+		private List<DataChemicalElement.ChemicalElement> periodicTable;
 		public Form1()
 		{
 			InitializeComponent();
