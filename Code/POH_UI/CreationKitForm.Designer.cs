@@ -1,6 +1,6 @@
 ﻿namespace POH_UI
 {
-	partial class Form1
+	partial class CreationKitForm
 	{
 		/// <summary>
 		/// Variabile di progettazione necessaria.

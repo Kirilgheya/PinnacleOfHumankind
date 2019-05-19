@@ -14,11 +14,11 @@ using System.Windows.Forms;
 using MainGame.Applicazione.Engine;
 namespace POH_UI
 {
-	public partial class Form1 : Form
+	public partial class CreationKitForm : Form
 	{
 		private Partita sessione;
 		private List<DataChemicalElement.ChemicalElement> periodicTable;
-		public Form1()
+		public CreationKitForm()
 		{
 			InitializeComponent();
 		}
@@ -32,22 +32,9 @@ namespace POH_UI
 			PlanetSeed seed = new PlanetSeed(elements);
 			seed.PlanetClass = this.PlanetClassTxt.Text;
 			seed.NucleusClass = this.NucleusClassTxt.Text;
-			foreach(DataGridViewRow row in this.ElementCompositionGrid.Rows)
-			{
-				if(!row.IsNewRow)
-				{ 
-					foreach(DataGridViewCell cell in row.Cells )
-					{
-						if(cell.ValueType == typeof(Elements))
-						{
-							Elements element = (Elements) cell.Value;
-							elements.Add(element);
 
-						}
-					}
-				}
+            this.initElementsDropDown(elements);
 
-			}
 			List<DataChemicalElement.ChemicalElement> listOfSeedElements = new List<DataChemicalElement.ChemicalElement>();
 			foreach(Elements element in elements)
 			{
@@ -80,7 +67,27 @@ namespace POH_UI
 			this.resetInputValues();
 		}
 
-		private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        private void initElementsDropDown(List<Elements> elements)
+        {
+            foreach (DataGridViewRow row in this.ElementCompositionGrid.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.ValueType == typeof(Elements))
+                        {
+                            Elements element = (Elements)cell.Value;
+                            elements.Add(element);
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
 		{
 
 		}
@@ -105,19 +112,21 @@ namespace POH_UI
 			Partita newGame = new Partita();
 			newGame = Partita.createPartita_form();
 			this.sessione = newGame;
-			this.Element.ValueType=typeof(Elements);
+			this.Element.ValueType=typeof(DataChemicalElement.ChemicalElement);
 
 			DataEngine engine = new DataEngine();
 
-			periodicTable = new List<MainGame.Applicazione.DataModel.ChemicalElement>();
+			periodicTable = new List<DataChemicalElement.ChemicalElement>();
 
 			periodicTable = engine.getPeriodiTable(0);
 
 
-			foreach(Object obj in Enum.GetValues(typeof(Elements)))
-			{
-				this.Element.Items.Add(obj);
-			}
+            //foreach(Object obj in Enum.GetValues(typeof(Elements)))
+            foreach (DataChemicalElement.ChemicalElement obj in periodicTable)
+            {
+
+                this.Element.Items.Add(obj);
+            }
 
 			foreach (Object obj in Enum.GetValues(typeof(PlanetClassification)))
 			{
@@ -137,7 +146,7 @@ namespace POH_UI
 
 		private void resetInputValues()
 		{
-			
+			//TODO: Implement reset for grid inputs
 		}
 	}
 }

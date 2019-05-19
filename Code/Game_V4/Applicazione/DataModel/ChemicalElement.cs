@@ -17,5 +17,10 @@ namespace MainGame.Applicazione.DataModel
 			this.mass = _mass;
 			this.density = _density;
 		}
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

@@ -1,5 +1,4 @@
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.csprojAssemblyReference.cache
-C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.Form1.resources
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.Properties.Resources.resources
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.csproj.GenerateResource.cache
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.csproj.CoreCompileInputs.cache
@@ -14,3 +13,4 @@ C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\bin\Debug\System.Val
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.csproj.CopyComplete
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.exe
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.pdb
+C:\Users\andre\source\repos\PinnacleOfHumankind\Code\POH_UI\obj\Debug\POH_UI.CreationKitForm.resources

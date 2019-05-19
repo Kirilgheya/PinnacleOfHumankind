@@ -68,6 +68,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Risorse Extra\PeriodicTable.csv" />
     <None Include="Risorse Extra\stardata.csv" />
   </ItemGroup>
   <ItemGroup>
