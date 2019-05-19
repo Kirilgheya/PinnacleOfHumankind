@@ -1,8 +1,8 @@
 ﻿################################################################################
 # Il file gitignore è stato creato automaticamente da Microsoft(R) Visual Studio.
 ################################################################################
-
 /.vs
+/.vs/*
 /Code/.vs/*
 /Code/Game/obj/*
 /Code/Game/bin/*
