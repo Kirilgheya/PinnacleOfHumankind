@@ -26,7 +26,7 @@ namespace POH_UI
 		private void StartGame_Click(object sender, EventArgs e)
 		{
 			
-			List<Elements> elements = new List<Elements>();
+			List<DataChemicalElement.ChemicalElement> elements = new List<DataChemicalElement.ChemicalElement>();
 			
 
 			PlanetSeed seed = new PlanetSeed(elements);
@@ -36,23 +36,13 @@ namespace POH_UI
             this.initElementsDropDown(elements);
 
 			List<DataChemicalElement.ChemicalElement> listOfSeedElements = new List<DataChemicalElement.ChemicalElement>();
-			foreach(Elements element in elements)
+			foreach(DataChemicalElement.ChemicalElement element in elements)
 			{
 				DataChemicalElement.ChemicalElement foundElement;
-				int counterPeriodic = 0;
-
-				for(counterPeriodic =0; counterPeriodic<periodicTable.Count; counterPeriodic++)
-				{
-
-					if(periodicTable.ElementAt(counterPeriodic).symbol == Enum.GetName(typeof(Elements),element))
-					{
-
-						foundElement = periodicTable.ElementAt(counterPeriodic);
-						listOfSeedElements.Add(foundElement);
-						break;
-					}
-				}
-
+				foundElement = element;
+				listOfSeedElements.Add(foundElement);
+			    
+				
 			}
 
 			seed.planetSeedComposition = elements;
@@ -67,7 +57,7 @@ namespace POH_UI
 			this.resetInputValues();
 		}
 
-        private void initElementsDropDown(List<Elements> elements)
+        private void initElementsDropDown(List<DataChemicalElement.ChemicalElement> elements)
         {
             foreach (DataGridViewRow row in this.ElementCompositionGrid.Rows)
             {
@@ -75,9 +65,10 @@ namespace POH_UI
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        if (cell.ValueType == typeof(Elements))
+                        if (cell.ValueType == typeof(DataChemicalElement.ChemicalElement))
                         {
-                            Elements element = (Elements)cell.Value;
+                            ChemicalElement element = new ChemicalElement();
+                            element.initElementDataFromFather((DataChemicalElement.ChemicalElement)cell.Value);
                             elements.Add(element);
 
                         }
@@ -112,23 +103,32 @@ namespace POH_UI
 			Partita newGame = new Partita();
 			newGame = Partita.createPartita_form();
 			this.sessione = newGame;
-			this.Element.ValueType=typeof(DataChemicalElement.ChemicalElement);
+			
+          
 
-			DataEngine engine = new DataEngine();
+            DataEngine engine = new DataEngine();
 
 			periodicTable = new List<DataChemicalElement.ChemicalElement>();
 
 			periodicTable = engine.getPeriodiTable(0);
 
+            BindingSource comboBs = new BindingSource();
 
+            //this.Element.ValueType = typeof(DataChemicalElement.ChemicalElement);
             //foreach(Object obj in Enum.GetValues(typeof(Elements)))
             foreach (DataChemicalElement.ChemicalElement obj in periodicTable)
             {
-
-                this.Element.Items.Add(obj);
+                comboBs.Add(obj);
+                //this.Element.Items.Add(obj);
+               
             }
 
-			foreach (Object obj in Enum.GetValues(typeof(PlanetClassification)))
+          //  this.Element.DataPropertyName = "name";
+            this.Element.DataSource = comboBs;
+            this.Element.DisplayMember = "completeName";
+            this.Element.ValueMember = "Self";
+
+            foreach (Object obj in Enum.GetValues(typeof(PlanetClassification)))
 			{
 				this.PlanetClassTxt.Items.Add(obj);
 			}

@@ -19,7 +19,7 @@ namespace MainGame.Applicazione.DataModel
 		protected NucleusClassification nucleusClass { get; set; }
 		
 
-		public NucleusClass(List<Elements> elements)
+		public NucleusClass(List<ChemicalElement> elements)
 		{
 
 			this.nucleusClass = NucleusClassification.Liquid;

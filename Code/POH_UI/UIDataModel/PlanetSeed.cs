@@ -9,7 +9,7 @@ namespace MainGame.UI.DataModel
 	{
 		protected PlanetClass planetClass { get; set; }
 		protected NucleusClass nucleusClass { get; set; }
-		public List<Elements> planetSeedComposition { get; set; }
+		public List<Applicazione.DataModel.ChemicalElement> planetSeedComposition { get; set; }
 
 		public string PlanetClass { get { return this.planetClass.Planet_Class; }
 			set {
@@ -28,16 +28,16 @@ namespace MainGame.UI.DataModel
 			get
 			{
 				string returned="";
-				foreach (Elements elem in this.planetSeedComposition)
+				foreach (Applicazione.DataModel.ChemicalElement elem in this.planetSeedComposition)
 				{
 					if(returned.Equals(String.Empty))
 					{
 
-						returned = String.Concat(String.Empty, elem.ToString());
+						returned = String.Concat(String.Empty, elem.completeName);
 					}
 					else
 					{
-						returned = String.Concat(returned, " ; ", elem.ToString());
+						returned = String.Concat(returned, " ; ", elem.completeName);
 					}
 					
 				}
@@ -49,7 +49,7 @@ namespace MainGame.UI.DataModel
 
 
 
-		public PlanetSeed(List<Elements> _composition)
+		public PlanetSeed(List<Applicazione.DataModel.ChemicalElement> _composition)
 		{
 			planetSeedComposition = _composition;
 			this.planetClass = new PlanetClass(this.planetSeedComposition);

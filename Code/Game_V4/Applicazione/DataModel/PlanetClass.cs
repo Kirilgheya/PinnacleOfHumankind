@@ -18,7 +18,7 @@ namespace MainGame.Applicazione.DataModel
 		}
 		
 
-		public PlanetClass(List<MainGame.Elements> _elements)
+		public PlanetClass(List<ChemicalElement> _elements)
 		{
 			
 			this.className = PlanetClassification.Planet;
