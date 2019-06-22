@@ -8,9 +8,10 @@ namespace MainGame.Applicazione.DataModel
     {
 		public double density;
 		public double mass;
-		public String name { get; set; }
+        public ElementState state;
+        public String name { get; set; }
         public String symbol { get; set; }
-
+        public int numberOfParticles { get; set; }
         public String completeName { get { return symbol + " : " + name; } }
 
         public ChemicalElement Self { get { return this; } }

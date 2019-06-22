@@ -24,6 +24,16 @@ namespace MainGame
 		Gas = 2
 	}
 
+    public enum ElementState 
+    {
+        Solid = 0,
+        Plasma = 1,
+        Liquid = 2,
+        Gas = 3,
+        Synthetic = 4
+    }
+
+
 	public enum Elements
 	{
 		H = 0,

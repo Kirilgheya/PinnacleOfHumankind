@@ -11,6 +11,10 @@ public abstract class Body
 	public double relativeg;
 	public double relativeAvgDensity;
 	public double bodyAge;
+    public double Core_temperature;
+    public double Surface_temperature;
+    public double Core_density;
+    public double Surface_density;
 
 	public Body()
 	{

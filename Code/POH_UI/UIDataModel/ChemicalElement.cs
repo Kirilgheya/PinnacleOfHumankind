@@ -6,8 +6,8 @@ namespace MainGame.UI.DataModel
 {
     public class ChemicalElement : MainGame.Applicazione.DataModel.ChemicalElement
     {
-	
-		public void initElementDataFromFather(Applicazione.DataModel.ChemicalElement _father)
+       
+        public void initElementDataFromFather(Applicazione.DataModel.ChemicalElement _father)
 		{
 			this.mass = _father.mass;
 			this.density = _father.density;

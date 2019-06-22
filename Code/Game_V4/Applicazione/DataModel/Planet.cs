@@ -19,7 +19,7 @@ namespace MainGame.Applicazione.DataModel
 
 		public void initPlanetStats()
 		{
-
+          
 			this.mass = UOMHandler.getPlanetMass(this.relativeMass);
 			this.volume = UOMHandler.getPlanetVolume(this.relativeVolume);
 			this.radius = UOMHandler.getPlanetRadius(this.relativeRadius);

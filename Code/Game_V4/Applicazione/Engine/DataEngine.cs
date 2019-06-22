@@ -47,7 +47,7 @@ namespace MainGame.Applicazione.Engine
 			return generatedStar;
 		}
 
-		public List<ChemicalElement> getPeriodiTable(int _index = 0)
+		public List<ChemicalElement> getPeriodicTable(int _index = 0)
 		{
 			string[] chemicalValue;
 			int counter = 0;
@@ -56,6 +56,8 @@ namespace MainGame.Applicazione.Engine
 			double density;
 			string name;
 			string symbol;
+            string state;
+            double atomicWeight;
 			int atomicNumber;
 
 			foreach (var Lines
@@ -79,14 +81,18 @@ namespace MainGame.Applicazione.Engine
 
 					symbol = chemicalValue[2];
 					name = chemicalValue[1];
+                    state = chemicalValue[4];
 					int.TryParse(chemicalValue[3], out atomicNumber);
 					Double.TryParse(chemicalValue[0], out density);
+                    Double.TryParse(chemicalValue[5], out atomicWeight);
 					generatedElement = new ChemicalElement();
 					generatedElement.density = density;
 					generatedElement.name = name;
-					generatedElement.mass = atomicNumber;
+					generatedElement.mass = atomicWeight;
 					generatedElement.symbol = symbol;
-					listofElements.Add(generatedElement);
+                    generatedElement.state = (ElementState)Enum.Parse(typeof(ElementState), state, true);
+                    generatedElement.numberOfParticles = atomicNumber;
+                    listofElements.Add(generatedElement);
 				
 				}
 

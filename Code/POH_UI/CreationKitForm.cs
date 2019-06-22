@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MainGame.Applicazione.Engine;
+
+
 namespace POH_UI
 {
 	public partial class CreationKitForm : Form
@@ -98,7 +100,7 @@ namespace POH_UI
 
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		private void CreationKit_Load(object sender, EventArgs e)
 		{
 			Partita newGame = new Partita();
 			newGame = Partita.createPartita_form();
@@ -110,7 +112,7 @@ namespace POH_UI
 
 			periodicTable = new List<DataChemicalElement.ChemicalElement>();
 
-			periodicTable = engine.getPeriodiTable(0);
+			periodicTable = engine.getPeriodicTable(0);
 
             BindingSource comboBs = new BindingSource();
 

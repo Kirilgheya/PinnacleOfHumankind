@@ -8,3 +8,4 @@ C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.c
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.exe
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.pdb
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.csprojAssemblyReference.cache
+C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\MathParser.org-mXparser.Net472.dll

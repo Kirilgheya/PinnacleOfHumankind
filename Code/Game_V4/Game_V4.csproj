@@ -51,6 +51,7 @@
     <Compile Include="Applicazione\DataModel\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
+    <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\Science.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\SeedParameters.cs" />
@@ -75,12 +76,19 @@
     <Folder Include="Applicazione\Engine\Math Engine\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MathParser.org-mXparser.Net472, Version=4.2.0.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using org.mariuszgromada.math.mxparser;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,14 +18,16 @@ namespace MainGame.Applicazione
 			public static double v_t = 1083206916846.0; //volume della terra in km3
 			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
 
-			public static double m_sun = 1.9885 * Math.Pow(10.00, 30.00);
+            public static double g_sun = g_t * 28.02;
+            public static double m_sun = 1.9885 * Math.Pow(10.00, 30.00);
 			public static double r_sun = 695700.00; //Km
 			public static double surfacetemp_sun = 5.778 * Math.Pow(10.00,3); //Kelvin
 			public static double coretemp_sun = 1.57 * Math.Pow(10.00, 7.00);
 			public static double lum_sun = 3.828 * Math.Pow(10.0,26.0);
-			
 
-		}
+            //public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
+            public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
+        }
 
 		public static Dictionary<char, int> keybind = new Dictionary<char, int>()
 		{
