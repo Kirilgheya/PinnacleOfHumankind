@@ -9,6 +9,7 @@ namespace MainGame.Applicazione.Engine
 {
 	public class DataEngine
 	{
+        private static string extraResourcePath = ParametriUtente.exeRootFodler+"\\\\Risorse Extra\\\\";
 
 		public Star getPresetStarData(int _index = 0)
 		{
@@ -21,7 +22,7 @@ namespace MainGame.Applicazione.Engine
 			int lumClass;
 
 			foreach (var Lines 
-							in File.ReadLines(@"C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game\Risorse Extra\stardata.csv"))
+							in File.ReadLines(@""+extraResourcePath+"stardata.csv"))
 			{
 				if(counter != _index)
 				{
@@ -61,7 +62,7 @@ namespace MainGame.Applicazione.Engine
 			int atomicNumber;
 
 			foreach (var Lines
-							in File.ReadLines(@"C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\Risorse Extra\PeriodicTable.csv"))
+							in File.ReadLines(@"" + extraResourcePath + "PeriodicTable.csv"))
 			{
 				if (_index > 0 && counter != _index)
 				{

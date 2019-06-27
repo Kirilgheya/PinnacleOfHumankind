@@ -20,7 +20,7 @@ namespace MainGame.Applicazione
             SimulationEngine.mustShowInfo = true;
 
             DataEngine engine = new DataEngine();
-
+            string x = ParametriUtente.exeRootFodler;
             List<ChemicalElement> periodicTable = new List<ChemicalElement>();
             List<int> percentageList = new List<int>();
             periodicTable = engine.getPeriodicTable(0);

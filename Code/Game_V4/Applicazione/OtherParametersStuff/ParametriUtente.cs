@@ -2,14 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MainGame.Applicazione
 {
     static class ParametriUtente
     {
-		public static class Science
-		{
+        public static string exeRootFodler = Application.StartupPath;
 
+
+        public static class Science
+		{
+            
 		    public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
 			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
 			public static double m_t = 5.97219 * (Math.Pow(10.0, 27.0)); //massa terrestre in g
