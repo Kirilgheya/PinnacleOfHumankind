@@ -22,3 +22,5 @@ C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\ob
 C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.pdb
 C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Risorse Extra\PeriodicTable.csv
 C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Risorse Extra\stardata.csv
+C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Risorse Extra\PeriodicTable.csv
+C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Risorse Extra\stardata.csv
