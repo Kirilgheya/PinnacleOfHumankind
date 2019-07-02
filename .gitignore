@@ -7,7 +7,7 @@
 /Code/Game/obj/*
 /Code/Game/bin/*
 /Code/Game/.vs/*
-
+\Code\Game\.vs/*
 /Code/.vs/*
 /Code/Game_V4/obj/*
 /Code/Game_V4/bin/*
