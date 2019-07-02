@@ -45,6 +45,7 @@ namespace MainGame.Applicazione.Engine
 
                 star = new Star(radius, 0, chemicalElements);
                 star.initStar(densityMul,1, percentage);
+                
                 resultOfGenerateStar.Add(star);
             }
 

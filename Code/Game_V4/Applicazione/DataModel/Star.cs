@@ -44,7 +44,7 @@ namespace MainGame.Applicazione.DataModel
 		private void setMetallicity()
         {
             int c = 1;
-            foreach(int perc in this.elementsDistribution)
+            foreach(double perc in this.elementsDistribution)
             {
                 if(c<=2)
                 {
@@ -52,7 +52,7 @@ namespace MainGame.Applicazione.DataModel
                     continue;
                 }
 
-                this.metallicity = perc;
+                this.metallicity += perc;
                 
             }
             
@@ -152,6 +152,7 @@ namespace MainGame.Applicazione.DataModel
             this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
             this.reltemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
             this.relativeVolume = this.Volume/ ParametriUtente.Science.v_sun;
+            this.setMetallicity();
         }
 
 	
