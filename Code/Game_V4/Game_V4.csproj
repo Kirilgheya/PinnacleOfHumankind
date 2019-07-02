@@ -45,6 +45,7 @@
     <Compile Include="Applicazione\DataModel\ChemicalElement.cs" />
     <Compile Include="Applicazione\DataModel\EnumClass.cs" />
     <Compile Include="Applicazione\DataModel\NucleusClass.cs" />
+    <Compile Include="Applicazione\DataModel\PeriodicTable.cs" />
     <Compile Include="Applicazione\DataModel\Planet.cs" />
     <Compile Include="Applicazione\DataModel\PlanetClass.cs" />
     <Compile Include="Applicazione\DataModel\Star.cs" />
