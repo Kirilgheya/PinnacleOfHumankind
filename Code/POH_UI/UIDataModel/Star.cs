@@ -4,7 +4,7 @@ using System.Text;
 using MainGame.Applicazione.DataModel;
 namespace MainGame.UI.DataModel
 {
-	public class Star : MainGame.Applicazione.DataModel.Star
+	public class Star : Applicazione.DataModel.Star
 	{
 
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
@@ -33,7 +33,7 @@ namespace MainGame.UI.DataModel
 			
 
 		{
-			this.temperature = base.temperature.ToString();
+			this.temperature = base.Core_temperature.ToString();
 			this.Luminosity = base.luminosityClass.ToString();
 			this.Age = base.age.ToString();
 			this.Radius = base.starRadius.ToString();
@@ -52,7 +52,7 @@ namespace MainGame.UI.DataModel
 			this.relativeMass = _relmass;
 			this.temperature = _surfaceTemperature.ToString();
 		
-			this.luminosityClass = (StarClass)Enum.ToObject(typeof(StarClass), _class);
+			this.luminosityClass = (LuminosityClassification)Enum.ToObject(typeof(LuminosityClassification), _class);
 		}
 
 

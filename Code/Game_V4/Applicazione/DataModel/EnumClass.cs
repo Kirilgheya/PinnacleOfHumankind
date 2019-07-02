@@ -32,16 +32,25 @@ namespace MainGame
         Gas = 3,
         Synthetic = 4
     }
+    public enum LuminosityClassification
+    {
+        None = 0,
+        Supergiganti = 1,
+        Giganti_brillanti = 2,
+        Giganti = 3,
+        Sotto_giganti = 4,
+        Standard = 5
+    }
 
-
-	public enum Elements
-	{
-		H = 0,
-		He = 1,
-		Li = 2,
-		Be = 3,
-		B = 4,
-		C = 5
-	}
+    public enum StarClassification
+    {
+        O = 0,
+        B = 1,
+        A = 2,
+        F = 3,
+        G = 4,
+        K = 5,
+        M = 6
+    }
 
 }

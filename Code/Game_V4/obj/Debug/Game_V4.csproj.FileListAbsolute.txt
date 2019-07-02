@@ -7,7 +7,6 @@ C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\System.Va
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.csproj.CopyComplete
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.exe
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.pdb
-C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\obj\Debug\Game_V4.csprojAssemblyReference.cache
 C:\Users\andre\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\MathParser.org-mXparser.Net472.dll
 C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Game_V4.exe.config
 C:\Users\a.corradi.AVANADE-CORP\source\repos\PinnacleOfHumankind\Code\Game_V4\bin\Debug\Game_V4.exe

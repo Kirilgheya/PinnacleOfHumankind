@@ -19,20 +19,13 @@ namespace MainGame.Applicazione.DataModel
         protected List<ChemicalElement> stellarCompositionMats;
         protected double starRadius;
         private double StarMass;
+        public StarClassification starClass;
         public double mass { get { return StarMass; }
                              set { this.StarMass = value; this.relativeMass = (value/100) / Science.m_sun; }
                             }
         public double equilibriumFactor;
-		public StarClass luminosityClass;
-		public enum StarClass
-		{
-			None = 0,
-			Supergiganti = 1,
-			Giganti_brillanti = 2,
-			Giganti = 3,
-			Sotto_giganti = 4,
-			Standard = 5
-		}
+		public LuminosityClassification luminosityClass;
+		
 
 		
 
@@ -61,7 +54,7 @@ namespace MainGame.Applicazione.DataModel
 			this.relativeMass = _relmass;
 			this.Core_temperature = _surfaceTemperature;
 			this.relluminosity = _relluminosity;
-			this.luminosityClass = (StarClass)Enum.ToObject(typeof(StarClass), _class);
+			this.luminosityClass = (LuminosityClassification)Enum.ToObject(typeof(LuminosityClassification), _class);
 		}
 
 		public Star(
@@ -113,19 +106,7 @@ namespace MainGame.Applicazione.DataModel
 
         }
 
-		public bool isInEquilibrium(double tolerance = 0.0)
-        {
-
-            bool isInEq = false;
-
-            if(this.equilibriumFactor < tolerance && this.equilibriumFactor > (tolerance*(-1)))
-            {
-
-                isInEq = true;
-            }
-
-            return isInEq;
-        }
+	
 
 	}
 }
