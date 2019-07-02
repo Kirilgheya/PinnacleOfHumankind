@@ -8,7 +8,6 @@ using org.mariuszgromada.math.mxparser;
 using System.Globalization;
 using System.Diagnostics;
 using System.Linq;
-using Applicazione.DataModel;
 
 namespace MainGame.Applicazione
 {
@@ -19,21 +18,29 @@ namespace MainGame.Applicazione
 		{
 
             SimulationEngine.mustShowInfo = true;
-            PeriodicTable.init();
-            List<int> percentageList = new List<int>();
-         
 
-            ChemicalElement element = PeriodicTable.findElement("Hydrogen");
-            List <ChemicalElement> chemicalElements = new List<ChemicalElement>();
+            DataEngine engine = new DataEngine();
+            string x = ParametriUtente.exeRootFodler;
+            List<ChemicalElement> periodicTable = new List<ChemicalElement>();
+            List<double> percentageList = new List<double>();
+            periodicTable = engine.getPeriodicTable(0);
+
+            ChemicalElement element = periodicTable.ElementAt(0);
+            List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
             chemicalElements.Add(element);
-            percentageList.Add(92);
+            percentageList.Add(74.9);
 
-            element = PeriodicTable.findElement("Helium");
+            element = periodicTable.ElementAt(2);
             chemicalElements.Add(element);
-            percentageList.Add(8);
+            percentageList.Add(23.8);
 
+            element = periodicTable.ElementAt(3);
+            chemicalElements.Add(element);
+            percentageList.Add(1.2);
 
-            
+            element = periodicTable.ElementAt(6);
+            chemicalElements.Add(element);
+            percentageList.Add(0.8);
 
             SimulationEngine.generateStars(100, chemicalElements, percentageList);
             List<Star> stars = SimulationEngine.resultOfGenerateStar;

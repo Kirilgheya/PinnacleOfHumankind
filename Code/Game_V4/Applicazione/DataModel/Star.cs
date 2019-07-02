@@ -13,17 +13,61 @@ namespace MainGame.Applicazione.DataModel
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
 		protected double luminosity;
 		protected double relluminosity;
-		protected double metallicity;
+        protected double reltemperature;
+        private double metallicity;
 		protected double age;
         public double meanDensity;
         protected List<ChemicalElement> stellarCompositionMats;
+        protected List<double> elementsDistribution;
         protected double starRadius;
         private double StarMass;
         public StarClassification starClass;
+        public double Metallicity { get {
+                                        if (this.metallicity <= 0.0)
+                                        {
+                                            this.setMetallicity();
+
+                                        }
+                                        return this.metallicity;
+                                    }
+                                    set {
+                                        this.setMetallicity();
+                                        }
+            
+                                  }
         public double mass { get { return StarMass; }
                              set { this.StarMass = value; this.relativeMass = (value/100) / Science.m_sun; }
                             }
         public double equilibriumFactor;
+		public StarClass luminosityClass;
+		public enum StarClass
+		{
+			None = 0,
+			Supergiganti = 1,
+			Giganti_brillanti = 2,
+			Giganti = 3,
+			Sotto_giganti = 4,
+			Standard = 5
+		}
+
+		private void setMetallicity()
+        {
+            int c = 1;
+            foreach(int perc in this.elementsDistribution)
+            {
+                if(c<=2)
+                {
+                    c++;
+                    continue;
+                }
+
+                this.metallicity = perc;
+                
+            }
+            
+        }
+
+
 		public LuminosityClassification luminosityClass;
 		
 
@@ -66,44 +110,55 @@ namespace MainGame.Applicazione.DataModel
 			this.starRadius = _star.starRadius;
 		}
 
-		public void initStar(double _densityMul = 1.0,List<int> percentage = null)
+		public void initStar(double _densityMul = 1.0,List<double> percentage = null)
 		{
-
+            elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
             Function hydrostaticEquilibrium = ParametriUtente.Science.hydrostaticEquilibrium;
-
-            double h = 6;
-            meanDensity = 2;
-
             //mass in grammi / 18.015 = moles
             //ideal gas law
             double molecularWeight = 0.0;
-            double weight = 1;
+            double totalWeightOfDistribution = 0;
+            double mass;
+            double pressione;
+            double volume;
+            this.meanDensity = 0;
+
             foreach(ChemicalElement element in stellarCompositionMats)
             {
-                weight = weight + percentage.ToArray()[stellarCompositionMats.IndexOf(element)];
-                meanDensity = meanDensity + element.density * (percentage.ToArray()[stellarCompositionMats.IndexOf(element)]) 
-                                                / weight;
-                molecularWeight = molecularWeight + element.mass / 2;
+                double currentElement_weightOfDistribution = elementsDistribution.ToArray()[stellarCompositionMats.IndexOf(element)];
+                totalWeightOfDistribution = totalWeightOfDistribution + currentElement_weightOfDistribution;
+
+                this.meanDensity = (this.meanDensity + (element.density 
+                                                            * (currentElement_weightOfDistribution) 
+                                                            )
+                                        )
+                                 / totalWeightOfDistribution;
+
+                molecularWeight = (molecularWeight + element.mass) / 2;
             }
-            meanDensity = meanDensity* _densityMul;
-          
-            double mass = ((Math.Pow(this.starRadius*1000*100, 3) * (4 / 3) * Math.PI) * meanDensity);
+            this.meanDensity = this.meanDensity * _densityMul;
+            volume = (Math.Pow(this.starRadius, 3) * (4 / 3) * Math.PI);
+              mass = ((Math.Pow(this.starRadius * 1000 * 100, 3) * (4 / 3) * Math.PI) * this.meanDensity);
             this.mass = mass;
 
-            double pressione = (ParametriUtente.Science.G 
+            pressione = (ParametriUtente.Science.G 
                                 * mass
-                                * meanDensity
-                                / this.starRadius);
-       
-            h = starRadius; //metri
+                                * this.meanDensity
+                                / (this.starRadius * 1000 * 100));
+
             
 
-            meanDensity = mass /((4 / 3) * Math.PI * (Math.Pow(this.starRadius * 1000 * 100, 3)));
+            this.Core_temperature = molecularWeight * pressione / (this.meanDensity * 8.314462618);
+            this.setRelativeValues();
+        }
 
-            this.Core_temperature = molecularWeight * pressione / meanDensity / 1000 * 8.314462618;
-
+        private void setRelativeValues()
+        {
+            this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
+            this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
+            this.reltemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
         }
 
 	

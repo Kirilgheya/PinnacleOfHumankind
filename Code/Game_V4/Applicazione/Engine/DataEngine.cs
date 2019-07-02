@@ -60,8 +60,9 @@ namespace MainGame.Applicazione.Engine
             string state;
             double atomicWeight;
 			int atomicNumber;
-
-			foreach (var Lines
+            NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            CultureInfo  culture = CultureInfo.CreateSpecificCulture("en-US");
+            foreach (var Lines
 							in File.ReadLines(@"" + extraResourcePath + "PeriodicTable.csv"))
 			{
 				if (_index > 0 && counter != _index)
@@ -84,8 +85,8 @@ namespace MainGame.Applicazione.Engine
 					name = chemicalValue[1];
                     state = chemicalValue[4];
 					int.TryParse(chemicalValue[3], out atomicNumber);
-					Double.TryParse(chemicalValue[0], out density);
-                    Double.TryParse(chemicalValue[5], out atomicWeight);
+					Double.TryParse(chemicalValue[0],style, culture, out density);
+                    Double.TryParse(chemicalValue[5],style,culture, out atomicWeight);
 					generatedElement = new ChemicalElement();
 					generatedElement.density = density;
 					generatedElement.name = name;
