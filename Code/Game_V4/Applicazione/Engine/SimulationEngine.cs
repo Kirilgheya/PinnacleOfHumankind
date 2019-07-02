@@ -14,7 +14,7 @@ namespace MainGame.Applicazione.Engine
         public static List<Star>  resultOfGenerateStar;
         protected static Stopwatch watch;
         public static void generateStars(int _number=0,List<ChemicalElement> chemicalElements = null
-                                            , List<int> percentage = null)
+                                            , List<double> percentage = null)
         {
 
             if(mustShowInfo)
@@ -33,13 +33,11 @@ namespace MainGame.Applicazione.Engine
                 }
 
                 double radius = 700000;
-                double startingRadius = radius;
+           
 
-                double tolerance =1E-15;
                 Star star = new Star(radius,0, chemicalElements);
-                
-                
-                double densityMul = 1.5;
+              
+                double densityMul = 1;
 
             
 

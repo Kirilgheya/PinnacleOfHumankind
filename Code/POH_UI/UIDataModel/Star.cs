@@ -4,13 +4,12 @@ using System.Text;
 using MainGame.Applicazione.DataModel;
 namespace MainGame.UI.DataModel
 {
-	public class Star : MainGame.Applicazione.DataModel.Star
+	public class Star : Applicazione.DataModel.Star
 	{
 
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
 		public string Luminosity { get; set; }
 	
-		public string Metallicity { get; set; }
 		public string Age { get; set; }
 		public string Radius { get; set; }
 
@@ -29,11 +28,11 @@ namespace MainGame.UI.DataModel
 			
 		}
 
-		public Star(MainGame.Applicazione.DataModel.Star _star) :  base(_star)
+		public Star(Applicazione.DataModel.Star _star) :  base(_star)
 			
 
 		{
-			this.temperature = base.temperature.ToString();
+			this.surface_temperature = base.Surface_temperature.ToString();
 			this.Luminosity = base.luminosityClass.ToString();
 			this.Age = base.age.ToString();
 			this.Radius = base.starRadius.ToString();
@@ -50,13 +49,13 @@ namespace MainGame.UI.DataModel
 		{
 
 			this.relativeMass = _relmass;
-			this.temperature = _surfaceTemperature.ToString();
+			this.surface_temperature = _surfaceTemperature.ToString();
 		
 			this.luminosityClass = (StarClass)Enum.ToObject(typeof(StarClass), _class);
 		}
 
 
-		private string temperature;
+		private string surface_temperature;
 		private List<ChemicalElement> stellarCompositionMats;
 		public string starRadius;
 

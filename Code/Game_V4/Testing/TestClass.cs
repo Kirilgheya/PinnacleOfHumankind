@@ -22,25 +22,25 @@ namespace MainGame.Applicazione
             DataEngine engine = new DataEngine();
             string x = ParametriUtente.exeRootFodler;
             List<ChemicalElement> periodicTable = new List<ChemicalElement>();
-            List<int> percentageList = new List<int>();
+            List<double> percentageList = new List<double>();
             periodicTable = engine.getPeriodicTable(0);
 
             ChemicalElement element = periodicTable.ElementAt(0);
             List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
             chemicalElements.Add(element);
-            percentageList.Add(70);
+            percentageList.Add(74.9);
 
             element = periodicTable.ElementAt(2);
             chemicalElements.Add(element);
-            percentageList.Add(12);
+            percentageList.Add(23.8);
 
             element = periodicTable.ElementAt(3);
             chemicalElements.Add(element);
-            percentageList.Add(9);
+            percentageList.Add(1.2);
 
             element = periodicTable.ElementAt(6);
             chemicalElements.Add(element);
-            percentageList.Add(9);
+            percentageList.Add(0.8);
 
             SimulationEngine.generateStars(100, chemicalElements, percentageList);
             List<Star> stars = SimulationEngine.resultOfGenerateStar;
