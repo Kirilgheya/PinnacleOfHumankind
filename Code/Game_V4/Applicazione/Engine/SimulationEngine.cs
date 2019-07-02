@@ -32,7 +32,7 @@ namespace MainGame.Applicazione.Engine
                     watch.Start();
                 }
 
-                double radius = 700000;
+                double radius = 695700;
            
 
                 Star star = new Star(radius,0, chemicalElements);

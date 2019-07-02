@@ -23,15 +23,15 @@ namespace MainGame.Applicazione
 			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
 
             public static double g_sun = g_t * 28.02;
-            public static double m_sun = 1.9885 * Math.Pow(10.00, 30.00);
+            public static double m_sun = 1.9885 * Math.Pow(10.00, 30.00); //kg
 			public static double r_sun = 695700.00; //Km
 			public static double surfacetemp_sun = 5.778 * Math.Pow(10.00,3); //Kelvin
 			public static double coretemp_sun = 1.57 * Math.Pow(10.00, 7.00);
 			public static double lum_sun = 3.828 * Math.Pow(10.0,26.0);
             public static double avg_d_sun = 1.408; //1.408 g/cm3
             public static double core_d_sun = 162.2; //162.2 g/cm3
-
-
+            public static double v_sun = 1.41 * Math.Pow(10, 18); //km^3
+            public static double p_coreSun = 2.49 * Math.Pow(10, 16);
             //public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
             public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
         }

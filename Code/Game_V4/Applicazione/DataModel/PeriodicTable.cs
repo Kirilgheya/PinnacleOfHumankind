@@ -11,29 +11,22 @@ namespace Applicazione.DataModel
     static class PeriodicTable
     {
 
-        private static List<ChemicalElement> periodicTable = new List<ChemicalElement>();
+        private static DataEngine engine = new DataEngine();
 
         public static  void init()
         {
-
-            DataEngine engine = new DataEngine();
-            periodicTable = engine.getPeriodicTable(0);
+            if(engine == null)
+            {
+                engine = new DataEngine();
+            }
+            
+            engine.setPeriodicTable(0);
         }
 
-        public static ChemicalElement findElement(string _name)
+        public static ChemicalElement findByName(string _name)
         {
 
-
-            foreach(ChemicalElement element in periodicTable)
-            {
-
-                if(element.name.Equals(_name))
-                {
-                    return element;
-                }
-            }
-
-            return null;
+            return engine.findByName(_name);
         }
     }
 }

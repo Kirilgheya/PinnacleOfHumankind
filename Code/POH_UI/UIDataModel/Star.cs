@@ -32,7 +32,7 @@ namespace MainGame.UI.DataModel
 			
 
 		{
-			this.temperature = base.Core_temperature.ToString();
+			this.Temperature = base.Core_temperature.ToString();
 			this.Luminosity = base.luminosityClass.ToString();
 			this.Age = base.age.ToString();
 			this.Radius = base.starRadius.ToString();
@@ -56,17 +56,7 @@ namespace MainGame.UI.DataModel
 
 
 		private string surface_temperature;
-		private List<ChemicalElement> stellarCompositionMats;
-		public string starRadius;
-
-
-		
-			public new void initStar()
-		{
-
-			
-		}
-
+	
 		
 
 	}

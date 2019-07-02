@@ -39,16 +39,7 @@ namespace MainGame.Applicazione.DataModel
                              set { this.StarMass = value; this.relativeMass = (value/100) / Science.m_sun; }
                             }
         public double equilibriumFactor;
-		public StarClass luminosityClass;
-		public enum StarClass
-		{
-			None = 0,
-			Supergiganti = 1,
-			Giganti_brillanti = 2,
-			Giganti = 3,
-			Sotto_giganti = 4,
-			Standard = 5
-		}
+	
 
 		private void setMetallicity()
         {
@@ -122,7 +113,7 @@ namespace MainGame.Applicazione.DataModel
             double totalWeightOfDistribution = 0;
             double mass;
             double pressione;
-            double volume;
+           
             this.meanDensity = 0;
 
             foreach(ChemicalElement element in stellarCompositionMats)
@@ -138,19 +129,25 @@ namespace MainGame.Applicazione.DataModel
 
                 molecularWeight = (molecularWeight + element.mass) / 2;
             }
+
+
+            this.meanDensity = 1.44;
             this.meanDensity = this.meanDensity * _densityMul;
-            volume = (Math.Pow(this.starRadius, 3) * (4 / 3) * Math.PI);
-              mass = ((Math.Pow(this.starRadius * 1000 * 100, 3) * (4 / 3) * Math.PI) * this.meanDensity);
+            this.Volume = (Math.Pow(this.starRadius, 3) * (4 / 3) * Math.PI); //k3
+            mass = (this.Volume * (this.meanDensity * Math.Pow(10, 12))); // kg
             this.mass = mass;
 
-            pressione = (ParametriUtente.Science.G 
-                                * mass
-                                * this.meanDensity
-                                / (this.starRadius * 1000 * 100));
-
             
+            pressione = ((ParametriUtente.Science.G 
+                                * mass
+                                * this.meanDensity * Math.Pow(10, 3))
+                                / (this.starRadius * this.starRadius))*this.starRadius;
 
-            this.Core_temperature = molecularWeight * pressione / (this.meanDensity * 8.314462618);
+
+            this.Core_temperature = (pressione / 
+                                        ((this.meanDensity * Math.Pow(10, 6)) * (8.314462618 / (molecularWeight * Math.Pow(10, -5)))) ) 
+                                            - 273.15; // - K to get °
+           
             this.setRelativeValues();
         }
 
@@ -159,6 +156,7 @@ namespace MainGame.Applicazione.DataModel
             this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
             this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
             this.reltemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
+            this.relativeVolume = this.Volume/ ParametriUtente.Science.v_sun;
         }
 
 	

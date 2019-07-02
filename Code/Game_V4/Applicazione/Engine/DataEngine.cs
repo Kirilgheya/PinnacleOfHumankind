@@ -10,8 +10,8 @@ namespace MainGame.Applicazione.Engine
 	public class DataEngine
 	{
         private static string extraResourcePath = ParametriUtente.exeRootFodler+"\\\\Risorse Extra\\\\";
-
-		public Star getPresetStarData(int _index = 0)
+        private List<ChemicalElement> listofElements = new List<ChemicalElement>();
+        public Star getPresetStarData(int _index = 0)
 		{
 			string[] starValues;
 			int counter = 0;
@@ -48,11 +48,11 @@ namespace MainGame.Applicazione.Engine
 			return generatedStar;
 		}
 
-		public List<ChemicalElement> getPeriodicTable(int _index = 0)
+		public void setPeriodicTable(int _index = 0)
 		{
 			string[] chemicalValue;
 			int counter = 0;
-			List<ChemicalElement> listofElements = new List<ChemicalElement>();
+			
 			ChemicalElement generatedElement = null;
 			double density;
 			string name;
@@ -100,7 +100,20 @@ namespace MainGame.Applicazione.Engine
 
 			}
 
-			return listofElements;
+			
 		}
+
+        public ChemicalElement findByName(string name)
+        {
+            foreach(ChemicalElement element in this.listofElements)
+            {
+                if(element.name.Equals(name))
+                {
+                    return element;
+                }
+            }
+
+            return null;
+        }
 	}
 }
