@@ -31,20 +31,20 @@ namespace MainGame.Applicazione.Engine
                 {
                     watch.Start();
                 }
-
+                double densityMul = 1;
                 double radius = 695700;
-           
+                double mass = 1;
 
                 Star star = new Star(radius,0, chemicalElements);
               
-                double densityMul = 1;
+            
 
             
 
                 
 
                 star = new Star(radius, 0, chemicalElements);
-                star.initStar(densityMul, percentage);
+                star.initStar(densityMul,1, percentage);
                 resultOfGenerateStar.Add(star);
             }
 

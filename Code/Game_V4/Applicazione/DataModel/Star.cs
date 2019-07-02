@@ -101,7 +101,7 @@ namespace MainGame.Applicazione.DataModel
 			this.starRadius = _star.starRadius;
 		}
 
-		public void initStar(double _densityMul = 1.0,List<double> percentage = null)
+		public void initStar(double _densityMul = 1.0,double rel_mass=1.0,List<double> percentage = null)
 		{
             elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
@@ -110,43 +110,38 @@ namespace MainGame.Applicazione.DataModel
             //mass in grammi / 18.015 = moles
             //ideal gas law
             double molecularWeight = 0.0;
-            double totalWeightOfDistribution = 0;
-            double mass;
+            double sumofElement=0.0;
+            
             double pressione;
            
             this.meanDensity = 0;
 
             foreach(ChemicalElement element in stellarCompositionMats)
             {
-                double currentElement_weightOfDistribution = elementsDistribution.ToArray()[stellarCompositionMats.IndexOf(element)];
-                totalWeightOfDistribution = totalWeightOfDistribution + currentElement_weightOfDistribution;
-
-                this.meanDensity = (this.meanDensity + (element.density 
-                                                            * (currentElement_weightOfDistribution) 
-                                                            )
-                                        )
-                                 / totalWeightOfDistribution;
-
-                molecularWeight = (molecularWeight + element.mass) / 2;
+                double currentElement = elementsDistribution.ElementAt(stellarCompositionMats.IndexOf(element));
+                sumofElement = sumofElement + currentElement;
+                molecularWeight = (molecularWeight + (element.mass* currentElement)
+                                                ) / sumofElement;
             }
 
 
-            this.meanDensity = 1.44;
-            this.meanDensity = this.meanDensity * _densityMul;
             this.Volume = (Math.Pow(this.starRadius, 3) * (4 / 3) * Math.PI); //k3
-            mass = (this.Volume * (this.meanDensity * Math.Pow(10, 12))); // kg
-            this.mass = mass;
 
+            this.mass = rel_mass * ParametriUtente.Science.m_sun;
+
+            this.meanDensity = ((this.mass/ Volume)*Math.Pow(10,-12)) * _densityMul;
+       
             
             pressione = ((ParametriUtente.Science.G 
                                 * mass
                                 * this.meanDensity * Math.Pow(10, 3))
                                 / (this.starRadius * this.starRadius))*this.starRadius;
 
-
             this.Core_temperature = (pressione / 
-                                        ((this.meanDensity * Math.Pow(10, 6)) * (8.314462618 / (molecularWeight * Math.Pow(10, -5)))) ) 
-                                            - 273.15; // - K to get °
+                                        ((this.meanDensity * Math.Pow(10, 6)) 
+                                                * (8.314462618 / (molecularWeight))
+                                                ) ) 
+                                            ; // - K to get °
            
             this.setRelativeValues();
         }
