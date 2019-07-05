@@ -13,7 +13,8 @@ namespace MainGame.Applicazione.DataModel
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
 		protected double luminosity;
 		protected double relluminosity;
-        protected double reltemperature;
+        protected double relCoretemperature;
+        protected double relSurfacetemperature;
         private double metallicity;
 		protected double age;
         public double meanDensity;
@@ -138,24 +139,35 @@ namespace MainGame.Applicazione.DataModel
                                 / (this.starRadius * this.starRadius))*this.starRadius;
 
             this.Core_temperature = (pressione / 
-                                        ((this.meanDensity * Math.Pow(10, 6)) 
-                                                * (8.314462618 / (molecularWeight))
+                                        ((this.meanDensity * Math.Pow(10, 8)) 
+                                                * (8.314462618 / (molecularWeight))*4.8
                                                 ) ) 
                                             ; // - K to get °
-           
+            this.Surface_temperature = this.Core_temperature / 2543.37;
+            double surfaceArea = Math.Pow(this.starRadius, 2) * Math.PI * 4;
+            this.luminosity = (5.670374419  * (Math.Pow(this.Surface_temperature, 4)) * surfaceArea)/surfaceArea;
             this.setRelativeValues();
+            this.InitStarClassification();
         }
 
         private void setRelativeValues()
         {
             this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
             this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
-            this.reltemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
+            this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
             this.relativeVolume = this.Volume/ ParametriUtente.Science.v_sun;
+            this.relluminosity = this.luminosity / ParametriUtente.Science.lum_sun;
+            this.relSurfacetemperature = this.Surface_temperature / ParametriUtente.Science.surfacetemp_sun;
             this.setMetallicity();
         }
 
-	
+        private void InitStarClassification()
+        {
 
-	}
+        }
+
+
+
+
+    }
 }
