@@ -44,6 +44,8 @@ namespace MainGame.Applicazione
             SimulationEngine.generateStars(100, chemicalElements, percentageList);
             List<Star> stars = SimulationEngine.resultOfGenerateStar;
 
+            StarClassification_byLum f = Star.FindStarClass(50000);
+
             int i = 0;
         }
 

@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace Applicazione.DataModel
 {
-    static class PeriodicTable
+    public static class PeriodicTable
     {
 
         private static DataEngine engine = new DataEngine();
+
+        public static List<ChemicalElement> GetChemicalElements()
+        {
+            return engine.GetChemicalElements();
+        }
 
         public static  void init()
         {

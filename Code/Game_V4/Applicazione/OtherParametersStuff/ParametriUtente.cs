@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MainGame.Applicazione
 {
-    static class ParametriUtente
+    public static class ParametriUtente
     {
         public static string exeRootFodler = Application.StartupPath;
 

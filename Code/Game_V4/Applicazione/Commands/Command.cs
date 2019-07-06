@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MainGame.Applicazione
 {
-    abstract class Command
+    public abstract class Command
     {
 		protected Boolean errorHashappened;
 		protected String stackTrace;

@@ -11,6 +11,12 @@ namespace MainGame.Applicazione.Engine
 	{
         private static string extraResourcePath = ParametriUtente.exeRootFodler+"\\\\Risorse Extra\\\\";
         private List<ChemicalElement> listofElements = new List<ChemicalElement>();
+
+        public List<ChemicalElement> GetChemicalElements()
+        {
+            return this.listofElements;
+        }
+
         public Star getPresetStarData(int _index = 0)
 		{
 			string[] starValues;

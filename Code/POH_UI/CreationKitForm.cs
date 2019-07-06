@@ -1,26 +1,20 @@
 ﻿using MainGame;
-using DataChemicalElement = MainGame.Applicazione.DataModel;
-using MainGame.UI.DataModel;
-using POH_UI.Utils;
+using UI = MainGame.UI.DataModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MainGame.Applicazione.Engine;
-
+using Applicazione.DataModel;
+using MainGame.Applicazione;
+using Core = MainGame.Applicazione.DataModel;
 
 namespace POH_UI
 {
-	public partial class CreationKitForm : Form
+    public partial class CreationKitForm : Form
 	{
 		private Partita sessione;
-		private List<DataChemicalElement.ChemicalElement> periodicTable;
-		public CreationKitForm()
+        private UI.ChemicalElements_ComboBox_Ds elementsComboBox_ds = new UI.ChemicalElements_ComboBox_Ds();
+        private List<Core.Star> generatedStars = new List<Core.Star>();
+        public CreationKitForm()
 		{
 			InitializeComponent();
 		}
@@ -28,27 +22,8 @@ namespace POH_UI
 		private void StartGame_Click(object sender, EventArgs e)
 		{
 			
-			List<DataChemicalElement.ChemicalElement> elements = new List<DataChemicalElement.ChemicalElement>();
-			
-
-			PlanetSeed seed = new PlanetSeed(elements);
-			seed.PlanetClass = this.PlanetClassTxt.Text;
-			seed.NucleusClass = this.NucleusClassTxt.Text;
-
-            this.initElementsDropDown(elements);
-
-			List<DataChemicalElement.ChemicalElement> listOfSeedElements = new List<DataChemicalElement.ChemicalElement>();
-			foreach(DataChemicalElement.ChemicalElement element in elements)
-			{
-				DataChemicalElement.ChemicalElement foundElement;
-				foundElement = element;
-				listOfSeedElements.Add(foundElement);
-			    
-				
-			}
-
-			seed.planetSeedComposition = elements;
-			this.SeedPlanet.Add(seed);
+			 
+			//this.SeedPlanet.Add(seed);
 
 			//Logic starts here
 
@@ -59,19 +34,25 @@ namespace POH_UI
 			this.resetInputValues();
 		}
 
-        private void initElementsDropDown(List<DataChemicalElement.ChemicalElement> elements)
+        private void getSeedsFromGrid(List<Core.ChemicalElement> elements,List<double> quantities,DataGridView _grid)
         {
-            foreach (DataGridViewRow row in this.ElementCompositionGrid.Rows)
+            foreach (DataGridViewRow row in _grid.Rows)
             {
                 if (!row.IsNewRow)
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        if (cell.ValueType == typeof(DataChemicalElement.ChemicalElement))
+                        if (cell.ValueType == typeof(Core.ChemicalElement))
                         {
-                            ChemicalElement element = new ChemicalElement();
-                            element.initElementDataFromFather((DataChemicalElement.ChemicalElement)cell.Value);
+                            UI.ChemicalElement element = new UI.ChemicalElement();
+                            element.initElementDataFromFather((Core.ChemicalElement)cell.Value);
                             elements.Add(element);
+
+                        }
+                        if (cell.ValueType == typeof(double) || cell.ValueType == typeof(int))
+                        {
+                            
+                            quantities.Add((double)cell.Value);
 
                         }
                     }
@@ -105,28 +86,15 @@ namespace POH_UI
 			Partita newGame = new Partita();
 			newGame = Partita.createPartita_form();
 			this.sessione = newGame;
-			
-          
 
-            DataEngine engine = new DataEngine();
 
-			periodicTable = new List<DataChemicalElement.ChemicalElement>();
+            PeriodicTable.init();
+        
 
-			periodicTable = engine.getPeriodicTable(0);
+         
+            this.StarSeedElements.DataSource = elementsComboBox_ds.periodicTable_UI;
 
-            BindingSource comboBs = new BindingSource();
-
-            //this.Element.ValueType = typeof(DataChemicalElement.ChemicalElement);
-            //foreach(Object obj in Enum.GetValues(typeof(Elements)))
-            foreach (DataChemicalElement.ChemicalElement obj in periodicTable)
-            {
-                comboBs.Add(obj);
-                //this.Element.Items.Add(obj);
-               
-            }
-
-          //  this.Element.DataPropertyName = "name";
-            this.Element.DataSource = comboBs;
+            this.Element.DataSource = elementsComboBox_ds.periodicTable_UI;
             this.Element.DisplayMember = "completeName";
             this.Element.ValueMember = "Self";
 
@@ -150,5 +118,47 @@ namespace POH_UI
 		{
 			//TODO: Implement reset for grid inputs
 		}
-	}
+
+        private void GenerateStar_Click(object sender, EventArgs e)
+        {
+            List<Core.ChemicalElement> elements = new List<Core.ChemicalElement>();
+            List<double> quantities = new List<double>();
+            double radii;
+            double masses;
+
+            getSeedsFromGrid(elements, quantities, StarSeeds_Grid);
+
+            UI.StarSeed starSeed = new UI.StarSeed(elements, quantities);
+            Double.TryParse(this.SolarMasses.Text,out radii);
+            Double.TryParse(this.SolarMasses.Text, out masses);
+            if (masses <= 0)
+            {
+                masses = 1;
+            }
+            if (radii <= 0)
+            {
+                radii = 1;
+            }
+
+            UI.Star Star = new UI.Star(masses,radii, elements, quantities);
+           
+            generatedStars.Add(Star);
+            this.Stars.Add(Star);
+        }
+
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void GroupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GeneratedStar_Grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+    }
 }

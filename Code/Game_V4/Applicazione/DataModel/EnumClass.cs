@@ -32,25 +32,45 @@ namespace MainGame
         Gas = 3,
         Synthetic = 4
     }
-    public enum LuminosityClassification
+    public enum OverallStarClassification
     {
         None = 0,
-        Supergiganti = 1,
-        Giganti_brillanti = 2,
-        Giganti = 3,
-        Sotto_giganti = 4,
-        Standard = 5
+        HyperGiant=1,
+        SuperGiant = 2,
+        BrightGiant = 3,
+        Giant = 4,
+        LesserGiant = 5,
+        MainSequenceDwarf = 6,
+        WhiteDwarf = 7,
+        BrownDwarf = 8
     }
 
-    public enum StarClassification
+    public enum StarClassification_byLum
     {
-        O = 0,
-        B = 1,
-        A = 2,
-        F = 3,
-        G = 4,
-        K = 5,
-        M = 6
+        //This determines the spectral type (the colour)
+        O = 30000, // 30,000 K  
+        B = 10000, //10,000–30,000 K
+        A = 7500, //7,500–10,000 K     
+        F = 6000, //6,000–7,500 K 
+        G = 5200, //5,200–6,000 K 
+        K = 3700, //3,700–5,200 K 
+        M = 2400, //2,400–3,700 K
+        L = 1300, //these are brown dwarves basically stars where fusion cannot occur
+        T = 0 
+    }
+
+    public enum StarClassification_byMass
+    {
+        //This determines the  type (the biggggness * 100)
+        O = 1600, // 30,000 K  
+        B = 210, //10,000–30,000 K
+        A = 140, //7,500–10,000 K     
+        F = 104, //6,000–7,500 K 
+        G = 80, //5,200–6,000 K 
+        K = 45, //3,700–5,200 K 
+        M = 8, //2,400–3,700 K
+        L = 5, //these are brown dwarves basically stars where fusion cannot occur
+        T = 0
     }
 
 }

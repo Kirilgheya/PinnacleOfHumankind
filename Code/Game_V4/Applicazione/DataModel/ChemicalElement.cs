@@ -14,7 +14,13 @@ namespace MainGame.Applicazione.DataModel
         public int numberOfParticles { get; set; }
         public String completeName { get { return symbol + " : " + name; } }
 
-        public ChemicalElement Self { get { return this; } }
+        public ChemicalElement()
+        {
+
+            int y= 0;
+        }
+
+        public ChemicalElement Self { get { return this; } set { } }
 		public void initElementData(double _density, double _mass, string _name, string _symbol)
 		{
 			this.symbol = _symbol;

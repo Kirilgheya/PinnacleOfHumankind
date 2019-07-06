@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using MainGame.Applicazione.DataModel;
+
 namespace MainGame.UI.DataModel
 {
 	public class Star : Applicazione.DataModel.Star
 	{
 
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
-		public string Luminosity { get; set; }
+		public string Luminosity { get { return this.luminosityClass.ToString(); } set { } }
 	
 		public string Age { get; set; }
-		public string Radius { get; set; }
+		public string Radius { get { return this.relativeRadius.ToString(); }  }
 
-		public string Temperature;
+        public string Mass { get { return this.relativeMass.ToString()+" Solar Masses"; }  }
+
+        public string Type { get { return this.overallClass.ToString(); } set { } }
+
+        public string Temperature;
 		public Star (
 				double _starRadius,
 				double _temperature = 0.0,
@@ -24,7 +27,7 @@ namespace MainGame.UI.DataModel
 		{
 			this.Temperature = _temperature.ToString();
 			
-			this.Radius = _starRadius.ToString();
+		
 			
 		}
 
@@ -32,15 +35,31 @@ namespace MainGame.UI.DataModel
 			
 
 		{
-			this.Temperature = base.Core_temperature.ToString();
+			this.Temperature = base.relSurfacetemperature.ToString();
 			this.Luminosity = base.luminosityClass.ToString();
 			this.Age = base.age.ToString();
-			this.Radius = base.starRadius.ToString();
-
+			
+            this.Type = base.overallClass + "/Luminosity:" + this.luminosityClass + "/Mass:" + this.massClass;
 		}
 
+        public Star(
+               double _solarMasses,
+               double _solarRadii,
+               List<Applicazione.DataModel.ChemicalElement> _stellarCompositionMats,
+               List<double> distribution
 
-		public Star(
+           ) : base( _solarMasses,
+                _solarRadii,
+                _stellarCompositionMats,
+               distribution)
+        {
+
+
+            
+        }
+
+
+        public Star(
 				double _relluminosity,
 				double _surfaceTemperature,
 				double _relmass,
@@ -49,13 +68,12 @@ namespace MainGame.UI.DataModel
 		{
 
 			this.relativeMass = _relmass;
-			this.surface_temperature = _surfaceTemperature.ToString();
+			this.Temperature = _surfaceTemperature.ToString();
 		
-			this.luminosityClass = (LuminosityClassification)Enum.ToObject(typeof(LuminosityClassification), _class);
+			this.luminosityClass = (StarClassification_byLum)Enum.ToObject(typeof(StarClassification_byLum), _class);
 		}
 
 
-		private string surface_temperature;
 	
 		
 
