@@ -16,10 +16,10 @@ namespace MainGame.Applicazione
             
 		    public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
 			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
-			public static double m_t = 5.97219 * (Math.Pow(10.0, 27.0)); //massa terrestre in g
-			public static double r_t = 6.3725 * (Math.Pow(10.0,8.0)); //raggio terra in Cm
-			public static double d_t = 5.51; //densità terra g/cm^3
-			public static double v_t = 1083206916846.0; //volume della terra in km3
+			public static double m_t = 5.97219 * (Math.Pow(10.0, 24.0)); //massa terrestre in g
+			public static double r_t = 6372.5; //raggio terra in Km
+			public static double avg_d_t = 5.51; //densità terra g/cm^3
+			public static double v_t = 1.08321 * Math.Pow(10.0,12.0); //volume della terra in km3
 			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
 
             public static double g_sun = g_t * 28.02;

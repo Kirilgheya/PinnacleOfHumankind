@@ -43,6 +43,7 @@
     <Compile Include="Applicazione\Commands\Options.cs" />
     <Compile Include="Applicazione\DataModel\Body.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalElement.cs" />
+    <Compile Include="Applicazione\DataModel\Core.cs" />
     <Compile Include="Applicazione\DataModel\EnumClass.cs" />
     <Compile Include="Applicazione\DataModel\NucleusClass.cs" />
     <Compile Include="Applicazione\DataModel\PeriodicTable.cs" />

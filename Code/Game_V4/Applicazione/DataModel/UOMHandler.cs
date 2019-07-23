@@ -16,7 +16,7 @@ namespace MainGame.Applicazione.DataModel
 		public static Planet populatePlanet(Planet _planet)
 		{
 			planet = _planet;
-			planet.initPlanetStats();
+			planet.setPlanetStats();
 			return planet;
 		}
 
@@ -28,7 +28,7 @@ namespace MainGame.Applicazione.DataModel
 
 		public static double getPlanetDensity(double _relativeDensity)
 		{
-			average_density = _relativeDensity * ParametriUtente.Science.d_t;
+			average_density = _relativeDensity * ParametriUtente.Science.avg_d_t;
 			return average_density;
 		}
 

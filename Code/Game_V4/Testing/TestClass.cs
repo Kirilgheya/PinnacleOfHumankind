@@ -24,27 +24,51 @@ namespace MainGame.Applicazione
             List<double> percentageList = new List<double>();
         
 
-            ChemicalElement element = PeriodicTable.findByName("Hydrogen");
+            ChemicalElement element = PeriodicTable.findByName("Iron");
             List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
             chemicalElements.Add(element);
-            percentageList.Add(73.4);
-
-            element = PeriodicTable.findByName("Helium");
-            chemicalElements.Add(element);
-            percentageList.Add(24.8);
+            percentageList.Add(32.1);
 
             element = PeriodicTable.findByName("Oxygen");
             chemicalElements.Add(element);
-            percentageList.Add(1);
+            percentageList.Add(30.1);
 
-            element = PeriodicTable.findByName("Carbon");
+            element = PeriodicTable.findByName("Silicon");
             chemicalElements.Add(element);
-            percentageList.Add(0.8);
+            percentageList.Add(15.1);
 
-            SimulationEngine.generateStars(100, chemicalElements, percentageList);
+            element = PeriodicTable.findByName("Magnesium");
+            chemicalElements.Add(element);
+            percentageList.Add(13.9);
+
+            element = PeriodicTable.findByName("Sulfur");
+            chemicalElements.Add(element);
+            percentageList.Add(2.9);
+
+            element = PeriodicTable.findByName("Nickel");
+            chemicalElements.Add(element);
+            percentageList.Add(1.8);
+
+            element = PeriodicTable.findByName("Calcium");
+            chemicalElements.Add(element);
+            percentageList.Add(1.5);
+
+            element = PeriodicTable.findByName("Aluminium");
+            chemicalElements.Add(element);
+            percentageList.Add(1.4);
+
+            element = PeriodicTable.findByName("Nitrogen");
+            chemicalElements.Add(element);
+            percentageList.Add(1.2);
+
+            /*SimulationEngine.generateStars(100, chemicalElements, percentageList);
             List<Star> stars = SimulationEngine.resultOfGenerateStar;
 
-            StarClassification_byLum f = Star.FindStarClass(50000);
+            StarClassification_byLum f = Star.FindStarClass(50000);*/
+
+            Planet planet = new Planet(chemicalElements,ParametriUtente.Science.r_t);
+            
+            planet.initStar(1, 1, percentageList);
 
             int i = 0;
         }
