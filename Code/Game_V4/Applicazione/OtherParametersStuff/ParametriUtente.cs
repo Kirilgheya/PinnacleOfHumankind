@@ -18,7 +18,8 @@ namespace MainGame.Applicazione
 			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
 			public static double m_t = 5.97219 * (Math.Pow(10.0, 24.0)); //massa terrestre in g
 			public static double r_t = 6372.5; //raggio terra in Km
-			public static double avg_d_t = 5.51; //densità terra g/cm^3
+            public static double coretemp_t = 6230.5; //Kelvin
+            public static double avg_d_t = 5.51; //densità terra g/cm^3
 			public static double v_t = 1.08321 * Math.Pow(10.0,12.0); //volume della terra in km3
 			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
 

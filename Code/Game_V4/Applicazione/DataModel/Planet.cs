@@ -22,6 +22,9 @@ namespace MainGame.Applicazione.DataModel
             get { return planetMass; }
             set { this.planetMass = value; this.relativeMass = (value / 100) / Science.m_sun; }
         }
+
+        public double relCoretemperature { get; set; }
+
         private double meanDensity;
         private double volume;
 		private double radius;
@@ -37,7 +40,7 @@ namespace MainGame.Applicazione.DataModel
             this.planetClass = new PlanetClass("Metallic_Planet");
         }
 
-        public void initStar(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
+        public void initPlanet(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
             elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
@@ -74,7 +77,7 @@ namespace MainGame.Applicazione.DataModel
                                 / (this.planetRadius * this.planetRadius)) * this.planetRadius;
 
             this.Core_temperature = (pressione /
-                                        ((this.meanDensity * Math.Pow(10, 8))
+                                        ((this.meanDensity * Math.Pow(10, 7))
                                                 * (8.314462618 / (molecularWeight)) * 4.8
                                                 ))
                                             ; // - K to get °
@@ -100,9 +103,11 @@ namespace MainGame.Applicazione.DataModel
 
         private void setRelativeValues()
         {
+
+            this.relativeRadius = this.planetRadius / ParametriUtente.Science.r_t;
             this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_t;
             this.relativeMass = this.mass / ParametriUtente.Science.m_t;
-            //this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
+            this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_t;
             this.relativeVolume = this.Volume / ParametriUtente.Science.v_t;
             //this.relluminosity = this.luminosity / ParametriUtente.Science.lum_sun;
             //this.relSurfacetemperature = this.Surface_temperature / ParametriUtente.Science.surfacetemp_sun;

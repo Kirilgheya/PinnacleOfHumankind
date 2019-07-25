@@ -68,7 +68,7 @@ namespace MainGame.Applicazione
 
             Planet planet = new Planet(chemicalElements,ParametriUtente.Science.r_t);
             
-            planet.initStar(1, 1, percentageList);
+            planet.initPlanet(1, 1, percentageList);
 
             int i = 0;
         }
