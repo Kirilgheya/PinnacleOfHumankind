@@ -10,10 +10,10 @@ namespace MainGame.Applicazione.DataModel
     public class Planet : Body
     {
 		private PlanetClass planetClass;
-
+        private ChemicalComposition planetComposition;
         private Core planetCore;
 
-        protected List<ChemicalElement> stellarCompositionMats;
+        protected List<ChemicalElement> planetCompositionMats;
         protected List<double> elementsDistribution;
         protected String name { get; set; }
         private double planetMass;
@@ -35,7 +35,7 @@ namespace MainGame.Applicazione.DataModel
         public Planet(List<ChemicalElement> composition,double radius_Km)
         { 
             this.planetRadius = radius_Km;
-            this.stellarCompositionMats = composition;
+            this.planetCompositionMats = composition;
             this.planetCore = new Core();
             this.planetClass = new PlanetClass("Metallic_Planet");
         }
@@ -55,14 +55,16 @@ namespace MainGame.Applicazione.DataModel
 
             this.meanDensity = 0;
 
-            foreach (ChemicalElement element in stellarCompositionMats)
+            foreach (ChemicalElement element in planetCompositionMats)
             {
-                double currentElement = elementsDistribution.ElementAt(stellarCompositionMats.IndexOf(element));
+
+                double currentElement = elementsDistribution.ElementAt(planetCompositionMats.IndexOf(element));
 
                 sumofElement = sumofElement + currentElement;
                 molecularWeight = (molecularWeight + (element.mass * currentElement)
                                                 ) / sumofElement;
             }
+
             double f = (this.planetRadius * this.planetRadius * this.planetRadius) * (4 / 3) * Math.PI;
 
             this.Volume = (Math.Pow(this.planetRadius, 3) * 4 / 3 * Math.PI); //k3
@@ -83,12 +85,18 @@ namespace MainGame.Applicazione.DataModel
                                             ; // - K to get °
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
-            //this.luminosity = (5.670374419 * (Math.Pow(this.Surface_temperature, 4)) * surfaceArea) / surfaceArea;
 
-          
-            //this.InitStarClassification();
+
+            this.planetComposition = new ChemicalComposition(this.planetCompositionMats, this.elementsDistribution);
+
+            this.InitPlanetClassification();
 
             this.setRelativeValues();
+        }
+
+        private void InitPlanetClassification()
+        {
+            this.planetClass = this.planetComposition.GetPlanetClass();
         }
 
         public void setPlanetStats()

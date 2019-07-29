@@ -18,7 +18,7 @@ namespace MainGame.Applicazione.DataModel
 		}
 		
 
-		public PlanetClass(List<ChemicalElement> _elements)
+		public PlanetClass()
 		{
 			
 			this.className = PlanetClassification.Planet;
@@ -28,8 +28,10 @@ namespace MainGame.Applicazione.DataModel
 		public PlanetClass(string _className)
 		{
 
-			this.className = PlanetClassification.Planet;
+            PlanetClassification classification;
+            Enum.TryParse<PlanetClassification>(_className, out classification);
+            this.className = classification;
 
-		}
+        }
 	}
 }
