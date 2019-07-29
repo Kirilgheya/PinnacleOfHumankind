@@ -67,7 +67,7 @@ namespace MainGame.Applicazione
             StarClassification_byLum f = Star.FindStarClass(50000);*/
 
             Planet planet = new Planet(chemicalElements,ParametriUtente.Science.r_t);
-            
+            double g = / ParametriUtente.Science.m_t;
             planet.initPlanet(1, 1, percentageList);
 
             int i = 0;
