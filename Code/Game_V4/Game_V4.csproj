@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7D39A20A-1FCF-4098-BE80-00DE5C3929FA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Game_V4</RootNamespace>
+    <RootNamespace>MainGame</RootNamespace>
     <AssemblyName>Game_V4</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -51,6 +51,7 @@
     <Compile Include="Applicazione\DataModel\Planet.cs" />
     <Compile Include="Applicazione\DataModel\PlanetClass.cs" />
     <Compile Include="Applicazione\DataModel\Star.cs" />
+    <Compile Include="Applicazione\DataModel\StarSystem.cs" />
     <Compile Include="Applicazione\DataModel\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />

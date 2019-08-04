@@ -37,14 +37,7 @@ namespace MainGame.Applicazione.Engine
 
                 Star star = new Star(radius,0, chemicalElements);
               
-            
-
-            
-
-                
-
-                star = new Star(radius, 0, chemicalElements);
-                star.initStar(densityMul,1, percentage);
+                star.initStar(densityMul, mass, percentage);
                 
                 resultOfGenerateStar.Add(star);
             }

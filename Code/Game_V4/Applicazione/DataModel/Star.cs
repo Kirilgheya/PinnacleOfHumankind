@@ -10,7 +10,7 @@ namespace MainGame.Applicazione.DataModel
 
 		// Luminosity, Size and temperature returns the "apparent colour" of the Star
 		protected double luminosity;
-		protected double relluminosity;
+		public double relluminosity { get; set; }
         protected double relCoretemperature;
         protected double relSurfacetemperature;
         private double metallicity;
@@ -172,7 +172,7 @@ namespace MainGame.Applicazione.DataModel
                                             ; // - K to get °
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.starRadius, 2) * Math.PI * 4;
-            this.luminosity = (5.670374419  * (Math.Pow(this.Surface_temperature, 4)) * surfaceArea)/surfaceArea;
+            this.luminosity = ( (Math.Pow(10,-4)* 5.670374419) * (Math.Pow(this.Surface_temperature, 4)) * surfaceArea);
 
             this.setRelativeValues();
 

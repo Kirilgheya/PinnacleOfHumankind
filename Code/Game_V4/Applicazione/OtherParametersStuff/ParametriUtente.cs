@@ -34,6 +34,7 @@ namespace MainGame.Applicazione
             public static double core_d_sun = 162.2; //162.2 g/cm3
             public static double v_sun = 1.41 * Math.Pow(10, 18); //km^3
             public static double p_coreSun = 2.49 * Math.Pow(10, 16);
+            public static double AU = 1.496 * Math.Pow(10, 8); //km
             //public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
             public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
         }
