@@ -54,9 +54,24 @@ namespace MainGame.Applicazione.DataModel
 
             randomNumberOfplanets = new Random();
 
-       
+            Double[] radii = new double[this.maxSupportedPlanets];
+            double jupMass_EarthRadii = 11.209, incremento = 15;
+            int c = 0;
+            while(c<radii.Length)
+            {
+
+                radii[c] = (randomNumberOfplanets.NextDouble() * (((jupMass_EarthRadii ) * incremento) - (0.5 )) + (0.5 ));
+                                                        
+                c++;
+                if (radii[c - 1] > 10)
+                {
+                    incremento = 1.2;
+                }
+            }
 
             Console.WriteLine("AU min: " + habitableZone_min + " \n \tAU max: " + habitableZone_max);
+
+
         }
     }
 }
