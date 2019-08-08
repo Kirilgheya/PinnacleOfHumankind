@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainGame.Applicazione.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,7 +76,7 @@ namespace MainGame.Applicazione.DataModel
             while (c < radii.Length)
             {
 
-                distance[c] = (randomSeed.NextDouble() * (((10*habitableZone_max) - 0.1) + (0.1)));
+                distance[c] = (randomSeed.NextDouble() * ((10*habitableZone_max) - 0.1) + (0.1));
 
                 c++;
 
@@ -83,7 +84,7 @@ namespace MainGame.Applicazione.DataModel
 
                 ChemicalComposition chemicalComposition = new ChemicalComposition(this.star.starComposition.stellarCompositionMats
                                             , this.star.starComposition.elementsDistribution); ;
-
+                SimulationEngine engine;
                 if (distance[c] > habitableZone_max)
                 {
                     //more chances of a cold gas giant less chance of a cold icy planet

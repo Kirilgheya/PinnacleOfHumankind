@@ -54,5 +54,43 @@ namespace MainGame.Applicazione.Engine
             }
 
         }
+
+        public static Planet createGasGiant(ChemicalComposition _chemicalComposition)
+        {
+            Planet planet;
+            List<double> distribution = new List<double>();
+            Random random = new Random();
+            double previousNumber=0;
+
+            previousNumber = random.NextDouble() * (80 - 60) + 60;
+            distribution.Add(previousNumber);
+
+            distribution.Add(random.NextDouble() * (previousNumber - 60) + 60);
+
+            //Gas giant model: 2 main gasses 5 gasses 3 metals 
+            ChemicalElement[] otherGasses = new ChemicalElement[5];
+            ChemicalElement[] mainGasses = new ChemicalElement[2];
+            ChemicalElement[] metals = new ChemicalElement[3];
+            mainGasses[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            mainGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            while(mainGasses[1] == mainGasses[0])
+            {
+                mainGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            }
+
+            otherGasses[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            otherGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            otherGasses[2] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            otherGasses[3] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+            otherGasses[4] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
+
+            metals[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
+            metals[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
+            metals[2] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
+            
+
+
+
+        }
     }
 }
