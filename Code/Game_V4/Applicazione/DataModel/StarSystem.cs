@@ -107,12 +107,12 @@ namespace MainGame.Applicazione.DataModel
                     if (planetType < 2)
                     {
                         //call simulationEngine.createMediumRocky-gas()
-                        //icy
+                        //rocky with atmosphere
                     }
                     else
                     {
                         //call simulationEngine.createMediumRocky()
-                        //gas giant
+                        //rocky without atmosphere
                     } 
                 }
                 else
@@ -122,12 +122,12 @@ namespace MainGame.Applicazione.DataModel
                     if (planetType < 2)
                     {
                         //call simulationEngine.createGenericPlanet()
-                        //icy
+                        //generic rocky planet
                     }
                     else
                     {
                         //call simulationEngine.createHabitablePlanet()
-                        //gas giant
+                        //h20
                     }
                 }
             }
