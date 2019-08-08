@@ -114,6 +114,10 @@ namespace MainGame.Applicazione.DataModel
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
                                             , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
+                        if(radii[c]>5)
+                        {
+                            radii[c] = radii[c] / (randomSeed.Next(2, 5));
+                        }
                         //rocky with atmosphere
                     }
                     else
@@ -140,7 +144,16 @@ namespace MainGame.Applicazione.DataModel
                         //h20
                     }
                 }
-                Planet x = SimulationEngine.createGasGiant(chemicalComposition, radii[c]);
+                Planet x;
+                if (radii[c]<9)
+                {
+                    x = SimulationEngine.createPlanet(chemicalComposition, radii[c]);
+                }
+                else
+                {
+                    x = SimulationEngine.createGasGiant(chemicalComposition, radii[c]);
+                }
+                
                 this.planets.Add(x);
                 c++;
             }

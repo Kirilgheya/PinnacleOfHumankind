@@ -13,6 +13,7 @@ namespace MainGame.Applicazione.Engine
         public static Boolean mustShowInfo = false;
         public static List<Star>  resultOfGenerateStar;
         protected static Stopwatch watch;
+        static Random random = new Random();
         public static void generateStars(int _number=0,List<ChemicalElement> chemicalElements = null
                                             , List<double> percentage = null)
         {
@@ -58,15 +59,32 @@ namespace MainGame.Applicazione.Engine
         public static Planet createGasGiant(ChemicalComposition _chemicalComposition,double _earthRadii)
         {
             Planet planet=null;
-
-            
             
 
-            
-            
+            int relMass = random.Next(120, 120 * 3);
 
             planet = new Planet(_chemicalComposition.stellarCompositionMats, _chemicalComposition.elementsDistribution, (_earthRadii*ParametriUtente.Science.r_t));
-            planet.initPlanet(1, 120);
+            planet.initPlanet(1, relMass);
+            return planet;
+        }
+
+        public static Planet createPlanet(ChemicalComposition _chemicalComposition, double _earthRadii)
+        {
+            Planet planet = null;
+        
+            double relMass;
+            if (_earthRadii>2)
+            {
+                relMass = random.NextDouble() * (60 - 0.8) + 0.8;
+            }
+            else
+            {
+                relMass = random.NextDouble() * (60 - _earthRadii) + _earthRadii;
+            }
+            
+             
+            planet = new Planet(_chemicalComposition.stellarCompositionMats, _chemicalComposition.elementsDistribution, (_earthRadii * ParametriUtente.Science.r_t));
+            planet.initPlanet(1, relMass);
             return planet;
         }
 
@@ -74,7 +92,7 @@ namespace MainGame.Applicazione.Engine
         {
 
             List<double> distribution = new List<double>();
-            Random random = new Random();
+           
 
             double maxSum = 100;
             double minNum = 0.00001;
