@@ -26,7 +26,9 @@ namespace Applicazione.DataModel
             }
             
             engine.setPeriodicTable(0);
+            engine.setSeeds();
         }
+
 
         public static ChemicalElement findByName(string _name)
         {

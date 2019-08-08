@@ -122,7 +122,21 @@ namespace MainGame.Applicazione.DataModel
 			this.overallClass = (OverallStarClassification)Enum.ToObject(typeof(OverallStarClassification), _class);
 		}
 
-		public Star(
+        public String toString()
+        {
+            string formattedInfo= "";
+
+            formattedInfo+= "Star Name: " + this.FullName;
+            formattedInfo+= "\n\tRadius: " + this.relativeMass;
+            formattedInfo+= "\n\tMass: " + this.relativeMass;
+            formattedInfo+= "\n\tDensity: " + this.meanDensity;
+            formattedInfo+= "\n\t" + this.starComposition.toString();
+            formattedInfo+= "\n\tStar Class: " + this.overallClass.ToString();
+
+            return formattedInfo;
+        }
+
+        public Star(
 				Star _star
 			)
 		{

@@ -9,6 +9,8 @@ using System.Globalization;
 using System.Diagnostics;
 using System.Linq;
 using Applicazione.DataModel;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MainGame.Applicazione
 {
@@ -21,6 +23,7 @@ namespace MainGame.Applicazione
             SimulationEngine.mustShowInfo = true;
 
             PeriodicTable.init();
+            
             List<double> percentageList = new List<double>();
 
 
@@ -38,46 +41,35 @@ namespace MainGame.Applicazione
             element = PeriodicTable.findByName("Iron");
             chemicalElements.Add(element);
             percentageList.Add(1.0);
-
-            /*
-            element = PeriodicTable.findByName("Sulfur");
-            chemicalElements.Add(element);
-            percentageList.Add(2.9);
-
-            element = PeriodicTable.findByName("Nickel");
-            chemicalElements.Add(element);
-            percentageList.Add(1.8);
-
-            element = PeriodicTable.findByName("Calcium");
-            chemicalElements.Add(element);
-            percentageList.Add(1.5);
-
-            element = PeriodicTable.findByName("Aluminium");
-            chemicalElements.Add(element);
-            percentageList.Add(1.4);
-
-            element = PeriodicTable.findByName("Nitrogen");
-            chemicalElements.Add(element);
-            percentageList.Add(1.2);*/
-
-            /*SimulationEngine.generateStars(100, chemicalElements, percentageList);
-            List<Star> stars = SimulationEngine.resultOfGenerateStar;
-
-            StarClassification_byLum f = Star.FindStarClass(50000);*/
-
+          
+            
             ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements,percentageList);
 
             StarSystem system = new StarSystem();
-            system.InitSystemParams(new Double[]{1, ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
+            system.InitSystemParams(new Double[]{1, ParametriUtente.Science.r_sun*3, 8 }, chemicalComposition);
             system.createStarSystem();
 
 
+            printToFile(system.toString(),"nulla");
             int i = 0;
         }
 
 
      
-
+        private static void printToFile(String _content,String _path)
+        {
+            string docPath =
+          Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filename = DateTime.Now.ToString();
+            Regex digitsOnly = new Regex(@"[^\d]");
+            filename = digitsOnly.Replace(filename, "");
+            // Write the string array to a new file named "WriteLines.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, filename+".txt")))
+            {
+              
+                    outputFile.WriteLine(_content);
+            }
+        }
        
     }
 }

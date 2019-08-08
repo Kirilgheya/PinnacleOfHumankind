@@ -55,42 +55,56 @@ namespace MainGame.Applicazione.Engine
 
         }
 
-        public static Planet createGasGiant(ChemicalComposition _chemicalComposition)
+        public static Planet createGasGiant(ChemicalComposition _chemicalComposition,double _earthRadii)
         {
-            Planet planet;
-            List<double> distribution = new List<double>();
-            Random random = new Random();
-            double previousNumber=0;
+            Planet planet=null;
 
-            previousNumber = random.NextDouble() * (80 - 60) + 60;
-            distribution.Add(previousNumber);
-
-            distribution.Add(random.NextDouble() * (previousNumber - 60) + 60);
-
-            //Gas giant model: 2 main gasses 5 gasses 3 metals 
-            ChemicalElement[] otherGasses = new ChemicalElement[5];
-            ChemicalElement[] mainGasses = new ChemicalElement[2];
-            ChemicalElement[] metals = new ChemicalElement[3];
-            mainGasses[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            mainGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            while(mainGasses[1] == mainGasses[0])
-            {
-                mainGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            }
-
-            otherGasses[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            otherGasses[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            otherGasses[2] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            otherGasses[3] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-            otherGasses[4] = _chemicalComposition.getRandomElement_PerType(ElementState.Gas);
-
-            metals[0] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
-            metals[1] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
-            metals[2] = _chemicalComposition.getRandomElement_PerType(ElementState.Solid);
+            
             
 
+            
+            
 
+            planet = new Planet(_chemicalComposition.stellarCompositionMats, _chemicalComposition.elementsDistribution, (_earthRadii*ParametriUtente.Science.r_t));
+            planet.initPlanet(1, 120);
+            return planet;
+        }
 
+        public static List<double> generateDistributionList(int _numberOfDistributions = 2, int varianzaMinima = 2)
+        {
+
+            List<double> distribution = new List<double>();
+            Random random = new Random();
+
+            double maxSum = 100;
+            double minNum = 0.00001;
+            double lastGeneratedNum;
+            double partialSum = 0;
+            double minGenerated = _numberOfDistributions;
+            lastGeneratedNum = random.NextDouble() * (60 - 50) + 50;
+
+            distribution.Add(lastGeneratedNum);
+            partialSum = partialSum + lastGeneratedNum;
+
+            for (int i = 0; i < (_numberOfDistributions - 1); i++)
+            { 
+                if (minNum > lastGeneratedNum)
+                {
+                    lastGeneratedNum = maxSum - partialSum;
+                    distribution.Add(lastGeneratedNum);
+                    partialSum = partialSum + lastGeneratedNum;
+                }
+                else
+                {
+                    //lastGeneratedNum = random.NextDouble() * ((100 - partialSum) - ((100 - partialSum) / varianzaMinima)) + ((100 - partialSum) / varianzaMinima);
+                    lastGeneratedNum = random.NextDouble() * ((100 - partialSum) - ((100 - partialSum) / minGenerated)) + ((100 - partialSum) / minGenerated);
+                    minGenerated--;
+                    distribution.Add(lastGeneratedNum);
+                    partialSum = partialSum + lastGeneratedNum;
+                }
+            }
+
+            return distribution;
         }
     }
 }

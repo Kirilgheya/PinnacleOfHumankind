@@ -11,7 +11,10 @@ namespace MainGame.Applicazione.Engine
 	{
         private static string extraResourcePath = ParametriUtente.exeRootFodler+"\\\\Risorse Extra\\\\";
         private List<ChemicalElement> listofElements = new List<ChemicalElement>();
-
+        public static List<ChemicalElement> starSeed = new List<ChemicalElement>();
+        public static List<ChemicalElement> ironPlanetSeed = new List<ChemicalElement>();
+        public static List<ChemicalElement> rockyPlanetSeed = new List<ChemicalElement>();
+        public static List<ChemicalElement> gasPlanetSeed = new List<ChemicalElement>();
         public List<ChemicalElement> GetChemicalElements()
         {
             return this.listofElements;
@@ -54,7 +57,71 @@ namespace MainGame.Applicazione.Engine
 			return generatedStar;
 		}
 
-		public void setPeriodicTable(int _index = 0)
+        public void setSeeds()
+        {
+            starSeed.Add(findByName("Hydrogen"));
+            starSeed.Add(findByName("Helium"));
+            starSeed.Add(findByName("Argon"));
+            starSeed.Add(findByName("Oxygen"));
+            starSeed.Add(findByName("Carbon"));
+            starSeed.Add(findByName("Iron"));
+            starSeed.Add(findByName("Xenon"));
+
+            gasPlanetSeed.Add(findByName("Hydrogen"));
+            gasPlanetSeed.Add(findByName("Helium"));
+            gasPlanetSeed.Add(findByName("Hydrogen"));
+            gasPlanetSeed.Add(findByName("Calcium"));
+            gasPlanetSeed.Add(findByName("Oxygen"));
+            gasPlanetSeed.Add(findByName("Silver"));
+            gasPlanetSeed.Add(findByName("Carbon"));
+            gasPlanetSeed.Add(findByName("Silicon"));
+            gasPlanetSeed.Add(findByName("Lithium"));
+            gasPlanetSeed.Add(findByName("Tin"));
+            gasPlanetSeed.Add(findByName("Sulfur"));
+            gasPlanetSeed.Add(findByName("Nickel"));
+            gasPlanetSeed.Add(findByName("Copper"));
+            gasPlanetSeed.Add(findByName("Cobalt"));
+            gasPlanetSeed.Add(findByName("Sodium"));
+            gasPlanetSeed.Add(findByName("Argon"));
+
+            ironPlanetSeed.Add(findByName("Iron"));
+            ironPlanetSeed.Add(findByName("Oxygen"));
+            ironPlanetSeed.Add(findByName("Hydrogen"));
+            ironPlanetSeed.Add(findByName("Calcium"));
+            ironPlanetSeed.Add(findByName("Hydrogen"));
+            ironPlanetSeed.Add(findByName("Silver"));
+            ironPlanetSeed.Add(findByName("Carbon"));
+            ironPlanetSeed.Add(findByName("Silicon"));
+            ironPlanetSeed.Add(findByName("Lithium"));
+            ironPlanetSeed.Add(findByName("Tin"));
+            ironPlanetSeed.Add(findByName("Sulfur"));
+            ironPlanetSeed.Add(findByName("Nickel"));
+            ironPlanetSeed.Add(findByName("Copper"));
+            ironPlanetSeed.Add(findByName("Cobalt"));
+            ironPlanetSeed.Add(findByName("Sodium"));
+            ironPlanetSeed.Add(findByName("Argon"));
+
+            rockyPlanetSeed.Add(findByName("Carbon"));
+            rockyPlanetSeed.Add(findByName("Silicon"));
+            rockyPlanetSeed.Add(findByName("Hydrogen"));
+            rockyPlanetSeed.Add(findByName("Iron"));
+            rockyPlanetSeed.Add(findByName("Hydrogen"));
+            rockyPlanetSeed.Add(findByName("Silver"));
+            rockyPlanetSeed.Add(findByName("Carbon"));
+            rockyPlanetSeed.Add(findByName("Oxygen"));
+            rockyPlanetSeed.Add(findByName("Lithium"));
+            rockyPlanetSeed.Add(findByName("Tin"));
+            rockyPlanetSeed.Add(findByName("Sulfur"));
+            rockyPlanetSeed.Add(findByName("Nickel"));
+            rockyPlanetSeed.Add(findByName("Copper"));
+            rockyPlanetSeed.Add(findByName("Cobalt"));
+            rockyPlanetSeed.Add(findByName("Sodium"));
+            rockyPlanetSeed.Add(findByName("Argon"));
+
+
+        }
+
+        public void setPeriodicTable(int _index = 0)
 		{
 			string[] chemicalValue;
 			int counter = 0;

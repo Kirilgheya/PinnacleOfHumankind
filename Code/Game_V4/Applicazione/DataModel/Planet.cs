@@ -40,8 +40,22 @@ namespace MainGame.Applicazione.DataModel
             this.planetClass = new PlanetClass("Metallic_Planet");
         }
 
+        public Planet(List<ChemicalElement> _composition,List<double> _distribution, double radius_Km)
+        {
+            this.planetRadius = radius_Km;
+            this.planetCompositionMats = _composition;
+            this.planetCore = new Core();
+            this.planetClass = new PlanetClass("Metallic_Planet");
+            this.elementsDistribution = _distribution;
+        }
+
         public void initPlanet(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
+            if(percentage == null)
+            {
+
+                percentage = this.elementsDistribution;
+            }
             elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
@@ -120,6 +134,22 @@ namespace MainGame.Applicazione.DataModel
             //this.relluminosity = this.luminosity / ParametriUtente.Science.lum_sun;
             //this.relSurfacetemperature = this.Surface_temperature / ParametriUtente.Science.surfacetemp_sun;
             //this.setMetallicity();
+        }
+
+        public String toString()
+        {
+            string formattedInfo = "";
+
+            formattedInfo+="Planet Name: " + this.name;
+            formattedInfo += "\n\t" + this.planetClass.toString();
+            formattedInfo += "\n\tRadius: " + this.relativeRadius;
+            formattedInfo+= "\n\tMass: " + this.relativeMass;
+            formattedInfo+= "\n\tDensity: " + this.relativeAvgDensity;
+            formattedInfo+= "\n\t" + this.planetComposition.toString();
+            
+            
+
+            return formattedInfo;
         }
     }
 }

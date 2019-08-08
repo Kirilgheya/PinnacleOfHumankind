@@ -17,6 +17,14 @@ namespace MainGame.Applicazione.DataModel
 			}
 		}
 		
+        public String toString()
+        {
+            string formattedInfo = "";
+
+            formattedInfo = "Planet Class: " + this.Planet_Class;
+
+            return formattedInfo;
+        }
 
 		public PlanetClass()
 		{

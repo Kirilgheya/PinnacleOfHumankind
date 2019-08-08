@@ -21,9 +21,13 @@ namespace MainGame.Applicazione.DataModel
         protected List<double> gasElementsDistribution = new List<double>();
         protected double gasElementsPercentage;
 
-       
-
         public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
+                                 )
+        {
+
+        }
+
+            public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
                                 , List<double> _elementsDistribution)
         {
 
@@ -133,6 +137,15 @@ namespace MainGame.Applicazione.DataModel
             return chemicalElement;
 
 
+        }
+
+        public String toString()
+        {
+            string formattedInfo = "";
+            formattedInfo += "Composition:\n\t";
+            formattedInfo += String.Join(",\n\t", this.stellarCompositionMats);
+
+            return formattedInfo;
         }
     }
 }

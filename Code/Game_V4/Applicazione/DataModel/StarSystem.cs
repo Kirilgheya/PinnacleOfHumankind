@@ -12,7 +12,7 @@ namespace MainGame.Applicazione.DataModel
 
         protected Star star;
         
-        protected List<Planet> planets;
+        protected List<Planet> planets = new List<Planet>();
 
         double star_densityMul = 1;
         double starRadius = ParametriUtente.Science.r_sun;
@@ -69,37 +69,42 @@ namespace MainGame.Applicazione.DataModel
                     incremento = 1.2;
                 }
             }
-
+           
             Double[] distance = new double[this.maxSupportedPlanets];
-            
+            incremento = 10;
             c = 0;
             while (c < radii.Length)
             {
 
-                distance[c] = (randomSeed.NextDouble() * ((10*habitableZone_max) - 0.1) + (0.1));
+                if(c>= (int)(this.maxSupportedPlanets/2))
+                {
+                    incremento = 2;
+                }
 
-                c++;
+                distance[c] = (randomSeed.NextDouble() * ((incremento * habitableZone_max) - 0.1) + (0.1));
 
 
 
-                ChemicalComposition chemicalComposition = new ChemicalComposition(this.star.starComposition.stellarCompositionMats
-                                            , this.star.starComposition.elementsDistribution); ;
-                SimulationEngine engine;
+                ChemicalComposition chemicalComposition = null;
+
                 if (distance[c] > habitableZone_max)
                 {
                     //more chances of a cold gas giant less chance of a cold icy planet
                     int planetType = randomSeed.Next(1, 5);
-                    if(planetType < 1)
+                    if(planetType < 2)
                     {
-                        //call simulationEngine.createGasGiant()
+                        chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
                         //icy
                     }
                     else
                     {
-                        //call simulationEngine.createGasGiant()
+                        chemicalComposition = new ChemicalComposition(DataEngine.gasPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.gasPlanetSeed.Count, 2));
+                       
                         //gas giant
                     }
-                    
+
                 }
                 else if(distance[c] < habitableZone_min)
                 {
@@ -107,12 +112,14 @@ namespace MainGame.Applicazione.DataModel
                     int planetType = randomSeed.Next(1, 5);
                     if (planetType < 2)
                     {
-                        //call simulationEngine.createMediumRocky-gas()
+                        chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
                         //rocky with atmosphere
                     }
                     else
                     {
-                        //call simulationEngine.createMediumRocky()
+                        chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
                         //rocky without atmosphere
                     } 
                 }
@@ -122,21 +129,40 @@ namespace MainGame.Applicazione.DataModel
                     int planetType = randomSeed.Next(1, 5);
                     if (planetType < 2)
                     {
-                        //call simulationEngine.createGenericPlanet()
+                        chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
                         //generic rocky planet
                     }
                     else
                     {
-                        //call simulationEngine.createHabitablePlanet()
+                        chemicalComposition = new ChemicalComposition(DataEngine.ironPlanetSeed
+                                            , SimulationEngine.generateDistributionList(DataEngine.ironPlanetSeed.Count, 2));
                         //h20
                     }
                 }
+                Planet x = SimulationEngine.createGasGiant(chemicalComposition, radii[c]);
+                this.planets.Add(x);
+                c++;
             }
 
             
             Console.WriteLine("AU min: " + habitableZone_min + " \n \tAU max: " + habitableZone_max);
 
 
+        }
+
+        public string toString()
+        {
+            string formattedInfo = "";
+
+            formattedInfo = this.star.toString();
+
+            foreach(Planet planet in this.planets)
+            {
+                formattedInfo = formattedInfo + "\n" + planet.toString();
+            }
+
+            return formattedInfo;
         }
     }
 }

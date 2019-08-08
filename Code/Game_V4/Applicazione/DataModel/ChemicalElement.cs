@@ -29,6 +29,13 @@ namespace MainGame.Applicazione.DataModel
 			this.density = _density; //AT STP Stp= standard temperature and pressure (STP) = (0 °C and 1atm)
         }
 
-       
+        public override string  ToString()
+        {
+            string formattedInfo = "";
+
+            formattedInfo = this.completeName;
+
+            return formattedInfo;
+        }
     }
 }
