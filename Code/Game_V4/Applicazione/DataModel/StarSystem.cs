@@ -56,7 +56,7 @@ namespace MainGame.Applicazione.DataModel
             randomSeed = new Random();
 
             Double[] radii = new double[this.maxSupportedPlanets];
-            double jupMass_EarthRadii = 11.209, incremento = 15;
+            double jupMass_EarthRadii = 11.209, incremento = 2.2;
             int c = 0;
             while(c<radii.Length)
             {
