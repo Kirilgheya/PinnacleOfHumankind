@@ -1,8 +1,8 @@
-﻿using System;
+﻿using org.mariuszgromada.math.mxparser;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using org.mariuszgromada.math.mxparser;
 namespace MainGame.Applicazione.DataModel
 {
     public class Star : Body
@@ -13,6 +13,7 @@ namespace MainGame.Applicazione.DataModel
 		public double relluminosity { get; set; }
         protected double relCoretemperature;
         protected double relSurfacetemperature;
+        public ChemicalComposition starComposition;
         private double metallicity;
 		protected double age;
         public double meanDensity;
@@ -86,6 +87,7 @@ namespace MainGame.Applicazione.DataModel
 		{
 
 			this.Core_temperature = _temperature;
+          
 			this.stellarCompositionMats = _stellarCompositionMats;
 			this.starRadius = _starRadius;
 		}
@@ -99,7 +101,7 @@ namespace MainGame.Applicazione.DataModel
             )
         {
 
-       
+            
             this.stellarCompositionMats = _stellarCompositionMats;
             this.StarMass = _solarMasses*ParametriUtente.Science.m_sun;
             this.starRadius = _solarRadii * ParametriUtente.Science.r_sun;
@@ -131,6 +133,8 @@ namespace MainGame.Applicazione.DataModel
 
 		public void initStar(double _densityMul = 1.0,double rel_mass=1.0,List<double> percentage = null)
 		{
+            ChemicalComposition chemicalComposition = new ChemicalComposition(this.stellarCompositionMats, percentage);
+            this.starComposition = chemicalComposition;
             elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";

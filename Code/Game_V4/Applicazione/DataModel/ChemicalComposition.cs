@@ -21,6 +21,8 @@ namespace MainGame.Applicazione.DataModel
         protected List<double> gasElementsDistribution = new List<double>();
         protected double gasElementsPercentage;
 
+       
+
         public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
                                 , List<double> _elementsDistribution)
         {
@@ -54,6 +56,40 @@ namespace MainGame.Applicazione.DataModel
 
         }
 
+        public ChemicalComposition()
+        {
+
+            this.elementsDistribution = new List<double>();
+            this.stellarCompositionMats  = new List<ChemicalElement>();
+            this.heavyElements = new List<ChemicalElement>();
+            this.gasElements = new List<ChemicalElement>();
+            this.heavyElementsDistribution = new List<double>();
+            this.gasElementsDistribution = new List<double>();
+           
+        }
+
+        public void addElementToComposition(ChemicalElement _chemicalElement, double _distribution)
+        {
+
+            if (_chemicalElement.state == ElementState.Gas || _chemicalElement.state == ElementState.Liquid)
+            {
+
+                gasElements.Add(_chemicalElement);
+                gasElementsDistribution.Add(_distribution);
+                gasElementsPercentage = gasElementsPercentage + _distribution;
+            }
+            else if (_chemicalElement.state == ElementState.Solid)
+            {
+
+                heavyElements.Add(_chemicalElement);
+                heavyElementsDistribution.Add(_distribution);
+                heavyElementsPercentage = heavyElementsPercentage + _distribution;
+            }
+
+            
+
+        }
+
         public PlanetClass GetPlanetClass()
         {
 
@@ -71,6 +107,31 @@ namespace MainGame.Applicazione.DataModel
             PlanetClass planetClass = new PlanetClass(planetClassificationString);
 
             return planetClass;
+
+        }
+
+        public ChemicalElement getRandomElement_PerType(ElementState _state)
+        {
+
+            ChemicalElement chemicalElement = null;
+            int elementNumber = 0;
+            Random randomElementNumber = new Random();
+            switch(_state)
+            {
+                case ElementState.Plasma:
+                case ElementState.Gas:
+                    elementNumber = randomElementNumber.Next(1, this.gasElements.Count);
+                    chemicalElement = this.gasElements.ElementAt(elementNumber - 1);
+                    break;
+                case ElementState.Solid:
+                case ElementState.Liquid:
+                    elementNumber = randomElementNumber.Next(1, this.heavyElements.Count);
+                    chemicalElement = this.heavyElements.ElementAt(elementNumber - 1);
+                    break;
+            }
+
+            return chemicalElement;
+
 
         }
     }
