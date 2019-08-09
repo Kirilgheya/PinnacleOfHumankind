@@ -172,7 +172,7 @@ namespace MainGame.Applicazione.DataModel
 
             foreach(Planet planet in this.planets)
             {
-                formattedInfo = formattedInfo + "\n" + planet.toString();
+                formattedInfo = formattedInfo + "\n" + planet.ToString();
             }
 
             return formattedInfo;
