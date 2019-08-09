@@ -11,11 +11,9 @@ namespace MainGame.Applicazione.DataModel
     {
 
         private PlanetClass planetClass;
-        private ChemicalComposition planetComposition;
+
         private Core planetCore;
 
-        protected List<ChemicalElement> planetCompositionMats;
-        protected List<double> elementsDistribution;
         protected String name { get; set; }
         private double planetMass;
         public double mass
@@ -33,26 +31,31 @@ namespace MainGame.Applicazione.DataModel
         private double average_density;
         protected double planetRadius;
 
-        public Planet(List<ChemicalElement> _composition, List<double> _distribution, double radius_Km)
+        protected bool ringed = false;
+        protected double distance_from_star;
+
+
+        public Planet(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
         {
             this.planetRadius = radius_Km;
-            this.planetCompositionMats = _composition;
             this.planetCore = new Core();
             this.planetClass = new PlanetClass("Metallic_Planet");
-            this.elementsDistribution = _distribution;
+            body_composition = _chemical;
 
             this.name = generate_plante_name();
+
+            this.distance_from_star = distance_from_star;
 
         }
 
         public void initPlanet(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
-            if (percentage == null)
-            {
+            //if (percentage == null)
+            //{
 
-                percentage = this.elementsDistribution;
-            }
-            elementsDistribution = percentage;
+            //    percentage = this.elementsDistribution;
+            //}
+            //elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
             Function hydrostaticEquilibrium = ParametriUtente.Science.hydrostaticEquilibrium;
@@ -65,10 +68,10 @@ namespace MainGame.Applicazione.DataModel
 
             this.meanDensity = 0;
 
-            foreach (ChemicalElement element in planetCompositionMats)
+            foreach (ChemicalElement element in body_composition.get_elements())
             {
 
-                double currentElement = elementsDistribution.ElementAt(planetCompositionMats.IndexOf(element));
+                double currentElement = body_composition.get_percentage_per_element(element);
 
                 sumofElement = sumofElement + currentElement;
                 molecularWeight = (molecularWeight + (element.mass * currentElement)
@@ -96,9 +99,7 @@ namespace MainGame.Applicazione.DataModel
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
 
-
-            this.planetComposition = new ChemicalComposition(this.planetCompositionMats, this.elementsDistribution);
-
+          
             this.InitPlanetClassification();
 
             this.setRelativeValues();
@@ -106,7 +107,7 @@ namespace MainGame.Applicazione.DataModel
 
         private void InitPlanetClassification()
         {
-            this.planetClass = this.planetComposition.GetPlanetClass();
+            this.planetClass = this.body_composition.GetPlanetClass();
         }
 
         public void setPlanetStats()
@@ -143,7 +144,16 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
-            formattedInfo += "\n\t" + this.planetComposition.toString();
+            formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString();
+            if(ringed)
+            {
+                formattedInfo += "\n\tRinged: Yes";
+            }
+            else
+            {
+                formattedInfo += "\n\tRinged: No" ;
+            }
+            formattedInfo += "\n\t" + this.body_composition.ToString();
 
 
 

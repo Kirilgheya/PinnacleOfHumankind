@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MainGame.Applicazione.DataModel
 {
-    public class ChemicalElement
+    public class ChemicalElement :IComparable<ChemicalElement>
     {
 		public double density;
 		public double mass;
@@ -36,6 +36,18 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo = this.completeName;
 
             return formattedInfo;
+        }
+
+        public int CompareTo(ChemicalElement other)
+        {
+            if(other.state < this.state)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

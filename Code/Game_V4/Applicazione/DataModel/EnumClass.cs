@@ -27,10 +27,10 @@ namespace MainGame
 
     public enum ElementState 
     {
-        Solid = 0,
-        Plasma = 1,
-        Liquid = 2,
-        Gas = 3,
+        Gas = 0,
+        Liquid = 1,
+        Solid = 2,
+        Plasma = 3,
         Synthetic = 4
     }
     public enum OverallStarClassification

@@ -130,7 +130,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tRadius: " + this.relativeMass;
             formattedInfo+= "\n\tMass: " + this.relativeMass;
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
-            formattedInfo+= "\n\t" + this.starComposition.toString();
+            formattedInfo+= "\n\t" + this.starComposition.ToString();
             formattedInfo+= "\n\tStar Class: " + this.overallClass.ToString();
 
             return formattedInfo;
