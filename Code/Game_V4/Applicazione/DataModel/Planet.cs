@@ -33,14 +33,6 @@ namespace MainGame.Applicazione.DataModel
         private double average_density;
         protected double planetRadius;
 
-        public Planet(List<ChemicalElement> composition, double radius_Km)
-        {
-            this.planetRadius = radius_Km;
-            this.planetCompositionMats = composition;
-            this.planetCore = new Core();
-            this.planetClass = new PlanetClass("Metallic_Planet");
-        }
-
         public Planet(List<ChemicalElement> _composition, List<double> _distribution, double radius_Km)
         {
             this.planetRadius = radius_Km;
