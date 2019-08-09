@@ -185,11 +185,11 @@ namespace MainGame.Applicazione.DataModel
                         case 8: name = name + ("ke"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 9: name = name + ("ko"); if (rannum %7 == 0) { name = name + "-"; } break;
 
-                        case 10: name = name + ("ga"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 10: name = name + ("gar"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 11: name = name + ("gi"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 12: name = name + ("gu"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 13: name = name + ("ge"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 14: name = name + ("go"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 12: name = name + ("jir"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 13: name = name + ("zir"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 14: name = name + ("nash"); if (rannum %7 == 0) { name = name + "-"; } break;
 
                         case 15: name = name + ("sa"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 16: name = name + ("shi"); if (rannum %7 == 0) { name = name + "-"; } break;
@@ -233,11 +233,11 @@ namespace MainGame.Applicazione.DataModel
                         case 48: name = name + ("ser"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 49: name = name + ("nash"); if (rannum %7 == 0) { name = name + "-"; } break;
 
-                        case 50: name = name + ("pa"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 51: name = name + ("pi"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 52: name = name + ("pu"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 53: name = name + ("pe"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 54: name = name + ("po"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 50: name = name + ("ar"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 51: name = name + ("ur"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 52: name = name + ("ush"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 53: name = name + ("shin"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 54: name = name + ("zar"); if (rannum %7 == 0) { name = name + "-"; } break;
 
                         case 55: name = name + ("ma"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 56: name = name + ("mi"); if (rannum %7 == 0) { name = name + "-"; } break;
@@ -291,9 +291,9 @@ namespace MainGame.Applicazione.DataModel
                         case 93: name = name + ("des"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 94: name = name + ("gor"); if (rannum %7 == 0) { name = name + "-"; } break;
 
-                        case 95: name = name + ("pya"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 96: name = name + ("pyu"); if (rannum %7 == 0) { name = name + "-"; } break;
-                        case 97: name = name + ("pyo"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 95: name = name + ("nar"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 96: name = name + ("shir"); if (rannum %7 == 0) { name = name + "-"; } break;
+                        case 97: name = name + ("nur"); if (rannum %7 == 0) { name = name + "-"; } break;
 
                         case 98: name = name + ("mya"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 99: name = name + ("myu"); if (rannum %7 == 0) { name = name + "-"; } break;

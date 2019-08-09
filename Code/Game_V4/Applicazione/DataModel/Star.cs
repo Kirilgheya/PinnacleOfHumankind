@@ -36,6 +36,7 @@ namespace MainGame.Applicazione.DataModel
         public StarClassification_byLum luminosityClass;
         public StarClassification_byMass massClass;
         public OverallStarClassification overallClass;
+        public StarClassification_byColor starClassification_ByColor;
         public double Metallicity { get {
                                         if (this.metallicity <= 0.0)
                                         {
@@ -132,6 +133,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
             formattedInfo+= "\n\t" + this.starComposition.ToString();
             formattedInfo+= "\n\tStar Class: " + this.overallClass.ToString();
+            formattedInfo += "\n\tVega-relative chromaticity: " + this.starClassification_ByColor.ToString();
 
             return formattedInfo;
         }
@@ -220,7 +222,17 @@ namespace MainGame.Applicazione.DataModel
             this.massClass = Star.FindStarMassClass(relmassClass);
 
             this.overallClass = Star.mapClassificationsToOverallClassification(this.massClass, this.luminosityClass);
-           
+
+            this.starClassification_ByColor = Star.FindStarColor(temperature);
+
+
+        }
+
+        private static StarClassification_byColor FindStarColor(int lumLevel)
+        {
+            return Enum.GetValues(typeof(StarClassification_byColor)).Cast<int>().Where(stellarClass
+                            => lumLevel >= stellarClass).Cast<StarClassification_byColor>().Last<StarClassification_byColor>();
+
         }
 
         private void finalizeStar()

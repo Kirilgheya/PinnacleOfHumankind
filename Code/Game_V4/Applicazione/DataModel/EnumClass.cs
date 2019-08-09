@@ -60,6 +60,20 @@ namespace MainGame
         T = 0 
     }
 
+    public enum StarClassification_byColor
+    {
+        //This determines the spectral type (the colour)
+        Blue = 30000, // 30,000 K  
+        Blue_White = 10000, //10,000–30,000 K
+        White = 7500, //7,500–10,000 K     
+        Yellow_White = 6000, //6,000–7,500 K 
+        Yellow = 5200, //5,200–6,000 K 
+        Light_Orange = 3700, //3,700–5,200 K 
+        Orange = 2400, //2,400–3,700 K
+        Orange_Red = 1300, //these are brown dwarves basically stars where fusion cannot occur
+        None  = 0
+    }
+
     public enum StarClassification_byMass
     {
         //This determines the  type (the biggggness * 100)
