@@ -42,7 +42,7 @@ namespace MainGame.Applicazione.Engine
                 {
 
                     counter = -1;
-                    starValues = Lines.Split(';');
+                    starValues = Lines.Split(';',',');
 
                     Double.TryParse(starValues[4], out mass);
                     Double.TryParse(starValues[1], out surfaceTemp);
