@@ -18,7 +18,10 @@ namespace MainGame.UI.DataModel
 		public string Gravity { get; set; }
 		public string Density { get; set; }
 
+        public Planet()
+        {
 
+        }
 		public new void  initPlanetStats()
 		{
 			this.name = this.Name;

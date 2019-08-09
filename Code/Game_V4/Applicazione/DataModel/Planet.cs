@@ -39,7 +39,10 @@ namespace MainGame.Applicazione.DataModel
             this.planetCore = new Core();
             this.planetClass = new PlanetClass("Metallic_Planet");
         }
+        public Planet()
+        {
 
+        }
         public Planet(List<ChemicalElement> _composition,List<double> _distribution, double radius_Km)
         {
             this.planetRadius = radius_Km;

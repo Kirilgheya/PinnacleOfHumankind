@@ -13,7 +13,7 @@ namespace MainGame.UI.DataModel
 
 		public string PlanetClass { get { return this.planetClass.Planet_Class; }
 			set {
-				this.planetClass = new PlanetClass(this.planetSeedComposition);
+				this.planetClass = new PlanetClass();
 				this.planetClass.Planet_Class = value;
 			}
 		}
@@ -52,7 +52,7 @@ namespace MainGame.UI.DataModel
 		public PlanetSeed(List<Applicazione.DataModel.ChemicalElement> _composition)
 		{
 			planetSeedComposition = _composition;
-			this.planetClass = new PlanetClass(this.planetSeedComposition);
+			this.planetClass = new PlanetClass();
 			this.nucleusClass = new NucleusClass(this.planetSeedComposition);
 
 		}
