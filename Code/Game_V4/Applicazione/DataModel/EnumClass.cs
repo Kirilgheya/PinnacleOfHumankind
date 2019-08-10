@@ -15,7 +15,7 @@ namespace MainGame
 		Satellite = 0,
 		Planet = 1,
 		Metallic_Planet = 2,
-        Gasseous_Planet
+        Gasseous_Planet = 3
 	}
 
 	public enum NucleusClassification

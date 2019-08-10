@@ -58,7 +58,7 @@
     <Compile Include="Applicazione\DataModel\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
-    <Compile Include="Applicazione\Engine\Math Engine\Constanats.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Constants.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\Converter.cs" />
     <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
