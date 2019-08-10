@@ -34,7 +34,7 @@ namespace MainGame.Applicazione.DataModel
             return elements_percentage_list.Select(x => x.el).ToList();
         }
 
-        //ritorma la lista di tutte le percentuali degli elementi del corpo
+        //ritorna la lista di tutte le percentuali degli elementi del corpo
         internal List<Double> get_percentage()
         {
             return elements_percentage_list.Select(x => x.percentage).ToList();
