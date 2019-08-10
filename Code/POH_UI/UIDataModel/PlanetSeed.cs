@@ -49,7 +49,7 @@ namespace MainGame.UI.DataModel
 
 
 
-		public PlanetSeed(List<Applicazione.DataModel.ChemicalElement> _composition)
+		public PlanetSeed(List<Applicazione.DataModel.ChemicalElement> _composition, double distance_from_star)
 		{
 			planetSeedComposition = _composition;
 			this.planetClass = new PlanetClass();

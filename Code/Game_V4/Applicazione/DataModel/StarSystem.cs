@@ -32,10 +32,10 @@ namespace MainGame.Applicazione.DataModel
         {
             int minSupportedPlanet = 0;
             int supportedPlanets;
-            Star star = new Star(this.starRadius, 0, this.composition.stellarCompositionMats);
+            Star star = new Star(this.starRadius, 0, this.composition.get_elements());
             double metallicityFactor;
 
-            star.initStar(star_densityMul, this.starRelativeMass, this.composition.elementsDistribution);
+            star.initStar(star_densityMul, this.starRelativeMass, this.composition.get_percentage());
             this.star = star;
 
             metallicityFactor = this.star.Metallicity;
@@ -147,11 +147,11 @@ namespace MainGame.Applicazione.DataModel
                 Planet x;
                 if (radii[c]<9)
                 {
-                    x = SimulationEngine.createPlanet(chemicalComposition, radii[c]);
+                    x = SimulationEngine.createPlanet(chemicalComposition, radii[c], distance[c]);
                 }
                 else
                 {
-                    x = SimulationEngine.createGasGiant(chemicalComposition, radii[c]);
+                    x = SimulationEngine.createGasGiant(chemicalComposition, radii[c], distance[c]);
                 }
                 
                 this.planets.Add(x);
