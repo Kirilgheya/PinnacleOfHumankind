@@ -1,9 +1,6 @@
-﻿using MainGame.Applicazione.DataModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainGame.Applicazione.DataModel
 {
@@ -21,11 +18,11 @@ namespace MainGame.Applicazione.DataModel
         protected List<double> gasElementsDistribution = new List<double>();
         protected double gasElementsPercentage;
 
-        public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
-                                 )
-        {
+            public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
+                                        )
+            {
 
-        }
+            }
 
             public ChemicalComposition(List<ChemicalElement> _stellarCompositionMats
                                 , List<double> _elementsDistribution)
