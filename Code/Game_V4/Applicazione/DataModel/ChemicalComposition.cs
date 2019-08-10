@@ -57,7 +57,8 @@ namespace MainGame.Applicazione.DataModel
         //ritorna percentuale di elementi fluidi
         private double get_gas_elements_percentage()
         {
-            double perc = elements_percentage_list.Where(x => x.el.state == ElementState.Gas || x.el.state == ElementState.Liquid).Sum(y => y.percentage);
+            double perc = elements_percentage_list.Where(x => x.el.state == ElementState.Gas 
+                                            || x.el.state == ElementState.Liquid).Sum(y => y.percentage);
             return perc;
         }
 
@@ -71,7 +72,8 @@ namespace MainGame.Applicazione.DataModel
         //ritorna elementi fluidi
         private List<ChemicalElement> get_gas_elements()
         {
-            return elements_percentage_list.Where(x => x.el.state == ElementState.Gas || x.el.state == ElementState.Liquid).Select(y => y.el).ToList();
+            return elements_percentage_list.Where(x => x.el.state == ElementState.Gas 
+                                        || x.el.state == ElementState.Liquid).Select(y => y.el).ToList();
         }
 
         //ritorna elementi solidi
@@ -128,7 +130,7 @@ namespace MainGame.Applicazione.DataModel
         }
 
         //to string
-        public String ToString()
+        public override String ToString()
         {
             string formattedInfo = String.Empty;
             formattedInfo += "Composition:";
