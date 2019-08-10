@@ -55,6 +55,8 @@
     <Compile Include="Applicazione\DataModel\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Constanats.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Converter.cs" />
     <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\Science.cs" />
@@ -81,9 +83,7 @@
     </None>
     <None Include="LocalData.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Applicazione\Engine\Math Engine\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="MathParser.org-mXparser.Net472, Version=4.2.0.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
