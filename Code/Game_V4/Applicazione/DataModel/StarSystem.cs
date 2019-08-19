@@ -30,10 +30,10 @@ namespace MainGame.Applicazione.DataModel
 
         public void createStarSystem()
         {
-            int minSupportedPlanet = 0;
-            int supportedPlanets;
-            Star star = new Star(this.starRadius, 0, this.composition.get_elements());
+            int minSupportedPlanet = 0, supportedPlanets;
             double metallicityFactor;
+            Star star = new Star(this.starRadius, 0, this.composition.get_elements());
+            
 
             star.initStar(star_densityMul, this.starRelativeMass, this.composition.get_percentage());
             this.star = star;
