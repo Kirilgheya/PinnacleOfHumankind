@@ -46,17 +46,23 @@ namespace MainGame.Applicazione
             ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements,percentageList);
 
             StarSystem system = new StarSystem();
-            system.InitSystemParams(new Double[]{1, ParametriUtente.Science.r_sun*3, 8 }, chemicalComposition);
+            system.InitSystemParams(new Double[]{1, ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
             system.createStarSystem();
 
+            string outputFile = system.toString();
 
-            printToFile(system.toString(),"nulla");
+            system.InitSystemParams(new Double[] { 1, ParametriUtente.Science.r_sun * 2, 15 }, chemicalComposition);
+            system.createStarSystem();
+
+            outputFile = string.Concat(outputFile,system.toString());
+
+            printToFile(outputFile);
             int i = 0;
         }
 
 
      
-        private static void printToFile(String _content,String _path)
+        private static void printToFile(String _content)
         {
             string docPath =
           Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

@@ -127,11 +127,12 @@ namespace MainGame.Applicazione.DataModel
         {
             string formattedInfo= "";
 
-            formattedInfo+= "Star Name: " + this.FullName;
-            formattedInfo+= "\n\tRadius: " + this.relativeMass;
+            formattedInfo+= "\nStar Name: " + this.FullName;
+            formattedInfo+= "\n\tRadius: " + this.relativeRadius;
             formattedInfo+= "\n\tMass: " + this.relativeMass;
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
-            formattedInfo+= "\n\t" + this.starComposition.ToString();
+            formattedInfo += "\n\tCore Temperature: " + this.Core_temperature;
+            formattedInfo += "\n\t" + this.starComposition.ToString();
             formattedInfo+= "\n\tStar Class: " + this.overallClass.ToString();
             formattedInfo += "\n\tVega-relative chromaticity: " + this.starClassification_ByColor.ToString();
 
@@ -182,11 +183,11 @@ namespace MainGame.Applicazione.DataModel
             
             pressione = ((ParametriUtente.Science.G 
                                 * mass
-                                * this.meanDensity * Math.Pow(10, 3))
-                                / (this.starRadius * this.starRadius))*this.starRadius;
+                                * this.meanDensity * Math.Pow(10, 12))
+                                / (this.starRadius * this.starRadius * this.starRadius));
 
             this.Core_temperature = (pressione / 
-                                        ((this.meanDensity * Math.Pow(10, 8)) 
+                                        ((this.meanDensity * Math.Pow(10, 6)) 
                                                 * (8.314462618 / (molecularWeight))*4.8
                                                 ) ) 
                                             ; // - K to get °
@@ -203,6 +204,7 @@ namespace MainGame.Applicazione.DataModel
 
         private void setRelativeValues()
         {
+            this.relativeRadius = this.starRadius / ParametriUtente.Science.r_sun;
             this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
             this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
             this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
