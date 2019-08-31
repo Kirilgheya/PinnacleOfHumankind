@@ -1,15 +1,14 @@
 ﻿using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MainGame.Applicazione.DataModel
 {
     class StarSystem
     {
-
+        private StarSystem sibling=null;
+        private double distanceFromSibling = 0.0;
         protected Star star;
         
         protected List<Planet> planets = new List<Planet>();
@@ -26,6 +25,28 @@ namespace MainGame.Applicazione.DataModel
             this.starRadius = _parameters[1];
             this.starRelativeMass = _parameters[2];
             this.composition = _composition;
+        }
+        public bool hasSibling()
+        {
+
+            bool returnValue = this.sibling == null ? false : true;
+
+            return returnValue;
+        }
+        public void setSibling(StarSystem sibling,double distance)
+        {
+            if(this.sibling != null )
+            {
+                throw new Exception("Il sistema contentente: " + this.star.FullName + " ha già una stella sorella");
+            }
+
+            this.sibling = sibling;
+            this.distanceFromSibling = distance;
+
+            if (!sibling.hasSibling())
+            { 
+                sibling.setSibling(this, distance);
+            }
         }
 
         public void createStarSystem()
