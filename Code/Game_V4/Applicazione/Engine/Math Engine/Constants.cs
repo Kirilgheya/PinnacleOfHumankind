@@ -13,4 +13,5 @@ public static class Constants
     public static double UA_to_LY = 63241.08;
 
     public static double LY_to_UA = 0.000016;
+
 }
