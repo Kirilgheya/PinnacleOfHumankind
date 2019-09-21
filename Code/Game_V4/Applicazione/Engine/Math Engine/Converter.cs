@@ -26,27 +26,27 @@ public static class Converter
     }
 
     //lista delle unità di misura della lunghezza
-    public static List<Unità_di_misura> leght_units = new List<Unità_di_misura>(
-        new Unità_di_misura("Millimetro","mm", null,10),
+    public static List<Unità_di_misura> leght_units = new List<Unità_di_misura> { 
+        new Unità_di_misura("Millimetro","mm", 0,10),
         new Unità_di_misura("Centimetro","cm",10,10),
         new Unità_di_misura("Decimetro","dm",10,10),
         new Unità_di_misura("Metro","dm",10,1000),
-        new Unità_di_misura("Kilometro","Km",1000,149597870,700),
-        new Unità_di_misura("Unità Astronomica","UA",UA_to_km, UA_to_LY),
-        new Unità_di_misura("Anno luce", "LY",LY_to_UA,null)
-        );
+        new Unità_di_misura("Kilometro","Km",1000,1000),
+        new Unità_di_misura("Unità Astronomica","UA", UA_to_Km(1), UA_to_LY(1)),
+        new Unità_di_misura("Anno luce", "LY",LY_to_UA(1),0)
+        };
 
 
 }
 
-public static class Unità_di_misura
+public class Unità_di_misura
 {
 
     public string nome;  //inglese o ita?
     public string sigla;  //come sopra
     public double al_precedente;  //se nullo è il più piccolo
     public double al_sucessivo; //se nullo è il più grande
-    Unità_di_misura(string _nome, string _sigla, double _al_precedente, double _al_sucessivo)
+    public Unità_di_misura(string _nome, string _sigla, double _al_precedente, double _al_sucessivo)
         {
             nome = _nome;
             sigla = _sigla;
