@@ -19,16 +19,13 @@ namespace MainGame.Applicazione.DataModel
         public double mass
         {
             get { return planetMass; }
-            set { this.planetMass = value; this.relativeMass = (value / 100) / Science.m_sun; }
+            set { this.planetMass = value; this.relativeMass = (value / 100) / Science.m_t; }
         }
 
         public double relCoretemperature { get; set; }
 
         private double meanDensity;
-        private double volume;
-        private double radius;
-        private double g_atSeaLevel;
-        private double average_density;
+      
         protected double planetRadius;
 
         protected bool ringed = false;
@@ -88,21 +85,65 @@ namespace MainGame.Applicazione.DataModel
 
             pressione = ((ParametriUtente.Science.G
                                 * mass
-                                * this.meanDensity * Math.Pow(10, 3))
-                                / (this.planetRadius * this.planetRadius)) * this.planetRadius;
+                                * this.meanDensity * Math.Pow(10,3))
+                                / (this.planetRadius * this.planetRadius)
+                          ) * this.planetRadius;
 
             this.Core_temperature = (pressione /
-                                        ((this.meanDensity * Math.Pow(10, 7))
+                                        ((this.meanDensity * Math.Pow(10, 5))
                                                 * (8.314462618 / (molecularWeight)) * 4.8
                                                 ))
                                             ; // - K to get °
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
 
-          
-            this.InitPlanetClassification();
+           
 
+            this.InitPlanetClassification();
+            
             this.setRelativeValues();
+            this.initAtmoSphere();
+        }
+
+        private void initAtmoSphere(Boolean _isBlackBody=true)
+        {
+            
+            double R, T, M, m, Na;
+            R = 8.314462618;
+            T = this.Surface_temperature;
+            ChemicalComposition composition = new ChemicalComposition();
+          
+         
+            double escapevelocity = Math.Pow((2 * ParametriUtente.Science.G * this.mass) / (this.planetRadius*1000), (1.0 / 2.0));
+            for (int i=0;i<3;i++)
+            {
+                ChemicalElement element = this.body_composition.getRandomElement_PerType(ElementState.Gas);
+                double percentage = this.body_composition.get_percentage_per_element(element)/100;
+                composition.addElementToComposition(element, percentage);
+                m = element.mass/1000;
+                M = m;
+                double meanVelocityForElement = Math.Pow((2 * R * T) / M, (1.0 / 2.0));
+            }
+            //prendi la lista di gas
+            //scegli 3 gas
+            // sqrt(2*R*T/M) dove R = gas constant T = Temperature K e M = mass dell'elemento/1000
+
+            Atmosphere atmosphere = new Atmosphere(composition);
+            this.applyAtmosphericEffects();
+
+
+            if (_isBlackBody)
+            {
+
+                _isBlackBody = false;
+                
+                this.initAtmoSphere(_isBlackBody);
+                this.applyAtmosphericEffects();
+            }
+            
+           
+
+
         }
 
         private void InitPlanetClassification()
@@ -112,12 +153,13 @@ namespace MainGame.Applicazione.DataModel
 
         public void setPlanetStats()
         {
-
-            this.mass = UOMHandler.getPlanetMass(this.relativeMass);
-            this.volume = UOMHandler.getPlanetVolume(this.relativeVolume);
-            this.radius = UOMHandler.getPlanetRadius(this.relativeRadius);
-            this.g_atSeaLevel = UOMHandler.getPlanetG(this.relativeg);
-            this.average_density = UOMHandler.getPlanetDensity(this.relativeAvgDensity);
+            NotImplementedException e = new NotImplementedException("set planet Stats not implemented");
+            /* this.mass = UOMHandler.getPlanetMass(this.relativeMass);
+             this.volume = UOMHandler.getPlanetVolume(this.relativeVolume);
+             this.radius = UOMHandler.getPlanetRadius(this.relativeRadius);
+             this.g_atSeaLevel = UOMHandler.getPlanetG(this.relativeg);
+             this.average_density = UOMHandler.getPlanetDensity(this.relativeAvgDensity);*/
+            throw e;
         }
 
         private void setRelativeValues()

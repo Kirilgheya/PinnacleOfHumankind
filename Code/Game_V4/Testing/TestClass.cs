@@ -60,8 +60,35 @@ namespace MainGame.Applicazione
             int i = 0;
         }
 
+        public void createEarth()
+        {
+            List<double> percentageList = new List<double>();
 
-     
+
+            ChemicalElement element;
+            List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
+
+            element = PeriodicTable.findByName("Nitrogen");
+            chemicalElements.Add(element);
+            percentageList.Add(78.08);
+
+            element = PeriodicTable.findByName("Oxygen");
+            chemicalElements.Add(element);
+            percentageList.Add(20.95);
+
+            element = PeriodicTable.findByName("Argon");
+            chemicalElements.Add(element);
+            percentageList.Add(0.93);
+            element = PeriodicTable.findByName("Iron");
+            chemicalElements.Add(element);
+            percentageList.Add(0.04);
+
+
+            ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements, percentageList);
+            Planet x = new Planet(chemicalComposition, ParametriUtente.Science.r_t, ParametriUtente.Science.AU);
+            x.initPlanet();
+        }
+
         private static void printToFile(String _content)
         {
             string docPath =

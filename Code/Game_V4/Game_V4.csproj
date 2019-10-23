@@ -44,6 +44,7 @@
     <Compile Include="Applicazione\Commands\LoadGame.cs" />
     <Compile Include="Applicazione\Commands\NewGame.cs" />
     <Compile Include="Applicazione\Commands\Options.cs" />
+    <Compile Include="Applicazione\DataModel\Atmosphere.cs" />
     <Compile Include="Applicazione\DataModel\Body.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalComposition.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalElement.cs" />

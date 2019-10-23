@@ -143,6 +143,7 @@ namespace MainGame.Applicazione.DataModel
         }
     }
 
+
    //oggetto elementi, percentuale
     public class element_percentage
     {
@@ -161,4 +162,6 @@ namespace MainGame.Applicazione.DataModel
 
 
     }
+
+   
 }

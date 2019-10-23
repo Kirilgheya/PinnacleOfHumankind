@@ -69,7 +69,6 @@ namespace MainGame.Applicazione.Engine
 
             gasPlanetSeed.Add(findByName("Hydrogen"));
             gasPlanetSeed.Add(findByName("Helium"));
-            gasPlanetSeed.Add(findByName("Hydrogen"));
             gasPlanetSeed.Add(findByName("Calcium"));
             gasPlanetSeed.Add(findByName("Oxygen"));
             gasPlanetSeed.Add(findByName("Silver"));
@@ -85,27 +84,28 @@ namespace MainGame.Applicazione.Engine
             gasPlanetSeed.Add(findByName("Argon"));
 
             ironPlanetSeed.Add(findByName("Iron"));
-            ironPlanetSeed.Add(findByName("Oxygen"));
-            ironPlanetSeed.Add(findByName("Hydrogen"));
+            
+            ironPlanetSeed.Add(findByName("Nickel"));
             ironPlanetSeed.Add(findByName("Calcium"));
-            ironPlanetSeed.Add(findByName("Hydrogen"));
             ironPlanetSeed.Add(findByName("Silver"));
             ironPlanetSeed.Add(findByName("Carbon"));
             ironPlanetSeed.Add(findByName("Silicon"));
+            ironPlanetSeed.Add(findByName("Nitrogen"));
             ironPlanetSeed.Add(findByName("Lithium"));
+            ironPlanetSeed.Add(findByName("Oxygen"));
             ironPlanetSeed.Add(findByName("Tin"));
             ironPlanetSeed.Add(findByName("Sulfur"));
             ironPlanetSeed.Add(findByName("Nickel"));
             ironPlanetSeed.Add(findByName("Copper"));
             ironPlanetSeed.Add(findByName("Cobalt"));
             ironPlanetSeed.Add(findByName("Sodium"));
+       
             ironPlanetSeed.Add(findByName("Argon"));
 
             rockyPlanetSeed.Add(findByName("Carbon"));
             rockyPlanetSeed.Add(findByName("Silicon"));
-            rockyPlanetSeed.Add(findByName("Hydrogen"));
+            rockyPlanetSeed.Add(findByName("Nitrogen"));
             rockyPlanetSeed.Add(findByName("Iron"));
-            rockyPlanetSeed.Add(findByName("Hydrogen"));
             rockyPlanetSeed.Add(findByName("Silver"));
             rockyPlanetSeed.Add(findByName("Carbon"));
             rockyPlanetSeed.Add(findByName("Oxygen"));
