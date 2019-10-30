@@ -71,10 +71,10 @@ namespace MainGame.Applicazione.DataModel
                 double currentElement = body_composition.get_percentage_per_element(element);
 
                 sumofElement = sumofElement + currentElement;
-                molecularWeight = (molecularWeight + (element.mass * currentElement)
-                                                ) / sumofElement;
+                molecularWeight = (molecularWeight + (element.mass)
+                                               ) ;
             }
-
+            molecularWeight = molecularWeight / sumofElement;
             double f = (this.planetRadius * this.planetRadius * this.planetRadius) * (4 / 3) * Math.PI;
 
             this.Volume = (Math.Pow(this.planetRadius, 3) * 4 / 3 * Math.PI); //k3
@@ -90,7 +90,7 @@ namespace MainGame.Applicazione.DataModel
                           ) * this.planetRadius;
 
             this.Core_temperature = (pressione /
-                                        ((this.meanDensity * Math.Pow(10, 5))
+                                        ((this.meanDensity * Math.Pow(10, 6))
                                                 * (8.314462618 / (molecularWeight)) * 4.8
                                                 ))
                                             ; // - K to get °
@@ -129,7 +129,7 @@ namespace MainGame.Applicazione.DataModel
             // sqrt(2*R*T/M) dove R = gas constant T = Temperature K e M = mass dell'elemento/1000
 
             Atmosphere atmosphere = new Atmosphere(composition);
-            this.applyAtmosphericEffects();
+            //this.applyAtmosphericEffects();
 
 
             if (_isBlackBody)
@@ -138,7 +138,7 @@ namespace MainGame.Applicazione.DataModel
                 _isBlackBody = false;
                 
                 this.initAtmoSphere(_isBlackBody);
-                this.applyAtmosphericEffects();
+                //this.applyAtmosphericEffects();
             }
             
            
@@ -186,6 +186,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
+            formattedInfo += "\n\tSurface Temperature: " + this.Surface_temperature;
             formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString();
             if(ringed)
             {

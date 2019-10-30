@@ -77,22 +77,24 @@ namespace MainGame.Applicazione.DataModel
             randomSeed = new Random();
 
             Double[] radii = new double[this.maxSupportedPlanets];
-            double jupMass_EarthRadii = 11.209, incremento = 2.2;
+            double jupMass_EarthRadii = 11.209, incremento = 1;
             int c = 0;
             while(c<radii.Length)
             {
+
+                
 
                 radii[c] = (randomSeed.NextDouble() * (((jupMass_EarthRadii ) * incremento) - (0.5 )) + (0.5 ));
                                                         
                 c++;
                 if (radii[c - 1] > 10)
                 {
-                    incremento = 1.2;
+                    incremento = 0.9;
                 }
             }
            
             Double[] distance = new double[this.maxSupportedPlanets];
-            incremento = 10;
+            incremento = 5;
             c = 0;
             while (c < radii.Length)
             {
@@ -110,7 +112,7 @@ namespace MainGame.Applicazione.DataModel
 
                 if (distance[c] > habitableZone_max)
                 {
-                    //more chances of a cold gas giant less chance of a cold icy planet
+                    //more chances of a cold gas giant lesser chance of a cold icy planet
                     int planetType = randomSeed.Next(1, 5);
                     if(planetType < 2)
                     {

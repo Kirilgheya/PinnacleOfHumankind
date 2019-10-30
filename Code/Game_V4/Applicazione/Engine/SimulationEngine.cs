@@ -75,11 +75,11 @@ namespace MainGame.Applicazione.Engine
             double relMass;
             if (_earthRadii>2)
             {
-                relMass = random.NextDouble() * (60 - 0.8) + 0.8;
+                relMass = random.NextDouble() * (60 - 1) + 1;
             }
             else
             {
-                relMass = random.NextDouble() * (60 - _earthRadii) + _earthRadii;
+                relMass = random.NextDouble() * (7 - _earthRadii) + _earthRadii;
             }
             
              

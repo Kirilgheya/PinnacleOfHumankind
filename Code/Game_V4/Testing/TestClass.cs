@@ -26,7 +26,7 @@ namespace MainGame.Applicazione
             
             List<double> percentageList = new List<double>();
 
-
+            createEarth();
             ChemicalElement element;
             List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
             
@@ -60,7 +60,7 @@ namespace MainGame.Applicazione
             int i = 0;
         }
 
-        public void createEarth()
+        public static void createEarth()
         {
             List<double> percentageList = new List<double>();
 
