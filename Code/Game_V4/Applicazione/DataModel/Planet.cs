@@ -107,8 +107,8 @@ namespace MainGame.Applicazione.DataModel
 
         private void initAtmoSphere(Boolean _isBlackBody=true)
         {
-            
-            double R, T, M, m, Na;
+
+            double R, T, M, m;
             R = 8.314462618;
             T = this.Surface_temperature;
             ChemicalComposition composition = new ChemicalComposition();
@@ -123,6 +123,12 @@ namespace MainGame.Applicazione.DataModel
                 m = element.mass/1000;
                 M = m;
                 double meanVelocityForElement = Math.Pow((2 * R * T) / M, (1.0 / 2.0));
+
+                if(meanVelocityForElement> escapevelocity)
+                {
+
+                    this.body_composition.removeElementFromComposition(element, percentage);
+                }
             }
             //prendi la lista di gas
             //scegli 3 gas
@@ -149,6 +155,19 @@ namespace MainGame.Applicazione.DataModel
         private void InitPlanetClassification()
         {
             this.planetClass = this.body_composition.GetPlanetClass();
+        }
+
+        public void removeElement(string _elementName,double _percentageRemoved = 100.0)
+        {
+
+            if (_percentageRemoved > 100.0)
+            {
+                throw new ArgumentException("% cannot be higher than 100%");
+            }
+            ChemicalElement chemicalElement = this.body_composition.getElementFromName(_elementName);
+            double actualPerc = this.body_composition.get_percentage_per_element(chemicalElement);
+            _percentageRemoved = _percentageRemoved * (actualPerc/100);
+            this.body_composition.removeElementFromComposition(chemicalElement, _percentageRemoved);
         }
 
         public void setPlanetStats()

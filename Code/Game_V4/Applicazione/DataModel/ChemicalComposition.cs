@@ -48,10 +48,34 @@ namespace MainGame.Applicazione.DataModel
 
         }
 
+        public void removeElementFromComposition(ChemicalElement _chemicalElement, double _distribution)
+        {
+
+            if (_distribution > 0.00001)
+            {
+                element_percentage actualvalue = elements_percentage_list.Where(x => x.el == _chemicalElement).FirstOrDefault();
+                if (_distribution == actualvalue.percentage)
+                {
+                    elements_percentage_list.Remove(actualvalue);
+                }
+                else if (_distribution < actualvalue.percentage && (actualvalue.percentage - _distribution) > 0.00001)
+                {
+                    elements_percentage_list.Remove(actualvalue);
+                    elements_percentage_list.Add(new element_percentage(_chemicalElement, (actualvalue.percentage - _distribution)));
+                }
+                
+            }
+        }
         //ritorna la percentuale dell'elemento scelto
         internal double get_percentage_per_element(ChemicalElement element)
         {
             return elements_percentage_list.Where(x => x.el == element).FirstOrDefault().percentage;
+        }
+
+        internal ChemicalElement getElementFromName(string _name)
+        {
+
+            return elements_percentage_list.Where(x => x.el.name == _name).FirstOrDefault().el;
         }
 
         //ritorna percentuale di elementi fluidi
