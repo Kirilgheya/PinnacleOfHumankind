@@ -25,9 +25,17 @@ namespace MainGame.Applicazione.DataModel
             }
         }
 
+        internal List<ChemicalElement> get_elementsForState(ElementState _state)
+        {
+
+            return elements_percentage_list.Where(x => x.el.state == _state).ToList().Select(x => x.el).ToList();
+        }
+
         //ritorna la lista di tutti gli elementi del corpo
         internal List<ChemicalElement> get_elements()
         {
+            
+            
             return elements_percentage_list.Select(x => x.el).ToList();
         }
 

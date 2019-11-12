@@ -23,7 +23,7 @@ namespace MainGame.Applicazione
             SimulationEngine.mustShowInfo = true;
 
             PeriodicTable.init();
-            
+            TestClass.createEarth();
             List<double> percentageList = new List<double>();
 
             createEarth();
@@ -32,15 +32,15 @@ namespace MainGame.Applicazione
             
             element = PeriodicTable.findByName("Hydrogen");
             chemicalElements.Add(element);
-            percentageList.Add(80.1);
+            percentageList.Add(73.46);
 
             element = PeriodicTable.findByName("Helium");
             chemicalElements.Add(element);
-            percentageList.Add(18.9);
+            percentageList.Add(24.85);
 
-            element = PeriodicTable.findByName("Iron");
+            element = PeriodicTable.findByName("Oxygen");
             chemicalElements.Add(element);
-            percentageList.Add(1.0);
+            percentageList.Add(1.69);
           
             
             ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements,percentageList);

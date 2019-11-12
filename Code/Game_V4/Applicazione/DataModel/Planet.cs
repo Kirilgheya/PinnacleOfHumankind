@@ -83,7 +83,18 @@ namespace MainGame.Applicazione.DataModel
 
             this.meanDensity = ((this.mass / Volume) * Math.Pow(10, -12)) * _densityMul;
 
-            pressione = ((ParametriUtente.Science.G
+            pressione = ((ParametriUtente.Science.G / 100
+                              * mass
+                              * this.meanDensity * Math.Pow(10, 12))
+                        / (this.planetRadius * this.planetRadius));
+
+            this.Core_temperature = (pressione /
+                                        ((this.meanDensity * Math.Pow(10, 12))
+                                                * (8.314462618 / (molecularWeight * 1000)) * 4.8
+                                                ))
+                                            ;
+
+            /*pressione = ((ParametriUtente.Science.G
                                 * mass
                                 * this.meanDensity * Math.Pow(10,3))
                                 / (this.planetRadius * this.planetRadius)
@@ -94,6 +105,7 @@ namespace MainGame.Applicazione.DataModel
                                                 * (8.314462618 / (molecularWeight)) * 4.8
                                                 ))
                                             ; // - K to get °
+                                            */
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
 
@@ -105,7 +117,7 @@ namespace MainGame.Applicazione.DataModel
             this.initAtmoSphere();
         }
 
-        private void initAtmoSphere(Boolean _isBlackBody=true)
+        private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
         {
 
             double R, T, M, m;
@@ -115,9 +127,18 @@ namespace MainGame.Applicazione.DataModel
           
          
             double escapevelocity = Math.Pow((2 * ParametriUtente.Science.G * this.mass) / (this.planetRadius*1000), (1.0 / 2.0));
+            ChemicalElement element=null;
             for (int i=0;i<3;i++)
             {
-                ChemicalElement element = this.body_composition.getRandomElement_PerType(ElementState.Gas);
+                ChemicalElement local_element = this.body_composition.getRandomElement_PerType(ElementState.Gas);
+                if(element!=null && element.name.Equals(local_element.name))
+                {
+
+                    continue;
+                }
+                
+                element = local_element;
+                
                 double percentage = this.body_composition.get_percentage_per_element(element)/100;
                 composition.addElementToComposition(element, percentage);
                 m = element.mass/1000;
@@ -137,13 +158,17 @@ namespace MainGame.Applicazione.DataModel
             Atmosphere atmosphere = new Atmosphere(composition);
             //this.applyAtmosphericEffects();
 
+            if(iterations <=0)
+            {
+                _isBlackBody = false;
+            }
 
-            if (_isBlackBody)
+            if (_isBlackBody )
             {
 
-                _isBlackBody = false;
-                
-                this.initAtmoSphere(_isBlackBody);
+
+                iterations--;
+                this.initAtmoSphere(_isBlackBody, iterations);
                 //this.applyAtmosphericEffects();
             }
             
@@ -152,6 +177,12 @@ namespace MainGame.Applicazione.DataModel
 
         }
 
+        public void applyAtmosphericEffects()
+        {
+
+            List<ChemicalElement> chemicalElements = this.body_composition.get_elements();
+
+        }
         private void InitPlanetClassification()
         {
             this.planetClass = this.body_composition.GetPlanetClass();

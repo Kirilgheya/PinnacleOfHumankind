@@ -165,30 +165,32 @@ namespace MainGame.Applicazione.DataModel
            
             this.meanDensity = 0;
 
-            foreach(ChemicalElement element in stellarCompositionMats)
+            foreach (ChemicalElement element in starComposition.get_elements())
             {
-                double currentElement = elementsDistribution.ElementAt(stellarCompositionMats.IndexOf(element));
+
+                double currentElement = starComposition.get_percentage_per_element(element);
+
                 sumofElement = sumofElement + currentElement;
-                molecularWeight = (molecularWeight + (element.mass* currentElement)
-                                                ) / sumofElement;
+                molecularWeight = (molecularWeight + (element.mass)
+                                               );
             }
+            molecularWeight = molecularWeight / sumofElement;
 
-
-            this.Volume = (Math.Pow(this.starRadius, 3) * (4 / 3) * Math.PI); //k3
+            this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0) )* Math.PI); //k3
 
             this.mass = rel_mass * ParametriUtente.Science.m_sun;
 
             this.meanDensity = ((this.mass/ Volume)*Math.Pow(10,-12)) * _densityMul;
        
             
-            pressione = ((ParametriUtente.Science.G 
+            pressione = ((ParametriUtente.Science.G/100 
                                 * mass
                                 * this.meanDensity * Math.Pow(10, 12))
-                                / (this.starRadius * this.starRadius * this.starRadius));
-
+                          / (this.starRadius * this.starRadius));
+            
             this.Core_temperature = (pressione / 
-                                        ((this.meanDensity * Math.Pow(10, 6)) 
-                                                * (8.314462618 / (molecularWeight))*4.8
+                                        ((this.meanDensity  *Math.Pow(10, 12)) 
+                                                * (8.314462618 / (molecularWeight*1000))*4.8
                                                 ) ) 
                                             ; // - K to get °
             this.Surface_temperature = this.Core_temperature / 2543.37;
