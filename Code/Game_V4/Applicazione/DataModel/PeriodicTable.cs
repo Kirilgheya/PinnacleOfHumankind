@@ -26,6 +26,7 @@ namespace Applicazione.DataModel
             }
             
             engine.setPeriodicTable(0);
+            engine.setCompositesTable(0);
             engine.setSeeds();
         }
 

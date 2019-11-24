@@ -11,6 +11,7 @@ namespace MainGame.Applicazione.Engine
     {
         private static string extraResourcePath = ParametriUtente.exeRootFodler + "\\\\Risorse Extra\\\\";
         private List<ChemicalElement> listofElements = new List<ChemicalElement>();
+        private List<ChemicalElement> listofComposites = new List<ChemicalElement>();
         public static List<ChemicalElement> starSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> ironPlanetSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> rockyPlanetSeed = new List<ChemicalElement>();
@@ -167,24 +168,27 @@ namespace MainGame.Applicazione.Engine
             NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
 
-
+            
             var lines = File.ReadLines(@"" + extraResourcePath + "ElementTable.csv");
-
+            
             //per togliere l'intestazione
             lines = lines.Skip(1);
 
-            listofElements = lines.Select(x =>
+            listofComposites = lines.Select(x =>
             {
                 var chemicalValue = x.Split(',', ';');
                 List<String> components = new List<string>();
-                ChemicalElement chemicalElement;
                 double atomicWeight = 0;
                 double _density;
+                ChemicalElement chemicalElement;
+                ElementState state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[3], true);
                 Double.TryParse(chemicalValue[0], style, culture, out _density);
-
                 
+                if (state == ElementState.Gas)
+                {
+                    _density = Converter.gL_to_gcm3(_density);
+                }
                 
-
                 for (int i = 4; i < chemicalValue.Length; i++)
                 {
                     string value = chemicalValue[i];
@@ -202,7 +206,7 @@ namespace MainGame.Applicazione.Engine
                     density = _density,
                     name = chemicalValue[1],
                     symbol = chemicalValue[2], 
-                    state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[3], true),
+                    state = state,
                     mass = atomicWeight,
                     type = ChemicalElementClassification.Composite,
                     components = components,
