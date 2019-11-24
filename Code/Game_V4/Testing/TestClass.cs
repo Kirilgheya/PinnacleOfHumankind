@@ -24,6 +24,7 @@ namespace MainGame.Applicazione
 
             PeriodicTable.init();
             TestClass.createEarth();
+            TestClass.createSun();
             List<double> percentageList = new List<double>();
 
             createEarth();
@@ -60,6 +61,53 @@ namespace MainGame.Applicazione
             int i = 0;
         }
 
+        public static void createSun()
+        {
+            List<double> percentageList = new List<double>();
+
+
+            ChemicalElement element;
+            List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
+
+            element = PeriodicTable.findByName("Hydrogen");
+            chemicalElements.Add(element);
+            percentageList.Add(73.46);
+
+            element = PeriodicTable.findByName("Helium");
+            chemicalElements.Add(element);
+            percentageList.Add(24.85);
+
+            element = PeriodicTable.findByName("Oxygen");
+            chemicalElements.Add(element);
+            percentageList.Add(0.87);
+            element = PeriodicTable.findByName("Iron");
+            chemicalElements.Add(element);
+            percentageList.Add(0.26);
+            element = PeriodicTable.findByName("Neon");
+            chemicalElements.Add(element);
+            percentageList.Add(0.22);
+            element = PeriodicTable.findByName("Nitrogen");
+            chemicalElements.Add(element);
+            percentageList.Add(0.12);
+            element = PeriodicTable.findByName("Silicon");
+            chemicalElements.Add(element);
+            percentageList.Add(0.11);
+            element = PeriodicTable.findByName("Magnesium");
+            chemicalElements.Add(element);
+            percentageList.Add(0.06); ;
+            element = PeriodicTable.findByName("Sulfur");
+            chemicalElements.Add(element);
+            percentageList.Add(0.05);
+
+
+            ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements, percentageList);
+            Star star = new Star(ParametriUtente.Science.r_sun, 0, chemicalElements);
+
+
+            star.initStar(1, 1, chemicalComposition.get_percentage());
+            Console.WriteLine("Sun created check in debug values");
+        }
+
         public static void createEarth()
         {
             List<double> percentageList = new List<double>();
@@ -87,6 +135,8 @@ namespace MainGame.Applicazione
             ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements, percentageList);
             Planet x = new Planet(chemicalComposition, ParametriUtente.Science.r_t, ParametriUtente.Science.AU);
             x.initPlanet();
+
+            Console.WriteLine("Earth created check in debug values");
         }
 
         private static void printToFile(String _content)

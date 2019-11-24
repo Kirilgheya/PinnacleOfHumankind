@@ -36,7 +36,38 @@ public static class Converter
         new Unità_di_misura("Anno luce", "LY",LY_to_UA(1),0)
         };
 
+    public static List<Unità_di_misura> densityMeters_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Grammo/Centrimetro cubo","g/cm3", 0,100),
+        new Unità_di_misura("Kilogrammo/Metro cubo","kg/m3",1000,0),
+        };
+    public static List<Unità_di_misura> densityLiters_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Kilogrammo/Litro","kg/L",0,1000),
+        new Unità_di_misura("Grammo/Litro","g/L",1000,0),
+        };
 
+    public static double gcm3_to_gL(double cm3)
+    {
+        return cm3 * Constants.gcm3_to_gL;
+    }
+    public static double gL_to_gcm3(double L)
+    {
+        return L * Constants.gL_to_gcm3;
+    }
+
+    public static double kgm3_to_kgL(double m3)
+    {
+        return m3 * Constants.kgm3_to_kgL;
+    }
+
+    public static double kgL_to_kgm3(double L)
+    {
+        return L * Constants.kgL_to_kgm3;
+    }
+
+    public static List<Unità_di_misura> densityLitersGrams_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Kilogrammo/Litro","kg/L",0,1000),
+        new Unità_di_misura("Grammo/Litro","g/L",1000,0),
+        };
 }
 
 public class Unità_di_misura

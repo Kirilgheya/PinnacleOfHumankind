@@ -79,6 +79,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Risorse Extra\ElementTable.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Risorse Extra\PeriodicTable.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
