@@ -10,6 +10,13 @@ namespace MainGame
 	class EnumClass
 	{
 	}
+
+    public enum ChemicalElementClassification
+    {
+        Simple=0,
+        Composite=1
+    }
+
 	public enum PlanetClassification
 	{
 		Satellite = 0,

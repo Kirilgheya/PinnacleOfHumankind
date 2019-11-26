@@ -1,0 +1,4 @@
+Density;Name;Symbol;State;Component;Component;Component;Component;Component;Component
+0.998;Water;H20;Liquid;Hydrogen;Hydrogen;Oxygen
+0.05;Water Vapour;Vapour;Gas;Hydrogen;Hydrogen;Oxygen
+0.917;Ice;Ice;Solid;Hydrogen;Hydrogen;Oxygen

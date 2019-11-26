@@ -26,49 +26,58 @@ public static class Converter
     }
 
     //lista delle unità di misura della lunghezza
-    public static List<Unità_di_misura> leght_units = new List<Unità_di_misura>(
-        new Unità_di_misura("Millimetre","mm", null,10),
-        new Unità_di_misura("Centimetre","cm",10,10),
-        new Unità_di_misura("Decimetre","dm",10,10),
-        new Unità_di_misura("Metre","dm",10,1000),
-        new Unità_di_misura("Kilometre","Km",1000,149597870,700),
-        new Unità_di_misura("Astronomical Unit","AU",UA_to_km, UA_to_LY),
-        new Unità_di_misura("Light year", "LY",LY_to_UA,null)
-        );
+    public static List<Unità_di_misura> leght_units = new List<Unità_di_misura> { 
+        new Unità_di_misura("Millimetro","mm", 0,10),
+        new Unità_di_misura("Centimetro","cm",10,10),
+        new Unità_di_misura("Decimetro","dm",10,10),
+        new Unità_di_misura("Metro","dm",10,1000),
+        new Unità_di_misura("Kilometro","Km",1000,1000),
+        new Unità_di_misura("Unità Astronomica","UA", UA_to_Km(1), UA_to_LY(1)),
+        new Unità_di_misura("Anno luce", "LY",LY_to_UA(1),0)
+        };
 
-     public static List<Unità_di_misura> time_units = new List<Unità_di_misura>(
-        new Unità_di_misura("Millisecond","ms", null,10),
-        new Unità_di_misura("Centisecond","cs",10,10),
-        new Unità_di_misura("Decisecond","ds",10,10),
-        new Unità_di_misura("Second","s",10,60),
-        new Unità_di_misura("Minute","min",60,60),
-        new Unità_di_misura("Hour","h",60,24),
-        new Unità_di_misura("Terrestrial day", "day",24,365),
-        new Unità_di_misura("Terrestrial year", "year",365,null)
-        );
+    public static List<Unità_di_misura> densityMeters_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Grammo/Centrimetro cubo","g/cm3", 0,100),
+        new Unità_di_misura("Kilogrammo/Metro cubo","kg/m3",1000,0),
+        };
+    public static List<Unità_di_misura> densityLiters_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Kilogrammo/Litro","kg/L",0,1000),
+        new Unità_di_misura("Grammo/Litro","g/L",1000,0),
+        };
 
-     public static List<Unità_di_misura> weight_units = new List<Unità_di_misura>(
-        new Unità_di_misura("Milligram","mg", null,10),
-        new Unità_di_misura("Centigram","cg",10,10),
-        new Unità_di_misura("Decigram","dg",10,10),
-        new Unità_di_misura("Gram","gr",10,1000),
-        new Unità_di_misura("Kilogram","Kg",1000,1000),
-        new Unità_di_misura("Tons","tons",1000,null)
-         );
+    public static double gcm3_to_gL(double cm3)
+    {
+        return cm3 * Constants.gcm3_to_gL;
+    }
+    public static double gL_to_gcm3(double L)
+    {
+        return L * Constants.gL_to_gcm3;
+    }
 
+    public static double kgm3_to_kgL(double m3)
+    {
+        return m3 * Constants.kgm3_to_kgL;
+    }
 
+    public static double kgL_to_kgm3(double L)
+    {
+        return L * Constants.kgL_to_kgm3;
+    }
 
-
+    public static List<Unità_di_misura> densityLitersGrams_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Kilogrammo/Litro","kg/L",0,1000),
+        new Unità_di_misura("Grammo/Litro","g/L",1000,0),
+        };
 }
 
-public static class Unità_di_misura
+public class Unità_di_misura
 {
 
-    public string nome;  //inglese
-    public string sigla; 
+    public string nome;  //inglese o ita?
+    public string sigla;  //come sopra
     public double al_precedente;  //se nullo è il più piccolo
     public double al_sucessivo; //se nullo è il più grande
-    Unità_di_misura(string _nome, string _sigla, double _al_precedente, double _al_sucessivo)
+    public Unità_di_misura(string _nome, string _sigla, double _al_precedente, double _al_sucessivo)
         {
             nome = _nome;
             sigla = _sigla;

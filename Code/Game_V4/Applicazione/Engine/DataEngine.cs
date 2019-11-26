@@ -11,6 +11,7 @@ namespace MainGame.Applicazione.Engine
     {
         private static string extraResourcePath = ParametriUtente.exeRootFodler + "\\\\Risorse Extra\\\\";
         private List<ChemicalElement> listofElements = new List<ChemicalElement>();
+        private List<ChemicalElement> listofComposites = new List<ChemicalElement>();
         public static List<ChemicalElement> starSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> ironPlanetSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> rockyPlanetSeed = new List<ChemicalElement>();
@@ -69,7 +70,6 @@ namespace MainGame.Applicazione.Engine
 
             gasPlanetSeed.Add(findByName("Hydrogen"));
             gasPlanetSeed.Add(findByName("Helium"));
-            gasPlanetSeed.Add(findByName("Hydrogen"));
             gasPlanetSeed.Add(findByName("Calcium"));
             gasPlanetSeed.Add(findByName("Oxygen"));
             gasPlanetSeed.Add(findByName("Silver"));
@@ -85,27 +85,28 @@ namespace MainGame.Applicazione.Engine
             gasPlanetSeed.Add(findByName("Argon"));
 
             ironPlanetSeed.Add(findByName("Iron"));
-            ironPlanetSeed.Add(findByName("Oxygen"));
-            ironPlanetSeed.Add(findByName("Hydrogen"));
+            
+            ironPlanetSeed.Add(findByName("Nickel"));
             ironPlanetSeed.Add(findByName("Calcium"));
-            ironPlanetSeed.Add(findByName("Hydrogen"));
             ironPlanetSeed.Add(findByName("Silver"));
             ironPlanetSeed.Add(findByName("Carbon"));
             ironPlanetSeed.Add(findByName("Silicon"));
+            ironPlanetSeed.Add(findByName("Nitrogen"));
             ironPlanetSeed.Add(findByName("Lithium"));
+            ironPlanetSeed.Add(findByName("Oxygen"));
             ironPlanetSeed.Add(findByName("Tin"));
             ironPlanetSeed.Add(findByName("Sulfur"));
             ironPlanetSeed.Add(findByName("Nickel"));
             ironPlanetSeed.Add(findByName("Copper"));
             ironPlanetSeed.Add(findByName("Cobalt"));
             ironPlanetSeed.Add(findByName("Sodium"));
+       
             ironPlanetSeed.Add(findByName("Argon"));
 
             rockyPlanetSeed.Add(findByName("Carbon"));
             rockyPlanetSeed.Add(findByName("Silicon"));
-            rockyPlanetSeed.Add(findByName("Hydrogen"));
+            rockyPlanetSeed.Add(findByName("Nitrogen"));
             rockyPlanetSeed.Add(findByName("Iron"));
-            rockyPlanetSeed.Add(findByName("Hydrogen"));
             rockyPlanetSeed.Add(findByName("Silver"));
             rockyPlanetSeed.Add(findByName("Carbon"));
             rockyPlanetSeed.Add(findByName("Oxygen"));
@@ -135,10 +136,13 @@ namespace MainGame.Applicazione.Engine
             listofElements = lines.Select(x =>
            {
                var chemicalValue = x.Split(',', ';');
-
+               ElementState state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[4], true);
                double _density;
                Double.TryParse(chemicalValue[0], style, culture, out _density);
-
+               if(state == ElementState.Gas)
+               {
+                   _density = Converter.gL_to_gcm3(_density);
+               }
                double _atomicWeight;
                Double.TryParse(chemicalValue[5], style, culture, out _atomicWeight);
 
@@ -148,14 +152,68 @@ namespace MainGame.Applicazione.Engine
                    name = chemicalValue[1],
                    symbol = chemicalValue[2],
                    numberOfParticles = Int32.Parse(chemicalValue[3].Trim()),
-                   state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[4], true),
+                   state = state,
                    mass = _atomicWeight,
-
+                   type = ChemicalElementClassification.Simple,
 
 
                };
 
            }).ToList();
+        }
+
+
+        public void setCompositesTable(int _index = 0)
+        {
+            NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+
+            
+            var lines = File.ReadLines(@"" + extraResourcePath + "ElementTable.csv");
+            
+            //per togliere l'intestazione
+            lines = lines.Skip(1);
+
+            listofComposites = lines.Select(x =>
+            {
+                var chemicalValue = x.Split(',', ';');
+                List<String> components = new List<string>();
+                double atomicWeight = 0;
+                double _density;
+                ChemicalElement chemicalElement;
+                ElementState state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[3], true);
+                Double.TryParse(chemicalValue[0], style, culture, out _density);
+                
+                if (state == ElementState.Gas)
+                {
+                    _density = Converter.gL_to_gcm3(_density);
+                }
+                
+                for (int i = 4; i < chemicalValue.Length; i++)
+                {
+                    string value = chemicalValue[i];
+                    if(!value.Equals(""))
+                    {
+                        chemicalElement = this.findByName(value);
+                        atomicWeight = atomicWeight + chemicalElement.mass;
+                        components.Add(value);
+                    }
+                    
+                }
+
+                return new ChemicalElement()
+                {
+                    density = _density,
+                    name = chemicalValue[1],
+                    symbol = chemicalValue[2], 
+                    state = state,
+                    mass = atomicWeight,
+                    type = ChemicalElementClassification.Composite,
+                    components = components,
+
+                };
+
+            }).ToList();
         }
 
 
