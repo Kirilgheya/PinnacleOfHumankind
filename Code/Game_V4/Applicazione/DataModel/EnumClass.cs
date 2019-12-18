@@ -38,7 +38,9 @@ namespace MainGame
         Liquid = 1,
         Solid = 2,
         Plasma = 3,
-        Synthetic = 4
+        Synthetic = 4,
+        Molecule = 5,
+        Material = 6
     }
     public enum OverallStarClassification
     {

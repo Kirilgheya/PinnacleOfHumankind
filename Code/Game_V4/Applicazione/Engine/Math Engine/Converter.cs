@@ -37,7 +37,7 @@ public static class Converter
         };
 
     public static List<Unità_di_misura> densityMeters_units = new List<Unità_di_misura> {
-        new Unità_di_misura("Grammo/Centrimetro cubo","g/cm3", 0,100),
+        new Unità_di_misura("Grammo/Centrimetro cubo","g/cm3", 0,1000),
         new Unità_di_misura("Kilogrammo/Metro cubo","kg/m3",1000,0),
         };
     public static List<Unità_di_misura> densityLiters_units = new List<Unità_di_misura> {

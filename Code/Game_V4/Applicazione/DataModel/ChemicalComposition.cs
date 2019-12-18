@@ -173,6 +173,7 @@ namespace MainGame.Applicazione.DataModel
 
             return formattedInfo;
         }
+
     }
 
 

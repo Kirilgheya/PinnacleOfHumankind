@@ -60,64 +60,64 @@ namespace MainGame.Applicazione.Engine
 
         public void setSeeds()
         {
-            starSeed.Add(findByName("Hydrogen"));
-            starSeed.Add(findByName("Helium"));
-            starSeed.Add(findByName("Argon"));
-            starSeed.Add(findByName("Oxygen"));
-            starSeed.Add(findByName("Carbon"));
-            starSeed.Add(findByName("Iron"));
-            starSeed.Add(findByName("Xenon"));
+            starSeed.Add(findBaseElementByName("Hydrogen"));
+            starSeed.Add(findBaseElementByName("Helium"));
+            starSeed.Add(findBaseElementByName("Argon"));
+            starSeed.Add(findBaseElementByName("Oxygen"));
+            starSeed.Add(findBaseElementByName("Carbon"));
+            starSeed.Add(findBaseElementByName("Iron"));
+            starSeed.Add(findBaseElementByName("Xenon"));
 
-            gasPlanetSeed.Add(findByName("Hydrogen"));
-            gasPlanetSeed.Add(findByName("Helium"));
-            gasPlanetSeed.Add(findByName("Calcium"));
-            gasPlanetSeed.Add(findByName("Oxygen"));
-            gasPlanetSeed.Add(findByName("Silver"));
-            gasPlanetSeed.Add(findByName("Carbon"));
-            gasPlanetSeed.Add(findByName("Silicon"));
-            gasPlanetSeed.Add(findByName("Lithium"));
-            gasPlanetSeed.Add(findByName("Tin"));
-            gasPlanetSeed.Add(findByName("Sulfur"));
-            gasPlanetSeed.Add(findByName("Nickel"));
-            gasPlanetSeed.Add(findByName("Copper"));
-            gasPlanetSeed.Add(findByName("Cobalt"));
-            gasPlanetSeed.Add(findByName("Sodium"));
-            gasPlanetSeed.Add(findByName("Argon"));
+            gasPlanetSeed.Add(findBaseElementByName("Hydrogen"));
+            gasPlanetSeed.Add(findBaseElementByName("Helium"));
+            gasPlanetSeed.Add(findBaseElementByName("Calcium"));
+            gasPlanetSeed.Add(findBaseElementByName("Oxygen"));
+            gasPlanetSeed.Add(findBaseElementByName("Silver"));
+            gasPlanetSeed.Add(findBaseElementByName("Carbon"));
+            gasPlanetSeed.Add(findBaseElementByName("Silicon"));
+            gasPlanetSeed.Add(findBaseElementByName("Lithium"));
+            gasPlanetSeed.Add(findBaseElementByName("Tin"));
+            gasPlanetSeed.Add(findBaseElementByName("Sulfur"));
+            gasPlanetSeed.Add(findBaseElementByName("Nickel"));
+            gasPlanetSeed.Add(findBaseElementByName("Copper"));
+            gasPlanetSeed.Add(findBaseElementByName("Cobalt"));
+            gasPlanetSeed.Add(findBaseElementByName("Sodium"));
+            gasPlanetSeed.Add(findBaseElementByName("Argon"));
 
-            ironPlanetSeed.Add(findByName("Iron"));
+            ironPlanetSeed.Add(findBaseElementByName("Iron"));
             
-            ironPlanetSeed.Add(findByName("Nickel"));
-            ironPlanetSeed.Add(findByName("Calcium"));
-            ironPlanetSeed.Add(findByName("Silver"));
-            ironPlanetSeed.Add(findByName("Carbon"));
-            ironPlanetSeed.Add(findByName("Silicon"));
-            ironPlanetSeed.Add(findByName("Nitrogen"));
-            ironPlanetSeed.Add(findByName("Lithium"));
-            ironPlanetSeed.Add(findByName("Oxygen"));
-            ironPlanetSeed.Add(findByName("Tin"));
-            ironPlanetSeed.Add(findByName("Sulfur"));
-            ironPlanetSeed.Add(findByName("Nickel"));
-            ironPlanetSeed.Add(findByName("Copper"));
-            ironPlanetSeed.Add(findByName("Cobalt"));
-            ironPlanetSeed.Add(findByName("Sodium"));
+            ironPlanetSeed.Add(findBaseElementByName("Nickel"));
+            ironPlanetSeed.Add(findBaseElementByName("Calcium"));
+            ironPlanetSeed.Add(findBaseElementByName("Silver"));
+            ironPlanetSeed.Add(findBaseElementByName("Carbon"));
+            ironPlanetSeed.Add(findBaseElementByName("Silicon"));
+            ironPlanetSeed.Add(findBaseElementByName("Nitrogen"));
+            ironPlanetSeed.Add(findBaseElementByName("Lithium"));
+            ironPlanetSeed.Add(findBaseElementByName("Oxygen"));
+            ironPlanetSeed.Add(findBaseElementByName("Tin"));
+            ironPlanetSeed.Add(findBaseElementByName("Sulfur"));
+            ironPlanetSeed.Add(findBaseElementByName("Nickel"));
+            ironPlanetSeed.Add(findBaseElementByName("Copper"));
+            ironPlanetSeed.Add(findBaseElementByName("Cobalt"));
+            ironPlanetSeed.Add(findBaseElementByName("Sodium"));
        
-            ironPlanetSeed.Add(findByName("Argon"));
+            ironPlanetSeed.Add(findBaseElementByName("Argon"));
 
-            rockyPlanetSeed.Add(findByName("Carbon"));
-            rockyPlanetSeed.Add(findByName("Silicon"));
-            rockyPlanetSeed.Add(findByName("Nitrogen"));
-            rockyPlanetSeed.Add(findByName("Iron"));
-            rockyPlanetSeed.Add(findByName("Silver"));
-            rockyPlanetSeed.Add(findByName("Carbon"));
-            rockyPlanetSeed.Add(findByName("Oxygen"));
-            rockyPlanetSeed.Add(findByName("Lithium"));
-            rockyPlanetSeed.Add(findByName("Tin"));
-            rockyPlanetSeed.Add(findByName("Sulfur"));
-            rockyPlanetSeed.Add(findByName("Nickel"));
-            rockyPlanetSeed.Add(findByName("Copper"));
-            rockyPlanetSeed.Add(findByName("Cobalt"));
-            rockyPlanetSeed.Add(findByName("Sodium"));
-            rockyPlanetSeed.Add(findByName("Argon"));
+            rockyPlanetSeed.Add(findBaseElementByName("Carbon"));
+            rockyPlanetSeed.Add(findBaseElementByName("Silicon"));
+            rockyPlanetSeed.Add(findBaseElementByName("Nitrogen"));
+            rockyPlanetSeed.Add(findBaseElementByName("Iron"));
+            rockyPlanetSeed.Add(findBaseElementByName("Silver"));
+            rockyPlanetSeed.Add(findBaseElementByName("Carbon"));
+            rockyPlanetSeed.Add(findBaseElementByName("Oxygen"));
+            rockyPlanetSeed.Add(findBaseElementByName("Lithium"));
+            rockyPlanetSeed.Add(findBaseElementByName("Tin"));
+            rockyPlanetSeed.Add(findBaseElementByName("Sulfur"));
+            rockyPlanetSeed.Add(findBaseElementByName("Nickel"));
+            rockyPlanetSeed.Add(findBaseElementByName("Copper"));
+            rockyPlanetSeed.Add(findBaseElementByName("Cobalt"));
+            rockyPlanetSeed.Add(findBaseElementByName("Sodium"));
+            rockyPlanetSeed.Add(findBaseElementByName("Argon"));
 
 
         }
@@ -174,13 +174,13 @@ namespace MainGame.Applicazione.Engine
             //per togliere l'intestazione
             lines = lines.Skip(1);
 
-            listofComposites = lines.Select(x =>
-            {
-                var chemicalValue = x.Split(',', ';');
+           foreach(var line in lines)
+            { 
+                var chemicalValue = line.Split(',', ';');
                 List<String> components = new List<string>();
                 double atomicWeight = 0;
                 double _density;
-                ChemicalElement chemicalElement;
+                ChemicalElement chemicalElement, molecule;
                 ElementState state = (ElementState)Enum.Parse(typeof(ElementState), chemicalValue[3], true);
                 Double.TryParse(chemicalValue[0], style, culture, out _density);
                 
@@ -194,18 +194,17 @@ namespace MainGame.Applicazione.Engine
                     string value = chemicalValue[i];
                     if(!value.Equals(""))
                     {
-                        chemicalElement = this.findByName(value);
+                        chemicalElement = this.findElementByName(value);
                         atomicWeight = atomicWeight + chemicalElement.mass;
                         components.Add(value);
                     }
                     
                 }
-
-                return new ChemicalElement()
+                molecule = new ChemicalElement()
                 {
                     density = _density,
                     name = chemicalValue[1],
-                    symbol = chemicalValue[2], 
+                    symbol = chemicalValue[2],
                     state = state,
                     mass = atomicWeight,
                     type = ChemicalElementClassification.Composite,
@@ -213,13 +212,42 @@ namespace MainGame.Applicazione.Engine
 
                 };
 
-            }).ToList();
+
+                 listofComposites.Add(molecule);
+            }
         }
 
+        public ChemicalElement findElementByName(string _name)
+        {
+            ChemicalElement element = this.listofElements.Where(x => x.name.Equals(_name)).FirstOrDefault();
+            if(element == null)
+            {
 
-        public ChemicalElement findByName(string _name)
+                element = this.listofComposites.Where(x => x.name.Equals(_name)).FirstOrDefault();
+            }
+
+
+            return element;
+        }
+
+        public ChemicalElement findBaseElementByName(string _name)
         {
             return this.listofElements.Where(x => x.name.Equals(_name)).FirstOrDefault();
+        }
+
+        public List<ChemicalElement> getListOfElementsByState(ElementState _statefilter)
+        {
+
+            if(_statefilter > ElementState.Solid)
+            {
+
+                return new List<ChemicalElement>(this.listofComposites.Where(x => x.state.Equals(_statefilter)));
+            }
+            else
+            {
+
+                return new List<ChemicalElement>(this.listofElements.Where(x => x.state.Equals(_statefilter)));
+            }
         }
     }
 }

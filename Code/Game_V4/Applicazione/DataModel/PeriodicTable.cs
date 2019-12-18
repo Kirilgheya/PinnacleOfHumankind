@@ -1,4 +1,5 @@
-﻿using MainGame.Applicazione.DataModel;
+﻿using MainGame;
+using MainGame.Applicazione.DataModel;
 using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,13 @@ namespace Applicazione.DataModel
         public static ChemicalElement findByName(string _name)
         {
 
-            return engine.findByName(_name);
+            return engine.findBaseElementByName(_name);
+        }
+
+        public static List<ChemicalElement> getListOfElementsByState(ElementState _statefilter)
+        {
+
+            return engine.getListOfElementsByState(_statefilter);
         }
     }
 }

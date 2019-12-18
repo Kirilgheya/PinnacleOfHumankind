@@ -53,6 +53,13 @@ namespace MainGame.Applicazione.DataModel
         {
             int minSupportedPlanet = 0, supportedPlanets;
             double metallicityFactor;
+            double habitableZone_min;
+            double habitableZone_max;
+            double jupMass_EarthRadii = 11.209;
+            double multiplierFactor = 1;
+
+            Random randomSeed = new Random();
+
             Star star = new Star(this.starRadius, 0, this.composition.get_elements());
             
 
@@ -61,12 +68,11 @@ namespace MainGame.Applicazione.DataModel
 
             metallicityFactor = this.star.Metallicity;
 
-            Random randomSeed = new Random();
+           
 
             supportedPlanets = randomSeed.Next(minSupportedPlanet, this.maxSupportedPlanets);
 
-            double habitableZone_min;
-            double habitableZone_max;
+           
 
             //This is measured in AU 
             habitableZone_min = Math.Sqrt(this.star.relluminosity/1.1);
@@ -77,34 +83,35 @@ namespace MainGame.Applicazione.DataModel
             randomSeed = new Random();
 
             Double[] radii = new double[this.maxSupportedPlanets];
-            double jupMass_EarthRadii = 11.209, incremento = 1;
+            
             int c = 0;
-            while(c<radii.Length)
+            while(c< this.maxSupportedPlanets)
             {
 
-                
-
-                radii[c] = (randomSeed.NextDouble() * (((jupMass_EarthRadii ) * incremento) - (0.5 )) + (0.5 ));
+                radii[c] = randomSeed.NextDouble() 
+                                * ( (jupMass_EarthRadii  * multiplierFactor) - 0.5 ) + 0.5 ;
                                                         
                 c++;
                 if (radii[c - 1] > 10)
                 {
-                    incremento = 0.9;
+                    multiplierFactor = 0.7;
                 }
             }
            
             Double[] distance = new double[this.maxSupportedPlanets];
-            incremento = 5;
+
+            multiplierFactor = 5;
             c = 0;
-            while (c < radii.Length)
+
+            while (c < this.maxSupportedPlanets)
             {
 
                 if(c>= (int)(this.maxSupportedPlanets/2))
                 {
-                    incremento = 2;
+                    multiplierFactor = 2;
                 }
 
-                distance[c] = (randomSeed.NextDouble() * ((incremento * habitableZone_max) - 0.1) + (0.1));
+                distance[c] = (randomSeed.NextDouble() * ((multiplierFactor * habitableZone_max) - 0.1) + (0.1));
 
 
 
@@ -167,7 +174,9 @@ namespace MainGame.Applicazione.DataModel
                         //h20
                     }
                 }
+
                 Planet x;
+
                 if (radii[c]<9)
                 {
                     x = SimulationEngine.createPlanet(chemicalComposition, radii[c], distance[c]);

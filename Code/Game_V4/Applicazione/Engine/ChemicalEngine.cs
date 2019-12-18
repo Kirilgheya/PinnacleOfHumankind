@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Applicazione.DataModel;
+using MainGame.Applicazione.DataModel;
+using MainGame.Applicazione.Engine;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -58,5 +61,39 @@ namespace MainGame.Applicazione
 
 			ParametriUtente.Science.knownElements = periodicTable;
 		}
+
+
+        public void generateComposites(int _numberOfIterations, ChemicalComposition _composition)
+        {
+            List<ChemicalElement> chemicalElements,validElements;
+            if(_numberOfIterations<=0)
+            {
+
+                return;
+            }
+            validElements = new List<ChemicalElement>();
+            chemicalElements = PeriodicTable.getListOfElementsByState(ElementState.Molecule);
+            foreach(ChemicalElement molecule in chemicalElements)
+            {
+
+                foreach (string _component in molecule.components)
+                {
+                    ChemicalElement chemicalElement = _composition.getElementFromName(_component);
+                    if (chemicalElement == null)
+                    {
+
+                        validElements.Clear();
+                        break;
+                    }
+
+                    validElements.Add(chemicalElement);
+                }
+            }
+            
+        }
+
+        
     }
 }
+
+

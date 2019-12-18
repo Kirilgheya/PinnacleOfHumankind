@@ -61,7 +61,7 @@ namespace MainGame.Applicazione.Engine
             Planet planet=null;
             
 
-            int relMass = random.Next(120, 120 * 3);
+            int relMass = random.Next(50, 120 * 3);
 
             planet = new Planet(_chemicalComposition, (_earthRadii*ParametriUtente.Science.r_t), distance_from_star);
             planet.initPlanet(1, relMass);
@@ -75,7 +75,7 @@ namespace MainGame.Applicazione.Engine
             double relMass;
             if (_earthRadii>2)
             {
-                relMass = random.NextDouble() * (60 - 1) + 1;
+                relMass = random.NextDouble() * (45 - 1) + 1;
             }
             else
             {

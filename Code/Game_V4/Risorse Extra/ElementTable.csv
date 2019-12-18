@@ -1,4 +1,16 @@
-Density;Name;Symbol;State;Component;Component;Component;Component;Component;Component
-0.998;Water;H20;Liquid;Hydrogen;Hydrogen;Oxygen
-0.05;Water Vapour;Vapour;Gas;Hydrogen;Hydrogen;Oxygen
-0.917;Ice;Ice;Solid;Hydrogen;Hydrogen;Oxygen
+Density g/cm3,Name,Symbol,State,Component,Component,Component,Component,Component,Component
+1,Water,H2O,Molecule,Hydrogen,Hydrogen,Oxygen,,,
+0.985,Water Vapour,Vapour,Molecule,Hydrogen,Hydrogen,Oxygen,,,
+0.917,Ice,Ice,Molecule,Hydrogen,Hydrogen,Oxygen,,,
+8.05,Steel,Steel,Molecule,Iron,Carbon,,,,
+2.5,Glass,Glass,Molecule,Silicon,Sodium,Carbon,Oxygen,Calcium,
+1.35,Simple Protein,A-Protein,Molecule,Carbon,Hydrogen,Oxygen,Nitrogen,,
+1.35,Complex Protein,C-Protein,Molecule,Protein,Protein,Protein,Protein,,
+1.44,Cement,Cement,Material,Calcium,Calcium,Oxygen,,,
+1.3,Hydrogen Peroxide,H2O2,Molecule,Hydrogen,Hydrogen,Oxygen,Oxygen,,
+0.000656,Methane,CH4,Molecule,Carbon,Hydrogen,Hydrogen,Hydrogen,Hydrogen,
+0.00198,Carbon Dioxide,CO2,Material,Carbon,Oxygen,Oxygen,,,
+2.5,LaserOptic Glass,Optics,Material,Glass,Thorium,,,,
+2.5,LaserOptic Glass,Optics,Material,Glass,Germanium,,,,
+1.54,Silica Sand,Silica Sand,Molecule,Silicon,Oxygen,Oxygen,,,
+2.5,Silica Glass,Silica Glass,Material,Silica Sand,Sodium,Carbon,Oxygen,Calcium,
