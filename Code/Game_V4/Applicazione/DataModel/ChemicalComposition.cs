@@ -82,8 +82,12 @@ namespace MainGame.Applicazione.DataModel
 
         internal ChemicalElement getElementFromName(string _name)
         {
+            if(elements_percentage_list.Where(x => x.el.name == _name).FirstOrDefault() != null)
+            {
+                return elements_percentage_list.Where(x => x.el.name == _name).FirstOrDefault().el;
+            }
 
-            return elements_percentage_list.Where(x => x.el.name == _name).FirstOrDefault().el;
+            return null;
         }
 
         //ritorna percentuale di elementi fluidi
@@ -159,6 +163,59 @@ namespace MainGame.Applicazione.DataModel
 
             return planetClass;
 
+        }
+
+        public void mergeCompositions(ChemicalComposition _composition)
+        {
+            if(_composition == null)
+            {
+
+                return;
+            }
+            List<ChemicalElement> toBeMergedElements = _composition.get_elements(), newChemicalElements = new List<ChemicalElement>();
+            List<double> toBeMergedPercentage = _composition.get_percentage();
+         
+            List<element_percentage> newcomposition = new List<element_percentage>();
+            int totalePerc = 200,c=0;
+            double perc = 0;
+            foreach(ChemicalElement element in toBeMergedElements)
+            {
+
+                if(this.getElementFromName(element.name)!=null)
+                {
+
+                    perc = toBeMergedPercentage.ElementAt(c) + this.get_percentage_per_element(element);
+                    newChemicalElements.Add(element);
+                }
+                else
+                {
+                    perc = toBeMergedPercentage.ElementAt(c);
+                    newChemicalElements.Add(element);
+                }
+
+                newcomposition.Add(new element_percentage(element,  100 / (totalePerc / perc ) 
+                                    ));
+                c++;
+            }
+
+            c = 0;
+
+            foreach (ChemicalElement element in this.get_elements())
+            {
+
+                if (newChemicalElements.Where(x => x.name == element.name).FirstOrDefault() == null)
+                {
+
+                    perc = this.get_percentage_per_element(element);
+                    newChemicalElements.Add(this.get_elements().ElementAt(c));
+                }
+
+                newcomposition.Add(new element_percentage(element, (100 / (totalePerc / perc))
+                        ));
+                c++;
+            }
+
+            this.elements_percentage_list = newcomposition;
         }
 
         //to string

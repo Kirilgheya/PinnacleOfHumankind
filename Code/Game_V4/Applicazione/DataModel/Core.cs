@@ -15,6 +15,7 @@ namespace MainGame.Applicazione.DataModel
             this.outerNucleusClass = new NucleusClass(null);
             this.innerNucleusClass = new NucleusClass(null);
             this.innerNucleusClass.Nucleus_Class = "Solid";
+            this.outerNucleusClass.Nucleus_Class = "Liquid";
         }
     }
 }

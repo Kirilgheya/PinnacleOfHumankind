@@ -5,7 +5,7 @@ Density g/cm3,Name,Symbol,State,Component,Component,Component,Component,Componen
 8.05,Steel,Steel,Molecule,Iron,Carbon,,,,
 2.5,Glass,Glass,Molecule,Silicon,Sodium,Carbon,Oxygen,Calcium,
 1.35,Simple Protein,A-Protein,Molecule,Carbon,Hydrogen,Oxygen,Nitrogen,,
-1.35,Complex Protein,C-Protein,Molecule,Protein,Protein,Protein,Protein,,
+1.35,Complex Protein,C-Protein,Molecule,A-Protein,A-Protein,A-Protein,A-Protein,,
 1.44,Cement,Cement,Material,Calcium,Calcium,Oxygen,,,
 1.3,Hydrogen Peroxide,H2O2,Molecule,Hydrogen,Hydrogen,Oxygen,Oxygen,,
 0.000656,Methane,CH4,Molecule,Carbon,Hydrogen,Hydrogen,Hydrogen,Hydrogen,

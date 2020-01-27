@@ -63,13 +63,18 @@ namespace MainGame.Applicazione
 		}
 
 
-        public void generateComposites(int _numberOfIterations, ChemicalComposition _composition)
+        public static ChemicalComposition generateComposites(int _numberOfIterations, ChemicalComposition _composition)
         {
-            List<ChemicalElement> chemicalElements,validElements;
-            if(_numberOfIterations<=0)
+            List<ChemicalElement> chemicalElements,validElements,validMolecules;
+            ChemicalComposition moleculeComposition = null;
+            List<double> moleculeDistList = new List<double>();
+            
+            validMolecules = new List<ChemicalElement>();
+            
+            if (_numberOfIterations<=0)
             {
 
-                return;
+                return null;
             }
             validElements = new List<ChemicalElement>();
             chemicalElements = PeriodicTable.getListOfElementsByState(ElementState.Molecule);
@@ -88,8 +93,26 @@ namespace MainGame.Applicazione
 
                     validElements.Add(chemicalElement);
                 }
+
+                if(validElements.Count>0)
+                {
+
+                    validMolecules.Add(molecule);
+                }
             }
-            
+
+            if (validMolecules.Count > 0)
+            {
+
+                moleculeDistList = SimulationEngine.generateDistributionList(validMolecules.Count,0.01,60,20);
+                DataEngine.Shuffle<ChemicalElement>(validMolecules, new Random());
+                moleculeComposition = new ChemicalComposition(validMolecules, moleculeDistList);
+            }
+
+
+
+            return moleculeComposition;
+            //get distribuzione a partire dal totale di elementi che devo generare 
         }
 
         

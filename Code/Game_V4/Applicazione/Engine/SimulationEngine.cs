@@ -88,18 +88,21 @@ namespace MainGame.Applicazione.Engine
             return planet;
         }
 
-        public static List<double> generateDistributionList(int _numberOfDistributions = 2, int varianzaMinima = 2)
+        public static List<double> generateDistributionList(int _numberOfDistributions = 2, double varianzaMinima = 0.00001,int startMax =60, int startMin = 50)
         {
 
             List<double> distribution = new List<double>();
            
 
             double maxSum = 100;
-            double minNum = 0.00001;
+            double minNum = varianzaMinima;
             double lastGeneratedNum;
             double partialSum = 0;
             double minGenerated = _numberOfDistributions;
-            lastGeneratedNum = random.NextDouble() * (60 - 50) + 50;
+
+
+
+            lastGeneratedNum = random.NextDouble() * (startMax - startMin) + startMin;
 
             distribution.Add(lastGeneratedNum);
             partialSum = partialSum + lastGeneratedNum;

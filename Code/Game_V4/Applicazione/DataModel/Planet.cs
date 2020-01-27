@@ -168,20 +168,48 @@ namespace MainGame.Applicazione.DataModel
 
 
                 iterations--;
-                this.initAtmoSphere(_isBlackBody, iterations);
+                //this.initAtmoSphere(_isBlackBody, iterations);
                 //this.applyAtmosphericEffects();
             }
-            
-           
+
+            this.applyChemicalBonds();
 
 
         }
 
-        public void applyAtmosphericEffects()
+        public void applyChemicalBonds()
         {
-
+            Random random = new Random();
             List<ChemicalElement> chemicalElements = this.body_composition.get_elements();
+            List<ChemicalElement> chosenOnes = new List<ChemicalElement>();
+            List<int> chosenIndexes = new List<int>();
+            int elementToCompositeRatio = 1000000;
+            double compositeMass = this.planetMass / elementToCompositeRatio;
+            List<ChemicalElement> generatedElements = new List<ChemicalElement>();
+            int numberOfElements = chemicalElements.Count();
 
+            //take every element pick half of them and try to merge them
+
+            while(chosenOnes.Count<= Math.Floor((double)numberOfElements/2))
+            {
+
+                int pickedIndex = random.Next(0, (numberOfElements - 1));
+
+                if(chosenIndexes.Where(x => x == pickedIndex).Count()==0 )
+                {
+
+                    chosenIndexes.Add(pickedIndex);
+                    chosenOnes.Add(chemicalElements.ElementAt(pickedIndex));
+
+                }
+
+            }
+
+
+
+            ChemicalComposition composites = ChemicalEngine.generateComposites(1,this.body_composition);
+            this.body_composition.mergeCompositions(composites);
+            int xxxx = 0;
         }
         private void InitPlanetClassification()
         {

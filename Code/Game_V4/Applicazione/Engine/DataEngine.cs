@@ -21,6 +21,18 @@ namespace MainGame.Applicazione.Engine
             return this.listofElements;
         }
 
+        public static void Shuffle<T>(IList<T> list, Random rnd)
+        {
+            for (var i = list.Count; i > 0; i--)
+                DataEngine.Swap(list,0, rnd.Next(0, i));
+        }
+
+        public static void Swap<T>(IList<T> list, int i, int j)
+        {
+            var temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
         public Star getPresetStarData(int _index = 0)
         {
             string[] starValues;
@@ -195,6 +207,7 @@ namespace MainGame.Applicazione.Engine
                     if(!value.Equals(""))
                     {
                         chemicalElement = this.findElementByName(value);
+                      
                         atomicWeight = atomicWeight + chemicalElement.mass;
                         components.Add(value);
                     }
@@ -220,10 +233,15 @@ namespace MainGame.Applicazione.Engine
         public ChemicalElement findElementByName(string _name)
         {
             ChemicalElement element = this.listofElements.Where(x => x.name.Equals(_name)).FirstOrDefault();
-            if(element == null)
+            if (element == null)
             {
 
                 element = this.listofComposites.Where(x => x.name.Equals(_name)).FirstOrDefault();
+                if (element == null)
+                {
+                    element = this.listofComposites.Where(x => x.symbol.Equals(_name)).FirstOrDefault();
+                }
+
             }
 
 

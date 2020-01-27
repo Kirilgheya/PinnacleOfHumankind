@@ -20,7 +20,7 @@ public abstract class Body
     public double Volume;
 
     public ChemicalComposition body_composition;
-
+    
 
     public Body()
     {
