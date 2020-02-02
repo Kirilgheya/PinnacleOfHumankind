@@ -12,6 +12,7 @@ namespace MainGame.Applicazione.DataModel
         protected Star star;
         
         protected List<Planet> planets = new List<Planet>();
+        protected List<Asteroid> asteroidBelt = new List<Asteroid>();
 
         double star_densityMul = 1;
         double starRadius = ParametriUtente.Science.r_sun;
@@ -57,8 +58,9 @@ namespace MainGame.Applicazione.DataModel
             double habitableZone_max;
             double jupMass_EarthRadii = 11.209;
             double multiplierFactor = 1;
-
-            Random randomSeed = new Random();
+            double asteroidBeltDistanceMax = 0.0, asteroidBeltDistanceMin =0.0;
+            int[] supportedAsteroids = new int[] { 100, 2000 };
+            Random_Extension randomSeed = new Random_Extension();
 
             Star star = new Star(this.starRadius, 0, this.composition.get_elements());
             
@@ -80,8 +82,10 @@ namespace MainGame.Applicazione.DataModel
             //everything beyond habitableZone_max has (should have) less than 0° surface temp and be either rocky(frozen) or gas giant
             //everything beyond habitableZone_min has (should have) more than 40° surfacete temp and can be only a rocky barren planet.
 
-            randomSeed = new Random();
-
+            randomSeed = new Random_Extension();
+            
+            asteroidBeltDistanceMax = randomSeed.NextDouble(habitableZone_min * 0.3, habitableZone_max * 10) + ((habitableZone_max-habitableZone_min)/2);
+            asteroidBeltDistanceMin = asteroidBeltDistanceMax - (habitableZone_max - habitableZone_min);
             Double[] radii = new double[this.maxSupportedPlanets];
             
             int c = 0;
@@ -90,8 +94,16 @@ namespace MainGame.Applicazione.DataModel
 
                 radii[c] = randomSeed.NextDouble() 
                                 * ( (jupMass_EarthRadii  * multiplierFactor) - 0.5 ) + 0.5 ;
-                                                        
-                c++;
+                if (radii[c] <= asteroidBeltDistanceMax && radii[c] >= asteroidBeltDistanceMin)
+                {
+                    continue;
+                }
+                else
+                {
+
+                    c++;
+                }
+                
                 if (radii[c - 1] > 10)
                 {
                     multiplierFactor = 0.7;
@@ -175,22 +187,54 @@ namespace MainGame.Applicazione.DataModel
                     }
                 }
 
-                Planet x;
+                Planet createdPlanet;
 
                 if (radii[c]<9)
                 {
-                    x = SimulationEngine.createPlanet(chemicalComposition, radii[c], distance[c]);
+                    createdPlanet = SimulationEngine.createPlanet(chemicalComposition, radii[c], distance[c]);
                 }
                 else
                 {
-                    x = SimulationEngine.createGasGiant(chemicalComposition, radii[c], distance[c]);
+                    createdPlanet = SimulationEngine.createGasGiant(chemicalComposition, radii[c], distance[c]);
                 }
                 
-                this.planets.Add(x);
+                this.planets.Add(createdPlanet);
                 c++;
             }
 
-            
+            int numberOfAsteroid = randomSeed.Next(supportedAsteroids[0], supportedAsteroids[1]);
+
+            for(int i = 0;i<numberOfAsteroid;i++)
+            {
+
+                ChemicalComposition chemicalComposition = null;
+                chemicalComposition = new ChemicalComposition(DataEngine.carbonAsteroidSeed,
+                                             SimulationEngine.generateNPercentages(DataEngine.carbonAsteroidSeed.Count,50));
+                
+                int seedGen = randomSeed.Next(1, 20);
+                
+                if(seedGen < 19 && seedGen>15)
+                {
+
+                    chemicalComposition = new ChemicalComposition(DataEngine.siliconAsteroidSeed,
+                                             SimulationEngine.generateNPercentages(DataEngine.carbonAsteroidSeed.Count, 50));
+                }
+                else
+                {
+
+                    chemicalComposition = new ChemicalComposition(DataEngine.carbonAsteroidSeed,
+                                             SimulationEngine.generateNPercentages(DataEngine.carbonAsteroidSeed.Count, 50));
+                }
+               
+
+                int radius_Km = randomSeed.Next(1, 500);
+                double relMassSeed = 0.0004;
+                relMassSeed = relMassSeed / (500 % radius_Km);
+                Asteroid asteroid = new Asteroid(chemicalComposition, radius_Km, randomSeed.NextDouble(asteroidBeltDistanceMin,asteroidBeltDistanceMax));
+                asteroid.initAsteroid(1, relMassSeed);
+                this.asteroidBelt.Add(asteroid);
+            }
+
             Console.WriteLine("AU min: " + habitableZone_min + " \n \tAU max: " + habitableZone_max);
 
 
@@ -205,6 +249,12 @@ namespace MainGame.Applicazione.DataModel
             foreach(Planet planet in this.planets)
             {
                 formattedInfo = formattedInfo + "\n" + planet.ToString();
+            }
+
+            foreach(Asteroid asteroid in this.asteroidBelt)
+            {
+
+                formattedInfo = formattedInfo + "\n" + asteroid.ToString();
             }
 
             return formattedInfo;

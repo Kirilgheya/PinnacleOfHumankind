@@ -26,9 +26,7 @@ namespace MainGame.Applicazione
             createEarth();
             ChemicalElement element;
             List<ChemicalElement> chemicalElements = DataEngine.starSeed;
-            
-            element = PeriodicTable.findByName("Hydrogen");
-
+           
             percentageList = SimulationEngine.generateDistributionList(90, 70, chemicalElements.Count);
 
             
@@ -43,8 +41,15 @@ namespace MainGame.Applicazione
             system.InitSystemParams(new Double[] { 1, ParametriUtente.Science.r_sun * 2, 15 }, chemicalComposition);
             system.createStarSystem();
 
-            outputFile = string.Concat(outputFile,system.toString());
+           
 
+            outputFile = string.Concat(outputFile,system.toString());
+            int x = 0;
+            while(x<1000)
+            {
+              
+                x++;
+            }
             printToFile(outputFile);
             int i = 0;
         }
@@ -142,22 +147,6 @@ namespace MainGame.Applicazione
             }
         }
        
-        private static void printToXML(StarSystem _obj)
-        {
-            string docPath =
-                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = DateTime.Now.ToString();
-            Regex digitsOnly = new Regex(@"[^\d]");
-            filename = digitsOnly.Replace(filename, "");
-            XmlSerializer x = new XmlSerializer(typeof(StarSystem));
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, filename + ".xml")))
-            {
-                using (XmlWriter writer = XmlWriter.Create(outputFile))
-                {
-                    x.Serialize(writer, _obj);
-                   // xml = outputFile.ToString(); // Your XML
-                }
-            }
-        }
+       
     }
 }

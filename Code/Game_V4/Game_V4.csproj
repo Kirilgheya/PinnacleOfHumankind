@@ -62,6 +62,7 @@
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\Constants.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\Converter.cs" />
+    <Compile Include="Applicazione\Engine\Random_Extension.cs" />
     <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\Science.cs" />

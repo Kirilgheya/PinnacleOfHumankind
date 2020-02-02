@@ -39,7 +39,7 @@ namespace MainGame.Applicazione.DataModel
             this.planetClass = new PlanetClass("Metallic_Planet");
             body_composition = _chemical;
 
-            this.name = generate_plante_name();
+            this.name = generate_planet_name();
 
             this.distance_from_star = distance_from_star;
 
@@ -282,7 +282,7 @@ namespace MainGame.Applicazione.DataModel
         }
 
 
-        public String generate_plante_name()
+        public String generate_planet_name()
         {
             Random r = new Random(Guid.NewGuid().GetHashCode());
                 int rannum = 0;
