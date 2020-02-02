@@ -10,6 +10,7 @@ namespace MainGame.Applicazione.Engine
 {
     class SimulationEngine
     {
+        private static int numeroDecimaliDefault = 7;
         public static Boolean mustShowInfo = false;
         public static List<Star>  resultOfGenerateStar;
         protected static Stopwatch watch;
@@ -88,44 +89,83 @@ namespace MainGame.Applicazione.Engine
             return planet;
         }
 
-        public static List<double> generateDistributionList(int _numberOfDistributions = 2, double varianzaMinima = 0.00001,int startMax =60, int startMin = 50)
+        public static List<double> generateDistributionList(int startMax =60, int startMin = 50,
+                                                   int _numberOfDistributions = 2,
+                                                                double varianzaMinima = 1 / 10000000)
         {
 
             List<double> distribution = new List<double>();
-           
+            List<double> supportList = new List<double>();
 
-            double maxSum = 100;
-            double minNum = varianzaMinima;
+            double sum = 100;
+    
             double lastGeneratedNum;
-            double partialSum = 0;
-            double minGenerated = _numberOfDistributions;
+            double partialSum = 0,accumulatedSum = 0;
+    
 
 
 
             lastGeneratedNum = random.NextDouble() * (startMax - startMin) + startMin;
-
+            sum = 100 - lastGeneratedNum;
             distribution.Add(lastGeneratedNum);
-            partialSum = partialSum + lastGeneratedNum;
+            
 
             for (int i = 0; i < (_numberOfDistributions - 1); i++)
             { 
-                if (minNum > lastGeneratedNum)
+                
+
+                //lastGeneratedNum = random.NextDouble() * ((100 - partialSum) - ((100 - partialSum) / varianzaMinima)) + ((100 - partialSum) / varianzaMinima);
+                lastGeneratedNum = random.NextDouble() ;
+                supportList.Add(lastGeneratedNum);
+                partialSum = partialSum + lastGeneratedNum;
+             }
+        
+
+            for (int i = 0; i< supportList.Count; i++)
+            {
+
+                if( (i+1) == supportList.Count)
                 {
-                    lastGeneratedNum = maxSum - partialSum;
-                    distribution.Add(lastGeneratedNum);
-                    partialSum = partialSum + lastGeneratedNum;
+                    distribution.Add(sum - accumulatedSum);
                 }
                 else
-                {
+                { 
                     //lastGeneratedNum = random.NextDouble() * ((100 - partialSum) - ((100 - partialSum) / varianzaMinima)) + ((100 - partialSum) / varianzaMinima);
-                    lastGeneratedNum = random.NextDouble() * ((100 - partialSum) - ((100 - partialSum) / minGenerated)) + ((100 - partialSum) / minGenerated);
-                    minGenerated--;
-                    distribution.Add(lastGeneratedNum);
-                    partialSum = partialSum + lastGeneratedNum;
+                    lastGeneratedNum = supportList.ElementAt(i) / partialSum;
+                    accumulatedSum = accumulatedSum + lastGeneratedNum * sum;
+                    distribution.Add(lastGeneratedNum * sum);
                 }
+
             }
+
+            //uncomment and breakpoint to debug distributionList
+            //sum = 0;
+            //for (int i = 0; i < distribution.Count; i++)
+            //{
+
+            //    sum = sum + distribution.ElementAt(i);
+            //}
 
             return distribution;
         }
+
+        public static List<double> generateNPercentages(int _numberOfDistributions = 2,
+                                                    
+                                                    int startingMinPercentage =60
+                                                   )
+        {
+
+            List<double> distribution = new List<double>();
+            
+            distribution = generateDistributionList(90,
+                                                    startingMinPercentage,
+                                                   _numberOfDistributions
+                                                    );
+                      
+
+            return distribution;
+        }
+
+       
     }
 }

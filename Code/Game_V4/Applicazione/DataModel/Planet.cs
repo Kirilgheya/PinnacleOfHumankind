@@ -131,7 +131,7 @@ namespace MainGame.Applicazione.DataModel
             for (int i=0;i<3;i++)
             {
                 ChemicalElement local_element = this.body_composition.getRandomElement_PerType(ElementState.Gas);
-                if(element!=null && element.name.Equals(local_element.name))
+                if((element!=null && element.name.Equals(local_element.name)) || (element == null))
                 {
 
                     continue;
@@ -209,7 +209,7 @@ namespace MainGame.Applicazione.DataModel
 
             ChemicalComposition composites = ChemicalEngine.generateComposites(1,this.body_composition);
             this.body_composition.mergeCompositions(composites);
-            int xxxx = 0;
+          
         }
         private void InitPlanetClassification()
         {

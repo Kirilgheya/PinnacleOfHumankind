@@ -103,6 +103,7 @@
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll" />

@@ -16,6 +16,8 @@ namespace MainGame.Applicazione.Engine
         public static List<ChemicalElement> ironPlanetSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> rockyPlanetSeed = new List<ChemicalElement>();
         public static List<ChemicalElement> gasPlanetSeed = new List<ChemicalElement>();
+        public static List<ChemicalElement> carbonAsteroidSeed = new List<ChemicalElement>();
+        public static List<ChemicalElement> siliconAsteroidSeed = new List<ChemicalElement>();
         public List<ChemicalElement> GetChemicalElements()
         {
             return this.listofElements;
@@ -69,16 +71,51 @@ namespace MainGame.Applicazione.Engine
 
             return generatedStar;
         }
-
+        
         public void setSeeds()
         {
             starSeed.Add(findBaseElementByName("Hydrogen"));
             starSeed.Add(findBaseElementByName("Helium"));
-            starSeed.Add(findBaseElementByName("Argon"));
-            starSeed.Add(findBaseElementByName("Oxygen"));
+            starSeed.Add(findBaseElementByName("Lithium"));
+            starSeed.Add(findBaseElementByName("Beryllium"));
+            starSeed.Add(findBaseElementByName("Boron"));
             starSeed.Add(findBaseElementByName("Carbon"));
+            starSeed.Add(findBaseElementByName("Nitrogen"));
+            starSeed.Add(findBaseElementByName("Oxygen"));
+            starSeed.Add(findBaseElementByName("Fluorine"));
+            starSeed.Add(findBaseElementByName("Neon"));
+            starSeed.Add(findBaseElementByName("Sodium"));
+            starSeed.Add(findBaseElementByName("Calcium"));
+            starSeed.Add(findBaseElementByName("Scandium"));
+            starSeed.Add(findBaseElementByName("Titanium"));
+            starSeed.Add(findBaseElementByName("Vanadium"));
+            starSeed.Add(findBaseElementByName("Chromium"));
             starSeed.Add(findBaseElementByName("Iron"));
+            starSeed.Add(findBaseElementByName("Cobalt"));
+            starSeed.Add(findBaseElementByName("Nickel"));
+            starSeed.Add(findBaseElementByName("Copper"));
+            starSeed.Add(findBaseElementByName("Zinc"));
+            starSeed.Add(findBaseElementByName("Gallium"));
+            starSeed.Add(findBaseElementByName("Tin"));
+            starSeed.Add(findBaseElementByName("Arsenic"));
+            starSeed.Add(findBaseElementByName("Selenium"));
+            starSeed.Add(findBaseElementByName("Bromine"));
+            starSeed.Add(findBaseElementByName("Platinum"));
+            starSeed.Add(findBaseElementByName("Rubidium"));
+            starSeed.Add(findBaseElementByName("Strontium"));
+            starSeed.Add(findBaseElementByName("Iridium"));
+            starSeed.Add(findBaseElementByName("Zirconium"));
+            starSeed.Add(findBaseElementByName("Niobium"));
+            starSeed.Add(findBaseElementByName("Molybdenum"));
+            starSeed.Add(findBaseElementByName("Technetium"));
+            starSeed.Add(findBaseElementByName("Ruthenium"));
+            starSeed.Add(findBaseElementByName("Rhodium"));
+            starSeed.Add(findBaseElementByName("Palladium"));
+            starSeed.Add(findBaseElementByName("Silver"));
             starSeed.Add(findBaseElementByName("Xenon"));
+            starSeed.Add(findBaseElementByName("Barium"));
+            starSeed.Add(findBaseElementByName("Gold"));
+
 
             gasPlanetSeed.Add(findBaseElementByName("Hydrogen"));
             gasPlanetSeed.Add(findBaseElementByName("Helium"));
@@ -131,6 +168,23 @@ namespace MainGame.Applicazione.Engine
             rockyPlanetSeed.Add(findBaseElementByName("Sodium"));
             rockyPlanetSeed.Add(findBaseElementByName("Argon"));
 
+            carbonAsteroidSeed.Add(findBaseElementByName("Carbon"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Nitrogen"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Silver"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Oxygen"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Cobalt"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Sodium"));
+            carbonAsteroidSeed.Add(findBaseElementByName("Argon"));
+
+            siliconAsteroidSeed.Add(findBaseElementByName("Iron"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Silicon"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Silver"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Platinum"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Copper"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Gold"));
+            siliconAsteroidSeed.Add(findBaseElementByName("Argon"));
+
+            
 
         }
 

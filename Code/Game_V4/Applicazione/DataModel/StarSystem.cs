@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MainGame.Applicazione.DataModel
 {
-    class StarSystem
+    public class StarSystem
     {
         private StarSystem sibling=null;
         private double distanceFromSibling = 0.0;
@@ -124,13 +124,13 @@ namespace MainGame.Applicazione.DataModel
                     if(planetType < 2)
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.rockyPlanetSeed.Count));
                         //icy
                     }
                     else
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.gasPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.gasPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.gasPlanetSeed.Count));
                        
                         //gas giant
                     }
@@ -143,7 +143,7 @@ namespace MainGame.Applicazione.DataModel
                     if (planetType < 2)
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.rockyPlanetSeed.Count));
                         if(radii[c]>5)
                         {
                             radii[c] = radii[c] / (randomSeed.Next(2, 5));
@@ -153,7 +153,7 @@ namespace MainGame.Applicazione.DataModel
                     else
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.rockyPlanetSeed.Count));
                         //rocky without atmosphere
                     } 
                 }
@@ -164,13 +164,13 @@ namespace MainGame.Applicazione.DataModel
                     if (planetType < 2)
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.rockyPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.rockyPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.rockyPlanetSeed.Count));
                         //generic rocky planet
                     }
                     else
                     {
                         chemicalComposition = new ChemicalComposition(DataEngine.ironPlanetSeed
-                                            , SimulationEngine.generateDistributionList(DataEngine.ironPlanetSeed.Count, 2));
+                                            , SimulationEngine.generateNPercentages(DataEngine.ironPlanetSeed.Count));
                         //h20
                     }
                 }

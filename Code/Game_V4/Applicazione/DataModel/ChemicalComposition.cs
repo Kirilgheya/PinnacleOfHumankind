@@ -125,12 +125,15 @@ namespace MainGame.Applicazione.DataModel
             ChemicalElement chemicalElement = null;
             int elementNumber = 0;
             Random randomElementNumber = new Random();
-            switch(_state)
+            switch (_state)
             {
                 case ElementState.Plasma:
                 case ElementState.Gas:
-                    elementNumber = randomElementNumber.Next(1, this.get_gas_elements().Count);
-                    chemicalElement = this.get_gas_elements().ElementAt(elementNumber - 1);
+                    if (this.get_gas_elements().Count > 0)
+                    { 
+                        elementNumber = randomElementNumber.Next(1, this.get_gas_elements().Count);
+                        chemicalElement = this.get_gas_elements().ElementAt(elementNumber - 1);
+                    }
                     break;
                 case ElementState.Solid:
                 case ElementState.Liquid:

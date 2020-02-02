@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using MainGame.Applicazione.DataModel;
 using MainGame.Applicazione.Engine;
-using org.mariuszgromada.math.mxparser;
-
-using System.Globalization;
-using System.Diagnostics;
-using System.Linq;
 using Applicazione.DataModel;
+using System.Xml.Serialization;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace MainGame.Applicazione
 {
@@ -29,20 +25,12 @@ namespace MainGame.Applicazione
 
             createEarth();
             ChemicalElement element;
-            List<ChemicalElement> chemicalElements = new List<ChemicalElement>();
+            List<ChemicalElement> chemicalElements = DataEngine.starSeed;
             
             element = PeriodicTable.findByName("Hydrogen");
-            chemicalElements.Add(element);
-            percentageList.Add(73.46);
 
-            element = PeriodicTable.findByName("Helium");
-            chemicalElements.Add(element);
-            percentageList.Add(24.85);
+            percentageList = SimulationEngine.generateDistributionList(90, 70, chemicalElements.Count);
 
-            element = PeriodicTable.findByName("Oxygen");
-            chemicalElements.Add(element);
-            percentageList.Add(1.69);
-          
             
             ChemicalComposition chemicalComposition = new ChemicalComposition(chemicalElements,percentageList);
 
@@ -105,7 +93,7 @@ namespace MainGame.Applicazione
 
 
             star.initStar(1, 1, chemicalComposition.get_percentage());
-            Console.WriteLine("Sun created check in debug values");
+            Console.WriteLine("Sun created check debug values");
         }
 
         public static void createEarth()
@@ -136,7 +124,7 @@ namespace MainGame.Applicazione
             Planet x = new Planet(chemicalComposition, ParametriUtente.Science.r_t, ParametriUtente.Science.AU);
             x.initPlanet();
 
-            Console.WriteLine("Earth created check in debug values");
+            Console.WriteLine("Earth created check debug values");
         }
 
         private static void printToFile(String _content)
@@ -154,5 +142,22 @@ namespace MainGame.Applicazione
             }
         }
        
+        private static void printToXML(StarSystem _obj)
+        {
+            string docPath =
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filename = DateTime.Now.ToString();
+            Regex digitsOnly = new Regex(@"[^\d]");
+            filename = digitsOnly.Replace(filename, "");
+            XmlSerializer x = new XmlSerializer(typeof(StarSystem));
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, filename + ".xml")))
+            {
+                using (XmlWriter writer = XmlWriter.Create(outputFile))
+                {
+                    x.Serialize(writer, _obj);
+                   // xml = outputFile.ToString(); // Your XML
+                }
+            }
+        }
     }
 }
