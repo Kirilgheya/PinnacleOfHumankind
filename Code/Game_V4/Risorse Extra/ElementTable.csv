@@ -7,3 +7,4 @@ Density g/cm3,Name,Symbol,State,Component,Component,Component,Component,Componen
 0.000656,Methane,CH4,Molecule,Carbon,Hydrogen,Hydrogen,Hydrogen,Hydrogen,
 0.00198,Carbon Dioxide,CO2,Material,Carbon,Oxygen,Oxygen,,,
 1.54,Silica Sand,Silica Sand,Molecule,Silicon,Oxygen,Oxygen,,,
+2.65,Quartz,Quartz,Molecule,Silicon,Oxygen,Oxygen,Oxygen,Oxygen,

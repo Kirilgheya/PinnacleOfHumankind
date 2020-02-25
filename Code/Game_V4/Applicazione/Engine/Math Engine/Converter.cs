@@ -26,14 +26,35 @@ public static class Converter
     }
 
     //lista delle unità di misura della lunghezza
-    public static List<Unità_di_misura> leght_units = new List<Unità_di_misura> { 
+    public static List<Unità_di_misura> legth_units = new List<Unità_di_misura> { 
         new Unità_di_misura("Millimetro","mm", 0,10),
         new Unità_di_misura("Centimetro","cm",10,10),
         new Unità_di_misura("Decimetro","dm",10,10),
-        new Unità_di_misura("Metro","dm",10,1000),
+        new Unità_di_misura("Metro","m",10,1000),
         new Unità_di_misura("Kilometro","Km",1000,1000),
         new Unità_di_misura("Unità Astronomica","UA", UA_to_Km(1), UA_to_LY(1)),
         new Unità_di_misura("Anno luce", "LY",LY_to_UA(1),0)
+        };
+
+    public static List<Unità_di_misura> mass_units = new List<Unità_di_misura> {
+        new Unità_di_misura("Milligrammo","mg", 0,10),
+        new Unità_di_misura("Centigrammo","cg",10,10),
+        new Unità_di_misura("Decigrammo","dg",10,10),
+        new Unità_di_misura("Grammo","g",10,10),
+        new Unità_di_misura("Decagrammo","dag",10,10),
+        new Unità_di_misura("Ettogrammo","hg",10,10),
+        new Unità_di_misura("Kilogrammo","kg",10,10),
+        new Unità_di_misura("Quintale","q",100,10),
+        new Unità_di_misura("Tonnellata","t",10,0),
+        };
+
+    public static List<Unità_di_misura> astraUnits = new List<Unità_di_misura> {
+        new Unità_di_misura("Massa solare","⊙︎", 0,0),
+        new Unità_di_misura("Massa terrestre","⊕",0,0),
+        new Unità_di_misura("Massa gioviana","MJ",0,0),
+        new Unità_di_misura("Raggio solare","R⊙︎", 0,0),
+        new Unità_di_misura("Raggio terrestre","R⊕",0,0),
+        new Unità_di_misura("Raggio gioviana","RJ",0,0),
         };
 
     public static List<Unità_di_misura> densityMeters_units = new List<Unità_di_misura> {
@@ -68,6 +89,20 @@ public static class Converter
         new Unità_di_misura("Kilogrammo/Litro","kg/L",0,1000),
         new Unità_di_misura("Grammo/Litro","g/L",1000,0),
         };
+
+    public static string getUOMFromName(string _name)
+    {
+        if (Converter.legth_units.Where(x => x.nome.Equals(_name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() != null)
+        {
+            return Converter.legth_units.Where(x => x.nome.Equals(_name,StringComparison.OrdinalIgnoreCase)).FirstOrDefault().sigla;
+        }
+        else if(Converter.mass_units.Where(x => x.nome.Equals(_name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() != null)
+        {
+
+            return Converter.mass_units.Where(x => x.nome.Equals(_name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault().sigla;
+        }
+        return null;
+    }
 }
 
 public class Unità_di_misura

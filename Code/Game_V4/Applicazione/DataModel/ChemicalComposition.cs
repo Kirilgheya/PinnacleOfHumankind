@@ -224,13 +224,21 @@ namespace MainGame.Applicazione.DataModel
         //to string
         public override String ToString()
         {
+            IEnumerable<element_percentage> list =  elements_percentage_list.OrderByDescending(perc => perc.el.density);
             string formattedInfo = String.Empty;
-            formattedInfo += "Composition:";
+            formattedInfo += "Composition:\n\t{";
+
+            foreach (element_percentage perc  in list)
+            {
+                formattedInfo = formattedInfo + "\n\t\t" + perc.ToString();
+            }
+            /*
             for (int n = 0; n < elements_percentage_list.Count; n++)
             {
                 formattedInfo = formattedInfo + "\n \t" + elements_percentage_list[n].ToString();
             }
-
+            */
+            formattedInfo += "\n\t}";
             return formattedInfo;
         }
 
