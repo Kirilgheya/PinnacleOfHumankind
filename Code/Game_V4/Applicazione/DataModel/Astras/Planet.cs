@@ -77,22 +77,21 @@ namespace MainGame.Applicazione.DataModel
             molecularWeight = molecularWeight / sumofElement;
             double f = (this.planetRadius * this.planetRadius * this.planetRadius) * (4 / 3) * Math.PI;
 
-            this.Volume = (Math.Pow(this.planetRadius, 3) * 4 / 3 * Math.PI); //k3
+
+            this.Volume = ((Math.Pow(this.planetRadius, 3) * (4.0 / 3.0)) * Math.PI); //k3
 
             this.mass = rel_mass * ParametriUtente.Science.m_t;
 
-            this.meanDensity = ((this.mass / Volume) * Math.Pow(10, -12)) * _densityMul;
+            this.meanDensity = (this.mass * 1000 / (Math.Pow(10, 15) * Volume)) * _densityMul;
 
-            pressione = ((ParametriUtente.Science.G / 100
-                              * mass
-                              * this.meanDensity * Math.Pow(10, 12))
-                        / (this.planetRadius * this.planetRadius));
 
-            this.Core_temperature = (pressione /
-                                        ((this.meanDensity * Math.Pow(10, 12))
-                                                * (8.314462618 / (molecularWeight * 1000)) * 4.8
-                                                ))
-                                            ;
+            pressione = ((ParametriUtente.Science.G
+                                * mass
+                                * (this.meanDensity * 1000))
+                          / (this.planetRadius * this.planetRadius));
+
+            this.Core_temperature = ((0.84 * Math.Pow(10, -27)) * pressione)
+                                    / (this.meanDensity * (1.380649 * Math.Pow(10, -23)));
 
             /*pressione = ((ParametriUtente.Science.G
                                 * mass

@@ -1,4 +1,5 @@
-﻿using org.mariuszgromada.math.mxparser;
+﻿using MainGame.Applicazione.Engine;
+using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -132,9 +133,11 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tMass: " + this.relativeMass + " "+Converter.getUOMFromName("Massa solare");
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
             formattedInfo += "\n\tCore Temperature: " + this.Core_temperature;
-            formattedInfo += "\n\t" + this.starComposition.ToString();
-            formattedInfo+= "\n\tStar Class: " + this.overallClass.ToString();
+            formattedInfo += "\n\tEffective Temperature: " + this.Surface_temperature;
+            formattedInfo += "\n\tStar Class: " + this.overallClass.ToString();
             formattedInfo += "\n\tVega-relative chromaticity: " + this.starClassification_ByColor.ToString();
+            formattedInfo += "\n\t" + this.starComposition.ToString();
+           
 
             return formattedInfo;
         }
@@ -180,22 +183,27 @@ namespace MainGame.Applicazione.DataModel
 
             this.mass = rel_mass * ParametriUtente.Science.m_sun;
 
-            this.meanDensity = ((this.mass/ Volume)*Math.Pow(10,-12)) * _densityMul;
+            this.luminosity = SimulationEngine.getLuminosityFromMass(this.mass);
+
+            this.meanDensity = (this.mass*1000/ (Math.Pow(10,15)*Volume)) * _densityMul;
        
             
-            pressione = ((ParametriUtente.Science.G/100 
+            pressione = ((ParametriUtente.Science.G 
                                 * mass
-                                * this.meanDensity * Math.Pow(10, 12))
-                          / (this.starRadius * this.starRadius));
-            
-            this.Core_temperature = (pressione / 
-                                        ((this.meanDensity  *Math.Pow(10, 12)) 
-                                                * (8.314462618 / (molecularWeight*1000))*4.8
-                                                ) ) 
-                                            ; // - K to get °
-            this.Surface_temperature = this.Core_temperature / 2543.37;
-            double surfaceArea = Math.Pow(this.starRadius, 2) * Math.PI * 4;
-            this.luminosity = ( (Math.Pow(10,-4)* 5.670374419) * (Math.Pow(this.Surface_temperature, 4)) * surfaceArea);
+                                * (Converter.gcm3_to_kgm3(this.meanDensity)))
+                          / (this.starRadius*1000));
+
+            this.Core_temperature = ((0.84 * Math.Pow(10, -27)) * pressione)
+                                    / ((Converter.gcm3_to_kgm3(this.meanDensity))
+                                            * (1.380649 * Math.Pow(10, -23)));
+
+            this.Core_temperature = this.Core_temperature * 1.3;
+
+
+            this.Surface_temperature = SimulationEngine.getTemperatureFromLumRadiusRatio(this.starRadius, this.luminosity);//this.Core_temperature / (2717.203184);//2543.37;
+
+
+
 
             this.setRelativeValues();
 

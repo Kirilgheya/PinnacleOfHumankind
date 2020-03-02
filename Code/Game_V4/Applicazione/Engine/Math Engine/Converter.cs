@@ -70,6 +70,12 @@ public static class Converter
     {
         return cm3 * Constants.gcm3_to_gL;
     }
+
+    public static double gcm3_to_kgm3(double gcm3)
+    {
+        return gcm3 * Constants.gcm3_to_kgm3;
+    }
+
     public static double gL_to_gcm3(double L)
     {
         return L * Constants.gL_to_gcm3;

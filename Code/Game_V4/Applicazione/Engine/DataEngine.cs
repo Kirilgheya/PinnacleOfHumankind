@@ -91,30 +91,7 @@ namespace MainGame.Applicazione.Engine
             starSeed.Add(findBaseElementByName("Vanadium"));
             starSeed.Add(findBaseElementByName("Chromium"));
             starSeed.Add(findBaseElementByName("Iron"));
-            starSeed.Add(findBaseElementByName("Cobalt"));
-            starSeed.Add(findBaseElementByName("Nickel"));
-            starSeed.Add(findBaseElementByName("Copper"));
-            starSeed.Add(findBaseElementByName("Zinc"));
-            starSeed.Add(findBaseElementByName("Gallium"));
-            starSeed.Add(findBaseElementByName("Tin"));
-            starSeed.Add(findBaseElementByName("Arsenic"));
-            starSeed.Add(findBaseElementByName("Selenium"));
-            starSeed.Add(findBaseElementByName("Bromine"));
-            starSeed.Add(findBaseElementByName("Platinum"));
-            starSeed.Add(findBaseElementByName("Rubidium"));
-            starSeed.Add(findBaseElementByName("Strontium"));
-            starSeed.Add(findBaseElementByName("Iridium"));
-            starSeed.Add(findBaseElementByName("Zirconium"));
-            starSeed.Add(findBaseElementByName("Niobium"));
-            starSeed.Add(findBaseElementByName("Molybdenum"));
-            starSeed.Add(findBaseElementByName("Technetium"));
-            starSeed.Add(findBaseElementByName("Ruthenium"));
-            starSeed.Add(findBaseElementByName("Rhodium"));
-            starSeed.Add(findBaseElementByName("Palladium"));
-            starSeed.Add(findBaseElementByName("Silver"));
-            starSeed.Add(findBaseElementByName("Xenon"));
-            starSeed.Add(findBaseElementByName("Barium"));
-            starSeed.Add(findBaseElementByName("Gold"));
+            
 
 
             gasPlanetSeed.Add(findBaseElementByName("Hydrogen"));

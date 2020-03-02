@@ -16,6 +16,8 @@ public static class Constants
 
     public static double gcm3_to_gL = 1000;
 
+    public static double gcm3_to_kgm3 = 1000;
+
     public static double gL_to_gcm3 = 0.001;
 
     public static double kgm3_to_kgL = 0.001;

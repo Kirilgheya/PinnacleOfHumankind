@@ -166,6 +166,61 @@ namespace MainGame.Applicazione.Engine
             return distribution;
         }
 
-       
+
+        public static double getLuminosityFromMass(double _objectMass)
+        {
+
+            double relValueToSun = _objectMass / ParametriUtente.Science.m_sun;
+            double luminosity;
+            //https://en.wikipedia.org/wiki/Mass-luminosity_relation
+            double coefficient = 0;
+            double power;
+            if (relValueToSun < 0.43)
+            {
+                coefficient = 0.23;
+                power = 2.3;
+
+            }
+            else if (relValueToSun < 2)
+            {
+
+                coefficient = 1;
+                power = 4;
+            }
+            else if (relValueToSun < 55)
+            {
+
+                coefficient = 1.4;
+                power = 3.5;
+            }
+            else
+            {
+
+                coefficient = 32000;
+                power = 1;
+            }
+
+            luminosity = Math.Pow(relValueToSun, power) * coefficient * ParametriUtente.Science.lum_sun;
+
+            return luminosity;
+        }
+
+        public static double getTemperatureFromLumRadiusRatio(double _objectRadius,double _objectLuminosity)
+        {
+
+            double relValueToSun =  ParametriUtente.Science.r_sun / _objectRadius;
+            
+         
+            double lumValue = Math.Pow(_objectLuminosity / ParametriUtente.Science.lum_sun, 0.5);
+            
+            double temperature = Math.Pow((relValueToSun * lumValue* Math.Pow(ParametriUtente.Science.surfacetemp_sun,2)),0.5);
+    
+            
+           
+
+            return temperature;
+        }
     }
+
+    
 }

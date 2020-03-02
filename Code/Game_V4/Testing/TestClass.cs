@@ -38,7 +38,7 @@ namespace MainGame.Applicazione
 
             string outputFile = system.toString();
 
-            system.InitSystemParams(new Double[] { 1, ParametriUtente.Science.r_sun * 2, 15 }, chemicalComposition);
+            system.InitSystemParams(new Double[] { 1, ParametriUtente.Science.r_sun * 1.71, 2.02 }, chemicalComposition);
             system.createStarSystem();
 
            
