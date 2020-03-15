@@ -9,7 +9,7 @@ namespace MainGame.Applicazione.DataModel
 
         //lista di oggetti nella forma elemento, percentuale
         public List<element_percentage> elements_percentage_list = new List<element_percentage>();
-      
+        static Random randomElementNumber = new Random();
         //server solo per istanziale l'oggetto
         public ChemicalComposition()
         {
@@ -80,6 +80,17 @@ namespace MainGame.Applicazione.DataModel
             return elements_percentage_list.Where(x => x.el == element).FirstOrDefault().percentage;
         }
 
+        public ChemicalComposition getCompositionFromElements(List<ChemicalElement> _elements)
+        {
+            ChemicalComposition newComposition = new ChemicalComposition();
+            for (int n = 0; n < _elements.Count; n++)
+            {
+                newComposition.addElementToComposition(_elements[n], this.get_percentage_per_element(_elements[n]));
+            }
+
+            return newComposition;
+        }
+
         internal ChemicalElement getElementFromName(string _name)
         {
             if(elements_percentage_list.Where(x => x.el.name == _name).FirstOrDefault() != null)
@@ -91,7 +102,7 @@ namespace MainGame.Applicazione.DataModel
         }
 
         //ritorna percentuale di elementi fluidi
-        private double get_gas_elements_percentage()
+        public double get_fluid_elements_percentage()
         {
             double perc = elements_percentage_list.Where(x => x.el.state == ElementState.Gas 
                                             || x.el.state == ElementState.Liquid).Sum(y => y.percentage);
@@ -99,21 +110,21 @@ namespace MainGame.Applicazione.DataModel
         }
 
         //ritorna percentuale elementi solidi
-        private double get_heavy_elements_percentage()
+        public double get_solid_elements_percentage()
         {
             double perc = elements_percentage_list.Where(x => x.el.state == ElementState.Solid).Sum(y => y.percentage);
             return perc;
         }
 
         //ritorna elementi fluidi
-        private List<ChemicalElement> get_gas_elements()
+        public List<ChemicalElement> get_gas_elements()
         {
             return elements_percentage_list.Where(x => x.el.state == ElementState.Gas 
                                         || x.el.state == ElementState.Liquid).Select(y => y.el).ToList();
         }
 
         //ritorna elementi solidi
-        private List<ChemicalElement> get_heavy_elements()
+        public List<ChemicalElement> get_solid_elements()
         {
             return elements_percentage_list.Where(x => x.el.state == ElementState.Solid).Select(y => y.el).ToList();
         }
@@ -124,7 +135,7 @@ namespace MainGame.Applicazione.DataModel
 
             ChemicalElement chemicalElement = null;
             int elementNumber = 0;
-            Random randomElementNumber = new Random();
+            
             switch (_state)
             {
                 case ElementState.Plasma:
@@ -137,8 +148,8 @@ namespace MainGame.Applicazione.DataModel
                     break;
                 case ElementState.Solid:
                 case ElementState.Liquid:
-                    elementNumber = randomElementNumber.Next(1, this.get_heavy_elements().Count);
-                    chemicalElement = this.get_heavy_elements().ElementAt(elementNumber - 1);
+                    elementNumber = randomElementNumber.Next(1, this.get_solid_elements().Count);
+                    chemicalElement = this.get_solid_elements().ElementAt(elementNumber - 1);
                     break;
             }
 
@@ -151,9 +162,9 @@ namespace MainGame.Applicazione.DataModel
         public PlanetClass GetPlanetClass()
         {
 
-            double percRatio = this.get_gas_elements_percentage() / this.get_heavy_elements_percentage();
+            double percRatio = this.get_fluid_elements_percentage() / this.get_solid_elements_percentage();
             string planetClassificationString;
-            if (this.get_heavy_elements_percentage() > 50.0)
+            if (this.get_solid_elements_percentage() > 50.0)
             {
                 planetClassificationString = "Metallic_Planet";
             }
@@ -211,6 +222,13 @@ namespace MainGame.Applicazione.DataModel
 
                     perc = this.get_percentage_per_element(element);
                     newChemicalElements.Add(this.get_elements().ElementAt(c));
+                }
+                else
+                {
+
+                    perc = this.get_percentage_per_element(element);
+                    perc = perc + newcomposition.Where(x => x.el.name == element.name).FirstOrDefault().percentage;
+                    newcomposition.Remove(newcomposition.Where(x => x.el.name == element.name).FirstOrDefault());
                 }
 
                 newcomposition.Add(new element_percentage(element, (100 / (totalePerc / perc))

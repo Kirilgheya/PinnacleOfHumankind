@@ -25,6 +25,18 @@ public static class Converter
         return _LY * Constants.LY_to_UA;
     }
 
+    public static double K_to_C(double _K)
+    {
+
+        return _K + Constants.K_to_C;
+    }
+
+    public static double C_to_K(double _C)
+    {
+
+        return _C + Constants.C_to_K;
+    }
+
     //lista delle unità di misura della lunghezza
     public static List<Unità_di_misura> legth_units = new List<Unità_di_misura> { 
         new Unità_di_misura("Millimetro","mm", 0,10),

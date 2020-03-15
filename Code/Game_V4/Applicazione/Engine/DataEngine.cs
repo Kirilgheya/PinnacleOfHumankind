@@ -284,10 +284,10 @@ namespace MainGame.Applicazione.Engine
             return this.listofElements.Where(x => x.name.Equals(_name)).FirstOrDefault();
         }
 
-        public List<ChemicalElement> getListOfElementsByState(ElementState _statefilter)
+        public List<ChemicalElement> getListOfElementsByState(ElementState _statefilter, bool _iscomposite = false)
         {
 
-            if(_statefilter > ElementState.Solid)
+            if(_iscomposite)
             {
 
                 return new List<ChemicalElement>(this.listofComposites.Where(x => x.state.Equals(_statefilter)));

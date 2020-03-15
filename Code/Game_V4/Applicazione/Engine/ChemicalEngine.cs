@@ -78,7 +78,9 @@ namespace MainGame.Applicazione
             }
             validElements = new List<ChemicalElement>();
             chemicalElements = PeriodicTable.getListOfElementsByState(ElementState.Molecule);
-            foreach(ChemicalElement molecule in chemicalElements)
+			chemicalElements.AddRange(PeriodicTable.getListOfElementsByState(ElementState.Gas,true));
+
+			foreach (ChemicalElement molecule in chemicalElements)
             {
 
                 foreach (string _component in molecule.components)
@@ -104,7 +106,7 @@ namespace MainGame.Applicazione
             if (validMolecules.Count > 0)
             {
 
-                moleculeDistList = SimulationEngine.generateDistributionList(validMolecules.Count,60,20);
+                moleculeDistList = SimulationEngine.generateDistributionList(validMolecules.Count,15,1);
                 DataEngine.Shuffle<ChemicalElement>(validMolecules, new Random());
                 moleculeComposition = new ChemicalComposition(validMolecules, moleculeDistList);
             }

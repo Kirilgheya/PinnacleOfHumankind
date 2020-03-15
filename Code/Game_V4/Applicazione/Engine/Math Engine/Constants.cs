@@ -23,4 +23,8 @@ public static class Constants
     public static double kgm3_to_kgL = 0.001;
 
     public static double kgL_to_kgm3 = 1000;
+
+    public static double K_to_C = -273.15;
+
+    public static double C_to_K = 273.15;
 }

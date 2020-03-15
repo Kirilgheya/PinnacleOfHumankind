@@ -11,7 +11,8 @@ namespace MainGame.Applicazione.DataModel
     {
 
         private PlanetClass planetClass;
-
+        private Atmosphere Atmosphere;
+        private bool hasAtmosphere;
         private Core planetCore;
 
         protected String name { get; set; }
@@ -108,12 +109,23 @@ namespace MainGame.Applicazione.DataModel
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
 
-           
+            double gggg = -1 * (
+                                 -1 + ((16 * Math.PI * ParametriUtente.Science.alphaStefBoltz * Math.Pow(this.distance_from_star*1000,2))
+                                            /
+                                            (ParametriUtente.Science.lum_sun)
+                                            * Math.Pow(16+234.15,4)
+
+                                     )
+                                 );
 
             this.InitPlanetClassification();
             
             this.setRelativeValues();
             this.initAtmoSphere();
+
+           
+          
+            Atmosphere = new Atmosphere(this.body_composition.getCompositionFromElements(body_composition.get_gas_elements()));
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
@@ -130,7 +142,7 @@ namespace MainGame.Applicazione.DataModel
             for (int i=0;i<3;i++)
             {
                 ChemicalElement local_element = this.body_composition.getRandomElement_PerType(ElementState.Gas);
-                if((element!=null && element.name.Equals(local_element.name)) || (element == null))
+                if((element!=null && element.name.Equals(local_element.name)) || (local_element == null))
                 {
 
                     continue;
@@ -139,25 +151,29 @@ namespace MainGame.Applicazione.DataModel
                 element = local_element;
                 
                 double percentage = this.body_composition.get_percentage_per_element(element)/100;
-                composition.addElementToComposition(element, percentage);
+
+                if(composition.getElementFromName(element.name)==null)
+                {
+                    composition.addElementToComposition(element, percentage);
+                }
+               
                 m = element.mass/1000;
                 M = m;
                 double meanVelocityForElement = Math.Pow((2 * R * T) / M, (1.0 / 2.0));
 
                 if(meanVelocityForElement> escapevelocity)
                 {
-
+                    composition.removeElementFromComposition(element, percentage);
                     this.body_composition.removeElementFromComposition(element, percentage);
                 }
             }
             //prendi la lista di gas
             //scegli 3 gas
             // sqrt(2*R*T/M) dove R = gas constant T = Temperature K e M = mass dell'elemento/1000
-
-            Atmosphere atmosphere = new Atmosphere(composition);
+          
             //this.applyAtmosphericEffects();
 
-            if(iterations <=0)
+            if (iterations <=0 || composition.elements_percentage_list.Count <= 0)
             {
                 _isBlackBody = false;
             }
@@ -170,7 +186,15 @@ namespace MainGame.Applicazione.DataModel
                 //this.initAtmoSphere(_isBlackBody, iterations);
                 //this.applyAtmosphericEffects();
             }
+            else if(iterations == 0)
+            {
 
+                if (composition.elements_percentage_list.Count > 0)
+                {
+                    hasAtmosphere = true;
+                    
+                }
+            }
             this.applyChemicalBonds();
 
 
@@ -188,7 +212,7 @@ namespace MainGame.Applicazione.DataModel
             int numberOfElements = chemicalElements.Count();
 
             //take every element pick half of them and try to merge them
-
+            /*
             while(chosenOnes.Count<= Math.Floor((double)numberOfElements/2))
             {
 
@@ -203,7 +227,7 @@ namespace MainGame.Applicazione.DataModel
                 }
 
             }
-
+            */
 
 
             ChemicalComposition composites = ChemicalEngine.generateComposites(1,this.body_composition);
@@ -263,7 +287,8 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
-            formattedInfo += "\n\tSurface Temperature: " + this.Surface_temperature;
+            formattedInfo += "\n\tSurface Temperature: " + this.Surface_temperature +"K ("
+                                +Converter.K_to_C(this.Surface_temperature)+" C°)";
             formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString();
             if(ringed)
             {

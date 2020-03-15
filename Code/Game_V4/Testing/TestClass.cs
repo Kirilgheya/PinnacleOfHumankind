@@ -120,7 +120,7 @@ namespace MainGame.Applicazione
             element = PeriodicTable.findByName("Argon");
             chemicalElements.Add(element);
             percentageList.Add(0.93);
-            element = PeriodicTable.findByName("Iron");
+            element = PeriodicTable.findByName("Carbon");
             chemicalElements.Add(element);
             percentageList.Add(0.04);
 

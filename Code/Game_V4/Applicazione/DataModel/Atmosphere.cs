@@ -17,7 +17,8 @@ namespace MainGame.Applicazione.DataModel
             foreach (ChemicalElement element in _composition.get_elements())
             {
 
-                if(Atmosphere.GreenhouseGases.greenHouseGases.Contains(element.name))
+                if(Atmosphere.GreenhouseGases.greenHouseGases.Where(x => x.Equals(element.name,
+                                        StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault() != null)
                 {
 
                     greenHouseComposition.addElementToComposition(element, _composition.get_percentage_per_element(element));

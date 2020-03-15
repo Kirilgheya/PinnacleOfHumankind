@@ -38,10 +38,10 @@ namespace Applicazione.DataModel
             return engine.findBaseElementByName(_name);
         }
 
-        public static List<ChemicalElement> getListOfElementsByState(ElementState _statefilter)
+        public static List<ChemicalElement> getListOfElementsByState(ElementState _statefilter,Boolean _iscomposite = false)
         {
 
-            return engine.getListOfElementsByState(_statefilter);
+            return engine.getListOfElementsByState(_statefilter, _iscomposite);
         }
     }
 }
