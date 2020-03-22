@@ -31,6 +31,18 @@ public static class Converter
         return _K + Constants.K_to_C;
     }
 
+    public static double atm_to_PA(double _atm)
+    {
+
+        return _atm * Constants.atm_to_PA;
+    }
+
+    public static double PA_to_atm(double _PA)
+    {
+
+        return _PA * (1/Constants.atm_to_PA);
+    }
+
     public static double C_to_K(double _C)
     {
 

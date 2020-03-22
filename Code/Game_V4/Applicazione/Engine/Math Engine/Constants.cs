@@ -8,6 +8,8 @@ public static class Constants
 
     public static double UA_to_km = 149597870.70;
 
+    public static double atm_to_PA = 101325;
+    
     public static double UA_to_Mkm = 149597.87070;
 
     public static double UA_to_LY = 63241.08;

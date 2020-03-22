@@ -26,7 +26,7 @@ namespace MainGame.Applicazione.DataModel
         public double relCoretemperature { get; set; }
 
         private double meanDensity;
-      
+        protected double surfaceGravity;
         protected double planetRadius;
 
         protected bool ringed = false;
@@ -79,7 +79,7 @@ namespace MainGame.Applicazione.DataModel
             double f = (this.planetRadius * this.planetRadius * this.planetRadius) * (4 / 3) * Math.PI;
 
 
-            this.Volume = ((Math.Pow(this.planetRadius, 3) * (4.0 / 3.0)) * Math.PI); //k3
+            this.Volume = ((Math.Pow(this.planetRadius, 3) * (4.0 / 3.0)) * Math.PI); //km3
 
             this.mass = rel_mass * ParametriUtente.Science.m_t;
 
@@ -108,9 +108,12 @@ namespace MainGame.Applicazione.DataModel
                                             */
             this.Surface_temperature = this.Core_temperature / 2543.37;
             double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
-
+            double cTempo = Converter.K_to_C(this.Surface_temperature);
+            double areaOfAbstoRadiationArea_ratio = 4; // 4 for fast rotation 2 for slow/tidal lock
+            surfaceGravity = (ParametriUtente.Science.G * this.mass) / Math.Pow(this.planetRadius*1000, 2);
+            //https://en.wikipedia.org/wiki/Effective_temperature
             double gggg = -1 * (
-                                 -1 + ((16 * Math.PI * ParametriUtente.Science.alphaStefBoltz * Math.Pow(this.distance_from_star*1000,2))
+                                 -1 + ((areaOfAbstoRadiationArea_ratio * 4 * Math.PI * ParametriUtente.Science.alphaStefBoltz * Math.Pow(this.distance_from_star*1000,2))
                                             /
                                             (ParametriUtente.Science.lum_sun)
                                             * Math.Pow(16+234.15,4)
@@ -121,11 +124,17 @@ namespace MainGame.Applicazione.DataModel
             this.InitPlanetClassification();
             
             this.setRelativeValues();
+
             this.initAtmoSphere();
 
            
-          
-            Atmosphere = new Atmosphere(this.body_composition.getCompositionFromElements(body_composition.get_gas_elements()));
+            if(this.hasAtmosphere)
+            { 
+                Atmosphere = new Atmosphere(this.body_composition.getCompositionFromElements(body_composition.get_gas_elements()));
+                Atmosphere.get_set_Pressure(ParametriUtente.Science.atm_t*(this.surfaceGravity/ ParametriUtente.Science.g_t));
+            }
+
+
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
@@ -192,7 +201,7 @@ namespace MainGame.Applicazione.DataModel
                 if (composition.elements_percentage_list.Count > 0)
                 {
                     hasAtmosphere = true;
-                    
+                   
                 }
             }
             this.applyChemicalBonds();
@@ -271,9 +280,8 @@ namespace MainGame.Applicazione.DataModel
             this.relativeMass = this.mass / ParametriUtente.Science.m_t;
             this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_t;
             this.relativeVolume = this.Volume / ParametriUtente.Science.v_t;
-            //this.relluminosity = this.luminosity / ParametriUtente.Science.lum_sun;
-            //this.relSurfacetemperature = this.Surface_temperature / ParametriUtente.Science.surfacetemp_sun;
-            //this.setMetallicity();
+            this.relativeg = this.surfaceGravity / ParametriUtente.Science.g_t;
+     
         }
 
         public override string ToString()
