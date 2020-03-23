@@ -12,6 +12,7 @@ namespace MainGame.Applicazione.DataModel
         ChemicalComposition greenHouseComposition = new ChemicalComposition();
         ChemicalComposition non_greenHouseComposition = new ChemicalComposition();
         double pressure;
+        double parentBodyMasspercentage;
         public Atmosphere(ChemicalComposition _composition)
         {
             foreach (ChemicalElement element in _composition.get_elements())
@@ -39,6 +40,18 @@ namespace MainGame.Applicazione.DataModel
             double antigreen = non_greenHouseComposition.elements_percentage_list.Average(x => x.el.density * (x.percentage/100));
 
             return (greenhouse + antigreen) / countG;
+        }
+
+        public double get_set_Masspercentage(double _percentage = 0)
+        {
+
+            if (_percentage != default)
+            {
+
+                this.parentBodyMasspercentage = _percentage;
+            }
+
+            return parentBodyMasspercentage;
         }
 
         public double get_set_Pressure(double _pressure = 0)

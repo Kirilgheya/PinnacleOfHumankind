@@ -26,7 +26,7 @@ namespace MainGame.Applicazione
             createEarth();
             ChemicalElement element;
             List<ChemicalElement> chemicalElements = DataEngine.starSeed;
-           
+            PeriodicTable.findElementByName("Water").getMolality();
             percentageList = SimulationEngine.generateDistributionList(90, 70, chemicalElements.Count);
 
             
@@ -72,6 +72,7 @@ namespace MainGame.Applicazione
 
             element = PeriodicTable.findByName("Oxygen");
             chemicalElements.Add(element);
+
             percentageList.Add(0.87);
             element = PeriodicTable.findByName("Iron");
             chemicalElements.Add(element);

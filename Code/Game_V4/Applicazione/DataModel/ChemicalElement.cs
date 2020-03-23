@@ -39,6 +39,15 @@ namespace MainGame.Applicazione.DataModel
             }
         }
 
+        public double getMolality()
+        {
+
+            double molality = Converter.gcm3_to_gL(this.density) / this.mass;
+
+            return molality;
+        }
+
+
         public override string  ToString()
         {
             string formattedInfo = "";

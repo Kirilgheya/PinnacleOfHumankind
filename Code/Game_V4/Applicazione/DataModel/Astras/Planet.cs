@@ -132,6 +132,10 @@ namespace MainGame.Applicazione.DataModel
             { 
                 Atmosphere = new Atmosphere(this.body_composition.getCompositionFromElements(body_composition.get_gas_elements()));
                 Atmosphere.get_set_Pressure(ParametriUtente.Science.atm_t*(this.surfaceGravity/ ParametriUtente.Science.g_t));
+             
+                double atmMass = (4 * Math.PI * Math.Pow(this.planetRadius*1000, 2) * Converter.atm_to_PA(Atmosphere.get_set_Pressure()))
+                                    / this.surfaceGravity;
+                Atmosphere.get_set_Masspercentage(this.planetMass / atmMass);
             }
 
 
@@ -182,28 +186,13 @@ namespace MainGame.Applicazione.DataModel
           
             //this.applyAtmosphericEffects();
 
-            if (iterations <=0 || composition.elements_percentage_list.Count <= 0)
+           
+            if (composition.elements_percentage_list.Count > 0)
             {
-                _isBlackBody = false;
-            }
-
-            if (_isBlackBody )
-            {
-
-
-                iterations--;
-                //this.initAtmoSphere(_isBlackBody, iterations);
-                //this.applyAtmosphericEffects();
-            }
-            else if(iterations == 0)
-            {
-
-                if (composition.elements_percentage_list.Count > 0)
-                {
-                    hasAtmosphere = true;
+                hasAtmosphere = true;
                    
-                }
             }
+         
             this.applyChemicalBonds();
 
 
