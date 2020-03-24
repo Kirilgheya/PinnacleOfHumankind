@@ -14,7 +14,9 @@ namespace MainGame.Applicazione.DataModel
         private Atmosphere Atmosphere;
         private bool hasAtmosphere;
         private Core planetCore;
-
+        private double waterBoilingPoint;
+        private double waterMeltingPoint;
+        private ElementState waterState;
         protected String name { get; set; }
         private double planetMass;
         public double mass
@@ -121,7 +123,7 @@ namespace MainGame.Applicazione.DataModel
                                      )
                                  );
 
-            this.InitPlanetClassification();
+            
             
             this.setRelativeValues();
 
@@ -136,9 +138,14 @@ namespace MainGame.Applicazione.DataModel
                 double atmMass = (4 * Math.PI * Math.Pow(this.planetRadius*1000, 2) * Converter.atm_to_PA(Atmosphere.get_set_Pressure()))
                                     / this.surfaceGravity;
                 Atmosphere.get_set_Masspercentage(this.planetMass / atmMass);
+                this.waterBoilingPoint = ChemicalEngine.getElementBoilingPoint(null,Converter.K_to_C(this.Surface_temperature),Converter.atm_to_mmHg(this.Atmosphere.get_set_Pressure()));
+                this.waterBoilingPoint = Converter.C_to_K(this.waterBoilingPoint);
+                this.waterMeltingPoint = ChemicalEngine.getWaterMeltingPoint_AtP(this.Atmosphere.get_set_Pressure());
+
+                
             }
 
-
+            this.InitPlanetClassification();
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
@@ -235,6 +242,21 @@ namespace MainGame.Applicazione.DataModel
         private void InitPlanetClassification()
         {
             this.planetClass = this.body_composition.GetPlanetClass();
+
+            if(this.Surface_temperature > this.waterBoilingPoint)
+            {
+                waterState = ElementState.Gas;
+            }
+            else if(this.Surface_temperature > this.waterMeltingPoint)
+            {
+
+                waterState = ElementState.Liquid;
+            }
+            else
+            {
+
+                waterState = ElementState.Solid;
+            }
         }
 
         public void removeElement(string _elementName,double _percentageRemoved = 100.0)
@@ -284,6 +306,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
+            formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth";
             formattedInfo += "\n\tSurface Temperature: " + this.Surface_temperature +"K ("
                                 +Converter.K_to_C(this.Surface_temperature)+" C°)";
             formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString();
@@ -296,7 +319,11 @@ namespace MainGame.Applicazione.DataModel
                 formattedInfo += "\n\tRinged: No" ;
             }
             formattedInfo += "\n\t" + this.body_composition.ToString();
-
+            formattedInfo += "\n\tWater on this planet has a Boiling point of:"
+                                + " " + Converter.K_to_C(this.waterBoilingPoint) + " C°"
+                                + "\n\t\tand a Freezing point of:"
+                                + " " + Converter.K_to_C(this.waterMeltingPoint) + " C°"
+                                + "\n\tSo water would be " + this.waterState.ToString();
 
 
             return formattedInfo;

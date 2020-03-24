@@ -43,6 +43,18 @@ public static class Converter
         return _PA * (1/Constants.atm_to_PA);
     }
 
+    public static double mmHg_to_atm(double _mmHg)
+    {
+
+        return _mmHg * (1 / Constants.atm_to_mmHg);
+    }
+
+    public static double atm_to_mmHg(double _atm)
+    {
+
+        return _atm * Constants.atm_to_mmHg;
+    }
+
     public static double C_to_K(double _C)
     {
 

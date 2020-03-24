@@ -62,7 +62,52 @@ namespace MainGame.Applicazione
 			ParametriUtente.Science.knownElements = periodicTable;
 		}
 
+		public static double getWaterVapourPressureAt_T(double _T)
+		{
+			double a, b, c;
+			a = 8.07131;
+			b = 1730.63;
+			c = 233.426;
+			return Math.Pow(10, a - (b / (c + _T))); //mmHg
+		}
 
+		public static double getWaterMeltingPoint_AtP(double _P)
+		{
+			double meltingpoint = 273.15;
+
+			double newmeltingPoint = ((_P - 1) / (-133.44)) + meltingpoint;
+
+			return newmeltingPoint;
+		}
+
+		public static double getWaterBoilingTemp_AtP(double _P)
+		{
+			double a, b, c;
+			a = 8.07131;
+			b = 1730.63;
+			c = 233.426;
+
+			return (b / (a - Math.Log10(_P))) - c;
+		}
+
+		public static double getElementBoilingPoint(ChemicalElement _element, double _T,double _P)
+		{
+
+			double a, b;
+			double P0, T0, H_vap, P;
+			double newBoilingTemperature;
+			P0 = ParametriUtente.Science.atm_t;
+			T0 = 100;
+			H_vap = 40660;
+			P = ChemicalEngine.getWaterVapourPressureAt_T(_T);
+			a = 1.0 / T0;
+			b = (ParametriUtente.Science.idealgasconstant * Math.Log(P / Converter.atm_to_mmHg(P0)))
+				/ (H_vap);
+
+			newBoilingTemperature = 1 / (a - b); // https://en.wikipedia.org/wiki/Boiling_point
+			newBoilingTemperature = ChemicalEngine.getWaterBoilingTemp_AtP(_P);
+			return newBoilingTemperature;
+		}
         public static ChemicalComposition generateComposites(int _numberOfIterations, ChemicalComposition _composition)
         {
             List<ChemicalElement> chemicalElements,validElements,validMolecules;
@@ -106,7 +151,7 @@ namespace MainGame.Applicazione
             if (validMolecules.Count > 0)
             {
 
-                moleculeDistList = SimulationEngine.generateDistributionList(validMolecules.Count,15,1);
+                moleculeDistList = SimulationEngine.generateDistributionList(1,15, validMolecules.Count);
                 DataEngine.Shuffle<ChemicalElement>(validMolecules, new Random());
                 moleculeComposition = new ChemicalComposition(validMolecules, moleculeDistList);
             }
