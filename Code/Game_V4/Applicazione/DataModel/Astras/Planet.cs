@@ -1,4 +1,5 @@
-﻿using org.mariuszgromada.math.mxparser;
+﻿using MainGame.Applicazione.Engine.ClimateEngine;
+using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,6 +18,8 @@ namespace MainGame.Applicazione.DataModel
         private double waterBoilingPoint;
         private double waterMeltingPoint;
         private ElementState waterState;
+        private List<LatitudinalRegion> planetRegions;
+
         protected String name { get; set; }
         private double planetMass;
         public double mass
@@ -144,6 +147,8 @@ namespace MainGame.Applicazione.DataModel
 
                 
             }
+
+            this.planetRegions = ClimateEngine.createLatitudinalRegions(4,this.Surface_temperature);
 
             this.InitPlanetClassification();
         }

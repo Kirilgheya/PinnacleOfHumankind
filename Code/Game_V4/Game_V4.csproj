@@ -50,6 +50,7 @@
     <Compile Include="Applicazione\DataModel\ChemicalComposition.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalElement.cs" />
     <Compile Include="Applicazione\DataModel\Astras\Core.cs" />
+    <Compile Include="Applicazione\DataModel\LatitudinalRegion.cs" />
     <Compile Include="Applicazione\DataModel\Utils\EnumClass.cs" />
     <Compile Include="Applicazione\DataModel\NucleusClass.cs" />
     <Compile Include="Applicazione\DataModel\PeriodicTable.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Applicazione\DataModel\Astras\PlanetClass.cs" />
     <Compile Include="Applicazione\DataModel\Astras\Star.cs" />
     <Compile Include="Applicazione\DataModel\Astras\StarSystem.cs" />
+    <Compile Include="Applicazione\Engine\ClimateEngine\ClimateEngine.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
