@@ -134,7 +134,7 @@ namespace MainGame.Applicazione.Engine
             rockyPlanetSeed.Add(findBaseElementByName("Nitrogen"));
             rockyPlanetSeed.Add(findBaseElementByName("Iron"));
             rockyPlanetSeed.Add(findBaseElementByName("Silver"));
-            rockyPlanetSeed.Add(findBaseElementByName("Carbon"));
+            rockyPlanetSeed.Add(findBaseElementByName("Mercury"));
             rockyPlanetSeed.Add(findBaseElementByName("Oxygen"));
             rockyPlanetSeed.Add(findBaseElementByName("Lithium"));
             rockyPlanetSeed.Add(findBaseElementByName("Tin"));

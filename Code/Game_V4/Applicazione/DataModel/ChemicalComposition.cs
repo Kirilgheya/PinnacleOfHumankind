@@ -190,9 +190,10 @@ namespace MainGame.Applicazione.DataModel
             List<double> toBeMergedPercentage = _composition.get_percentage();
          
             List<element_percentage> newcomposition = new List<element_percentage>();
-            int totalePerc = 200,c=0;
+            int c=0;
             double perc = 0;
-            foreach(ChemicalElement element in toBeMergedElements)
+            double totalePerc = 200,addedPerc = 100;
+            foreach (ChemicalElement element in toBeMergedElements)
             {
 
                 if(this.getElementFromName(element.name)!=null)
@@ -207,8 +208,14 @@ namespace MainGame.Applicazione.DataModel
                     newChemicalElements.Add(element);
                 }
 
-                newcomposition.Add(new element_percentage(element,  100 / (totalePerc / perc ) 
-                                    ));
+                if(perc > 30)
+                {
+                    perc = perc / 30;
+                }
+                addedPerc = addedPerc + perc;
+                totalePerc = 100.0 + perc;
+                newcomposition.Add(new element_percentage(element,  perc * 100 / totalePerc)
+                    );
                 c++;
             }
 
@@ -226,13 +233,14 @@ namespace MainGame.Applicazione.DataModel
                 else
                 {
 
+
                     perc = this.get_percentage_per_element(element);
                     perc = perc + newcomposition.Where(x => x.el.name == element.name).FirstOrDefault().percentage;
                     newcomposition.Remove(newcomposition.Where(x => x.el.name == element.name).FirstOrDefault());
                 }
-
-                newcomposition.Add(new element_percentage(element, (100 / (totalePerc / perc))
-                        ));
+               
+                newcomposition.Add(new element_percentage(element, perc * 100 / addedPerc)
+                        );
                 c++;
             }
 

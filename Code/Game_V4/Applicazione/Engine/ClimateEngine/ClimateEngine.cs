@@ -22,7 +22,7 @@ namespace MainGame.Applicazione.Engine.ClimateEngine
             }
 
             region = new LatitudinalRegion(90, _defaultTemp);
-
+            bands.Add(region);
             halfValue = _numberOf / 2;
             for (int i = 0; i< halfValue; i++)
             {
@@ -31,12 +31,12 @@ namespace MainGame.Applicazione.Engine.ClimateEngine
                 currentAngle = 90 - currentAngleFract;
                 currentOppositAngle =  90 + currentAngleFract;
 
-                region = new LatitudinalRegion(currentAngle, _defaultTemp);
+                region = new LatitudinalRegion(currentAngle, _defaultTemp, (-1*currentAngleFract));
                 region.setTemperatureAtAngle(0, _defaultTemp);
 
                 bands.Add(region);
 
-                region = new LatitudinalRegion(currentOppositAngle, _defaultTemp);
+                region = new LatitudinalRegion(currentOppositAngle, _defaultTemp, currentAngleFract);
                 region.setTemperatureAtAngle(0, _defaultTemp);
 
                 bands.Add(region);
@@ -44,5 +44,6 @@ namespace MainGame.Applicazione.Engine.ClimateEngine
 
             return bands;
         }
+
     }
 }

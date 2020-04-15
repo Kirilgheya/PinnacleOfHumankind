@@ -1,4 +1,5 @@
-﻿using MainGame.Applicazione.Engine.ClimateEngine;
+﻿using MainGame.Applicazione.DataModel.Climate;
+using MainGame.Applicazione.Engine.ClimateEngine;
 using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,13 @@ namespace MainGame.Applicazione.DataModel
         private PlanetClass planetClass;
         private Atmosphere Atmosphere;
         private bool hasAtmosphere;
+        private double averageTemperature;
         private Core planetCore;
         private double waterBoilingPoint;
         private double waterMeltingPoint;
         private ElementState waterState;
         private List<LatitudinalRegion> planetRegions;
-
+        private ClimateModel climateModel;
         protected String name { get; set; }
         private double planetMass;
         public double mass
@@ -132,23 +134,39 @@ namespace MainGame.Applicazione.DataModel
 
             this.initAtmoSphere();
 
-           
-            if(this.hasAtmosphere)
+
+            this.planetRegions = ClimateEngine.createLatitudinalRegions(4, this.Surface_temperature);
+
+            if (this.hasAtmosphere)
             { 
+
+                for(int i = 0; i< 2;i++)
+                {
+                    this.applyChemicalBonds();
+
+                }
                 Atmosphere = new Atmosphere(this.body_composition.getCompositionFromElements(body_composition.get_gas_elements()));
                 Atmosphere.get_set_Pressure(ParametriUtente.Science.atm_t*(this.surfaceGravity/ ParametriUtente.Science.g_t));
              
                 double atmMass = (4 * Math.PI * Math.Pow(this.planetRadius*1000, 2) * Converter.atm_to_PA(Atmosphere.get_set_Pressure()))
                                     / this.surfaceGravity;
                 Atmosphere.get_set_Masspercentage(this.planetMass / atmMass);
-                this.waterBoilingPoint = ChemicalEngine.getElementBoilingPoint(null,Converter.K_to_C(this.Surface_temperature),Converter.atm_to_mmHg(this.Atmosphere.get_set_Pressure()));
+
+                this.climateModel = new ClimateModel_TerrestrialPlanet(this.Surface_temperature, 0, this.planetRegions);
+
+                this.climateModel.distributeHeat();
+
+                this.averageTemperature = this.climateModel.getRealTemperature();
+
+                this.waterBoilingPoint = ChemicalEngine.getElementBoilingPoint(null,Converter.K_to_C(this.averageTemperature),Converter.atm_to_mmHg(this.Atmosphere.get_set_Pressure()));
                 this.waterBoilingPoint = Converter.C_to_K(this.waterBoilingPoint);
                 this.waterMeltingPoint = ChemicalEngine.getWaterMeltingPoint_AtP(this.Atmosphere.get_set_Pressure());
-
                 
-            }
 
-            this.planetRegions = ClimateEngine.createLatitudinalRegions(4,this.Surface_temperature);
+
+            }
+            
+          
 
             this.InitPlanetClassification();
         }
@@ -311,10 +329,10 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
-            formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth";
-            formattedInfo += "\n\tSurface Temperature: " + this.Surface_temperature +"K ("
-                                +Converter.K_to_C(this.Surface_temperature)+" C°)";
-            formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString();
+            formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth's";
+            formattedInfo += "\n\tSurface Temperature: " + this.averageTemperature +"K ("
+                                +Converter.K_to_C(this.averageTemperature) +" C°)";
+            formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString() + " AU";
             if(ringed)
             {
                 formattedInfo += "\n\tRinged: Yes";
