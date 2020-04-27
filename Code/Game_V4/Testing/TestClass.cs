@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
+using MainGame.Applicazione.DataModel.Utils;
 
 namespace MainGame.Applicazione
 {
@@ -41,15 +42,19 @@ namespace MainGame.Applicazione
             system.InitSystemParams(new Double[] { 1, ParametriUtente.Science.r_sun * 1.71, 2.02 }, chemicalComposition);
             system.createStarSystem();
 
-           
+
+            PlanetColor color = new PlanetColor(System.Drawing.Color.Blue);
+            double ggg = color.getAlbedo();
 
             outputFile = string.Concat(outputFile,system.toString());
             int x = 0;
+
             while(x<1000)
             {
               
                 x++;
             }
+
             printToFile(outputFile);
             int i = 0;
         }

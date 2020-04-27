@@ -151,7 +151,7 @@ namespace MainGame.Applicazione
             if (validMolecules.Count > 0)
             {
 
-                moleculeDistList = SimulationEngine.generateDistributionList(1,15, validMolecules.Count);
+                moleculeDistList = SimulationEngine.generateDistributionList(4,1, validMolecules.Count);
                 DataEngine.Shuffle<ChemicalElement>(validMolecules, new Random());
                 moleculeComposition = new ChemicalComposition(validMolecules, moleculeDistList);
             }
