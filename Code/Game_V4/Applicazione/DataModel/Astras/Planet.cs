@@ -221,26 +221,10 @@ namespace MainGame.Applicazione.DataModel
             List<ChemicalElement> generatedElements = new List<ChemicalElement>();
             int numberOfElements = chemicalElements.Count();
 
-            //take every element pick half of them and try to merge them
-            /*
-            while(chosenOnes.Count<= Math.Floor((double)numberOfElements/2))
-            {
-
-                int pickedIndex = random.Next(0, (numberOfElements - 1));
-
-                if(chosenIndexes.Where(x => x == pickedIndex).Count()==0 )
-                {
-
-                    chosenIndexes.Add(pickedIndex);
-                    chosenOnes.Add(chemicalElements.ElementAt(pickedIndex));
-
-                }
-
-            }
-            */
-
 
             ChemicalComposition composites = ChemicalEngine.generateComposites(1,this.body_composition);
+
+
             this.body_composition.mergeCompositions(composites);
           
         }
