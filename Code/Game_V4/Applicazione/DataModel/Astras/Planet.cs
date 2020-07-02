@@ -55,43 +55,17 @@ namespace MainGame.Applicazione.DataModel
 
         public void initPlanet(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
-            //if (percentage == null)
-            //{
-
-            //    percentage = this.elementsDistribution;
-            //}
+          
             //elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = ".";
             Function hydrostaticEquilibrium = ParametriUtente.Science.hydrostaticEquilibrium;
             //mass in grammi / 18.015 = moles
-            //ideal gas law
-            double molecularWeight = 0.0;
-            double sumofElement = 0.0;
-
             double pressione;
 
-            this.meanDensity = 0;
-
-            foreach (ChemicalElement element in body_composition.get_elements())
-            {
-
-                double currentElement = body_composition.get_percentage_per_element(element);
-
-                sumofElement = sumofElement + currentElement;
-                molecularWeight = (molecularWeight + (element.mass)
-                                               ) ;
-            }
-            molecularWeight = molecularWeight / sumofElement;
-            double f = (this.planetRadius * this.planetRadius * this.planetRadius) * (4 / 3) * Math.PI;
-
-
             this.Volume = ((Math.Pow(this.planetRadius, 3) * (4.0 / 3.0)) * Math.PI); //km3
-
             this.mass = rel_mass * ParametriUtente.Science.m_t;
-
             this.meanDensity = (this.mass * 1000 / (Math.Pow(10, 15) * Volume)) * _densityMul;
-
 
             pressione = ((ParametriUtente.Science.G
                                 * mass
@@ -101,40 +75,14 @@ namespace MainGame.Applicazione.DataModel
             this.Core_temperature = ((0.84 * Math.Pow(10, -27)) * pressione)
                                     / (this.meanDensity * (1.380649 * Math.Pow(10, -23)));
 
-            /*pressione = ((ParametriUtente.Science.G
-                                * mass
-                                * this.meanDensity * Math.Pow(10,3))
-                                / (this.planetRadius * this.planetRadius)
-                          ) * this.planetRadius;
-
-            this.Core_temperature = (pressione /
-                                        ((this.meanDensity * Math.Pow(10, 6))
-                                                * (8.314462618 / (molecularWeight)) * 4.8
-                                                ))
-                                            ; // - K to get °
-                                            */
             this.Surface_temperature = this.Core_temperature / 2543.37;
-            double surfaceArea = Math.Pow(this.planetRadius, 2) * Math.PI * 4;
-            double cTempo = Converter.K_to_C(this.Surface_temperature);
+         
             double areaOfAbstoRadiationArea_ratio = 4; // 4 for fast rotation 2 for slow/tidal lock
             surfaceGravity = (ParametriUtente.Science.G * this.mass) / Math.Pow(this.planetRadius*1000, 2);
             //https://en.wikipedia.org/wiki/Effective_temperature
-            double gggg = -1 * (
-                                 -1 + ((areaOfAbstoRadiationArea_ratio * 4 * Math.PI * ParametriUtente.Science.alphaStefBoltz * Math.Pow(this.distance_from_star*1000,2))
-                                            /
-                                            (ParametriUtente.Science.lum_sun)
-                                            * Math.Pow(16+234.15,4)
-
-                                     )
-                                 );
-
-            
-            
+          
             this.setRelativeValues();
-
             this.initAtmoSphere();
-
-
             this.planetRegions = ClimateEngine.createLatitudinalRegions(4, this.Surface_temperature);
 
             if (this.hasAtmosphere)
@@ -152,22 +100,16 @@ namespace MainGame.Applicazione.DataModel
                                     / this.surfaceGravity;
                 Atmosphere.get_set_Masspercentage(this.planetMass / atmMass);
 
+                //TODO: Create ClimateModel programmatically
                 this.climateModel = new ClimateModel_TerrestrialPlanet(this.Surface_temperature, 0, this.planetRegions);
-
                 this.climateModel.distributeHeat();
-
                 this.averageTemperature = this.climateModel.getRealTemperature();
-
                 this.waterBoilingPoint = ChemicalEngine.getElementBoilingPoint(null,Converter.K_to_C(this.averageTemperature),Converter.atm_to_mmHg(this.Atmosphere.get_set_Pressure()));
                 this.waterBoilingPoint = Converter.C_to_K(this.waterBoilingPoint);
                 this.waterMeltingPoint = ChemicalEngine.getWaterMeltingPoint_AtP(this.Atmosphere.get_set_Pressure());
                 
-
-
             }
             
-          
-
             this.InitPlanetClassification();
         }
 
@@ -214,9 +156,6 @@ namespace MainGame.Applicazione.DataModel
             //scegli 3 gas
             // sqrt(2*R*T/M) dove R = gas constant T = Temperature K e M = mass dell'elemento/1000
           
-            //this.applyAtmosphericEffects();
-
-           
             if (composition.elements_percentage_list.Count > 0)
             {
                 hasAtmosphere = true;
@@ -314,7 +253,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\tMass: " + this.relativeMass;
             formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
             formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth's";
-            formattedInfo += "\n\tSurface Temperature: " + this.averageTemperature +"K ("
+            formattedInfo += "\n\tAverage Temperature: " + this.averageTemperature +"K ("
                                 +Converter.K_to_C(this.averageTemperature) +" C°)";
             formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString() + " AU";
             if(ringed)
@@ -339,7 +278,7 @@ namespace MainGame.Applicazione.DataModel
 
         public String generate_planet_name()
         {
-            Random r = new Random(Guid.NewGuid().GetHashCode());
+            Random r;
                 int rannum = 0;
                 String name = String.Empty;
 
@@ -386,7 +325,9 @@ namespace MainGame.Applicazione.DataModel
                         case 29: name = name + ("to"); if (rannum %7 == 0) { name = name + "-"; } break;
 
                         case 30: name = name + ("da"); if (rannum %7 == 0) { name = name + "-"; } break;
+#pragma warning disable IDE0054 // Use compound assignment
                         case 31: name = name + ("ji"); if (rannum %7 == 0) { name = name + "-"; } break;
+#pragma warning restore IDE0054 // Use compound assignment
                         case 32: name = name + ("zu"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 33: name = name + ("de"); if (rannum %7 == 0) { name = name + "-"; } break;
                         case 34: name = name + ("do"); if (rannum %7 == 0) { name = name + "-"; } break;

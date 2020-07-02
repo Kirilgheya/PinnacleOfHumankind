@@ -56,7 +56,7 @@ namespace MainGame.Applicazione.DataModel.Climate
         {
             double maxtemp = temperatureBands.Max(x => x.getTemperature());
             double heatDistributionModifier;
-            int numberOfBands = 2;
+
             LatitudinalRegion sourceRegion = this.temperatureBands.Where(x => x.getTemperature() == maxtemp).FirstOrDefault();
 
             sourceRegion.AddTemperatureModifier(ParametriUtente.Science.TemperatureGradientModifierName, (-1 * HeatDistributionFactor));
@@ -64,7 +64,7 @@ namespace MainGame.Applicazione.DataModel.Climate
             for(int i = 0; i< 2; i++)
             {
                 LatitudinalRegion targetRegion;
-                double regiontemperature = 0;
+    
                 if ((sourceRegion.getRegionAngle()
                         +(sourceRegion.getFactor()*(i+1))
                         )<180 &&
@@ -80,12 +80,12 @@ namespace MainGame.Applicazione.DataModel.Climate
                     if(targetRegion.getRegionAngle() > sourceRegion.getRegionAngle())
                     {
 
-                        heatDistributionModifier = HeatDistributionFactor * ((HeatDistributionFactor - 1) / HeatDistributionFactor);
+                        heatDistributionModifier = HeatDistributionFactor * ((HeatDistributionFactor - (i+1)) / HeatDistributionFactor);
                     }
                     else
                     {
 
-                        heatDistributionModifier = HeatDistributionFactor * ((HeatDistributionFactor - 1) / HeatDistributionFactor);
+                        heatDistributionModifier = HeatDistributionFactor * ((HeatDistributionFactor - (i+1)) / HeatDistributionFactor);
                     }
 
 

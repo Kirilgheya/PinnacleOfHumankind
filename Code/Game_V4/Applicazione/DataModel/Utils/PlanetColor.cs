@@ -24,9 +24,9 @@ namespace MainGame.Applicazione.DataModel.Utils
 
             double total = 255 * 3;
 
-            double relativeAlbedo = (100 * (R + G + B)) / total;
+            double albedo = (100 * (R + G + B)) / total;
 
-            return relativeAlbedo;
+            return albedo;
         }
     }
 }

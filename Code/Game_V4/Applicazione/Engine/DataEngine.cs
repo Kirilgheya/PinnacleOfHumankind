@@ -93,7 +93,6 @@ namespace MainGame.Applicazione.Engine
             starSeed.Add(findBaseElementByName("Iron"));
             
 
-
             gasPlanetSeed.Add(findBaseElementByName("Hydrogen"));
             gasPlanetSeed.Add(findBaseElementByName("Helium"));
             gasPlanetSeed.Add(findBaseElementByName("Calcium"));
@@ -111,7 +110,6 @@ namespace MainGame.Applicazione.Engine
             gasPlanetSeed.Add(findBaseElementByName("Argon"));
 
             ironPlanetSeed.Add(findBaseElementByName("Iron"));
-            
             ironPlanetSeed.Add(findBaseElementByName("Nickel"));
             ironPlanetSeed.Add(findBaseElementByName("Calcium"));
             ironPlanetSeed.Add(findBaseElementByName("Silver"));
@@ -126,7 +124,6 @@ namespace MainGame.Applicazione.Engine
             ironPlanetSeed.Add(findBaseElementByName("Copper"));
             ironPlanetSeed.Add(findBaseElementByName("Cobalt"));
             ironPlanetSeed.Add(findBaseElementByName("Sodium"));
-       
             ironPlanetSeed.Add(findBaseElementByName("Argon"));
 
             rockyPlanetSeed.Add(findBaseElementByName("Carbon"));

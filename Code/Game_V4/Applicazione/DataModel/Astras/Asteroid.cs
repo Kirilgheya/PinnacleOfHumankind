@@ -92,13 +92,13 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n";
             formattedInfo += "Asteroid Name: " + this.name;
          
-            formattedInfo += " - Radius:(km)" + this.asteroidRadius;
-            formattedInfo += " - Mass:(kg)" + this.mass;
+            formattedInfo += " - Radius:(km) " + this.asteroidRadius;
+            formattedInfo += " - Mass:(kg) " + this.mass;
             formattedInfo += " - Density: " + this.relativeAvgDensity;
  
             formattedInfo += " - Distance from star:(km)" + this.distance_from_star.ToString();
        
-            formattedInfo += " - " + this.body_composition.ToString().Trim('\n');
+            formattedInfo += " - \n" + this.body_composition.ToString().Trim('\n');
 
 
 
