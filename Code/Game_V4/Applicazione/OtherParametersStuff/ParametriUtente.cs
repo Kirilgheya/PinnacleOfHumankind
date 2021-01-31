@@ -6,22 +6,26 @@ using System.Windows.Forms;
 
 namespace MainGame.Applicazione
 {
-    static class ParametriUtente
+    public static class ParametriUtente
     {
         public static string exeRootFodler = Application.StartupPath;
 
 
         public static class Science
 		{
-            
-		    public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
-			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
-			public static double m_t = 5.97219 * (Math.Pow(10.0, 27.0)); //massa terrestre in g
-			public static double r_t = 6.3725 * (Math.Pow(10.0,8.0)); //raggio terra in Cm
-			public static double d_t = 5.51; //densità terra g/cm^3
-			public static double v_t = 1083206916846.0; //volume della terra in km3
-			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
 
+			public const string TemperatureGradientModifierName = "Heat distribution";
+			public static double c = 299792458; //meters per second
+			public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
+			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
+			public static double m_t = 5.97219 * (Math.Pow(10.0, 24.0)); //massa terrestre in g
+			public static double r_t = 6372.5; //raggio terra in Km
+			public static double atm_t = 1; //pressione atmosferica in atmosfere
+			public static double coretemp_t = 6230.5; //Kelvin
+            public static double avg_d_t = 5.51; //densità terra g/cm^3
+			public static double v_t = 1.08321 * Math.Pow(10.0,12.0); //volume della terra in km3
+			public static List<DataModel.ChemicalElement> knownElements = new List<DataModel.ChemicalElement>(103); //default is 103
+            public static double m_j = 1.89819 * Math.Pow(10, 27); //kg
             public static double g_sun = g_t * 28.02;
             public static double m_sun = 1.9885 * Math.Pow(10.00, 30.00); //kg
 			public static double r_sun = 695700.00; //Km
@@ -32,8 +36,11 @@ namespace MainGame.Applicazione
             public static double core_d_sun = 162.2; //162.2 g/cm3
             public static double v_sun = 1.41 * Math.Pow(10, 18); //km^3
             public static double p_coreSun = 2.49 * Math.Pow(10, 16);
-            //public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
-            public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
+            public static double AU = 1.496 * Math.Pow(10, 8); //km
+			public static double alphaStefBoltz = 5.670374419 * Math.Pow(10, -8); //Stefan–Boltzmann constant
+			public static double idealgasconstant = 8.31446261815324; //J*K^-1*mol^-1
+			//public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
+			public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
         }
 
 		public static Dictionary<char, int> keybind = new Dictionary<char, int>()

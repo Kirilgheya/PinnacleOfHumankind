@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7D39A20A-1FCF-4098-BE80-00DE5C3929FA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Game_V4</RootNamespace>
+    <RootNamespace>MainGame</RootNamespace>
     <AssemblyName>Game_V4</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>spiral.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Applicazione\Commands\Command.cs" />
     <Compile Include="Applicazione\Commands\CommandNotFound.cs" />
@@ -41,17 +44,33 @@
     <Compile Include="Applicazione\Commands\LoadGame.cs" />
     <Compile Include="Applicazione\Commands\NewGame.cs" />
     <Compile Include="Applicazione\Commands\Options.cs" />
-    <Compile Include="Applicazione\DataModel\Body.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\Asteroid.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter_Types\BinaryStarSystemCenter.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter.cs" />
+    <Compile Include="Applicazione\DataModel\Atmosphere.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\Body.cs" />
+    <Compile Include="Applicazione\DataModel\ChemicalComposition.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalElement.cs" />
-    <Compile Include="Applicazione\DataModel\EnumClass.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\Core.cs" />
+    <Compile Include="Applicazione\DataModel\LatitudinalRegion.cs" />
+    <Compile Include="Applicazione\DataModel\Utils\EnumClass.cs" />
     <Compile Include="Applicazione\DataModel\NucleusClass.cs" />
     <Compile Include="Applicazione\DataModel\PeriodicTable.cs" />
-    <Compile Include="Applicazione\DataModel\Planet.cs" />
-    <Compile Include="Applicazione\DataModel\PlanetClass.cs" />
-    <Compile Include="Applicazione\DataModel\Star.cs" />
-    <Compile Include="Applicazione\DataModel\UOMHandler.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\Planet.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\PlanetClass.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\Star.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\StarSystem.cs" />
+    <Compile Include="Applicazione\DataModel\Utils\ModifierList.cs" />
+    <Compile Include="Applicazione\DataModel\Utils\PlanetColor.cs" />
+    <Compile Include="Applicazione\Engine\ClimateEngine\ClimateEngine.cs" />
+    <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel.cs" />
+    <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel_TerrestrialPlanet.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Constants.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Converter.cs" />
+    <Compile Include="Applicazione\Engine\Random_Extension.cs" />
     <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\Science.cs" />
@@ -69,7 +88,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+    <None Include="Risorse Extra\ElementTable.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Risorse Extra\PeriodicTable.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -78,23 +101,24 @@
     </None>
     <None Include="LocalData.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Applicazione\Engine\Math Engine\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="MathParser.org-mXparser.Net472, Version=4.2.0.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll" />
+    <Content Include="spiral.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

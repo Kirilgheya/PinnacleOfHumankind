@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MainGame.UI.DataModel
 {
-    public class ChemicalElement : MainGame.Applicazione.DataModel.ChemicalElement
+    public class ChemicalElement : Applicazione.DataModel.ChemicalElement
     {
        
         public void initElementDataFromFather(Applicazione.DataModel.ChemicalElement _father)

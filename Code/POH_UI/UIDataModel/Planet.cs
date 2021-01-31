@@ -17,7 +17,7 @@ namespace MainGame.UI.DataModel
 		public string Radius { get; set; }
 		public string Gravity { get; set; }
 		public string Density { get; set; }
-
+        public bool ringed { get; set; }
 
 		public new void  initPlanetStats()
 		{
