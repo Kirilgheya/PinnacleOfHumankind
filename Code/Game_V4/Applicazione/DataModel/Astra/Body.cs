@@ -32,8 +32,13 @@ public abstract class Body
      
     }
 
-    
+    public double getSchwarzschildRadius()
+    {
 
- 
+        return -1.0;
+    }
+
+
+
 
 }

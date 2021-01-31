@@ -18,6 +18,7 @@ namespace MainGame.Applicazione.DataModel
         private double metallicity;
 		protected double age;
         public double meanDensity;
+        public Boolean markAsBlackHole = false;
         protected List<ChemicalElement> stellarCompositionMats;
         protected List<double> elementsDistribution;
         protected double starRadius;
@@ -80,7 +81,25 @@ namespace MainGame.Applicazione.DataModel
             
         }
 
-		public Star(
+        public Boolean isStarABlackHole()
+        {
+
+            return this.markAsBlackHole;
+        }
+
+        public new double getSchwarzschildRadius()
+        {
+            // Rg = 2GM/c2.
+
+            Double radius=0.0;
+
+            radius = ((2 * ParametriUtente.Science.G * this.mass) / Math.Pow(ParametriUtente.Science.c,2) ) /1000 ; //km
+
+            return radius;
+        }
+
+
+        public Star(
 				double _starRadius,
 				double _temperature = 0.0,
 				List<ChemicalElement> _stellarCompositionMats = null
@@ -157,8 +176,10 @@ namespace MainGame.Applicazione.DataModel
             this.starComposition = chemicalComposition;
             elementsDistribution = percentage;
             NumberFormatInfo nfi = new NumberFormatInfo();
+            Random_Extension randomSeed = new Random_Extension();
             nfi.NumberDecimalSeparator = ".";
             Function hydrostaticEquilibrium = ParametriUtente.Science.hydrostaticEquilibrium;
+            int randomGenForBlackHoles;
             //mass in grammi / 18.015 = moles
             //ideal gas law
             double molecularWeight = 0.0;
@@ -167,6 +188,11 @@ namespace MainGame.Applicazione.DataModel
             double pressione;
            
             this.meanDensity = 0;
+
+
+            randomGenForBlackHoles = randomSeed.Next(0, 1);
+
+
 
             foreach (ChemicalElement element in starComposition.get_elements())
             {
@@ -179,7 +205,7 @@ namespace MainGame.Applicazione.DataModel
             }
             molecularWeight = molecularWeight / sumofElement;
 
-            this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0) )* Math.PI); //k3
+            this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0) )* Math.PI); //km3
 
             this.mass = rel_mass * ParametriUtente.Science.m_sun;
 
@@ -202,7 +228,15 @@ namespace MainGame.Applicazione.DataModel
 
             this.Surface_temperature = SimulationEngine.getTemperatureFromLumRadiusRatio(this.starRadius, this.luminosity);//this.Core_temperature / (2717.203184);//2543.37;
 
+            if(randomGenForBlackHoles == 0)
+            {
 
+                this.starRadius = this.getSchwarzschildRadius();
+                this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0)) * Math.PI); //km3
+                this.meanDensity = (this.mass * 1000 / (Math.Pow(10, 15) * Volume));
+                this.Surface_density = this.meanDensity;
+                this.Core_density = this.meanDensity;
+            }
 
 
             this.setRelativeValues();
@@ -231,12 +265,23 @@ namespace MainGame.Applicazione.DataModel
             this.luminosityClass = Star.FindStarClass(temperature);
 
             int relmassClass = (int)(this.relativeMass * 100);
-            this.massClass = Star.FindStarMassClass(relmassClass);
+            
+            if(this.starRadius != this.getSchwarzschildRadius())
+            { 
+                this.massClass = Star.FindStarMassClass(relmassClass);
 
-            this.overallClass = Star.mapClassificationsToOverallClassification(this.massClass, this.luminosityClass);
+                this.overallClass = Star.mapClassificationsToOverallClassification(this.massClass, this.luminosityClass);
 
-            this.starClassification_ByColor = Star.FindStarColor(temperature);
+                this.starClassification_ByColor = Star.FindStarColor(temperature);
 
+            }
+            else
+            {
+
+                this.massClass = StarClassification_byMass.BlackHole;
+                this.starClassification_ByColor = StarClassification_byColor.BlackHole;
+                this.overallClass = OverallStarClassification.BlackHole;
+            }
 
         }
 
@@ -360,6 +405,13 @@ namespace MainGame.Applicazione.DataModel
                     else
                     {
                         overallClass = OverallStarClassification.SuperGiant;
+                    }
+                    break;
+                case StarClassification_byMass.BlackHole:
+                    if(luminosityClass == StarClassification_byLum.BlackHole)
+                    {
+
+                        overallClass = OverallStarClassification.BlackHole;
                     }
                     break;
 

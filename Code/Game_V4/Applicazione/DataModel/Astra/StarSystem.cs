@@ -1,4 +1,5 @@
-﻿using MainGame.Applicazione.Engine;
+﻿using MainGame.Applicazione.DataModel.Astra;
+using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
 
@@ -9,8 +10,11 @@ namespace MainGame.Applicazione.DataModel
     {
         private StarSystem sibling=null;
         private double distanceFromSibling = 0.0;
-        protected Star star;
+        protected StarSystemCenter stars;
         
+        //alpha
+        
+
         protected List<Planet> planets = new List<Planet>();
         protected List<Asteroid> asteroidBelt = new List<Asteroid>();
 
@@ -38,7 +42,7 @@ namespace MainGame.Applicazione.DataModel
         {
             if(this.sibling != null )
             {
-                throw new Exception("Il sistema contentente: " + this.star.FullName + " ha già una stella sorella");
+                throw new Exception("Il sistema contentente: " + this.stars.getFullName() + " ha già una stella sorella");
             }
 
             this.sibling = sibling;
@@ -50,9 +54,28 @@ namespace MainGame.Applicazione.DataModel
             }
         }
 
+
+        private void createStarCenter()
+        {
+
+            Star star = new Star(this.starRadius, 0, this.composition.get_elements());
+
+
+            star.initStar(star_densityMul, this.starRelativeMass, this.composition.get_percentage());
+
+            this.stars = new BinaryStarSystemCenter();
+            this.stars.addStar(star);
+            star = new Star(ParametriUtente.Science.r_sun / 3, 0, this.composition.get_elements());
+
+            star.initStar(star_densityMul, 1.0 / 2.0, this.composition.get_percentage());
+            this.stars.addStar(star);
+
+            this.stars.setBarycenter();
+        }
+
         public void createStarSystem()
         {
-            int minSupportedPlanet = 0, supportedPlanets;
+            int supportedPlanets;
 
             double habitableZone_min;
             double habitableZone_max;
@@ -63,15 +86,12 @@ namespace MainGame.Applicazione.DataModel
             int[] supportedAsteroids = new int[] { 100, 2000 };
             Random_Extension randomSeed = new Random_Extension();
 
-            Star star = new Star(this.starRadius, 0, this.composition.get_elements());
+            this.createStarCenter();
             
 
-            star.initStar(star_densityMul, this.starRelativeMass, this.composition.get_percentage());
-            this.star = star;
-
             //This is measured in AU 
-            habitableZone_min = Math.Sqrt(this.star.relluminosity/1.1);
-            habitableZone_max = Math.Sqrt((this.star.relluminosity/0.53));
+            habitableZone_min = Math.Sqrt(this.stars.getRelLuminosity()/1.1);
+            habitableZone_max = Math.Sqrt((this.stars.getRelLuminosity()/ 0.53));
             //everything beyond habitableZone_max has (should have) less than 0° surface temp and be either rocky(frozen) or gas giant
             //everything beyond habitableZone_min has (should have) more than 40° surfacete temp and can be only a rocky barren planet.
 
@@ -230,7 +250,9 @@ namespace MainGame.Applicazione.DataModel
         {
             string formattedInfo = "";
 
-            formattedInfo = this.star.toString();
+            formattedInfo = this.stars.getFullName();
+
+            formattedInfo = "\n Distance A-B: " + this.stars.getDistances()[0] + " - " + this.stars.getDistances()[1];
 
             foreach(Planet planet in this.planets)
             {

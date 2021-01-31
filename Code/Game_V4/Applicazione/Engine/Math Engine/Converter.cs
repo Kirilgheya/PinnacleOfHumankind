@@ -68,6 +68,7 @@ public static class Converter
         new Unità_di_misura("Decimetro","dm",10,10),
         new Unità_di_misura("Metro","m",10,1000),
         new Unità_di_misura("Kilometro","Km",1000,1000),
+        new Unità_di_misura("Raggio solare", "R⊙",695700,695700),
         new Unità_di_misura("Unità Astronomica","UA", UA_to_Km(1), UA_to_LY(1)),
         new Unità_di_misura("Anno luce", "LY",LY_to_UA(1),0)
         };
@@ -82,6 +83,7 @@ public static class Converter
         new Unità_di_misura("Kilogrammo","kg",10,10),
         new Unità_di_misura("Quintale","q",100,10),
         new Unità_di_misura("Tonnellata","t",10,0),
+        new Unità_di_misura("Massa solare","M☉",1.989e+30,0)
         };
 
     public static List<Unità_di_misura> astraUnits = new List<Unità_di_misura> {

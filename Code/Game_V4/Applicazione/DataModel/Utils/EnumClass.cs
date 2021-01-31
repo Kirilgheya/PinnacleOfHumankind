@@ -52,12 +52,14 @@ namespace MainGame
         LesserGiant = 5,
         MainSequenceDwarf = 6,
         WhiteDwarf = 7,
-        BrownDwarf = 8
+        BrownDwarf = 8,
+        BlackHole = 9
     }
 
     public enum StarClassification_byLum
     {
         //This determines the spectral type (the colour)
+        BlackHole = -1,
         O = 30000, // 30,000 K  
         B = 10000, //10,000–30,000 K
         A = 7500, //7,500–10,000 K     
@@ -72,6 +74,7 @@ namespace MainGame
     public enum StarClassification_byColor
     {
         //This determines the spectral type (the colour)
+        BlackHole = -1,
         Blue = 30000, // 30,000 K  
         Blue_White = 10000, //10,000–30,000 K
         White = 7500, //7,500–10,000 K     
@@ -86,6 +89,7 @@ namespace MainGame
     public enum StarClassification_byMass
     {
         //This determines the  type (the biggggness * 100)
+        BlackHole = -1,
         O = 1600, // 30,000 K  
         B = 210, //10,000–30,000 K
         A = 140, //7,500–10,000 K     

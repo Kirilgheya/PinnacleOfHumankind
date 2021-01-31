@@ -15,7 +15,8 @@ namespace MainGame.Applicazione
 		{
 
 			public const string TemperatureGradientModifierName = "Heat distribution";
-		    public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
+			public static double c = 299792458; //meters per second
+			public static double g_t = 9.80665; //accelerazione di gravità sulla Terra in m/s^2
 			public static double G = 6.67 * (Math.Pow(10.0, -11.0)); //costante di gravitazione universale
 			public static double m_t = 5.97219 * (Math.Pow(10.0, 24.0)); //massa terrestre in g
 			public static double r_t = 6372.5; //raggio terra in Km
