@@ -190,7 +190,7 @@ namespace MainGame.Applicazione.DataModel
             this.meanDensity = 0;
 
 
-            randomGenForBlackHoles = randomSeed.Next(0, 1);
+            randomGenForBlackHoles = randomSeed.Next(0, 100);
 
 
 
@@ -228,7 +228,7 @@ namespace MainGame.Applicazione.DataModel
 
             this.Surface_temperature = SimulationEngine.getTemperatureFromLumRadiusRatio(this.starRadius, this.luminosity);//this.Core_temperature / (2717.203184);//2543.37;
 
-            if(randomGenForBlackHoles == 0)
+            if(randomGenForBlackHoles > 90)
             {
 
                 this.starRadius = this.getSchwarzschildRadius();
@@ -266,7 +266,7 @@ namespace MainGame.Applicazione.DataModel
 
             int relmassClass = (int)(this.relativeMass * 100);
             
-            if(this.starRadius != this.getSchwarzschildRadius())
+            if(this.starRadius > this.getSchwarzschildRadius())
             { 
                 this.massClass = Star.FindStarMassClass(relmassClass);
 
@@ -288,7 +288,7 @@ namespace MainGame.Applicazione.DataModel
         private static StarClassification_byColor FindStarColor(int lumLevel)
         {
             return Enum.GetValues(typeof(StarClassification_byColor)).Cast<int>().Where(stellarClass
-                            => lumLevel >= stellarClass).Cast<StarClassification_byColor>().Last<StarClassification_byColor>();
+                            => lumLevel >= stellarClass).Cast<StarClassification_byColor>().Max<StarClassification_byColor>();
 
         }
 
@@ -311,14 +311,14 @@ namespace MainGame.Applicazione.DataModel
         {
 
             return Enum.GetValues(typeof(StarClassification_byLum)).Cast<int>().Where(stellarClass 
-                                    => lumLevel >= stellarClass).Cast<StarClassification_byLum>().Last<StarClassification_byLum>();
+                                    => lumLevel >= stellarClass).Cast<StarClassification_byLum>().Max();
         }
 
         public static StarClassification_byMass FindStarMassClass(int relMass)
         {
 
             return Enum.GetValues(typeof(StarClassification_byMass)).Cast<int>().Where(stellarClass
-                                    => relMass >= stellarClass).Cast<StarClassification_byMass>().Last<StarClassification_byMass>();
+                                    => relMass >= stellarClass).Cast<StarClassification_byMass>().Max();
         }
 
         public static OverallStarClassification mapClassificationsToOverallClassification(StarClassification_byMass massClass,
@@ -330,6 +330,8 @@ namespace MainGame.Applicazione.DataModel
             switch (massClass)
             {
                 case StarClassification_byMass.T:
+                    int i = 0;
+                    break;
                 case StarClassification_byMass.L:
                 case StarClassification_byMass.M:
                     if (luminosityClass > StarClassification_byLum.M)

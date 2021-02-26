@@ -45,8 +45,10 @@
     <Compile Include="Applicazione\Commands\NewGame.cs" />
     <Compile Include="Applicazione\Commands\Options.cs" />
     <Compile Include="Applicazione\DataModel\Astra\Asteroid.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter_Types\TernaryStarSystemCenter.cs" />
     <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter_Types\BinaryStarSystemCenter.cs" />
     <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter.cs" />
+    <Compile Include="Applicazione\DataModel\Astra\StarSystemCenter_Types\UnaryStarSystemCenter.cs" />
     <Compile Include="Applicazione\DataModel\Atmosphere.cs" />
     <Compile Include="Applicazione\DataModel\Astra\Body.cs" />
     <Compile Include="Applicazione\DataModel\ChemicalComposition.cs" />

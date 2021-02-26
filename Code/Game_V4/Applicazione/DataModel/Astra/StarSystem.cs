@@ -13,9 +13,11 @@ namespace MainGame.Applicazione.DataModel
         protected StarSystemCenter stars;
         
         //alpha
-        
-
+        public String Name { get { return stars.getFullName(); } }
+        public List<Planet> Planets { get { return planets; } }
         protected List<Planet> planets = new List<Planet>();
+
+        public List<Asteroid> asteroids { get { return asteroidBelt; } }
         protected List<Asteroid> asteroidBelt = new List<Asteroid>();
 
         double star_densityMul = 1;
@@ -31,6 +33,13 @@ namespace MainGame.Applicazione.DataModel
             this.starRelativeMass = _parameters[2];
             this.composition = _composition;
         }
+
+        public Star[] getStars()
+        {
+
+           return this.stars.getStars();
+        }
+
         public bool hasSibling()
         {
 
@@ -54,22 +63,47 @@ namespace MainGame.Applicazione.DataModel
             }
         }
 
+        
 
         private void createStarCenter()
         {
-
+            Random_Extension random = new Random_Extension();
             Star star = new Star(this.starRadius, 0, this.composition.get_elements());
 
 
             star.initStar(star_densityMul, this.starRelativeMass, this.composition.get_percentage());
 
-            this.stars = new BinaryStarSystemCenter();
-            this.stars.addStar(star);
-            star = new Star(ParametriUtente.Science.r_sun / 3, 0, this.composition.get_elements());
+            int seed = random.Next(0, 100);
 
-            star.initStar(star_densityMul, 1.0 / 2.0, this.composition.get_percentage());
-            this.stars.addStar(star);
+            if(seed >= 90)
+            {
+                this.stars = new TernaryStarSystemCenter();
+            }
+            else if (seed >= 70)
+            {
+                this.stars = new BinaryStarSystemCenter();
+            }
+            else
+            {
+                this.stars = new UnaryStarSystemCenter();
+            }
 
+
+         
+         
+            this.stars.addStar(star);
+            
+
+           
+
+            while(stars.canHaveMore()>0)
+            {
+                star = new Star(ParametriUtente.Science.r_sun / 3, 0, this.composition.get_elements());
+                star.initStar(star_densityMul, 1.0 / 2.0, this.composition.get_percentage());
+                this.stars.addStar(star);
+            }
+           
+          
             this.stars.setBarycenter();
         }
 

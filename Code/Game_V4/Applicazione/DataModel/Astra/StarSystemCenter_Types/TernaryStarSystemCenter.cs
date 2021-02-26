@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MainGame.Applicazione.DataModel.Astra
 {
-    class BinaryStarSystemCenter : StarSystemCenter
+    class TernaryStarSystemCenter : StarSystemCenter
     {
 
-        public BinaryStarSystemCenter()
+        public TernaryStarSystemCenter()
         {
 
-            this.stars = new Star[2];
+            this.stars = new Star[3];
         }
 
         protected override void childAddStar(Star _star, int _index)

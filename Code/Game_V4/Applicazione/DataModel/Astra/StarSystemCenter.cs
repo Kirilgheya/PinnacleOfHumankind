@@ -20,15 +20,21 @@ namespace MainGame.Applicazione.DataModel.Astra
             return maxRel;
         }
 
+        public Star[] getStars()
+        {
+
+            return stars;
+        }
+
         public void setBarycenter()
         {
             deltaFromBarycenter = new double[stars.Length];
-            if (stars.Length>1)
+            if (stars.Length > 1)
             {
                 Star localStar = stars[0];
                 double a, m1, m2, r1, r2;
 
-                a =  Converter.UA_to_Km(3);
+                a = Converter.UA_to_Km(3);
 
                 m1 = (localStar.mass);
 
@@ -70,6 +76,7 @@ namespace MainGame.Applicazione.DataModel.Astra
         }
 
         public abstract string getFullName();
-        
+
+        public abstract string getStarSystemInformation();
     }
 }

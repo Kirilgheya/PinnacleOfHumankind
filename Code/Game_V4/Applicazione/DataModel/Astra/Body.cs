@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Summary description for Class1
+/// Generic Astral Body
 /// </summary>
 public abstract class Body
 {

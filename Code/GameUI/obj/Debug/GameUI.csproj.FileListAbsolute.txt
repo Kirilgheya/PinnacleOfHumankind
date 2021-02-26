@@ -1,0 +1,28 @@
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Risorse Extra\ElementTable.csv
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Risorse Extra\PeriodicTable.csv
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Risorse Extra\stardata.csv
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\GameUI.exe.config
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\GameUI.exe
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\GameUI.pdb
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Game_V4.exe
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\MathParser.org-mXparser.Net472.dll
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Game_V4.pdb
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\bin\Debug\Game_V4.exe.config
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.csprojAssemblyReference.cache
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\UI\Interfaccia\Home.g.cs
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\MainWindow.g.cs
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\UI\Interfaccia\UniverseReportPage.g.cs
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\App.g.cs
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI_MarkupCompile.cache
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI_MarkupCompile.lref
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\UI\Interfaccia\Home.baml
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\MainWindow.baml
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\UI\Interfaccia\UniverseReportPage.baml
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.g.resources
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.Properties.Resources.resources
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.csproj.GenerateResource.cache
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.csproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.csproj.CopyComplete
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.exe
+C:\Users\user\Source\Repos\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.pdb

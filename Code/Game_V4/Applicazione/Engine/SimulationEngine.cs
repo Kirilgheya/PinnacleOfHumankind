@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MainGame.Applicazione.Engine
 {
-    class SimulationEngine
+    public class SimulationEngine
     {
         private static int numeroDecimaliDefault = 7;
         public static Boolean mustShowInfo = false;

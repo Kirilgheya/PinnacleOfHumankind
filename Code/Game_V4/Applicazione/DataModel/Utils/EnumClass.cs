@@ -59,7 +59,7 @@ namespace MainGame
     public enum StarClassification_byLum
     {
         //This determines the spectral type (the colour)
-        BlackHole = -1,
+        
         O = 30000, // 30,000 K  
         B = 10000, //10,000–30,000 K
         A = 7500, //7,500–10,000 K     
@@ -68,13 +68,14 @@ namespace MainGame
         K = 3700, //3,700–5,200 K 
         M = 2400, //2,400–3,700 K
         L = 1300, //these are brown dwarves basically stars where fusion cannot occur
-        T = 0 
+        T = 0,
+        BlackHole = -1,
     }
 
     public enum StarClassification_byColor
     {
         //This determines the spectral type (the colour)
-        BlackHole = -1,
+        
         Blue = 30000, // 30,000 K  
         Blue_White = 10000, //10,000–30,000 K
         White = 7500, //7,500–10,000 K     
@@ -83,13 +84,14 @@ namespace MainGame
         Light_Orange = 3700, //3,700–5,200 K 
         Orange = 2400, //2,400–3,700 K
         Orange_Red = 1300, //these are brown dwarves basically stars where fusion cannot occur
-        None  = 0
+        None  = 0,
+        BlackHole = -1
     }
 
     public enum StarClassification_byMass
     {
         //This determines the  type (the biggggness * 100)
-        BlackHole = -1,
+       
         O = 1600, // 30,000 K  
         B = 210, //10,000–30,000 K
         A = 140, //7,500–10,000 K     
@@ -98,7 +100,8 @@ namespace MainGame
         K = 45, //3,700–5,200 K 
         M = 8, //2,400–3,700 K
         L = 5, //these are brown dwarves basically stars where fusion cannot occur
-        T = 0
+        T = 0,
+        BlackHole = -1
     }
 
 }
