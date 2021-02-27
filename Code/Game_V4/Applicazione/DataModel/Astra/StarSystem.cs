@@ -151,8 +151,14 @@ namespace MainGame.Applicazione.DataModel
                                 * ( (jupMass_EarthRadii  * radiiMultiplierFactor) - 0.5 ) + 0.5 ;
                
                 c++;
-               
-                
+
+                Random_Extension re = new Random_Extension();
+
+                if (re.Next(0, 10) >= 7)
+                {
+                    c++;
+                }
+
                 if (radii > 10)
                 {
                     radiiMultiplierFactor = 0.7;
@@ -239,7 +245,8 @@ namespace MainGame.Applicazione.DataModel
                 }
                 
                 this.planets.Add(createdPlanet);
-                c++;
+
+                
             }
 
             int numberOfAsteroid = randomSeed.Next(supportedAsteroids[0], supportedAsteroids[1]);
