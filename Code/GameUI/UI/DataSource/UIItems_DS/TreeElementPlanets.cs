@@ -10,7 +10,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
     class TreeElementPlanets : IBodyTreeViewItem
     {
      
-        private List<Body> bodies;
+        public List<Body> bodies;
 
 
         public TreeElementPlanets(List<Body> _bodies)

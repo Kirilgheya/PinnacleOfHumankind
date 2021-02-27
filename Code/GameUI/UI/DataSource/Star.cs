@@ -11,7 +11,7 @@ namespace GameUI.UI.DataSource
     class Star : IBodyTreeViewItem
     {
 
-        private GameCore.Star relatedStar;
+        public GameCore.Star relatedStar;
         public double Temperature {
                 get {
                     return this.relatedStar.Surface_temperature;

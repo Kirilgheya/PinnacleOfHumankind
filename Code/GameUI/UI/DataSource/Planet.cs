@@ -11,7 +11,12 @@ namespace GameUI.UI.DataSource
     class Planet : IBodyTreeViewItem
     {
 
-        private GameCore.Planet relatedPlanet;
+        public GameCore.Planet relatedPlanet
+        {
+            get { return _relatedPlanet; }
+            set { _relatedPlanet = value; }
+        }
+        private GameCore.Planet _relatedPlanet;
         public double Temperature
         {
             get

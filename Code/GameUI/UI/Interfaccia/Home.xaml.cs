@@ -25,6 +25,9 @@ namespace GameUI
     public partial class Home : Page
     {
         TreeViewStarSystems StarSystems_DS;
+
+
+
         public Home()
         {
             InitializeComponent();
@@ -124,5 +127,147 @@ namespace GameUI
             this.StarSystemTreeView.DataContext = StarSystems_DS;
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            double scale = 50;
+
+            StarSystem s = StarSystems_DS.StarSystems[Int32.Parse(txt_index.Text.Trim()) -1 ];
+
+
+            system_name.Content = s.Name;
+
+            backspace.Children.Clear();
+
+            List<Ellipse> ss = new List<Ellipse>();
+
+            int n = 0;
+
+
+
+            foreach (IBodyTreeViewItem body in s.Children)
+            {
+                double radious;
+                try
+                {
+                    Star star = body as Star;
+
+                    radious = (s.Children[n] as Star).relatedStar.relativeRadius;
+                    ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = Brushes.Red, Tag = star });
+                    backspace.Children.Add(ss[n]);
+
+                    ss[n].MouseLeftButtonUp += Home_MouseLeftButtonUp;
+
+                    Canvas.SetLeft(ss[n], 0);
+                    Canvas.SetTop(ss[n], 100 * n);
+
+
+
+                }
+                catch(Exception exc)
+                {
+                    //non è una stella 
+
+                    List<IBodyTreeViewItem> cose = (body as TreeElementPlanets).Children.ToList();
+
+                    int m = 0;
+
+                    foreach(IBodyTreeViewItem b in cose)
+                    {
+                        try
+                        {
+                           if(b is Planet)
+                            {
+                                radious = (b as Planet).relatedPlanet.relativeRadius;
+                                ss.Add(new Ellipse() { Width = (radious * scale)/10, Height = (radious * scale)/10, Fill = Brushes.Blue, Tag = b });
+                                backspace.Children.Add(ss[n+m]);
+
+                                ss[n+m].MouseLeftButtonUp += Home_MouseLeftButtonUp;
+
+                                //Canvas.SetLeft(ss[n+m], (b as Planet).relatedPlanet.distance_from_star * scale * 4);
+                                Canvas.SetLeft(ss[n + m], 100 * m + 1);
+                                Canvas.SetTop(ss[n+m], 100 * n + 1 );
+
+ 
+
+                                m++;
+                            }
+                        }
+                        catch(Exception exc2)
+                        {
+
+                        }
+                    }
+
+
+                }
+                n++;
+            }
+
+
+        }
+
+        private void Home_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Star s = (sender as Ellipse).Tag as Star;
+
+                MessageBox.Show(s.relatedStar.ToString());
+            }
+            catch(Exception exc)
+            {
+                Planet s = (sender as Ellipse).Tag as Planet;
+
+                MessageBox.Show(s.relatedPlanet.ToString());
+            }
+           
+        }
+
+        private void backspace_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            //UpdateViewBox((e.Delta < 0) ? 5 : -5);
+
+            var element = sender as UIElement;
+            var position = e.GetPosition(element);
+            var transform = element.RenderTransform as MatrixTransform;
+            var matrix = transform.Matrix;
+            var scale = e.Delta >= 0 ? 1.1 : (1.0 / 1.1); // choose appropriate scaling factor
+
+            matrix.ScaleAtPrepend(scale, scale, position.X, position.Y);
+            transform.Matrix = matrix;
+        }
+
+        private void UpdateViewBox(int newValue)
+        {
+            if ((backspace.Width >= 0) && backspace.Height >= 0)
+            {
+                backspace.Width += newValue;
+                backspace.Height += newValue;
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            backspace.Width = 669;
+            backspace.Height = 835;
+
+
+
+            ZoomViewbox.MaxWidth = backspace.Width;
+            ZoomViewbox.MaxHeight = backspace.Height;
+
+            ZoomViewbox.MinWidth = backspace.Width;
+            ZoomViewbox.MinHeight = backspace.Height;
+
+        }
+
+        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+        }
+
     }
+    
+    
 }

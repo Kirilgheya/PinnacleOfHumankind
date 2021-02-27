@@ -37,7 +37,22 @@ namespace MainGame.Applicazione.DataModel
         protected double planetRadius;
 
         protected bool ringed = false;
-        protected double distance_from_star;
+
+        public double distance_from_star
+        {
+
+            get
+            {
+                return _distance_from_star; 
+            }
+
+            set
+            {
+                _distance_from_star = value;
+            }
+
+        }
+        private double _distance_from_star;
 
 
         public Planet(ChemicalComposition _chemical, double radius_Km, double distance_from_star)

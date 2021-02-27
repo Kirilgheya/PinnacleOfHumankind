@@ -5,6 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366" Source="UI/Interfaccia/Home.xaml" >
+        Title="MainWindow" Source="UI/Interfaccia/Home.xaml" WindowState="Maximized">
  
 </NavigationWindow>

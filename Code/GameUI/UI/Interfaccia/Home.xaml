@@ -7,63 +7,73 @@
       xmlns:DataSource="clr-namespace:GameUI.UI.DataSource" xmlns:UIItems_DS="clr-namespace:GameUI.UI.DataSource.UIItems_DS" x:Class="GameUI.Home"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Application Home" Margin="10,0,10,10">
+      Title="Application Home" Margin="10,0,10,10" Loaded="Page_Loaded">
 
-    <Grid>
+    <Viewbox Stretch="Fill" x:Name="backgrounbox">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-
-        </Grid.RowDefinitions>
-        <TreeView Name="StarSystemTreeView"
-            HorizontalAlignment="Left"
-            Height="429"
-            Margin="0,0,0,-439"
-            VerticalAlignment="Bottom"
-            Width="405"
+         <Button Content="Button" Click="Button_Click" Height="117" Grid.Column="1" Grid.Row="0"/>
+            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="1" x:Name="txt_index" Grid.Column="2" Grid.Row="0"/>
+            <TreeView x:Name="StarSystemTreeView" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
             Loaded="TestLoaded"
             Background="AliceBlue"
-                  ItemsSource="{Binding StarSystems}"
+                  ItemsSource="{Binding StarSystems}" Grid.RowSpan="2" 
                  >
 
-            <TreeView.Resources>
+                    <TreeView.Resources>
 
-                <HierarchicalDataTemplate  DataType="{x:Type DataSource:StarSystem}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:StarSystem}" ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate  DataType="{x:Type DataSource:Star}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Star}" ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate  DataType="{x:Type UIItems_DS:TreeElementPlanets}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate  DataType="{x:Type UIItems_DS:TreeElementPlanets}" ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate  DataType="{x:Type DataSource:Planet}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Planet}" ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate  DataType="{x:Type DataSource:Asteroid}" ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Asteroid}" ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate>
 
-            </TreeView.Resources>
+                    </TreeView.Resources>
 
-            <TreeView.DataContext>
-                <UIItems_DS:TreeViewStarSystems/>
-            </TreeView.DataContext>
+                    <TreeView.DataContext>
+                        <UIItems_DS:TreeViewStarSystems/>
+                    </TreeView.DataContext>
 
-        </TreeView>
-
-
-    </Grid>
+                </TreeView>
+            <Label Content="Label" x:Name="system_name" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" Height="669" Width="669" VerticalAlignment="Stretch" MouseWheel="ScrollViewer_MouseWheel">
+                <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True">
+                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="LightGreen" x:Name="backspace"  MouseWheel="backspace_MouseWheel">
+                        <Canvas.RenderTransform>
+                            <MatrixTransform x:Name="mt"/>
+                        </Canvas.RenderTransform>
+                      </Canvas>
+                </Viewbox>
+            </ScrollViewer>
+        </Grid>
+    </Viewbox>
 </Page>
