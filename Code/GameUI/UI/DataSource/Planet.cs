@@ -38,7 +38,7 @@ namespace GameUI.UI.DataSource
         protected override void setName()
         {
 
-           this.Name =  this.relatedPlanet.generate_planet_name();
+           this.Name =  this.relatedPlanet.name;
         }
     }
 }

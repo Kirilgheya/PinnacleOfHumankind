@@ -22,7 +22,7 @@ namespace MainGame.Applicazione.DataModel
         private ElementState waterState;
         private List<LatitudinalRegion> planetRegions;
         private ClimateModel climateModel;
-        protected String name { get; set; }
+        public String name { get; set; }
         private double planetMass;
         public double mass
         {
