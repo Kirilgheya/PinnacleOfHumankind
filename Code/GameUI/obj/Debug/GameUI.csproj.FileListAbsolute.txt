@@ -54,3 +54,6 @@ C:\Users\orion\Source\Repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\obj\Debug
 C:\Users\orion\Source\Repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.csproj.CopyComplete
 C:\Users\orion\Source\Repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.exe
 C:\Users\orion\Source\Repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\obj\Debug\GameUI.pdb
+C:\Users\orion\source\repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\bin\Debug\WpfAnimatedGif.dll
+C:\Users\orion\source\repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\bin\Debug\WpfAnimatedGif.pdb
+C:\Users\orion\source\repos\Kirilgheya\PinnacleOfHumankind\Code\GameUI\bin\Debug\WpfAnimatedGif.xml
