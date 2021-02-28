@@ -281,7 +281,7 @@ namespace MainGame.Applicazione.DataModel
         {
 
             int temperature = (int) this.Surface_temperature;
-            this.luminosityClass = Star.FindStarClass(temperature);
+            this.luminosityClass = Star.FindStarClass(this.relluminosity);
 
             int relmassClass = (int)(this.relativeMass * 100);
             
@@ -331,11 +331,11 @@ namespace MainGame.Applicazione.DataModel
             this.extendedName = extendedName;
         }
 
-        public static StarClassification_byLum FindStarClass(int lumLevel)
+        public static StarClassification_byLum FindStarClass(double lumLevel)
         {
-
+            double localLumlevel = lumLevel * 100;
             return Enum.GetValues(typeof(StarClassification_byLum)).Cast<int>().Where(stellarClass 
-                                    => lumLevel >= stellarClass).Cast<StarClassification_byLum>().Max();
+                                    => (localLumlevel) >= stellarClass).Cast<StarClassification_byLum>().Max();
         }
 
         public static StarClassification_byMass FindStarMassClass(int relMass)
