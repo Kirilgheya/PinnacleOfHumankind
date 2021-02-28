@@ -178,11 +178,11 @@ namespace GameUI
 
                     if (star.relatedStar.isStarABlackHole())
                     {
-                        ss.Add(new Ellipse() { Width = 10, Height = 10, Fill = Brushes.Black, Tag = star });
+                        ss.Add(new Ellipse() { Width = 10, Height = 10, Fill = star.getBrushFromStarColor(), Tag = star });
                     }
                     else
                     {
-                        ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = Brushes.Red, Tag = star });
+                        ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = star.getBrushFromStarColor(), Tag = star });
                     }
                     backspace.Children.Add(ss[n]);
 
@@ -240,7 +240,7 @@ namespace GameUI
             {
                 Star s = sender.Tag as Star;
 
-                MessageBox.Show(s.relatedStar.ToString());
+                MessageBox.Show(s.relatedStar.ToString_Info());
 
             }
             catch (Exception exc)

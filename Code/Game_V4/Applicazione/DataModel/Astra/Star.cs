@@ -161,7 +161,7 @@ namespace MainGame.Applicazione.DataModel
 			this.overallClass = (OverallStarClassification)Enum.ToObject(typeof(OverallStarClassification), _class);
 		}
 
-        public String toString()
+        public String ToString_Info()
         {
             string formattedInfo= "";
 
