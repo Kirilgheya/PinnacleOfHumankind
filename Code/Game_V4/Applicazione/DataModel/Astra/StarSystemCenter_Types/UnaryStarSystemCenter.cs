@@ -66,13 +66,13 @@ namespace MainGame.Applicazione.DataModel.Astra
 
                 formattedInfo += "\nStar Name: " + star.FullName;
                 formattedInfo += "\n\tRadius: " + star.relativeRadius + " " + Converter.getUOMFromName("Raggio solare");
-                formattedInfo += "\n\tMass: " + star.relativeMass + " " + Converter.getUOMFromName("Massa solare");
-                formattedInfo += "\n\tDensity: " + star.meanDensity + " Relative to the Sun";
+                formattedInfo += "\n\tMass: " + star.RelativeMass + " " + Converter.getUOMFromName("Massa solare");
+                formattedInfo += "\n\tDensity: " + star.AvgDensity + " Relative to the Sun";
                 formattedInfo += "\n\tCore Temperature: " + star.Core_temperature;
                 formattedInfo += "\n\tEffective Temperature: " + star.Surface_temperature;
-                formattedInfo += "\n\tStar Class: " + star.overallClass.ToString();
-                formattedInfo += "\n\tVega-relative chromaticity: " + star.starClassification_ByColor.ToString();
-                formattedInfo += "\n\t" + star.starComposition.ToString();
+                formattedInfo += "\n\tStar Class: " + star.StarClass.ToString();
+                formattedInfo += "\n\tVega-relative chromaticity: " + star.StarColor.ToString();
+                formattedInfo += "\n\t" + star.StarComposition.ToString();
 
 
 

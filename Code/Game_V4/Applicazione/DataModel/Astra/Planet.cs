@@ -19,7 +19,8 @@ namespace MainGame.Applicazione.DataModel
         private Core planetCore;
         private double waterBoilingPoint;
         private double waterMeltingPoint;
-        private ElementState waterState;
+        public ElementState waterState { get { return _waterState; } set { _waterState = value;} }
+        private ElementState _waterState;
         private List<LatitudinalRegion> planetRegions;
         private ClimateModel climateModel;
         public String name { get; set; }
@@ -29,6 +30,8 @@ namespace MainGame.Applicazione.DataModel
             get { return planetMass; }
             set { this.planetMass = value; this.relativeMass = (value / 100) / Science.m_t; }
         }
+
+        public double Radius { get { return this.planetRadius; } }
 
         public double relCoretemperature { get; set; }
 
@@ -40,20 +43,17 @@ namespace MainGame.Applicazione.DataModel
 
         public double distance_from_star
         {
-
             get
-            {
-                return _distance_from_star; 
-            }
-
+            { return _distance_from_star;}
             set
-            {
-                _distance_from_star = value;
-            }
-
+            { _distance_from_star = value;}
         }
         private double _distance_from_star;
 
+        public double SurfaceG { get {return this.relativeg * ParametriUtente.Science.g_t; } }
+        public double Density { get { return meanDensity; } }
+
+        public PlanetClass PlanetClass { get { return this.planetClass; } }
 
         public Planet(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
         {

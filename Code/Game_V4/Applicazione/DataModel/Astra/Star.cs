@@ -14,17 +14,23 @@ namespace MainGame.Applicazione.DataModel
 		public double relluminosity { get; set; }
         protected double relCoretemperature;
         protected double relSurfacetemperature;
-        public ChemicalComposition starComposition;
+        protected ChemicalComposition starComposition;
         private double metallicity;
 		protected double age;
-        public double meanDensity;
-        public Boolean markAsBlackHole = false;
+        protected double meanDensity;
+        protected Boolean markAsBlackHole = false;
         protected List<ChemicalElement> stellarCompositionMats;
         protected List<double> elementsDistribution;
         protected double starRadius;
         private double StarMass;
         public double Radius { get { return this.relativeRadius * ParametriUtente.Science.r_sun; } set { this.starRadius = value; } }
-        public double AvgDensity { get { return _relativeAvgDensity * ParametriUtente.Science.avg_d_sun; } set { _relativeAvgDensity = value; } }
+        public double AvgDensity { get { return _relativeAvgDensity * ParametriUtente.Science.avg_d_sun; } set { _relativeAvgDensity = value / ParametriUtente.Science.avg_d_sun; } }
+        public double RelativeAvgDensity { get { return _relativeAvgDensity; } set { _relativeAvgDensity = value; } }
+
+
+        public ChemicalComposition StarComposition { get { return starComposition; } }
+        public OverallStarClassification StarClass { get { return overallClass; } }
+        public StarClassification_byColor StarColor { get { return starClassification_ByColor; } }
 
         private string baseName;
         private string extendedName;
@@ -38,10 +44,11 @@ namespace MainGame.Applicazione.DataModel
             set { this.finalizeStar(); }
         }
 
-        public StarClassification_byLum luminosityClass;
-        public StarClassification_byMass massClass;
-        public OverallStarClassification overallClass;
-        public StarClassification_byColor starClassification_ByColor;
+        protected StarClassification_byLum luminosityClass;
+        protected StarClassification_byMass massClass;
+        protected OverallStarClassification overallClass;
+        protected StarClassification_byColor starClassification_ByColor;
+        
         public double Metallicity { get {
                                         if (this.metallicity <= 0.0)
                                         {
@@ -55,9 +62,17 @@ namespace MainGame.Applicazione.DataModel
                                         }
             
                                   }
-        public double Mass { get { return StarMass; }
-                             set { this.StarMass = value; this.relativeMass = (value/100) / Science.m_sun; }
-                            }
+        public double Mass
+        {
+            get { return StarMass; }
+            set { this.StarMass = value; this.relativeMass = (value / 100) / Science.m_sun; }
+        }
+
+        public double RelativeMass
+        {
+            get { return relativeMass; }
+            set { this.relativeMass = value; }
+        }
         public double equilibriumFactor;
 	
         public override string ToString()
