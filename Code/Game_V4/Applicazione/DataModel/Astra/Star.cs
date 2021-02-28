@@ -23,6 +23,9 @@ namespace MainGame.Applicazione.DataModel
         protected List<double> elementsDistribution;
         protected double starRadius;
         private double StarMass;
+        public double Radius { get { return this.relativeRadius * ParametriUtente.Science.r_sun; } set { this.starRadius = value; } }
+        public double AvgDensity { get { return _relativeAvgDensity * ParametriUtente.Science.avg_d_sun; } set { _relativeAvgDensity = value; } }
+
         private string baseName;
         private string extendedName;
         public string FullName { get {
@@ -52,7 +55,7 @@ namespace MainGame.Applicazione.DataModel
                                         }
             
                                   }
-        public double mass { get { return StarMass; }
+        public double Mass { get { return StarMass; }
                              set { this.StarMass = value; this.relativeMass = (value/100) / Science.m_sun; }
                             }
         public double equilibriumFactor;
@@ -93,7 +96,7 @@ namespace MainGame.Applicazione.DataModel
 
             Double radius=0.0;
 
-            radius = ((2 * ParametriUtente.Science.G * this.mass) / Math.Pow(ParametriUtente.Science.c,2) ) /1000 ; //km
+            radius = ((2 * ParametriUtente.Science.G * this.Mass) / Math.Pow(ParametriUtente.Science.c,2) ) /1000 ; //km
 
             return radius;
         }
@@ -138,7 +141,7 @@ namespace MainGame.Applicazione.DataModel
 		{
 
 			this.relativeMass = _relmass;
-			this.Core_temperature = _surfaceTemperature;
+			this.Surface_temperature = _surfaceTemperature;
 			this.relluminosity = _relluminosity;
 			this.overallClass = (OverallStarClassification)Enum.ToObject(typeof(OverallStarClassification), _class);
 		}
@@ -152,7 +155,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tMass: " + this.relativeMass + " "+Converter.getUOMFromName("Massa solare");
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
             formattedInfo += "\n\tCore Temperature: " + this.Core_temperature;
-            formattedInfo += "\n\tEffective Temperature: " + this.Surface_temperature;
+            formattedInfo += "\n\tEffective(surf.) Temperature: " + this.Surface_temperature;
             formattedInfo += "\n\tStar Class: " + this.overallClass.ToString();
             formattedInfo += "\n\tVega-relative chromaticity: " + this.starClassification_ByColor.ToString();
             formattedInfo += "\n\t" + this.starComposition.ToString();
@@ -207,15 +210,15 @@ namespace MainGame.Applicazione.DataModel
 
             this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0) )* Math.PI); //km3
 
-            this.mass = rel_mass * ParametriUtente.Science.m_sun;
+            this.Mass = rel_mass * ParametriUtente.Science.m_sun;
 
-            this.luminosity = SimulationEngine.getLuminosityFromMass(this.mass);
+            this.luminosity = SimulationEngine.getLuminosityFromMass(this.Mass);
 
-            this.meanDensity = (this.mass*1000/ (Math.Pow(10,15)*Volume)) * _densityMul;
+            this.meanDensity = (this.Mass*1000/ (Math.Pow(10,15)*Volume)) * _densityMul;
        
             
             pressione = ((ParametriUtente.Science.G 
-                                * mass
+                                * Mass
                                 * (Converter.gcm3_to_kgm3(this.meanDensity)))
                           / (this.starRadius*1000));
 
@@ -233,7 +236,7 @@ namespace MainGame.Applicazione.DataModel
 
                 this.starRadius = this.getSchwarzschildRadius();
                 this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0)) * Math.PI); //km3
-                this.meanDensity = (this.mass * 1000 / (Math.Pow(10, 15) * Volume));
+                this.meanDensity = (this.Mass * 1000 / (Math.Pow(10, 15) * Volume));
                 this.Surface_density = this.meanDensity;
                 this.Core_density = this.meanDensity;
                 this.markAsBlackHole = true;
@@ -250,8 +253,8 @@ namespace MainGame.Applicazione.DataModel
         private void setRelativeValues()
         {
             this.relativeRadius = this.starRadius / ParametriUtente.Science.r_sun;
-            this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
-            this.relativeMass = this.mass / ParametriUtente.Science.m_sun;
+            this._relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_sun;
+            this.relativeMass = this.Mass / ParametriUtente.Science.m_sun;
             this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_sun;
             this.relativeVolume = this.Volume/ ParametriUtente.Science.v_sun;
             this.relluminosity = this.luminosity / ParametriUtente.Science.lum_sun;
@@ -291,6 +294,11 @@ namespace MainGame.Applicazione.DataModel
             return Enum.GetValues(typeof(StarClassification_byColor)).Cast<int>().Where(stellarClass
                             => lumLevel >= stellarClass).Cast<StarClassification_byColor>().Max<StarClassification_byColor>();
 
+        }
+
+        public StarClassification_byColor getColor()
+        {
+            return this.starClassification_ByColor;
         }
 
         private void finalizeStar()

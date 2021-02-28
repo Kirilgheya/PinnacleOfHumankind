@@ -169,6 +169,8 @@ namespace GameUI
                     }
                     backspace.Children.Add(ss[n]);
 
+                    
+
                     ss[n].MouseLeftButtonUp += Home_MouseLeftButtonUp;
 
                     Canvas.SetLeft(ss[n], 0);

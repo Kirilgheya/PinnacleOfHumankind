@@ -248,7 +248,7 @@ namespace MainGame.Applicazione.DataModel
         {
 
             this.relativeRadius = this.planetRadius / ParametriUtente.Science.r_t;
-            this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_t;
+            this._relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_t;
             this.relativeMass = this.mass / ParametriUtente.Science.m_t;
             this.relCoretemperature = this.Core_temperature / ParametriUtente.Science.coretemp_t;
             this.relativeVolume = this.Volume / ParametriUtente.Science.v_t;
@@ -266,7 +266,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n\t" + this.planetClass.toString();
             formattedInfo += "\n\tRadius: " + this.relativeRadius;
             formattedInfo += "\n\tMass: " + this.relativeMass;
-            formattedInfo += "\n\tDensity: " + this.relativeAvgDensity;
+            formattedInfo += "\n\tDensity: " + this._relativeAvgDensity;
             formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth's";
             formattedInfo += "\n\tAverage Temperature: " + this.averageTemperature +"K ("
                                 +Converter.K_to_C(this.averageTemperature) +" C°)";

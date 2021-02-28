@@ -12,7 +12,8 @@
 /Code/Game_V4/obj/*
 /Code/Game_V4/bin/*
 /Code/Game_V4/.vs/*
-
+/Code/GameUI/bin/*
+/Code/GameUI/obj/*
 /Code/.vs/*
 /Code/POH_UI/obj/*
 /Code/POH_UI/bin/*

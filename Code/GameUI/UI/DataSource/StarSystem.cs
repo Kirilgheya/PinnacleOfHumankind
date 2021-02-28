@@ -55,7 +55,7 @@ namespace GameUI.UI.DataSource
 
             List<GameCore.Star> stars = this.relatedStarSystem.getStars().ToList<GameCore.Star>();
 
-            majorStarName = stars.Aggregate((i, j) => i.mass > j.mass ? i : j).FullName;
+            majorStarName = stars.Aggregate((i, j) => i.Mass > j.Mass ? i : j).FullName;
 
             Name = "Stellar System: " + majorStarName;
 

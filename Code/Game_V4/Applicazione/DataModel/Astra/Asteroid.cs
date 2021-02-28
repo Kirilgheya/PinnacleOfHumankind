@@ -75,7 +75,7 @@ namespace MainGame.Applicazione.DataModel
         {
 
             this.relativeRadius = this.asteroidRadius / ParametriUtente.Science.r_t;
-            this.relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_t;
+            this._relativeAvgDensity = this.meanDensity / ParametriUtente.Science.avg_d_t;
             this.relativeMass = this.mass / ParametriUtente.Science.m_t;
             
             this.relativeVolume = this.Volume / ParametriUtente.Science.v_t;
@@ -94,7 +94,7 @@ namespace MainGame.Applicazione.DataModel
          
             formattedInfo += " - Radius:(km) " + this.asteroidRadius;
             formattedInfo += " - Mass:(kg) " + this.mass;
-            formattedInfo += " - Density: " + this.relativeAvgDensity;
+            formattedInfo += " - Density: " + this._relativeAvgDensity;
  
             formattedInfo += " - Distance from star:(km)" + this.distance_from_star.ToString();
        
