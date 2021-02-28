@@ -26,7 +26,9 @@ namespace GameUI
     {
         TreeViewStarSystems StarSystems_DS;
 
+        Gamecore.DataModel.ChemicalComposition chemicalComposition;
 
+        Matrix min_zoom;
 
         public Home()
         {
@@ -42,23 +44,26 @@ namespace GameUI
 
             percentageList = Gamecore.Engine.SimulationEngine.generateDistributionList(90, 70, chemicalElements.Count);
 
+            chemicalComposition = new Gamecore.DataModel.ChemicalComposition(chemicalElements, percentageList);
 
-            Gamecore.DataModel.ChemicalComposition chemicalComposition = new Gamecore.DataModel.ChemicalComposition(chemicalElements, percentageList);
+            generate_Star_System();
+        }
+
+        private void generate_Star_System()
+        {
             Gamecore.DataModel.StarSystem system = new Gamecore.DataModel.StarSystem();
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
             system.createStarSystem();
 
 
-       
-          
+            StarSystems_DS.StarSystems.Clear();
+
             StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
             system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun*3, 1 }, chemicalComposition);
+            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 1 }, chemicalComposition);
             system.createStarSystem();
 
-      
-            StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
             StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
@@ -69,8 +74,6 @@ namespace GameUI
 
             StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
-
-            StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
             system = new Gamecore.DataModel.StarSystem();
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 1 }, chemicalComposition);
@@ -128,7 +131,9 @@ namespace GameUI
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+
+        private void Btn_draw_click(object sender, RoutedEventArgs e)
         {
             double scale = 50;
 
@@ -153,7 +158,15 @@ namespace GameUI
                     Star star = body as Star;
 
                     radious = (s.Children[n] as Star).relatedStar.relativeRadius;
-                    ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = Brushes.Red, Tag = star });
+
+                    if (star.relatedStar.isStarABlackHole())
+                    {
+                        ss.Add(new Ellipse() { Width = 10, Height = 10, Fill = Brushes.Black, Tag = star });
+                    }
+                    else
+                    {
+                        ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = Brushes.Red, Tag = star });
+                    }
                     backspace.Children.Add(ss[n]);
 
                     ss[n].MouseLeftButtonUp += Home_MouseLeftButtonUp;
@@ -226,15 +239,29 @@ namespace GameUI
 
         private void backspace_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            //UpdateViewBox((e.Delta < 0) ? 5 : -5);
+         
 
             var element = sender as UIElement;
             var position = e.GetPosition(element);
             var transform = element.RenderTransform as MatrixTransform;
             var matrix = transform.Matrix;
+
+            if (min_zoom == null)
+            {
+                min_zoom = transform.Matrix; // min scale
+            }
+
+
             var scale = e.Delta >= 0 ? 1.1 : (1.0 / 1.1); // choose appropriate scaling factor
 
+
+            if (transform.Matrix.M11 <= min_zoom.M11 + 0.05 && scale < 1)
+            {
+                return;
+            }
+
             matrix.ScaleAtPrepend(scale, scale, position.X, position.Y);
+
             transform.Matrix = matrix;
         }
 
@@ -249,22 +276,26 @@ namespace GameUI
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            backspace.Width = 669;
-            backspace.Height = 835;
 
 
 
-            ZoomViewbox.MaxWidth = backspace.Width;
-            ZoomViewbox.MaxHeight = backspace.Height;
 
-            ZoomViewbox.MinWidth = backspace.Width;
-            ZoomViewbox.MinHeight = backspace.Height;
+            ZoomViewbox.MaxWidth = 669;
+            ZoomViewbox.MaxHeight = 835;
+
+            ZoomViewbox.MinWidth = 669;
+            ZoomViewbox.MinHeight = 835;
 
         }
 
         private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void Btn_recreate_click(object sender, RoutedEventArgs e)
+        {
+            generate_Star_System();
         }
 
     }

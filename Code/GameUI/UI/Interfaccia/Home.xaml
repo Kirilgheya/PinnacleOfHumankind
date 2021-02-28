@@ -23,7 +23,8 @@
             </Grid.RowDefinitions>
 
 
-         <Button Content="Button" Click="Button_Click" Height="117" Grid.Column="1" Grid.Row="0"/>
+            <Button Content="Recreate" Click="Btn_recreate_click"  Height="117" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"/>
+            <Button Content="Draw" Click="Btn_draw_click" Height="117" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"/>
             <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="1" x:Name="txt_index" Grid.Column="2" Grid.Row="0"/>
             <TreeView x:Name="StarSystemTreeView" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="800"
             Loaded="TestLoaded"
@@ -31,47 +32,47 @@
                   ItemsSource="{Binding StarSystems}" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  >
 
-                    <TreeView.Resources>
+                <TreeView.Resources>
 
-                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:StarSystem}" ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                    <HierarchicalDataTemplate  DataType="{x:Type DataSource:StarSystem}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate>
 
-                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Star}" ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                    <HierarchicalDataTemplate  DataType="{x:Type DataSource:Star}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                        </HierarchicalDataTemplate>
-                        <HierarchicalDataTemplate  DataType="{x:Type UIItems_DS:TreeElementPlanets}" ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate  DataType="{x:Type UIItems_DS:TreeElementPlanets}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate>
 
-                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Planet}" ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                    <HierarchicalDataTemplate  DataType="{x:Type DataSource:Planet}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate>
 
-                        <HierarchicalDataTemplate  DataType="{x:Type DataSource:Asteroid}" ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                    <HierarchicalDataTemplate  DataType="{x:Type DataSource:Asteroid}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
 
-                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate>
 
-                    </TreeView.Resources>
+                </TreeView.Resources>
 
-                    <TreeView.DataContext>
-                        <UIItems_DS:TreeViewStarSystems/>
-                    </TreeView.DataContext>
+                <TreeView.DataContext>
+                    <UIItems_DS:TreeViewStarSystems/>
+                </TreeView.DataContext>
 
-                </TreeView>
+            </TreeView>
             <Label Content="Label" x:Name="system_name" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"/>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" Height="669" Width="669" VerticalAlignment="Stretch" MouseWheel="ScrollViewer_MouseWheel">
-                <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True">
-                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="LightGreen" x:Name="backspace"  MouseWheel="backspace_MouseWheel">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseWheel="ScrollViewer_MouseWheel">
+                <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill">
+                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="LightGreen" x:Name="backspace"  MouseWheel="backspace_MouseWheel" Height="10000" Width="10000">
                         <Canvas.RenderTransform>
                             <MatrixTransform x:Name="mt"/>
                         </Canvas.RenderTransform>
-                      </Canvas>
+                    </Canvas>
                 </Viewbox>
             </ScrollViewer>
         </Grid>
