@@ -236,6 +236,7 @@ namespace MainGame.Applicazione.DataModel
                 this.meanDensity = (this.mass * 1000 / (Math.Pow(10, 15) * Volume));
                 this.Surface_density = this.meanDensity;
                 this.Core_density = this.meanDensity;
+                this.markAsBlackHole = true;
             }
 
 
