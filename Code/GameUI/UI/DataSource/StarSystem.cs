@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameCore = MainGame.Applicazione.DataModel;
 using System.Collections.ObjectModel;
 using GameUI.UI.DataSource.UIItems_DS;
+using System.Windows.Controls;
 
 namespace GameUI.UI.DataSource
 {
@@ -59,6 +60,11 @@ namespace GameUI.UI.DataSource
 
             Name = "Stellar System: " + majorStarName;
 
+        }
+
+        public static explicit operator StarSystem(ItemsControl v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

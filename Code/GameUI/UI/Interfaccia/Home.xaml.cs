@@ -28,7 +28,7 @@ namespace GameUI
 
         Gamecore.DataModel.ChemicalComposition chemicalComposition;
 
-
+        List<String> searched_item = new List<string>();
 
         private Point _pointOnClick; // Click Position for panning
         private ScaleTransform _scaleTransform;
@@ -123,18 +123,25 @@ namespace GameUI
         {
             var tree = sender as TreeView;
 
+            if(tree.SelectedItem is StarSystem)
+            {
+                draw_System(tree.SelectedItem as StarSystem);
+            }
+
             // ... Determine type of SelectedItem.
-            if (tree.SelectedItem is TreeViewItem)
-            {
-                // ... Handle a TreeViewItem.
-                var item = tree.SelectedItem as TreeViewItem;
-                this.Title = "Selected header: " + item.Header.ToString();
-            }
-            else if (tree.SelectedItem is string)
-            {
-                // ... Handle a string.
-                this.Title = "Selected: " + tree.SelectedItem.ToString();
-            }
+            //if (tree.SelectedItem is TreeViewItem)
+            //{
+            //    // ... Handle a TreeViewItem.
+            //    var item = tree.SelectedItem as TreeViewItem;
+            //    this.Title = "Selected header: " + item.Header.ToString();
+            //}
+            //else if (tree.SelectedItem is string)
+            //{
+            //    // ... Handle a string.
+            //    this.Title = "Selected: " + tree.SelectedItem.ToString();
+            //}
+
+
         }
 
 
@@ -150,11 +157,9 @@ namespace GameUI
 
 
 
-        private void Btn_draw_click(object sender, RoutedEventArgs e)
+        private void draw_System(StarSystem s)
         {
             double scale = 50;
-
-            StarSystem s = StarSystems_DS.StarSystems[Int32.Parse(txt_index.Text.Trim()) -1 ];
 
 
             system_name.Content = s.Name;
@@ -365,6 +370,57 @@ namespace GameUI
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)backspace.Parent);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            searched_item = new List<string>();
+
+            if(txt_search.Text != String.Empty && txt_search.Text != null)
+            {
+
+                foreach( StarSystem s in StarSystemTreeView.Items.SourceCollection)
+                {
+                    if (s.Name.Trim().ToLower().Contains(txt_search.Text.Trim().ToLower()))
+                    {
+                        searched_item.Add(s.Name);
+                    }
+
+                    foreach(IBodyTreeViewItem b in s.Children)
+                    {
+                        if (b is Star)
+                        {
+                            if (b.Name.Trim().ToLower().Contains(txt_search.Text.Trim().ToLower()))
+                            {
+                                searched_item.Add(b.Name);
+                            }
+                        }
+
+                        else if (b is TreeElementPlanets)
+                        {
+                            foreach (IBodyTreeViewItem p in b.Children)
+                            {
+
+                                if (p.Name.Trim().ToLower().Contains(txt_search.Text.Trim().ToLower()))
+                                {
+                                    searched_item.Add(p.Name);
+                                }
+
+                                
+                            }
+                        }
+                    }
+
+                }
+
+                found_item.ItemsSource = null;
+                found_item.ItemsSource = searched_item;
+                found_item.SelectedItem = found_item.Items[0];
+
+                txt_search.Focus();
+            }
+        }
+
 
     }
     

@@ -22,15 +22,13 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
 
-
+            <TextBox x:Name="txt_search" TextChanged="TextBox_TextChanged" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
             <Button Content="Recreate" Click="Btn_recreate_click"  Height="117" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"/>
-            <Button Content="Draw" Click="Btn_draw_click" Height="117" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"/>
-            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="1" x:Name="txt_index" Grid.Column="2" Grid.Row="0"/>
             <TreeView x:Name="StarSystemTreeView" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="800"
             Loaded="TestLoaded"
             Background="AliceBlue"
                   ItemsSource="{Binding StarSystems}" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                 >
+                 SelectedItemChanged="TreeView_SelectedItemChanged">
 
                 <TreeView.Resources>
 
@@ -75,6 +73,7 @@
                     </Canvas>
                 </Viewbox>
             </ScrollViewer>
+            <ComboBox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="found_item"/>
         </Grid>
     </Viewbox>
 </Window>
