@@ -28,11 +28,28 @@ namespace GameUI
 
         Gamecore.DataModel.ChemicalComposition chemicalComposition;
 
-        Matrix min_zoom;
+
+
+        private Point _pointOnClick; // Click Position for panning
+        private ScaleTransform _scaleTransform;
+
+
+        private TranslateTransform _translateTransform;
+        private TransformGroup _transformGroup;
+
+        double? startZoom = null;
 
         public Home()
         {
             InitializeComponent();
+
+            _translateTransform = new TranslateTransform();
+            _scaleTransform = new ScaleTransform();
+            _transformGroup = new TransformGroup();
+            _transformGroup.Children.Add(_scaleTransform);
+            _transformGroup.Children.Add(_translateTransform);
+            backspace.RenderTransform = _transformGroup;
+
 
 
             StarSystems_DS = new TreeViewStarSystems();
@@ -170,9 +187,6 @@ namespace GameUI
                     backspace.Children.Add(ss[n]);
 
                     
-
-                    ss[n].MouseLeftButtonUp += Home_MouseLeftButtonUp;
-
                     Canvas.SetLeft(ss[n], 0);
                     Canvas.SetTop(ss[n], 100 * n);
 
@@ -197,8 +211,6 @@ namespace GameUI
                                 ss.Add(new Ellipse() { Width = (radious * scale)/10, Height = (radious * scale)/10, Fill = Brushes.Blue, Tag = b });
                                 backspace.Children.Add(ss[n+m]);
 
-                                ss[n+m].MouseLeftButtonUp += Home_MouseLeftButtonUp;
-
                                 //Canvas.SetLeft(ss[n+m], (b as Planet).relatedPlanet.distance_from_star * scale * 4);
                                 Canvas.SetLeft(ss[n + m], 100 * m + 1);
                                 Canvas.SetTop(ss[n+m], 100 * n + 1 );
@@ -222,58 +234,67 @@ namespace GameUI
 
         }
 
-        private void Home_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void get_tooltip_from_Ellipse(Ellipse sender)
         {
             try
             {
-                Star s = (sender as Ellipse).Tag as Star;
+                Star s = sender.Tag as Star;
 
                 MessageBox.Show(s.relatedStar.ToString());
+
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
+
                 Planet s = (sender as Ellipse).Tag as Planet;
 
                 MessageBox.Show(s.relatedPlanet.ToString());
+
             }
            
         }
 
-        private void backspace_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-         
 
-            var element = sender as UIElement;
-            var position = e.GetPosition(element);
-            var transform = element.RenderTransform as MatrixTransform;
-            var matrix = transform.Matrix;
+            Point mousePosition = e.GetPosition(backspace);
+            //Actual Zoom
+            double zoomNow = Math.Round(backspace.RenderTransform.Value.M11, 1);
 
-            if (min_zoom == null)
+            if(startZoom == null)
             {
-                min_zoom = transform.Matrix; // min scale
+                startZoom = zoomNow;
             }
 
+            //ZoomScale
+            double zoomScale = 0.1;
+            //Positive or negative zoom
+            double valZoom = e.Delta > 0 ? zoomScale : -zoomScale;
 
-            var scale = e.Delta >= 0 ? 1.1 : (1.0 / 1.1); // choose appropriate scaling factor
-
-
-            if (transform.Matrix.M11 <= min_zoom.M11 + 0.05 && scale < 1)
+            if(valZoom < 0 && zoomNow <= startZoom)
             {
                 return;
             }
 
-            matrix.ScaleAtPrepend(scale, scale, position.X, position.Y);
+            Point pointOnMove = e.GetPosition((FrameworkElement)backspace.Parent);
+            //RenderTransformOrigin (doesn't fully working)
+            backspace.RenderTransformOrigin = new Point(mousePosition.X / backspace.ActualWidth, mousePosition.Y / backspace.ActualHeight);
 
-            transform.Matrix = matrix;
+            Zoom(new Point(mousePosition.X, mousePosition.Y), zoomNow + valZoom);
         }
 
-        private void UpdateViewBox(int newValue)
+        /// Zoom function
+        private void Zoom(Point point, double scale)
         {
-            if ((backspace.Width >= 0) && backspace.Height >= 0)
-            {
-                backspace.Width += newValue;
-                backspace.Height += newValue;
-            }
+
+            double centerX = (point.X - _translateTransform.X) / _scaleTransform.ScaleX;
+            double centerY = (point.Y - _translateTransform.Y) / _scaleTransform.ScaleY;
+
+            _scaleTransform.ScaleX = scale;
+            _scaleTransform.ScaleY = scale;
+
+            _translateTransform.X = point.X - centerX * _scaleTransform.ScaleX;
+            _translateTransform.Y = point.Y - centerY * _scaleTransform.ScaleY;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -298,6 +319,51 @@ namespace GameUI
         private void Btn_recreate_click(object sender, RoutedEventArgs e)
         {
             generate_Star_System();
+        }
+
+
+        private void MainCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Source is Ellipse)
+            {
+                get_tooltip_from_Ellipse(e.Source as Ellipse);
+
+                return;
+            }
+            
+
+            //Capture Mouse
+            backspace.CaptureMouse();
+            //Store click position relation to Parent of the canvas
+            _pointOnClick = e.GetPosition((FrameworkElement)backspace.Parent);
+
+            
+        }
+
+        private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //Release Mouse Capture
+            backspace.ReleaseMouseCapture();
+            //Set cursor by default
+            Mouse.OverrideCursor = null;
+
+
+        }
+
+
+
+        private void MainCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            //Return if mouse is not captured
+            if (!backspace.IsMouseCaptured) return;
+            //Point on move from Parent
+            Point pointOnMove = e.GetPosition((FrameworkElement)backspace.Parent);
+            //set TranslateTransform
+            _translateTransform.X = backspace.RenderTransform.Value.OffsetX - (_pointOnClick.X - pointOnMove.X);
+            _translateTransform.Y = backspace.RenderTransform.Value.OffsetY - (_pointOnClick.Y - pointOnMove.Y);
+            //Update pointOnClic
+            _pointOnClick = e.GetPosition((FrameworkElement)backspace.Parent);
         }
 
     }
