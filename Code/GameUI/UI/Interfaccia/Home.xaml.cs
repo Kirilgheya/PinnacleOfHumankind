@@ -78,14 +78,14 @@ namespace GameUI
             StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
             system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 1 }, chemicalComposition);
+            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 5 }, chemicalComposition);
             system.createStarSystem();
 
 
             StarSystems_DS.StarSystems.Add(new StarSystem(system));
 
             system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 10.7, 1 }, chemicalComposition);
+            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 10.7, 35 }, chemicalComposition);
             system.createStarSystem();
 
 
@@ -93,7 +93,7 @@ namespace GameUI
 
 
             system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 1 }, chemicalComposition);
+            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 0.5 }, chemicalComposition);
             system.createStarSystem();
 
 

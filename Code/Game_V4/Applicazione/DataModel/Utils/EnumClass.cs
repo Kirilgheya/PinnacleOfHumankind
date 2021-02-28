@@ -60,14 +60,14 @@ namespace MainGame
     {
         //This determines the spectral type (the colour)
         
-        O = 30000, // 30,000 K  
-        B = 10000, //10,000–30,000 K
-        A = 7500, //7,500–10,000 K     
-        F = 6000, //6,000–7,500 K 
-        G = 5200, //5,200–6,000 K 
-        K = 3700, //3,700–5,200 K 
-        M = 2400, //2,400–3,700 K
-        L = 1300, //these are brown dwarves basically stars where fusion cannot occur
+        O = 3000000, // 30,000  L
+        B = 2500, //25–30,000 L
+        A = 500, //5–25 L 
+        F = 150, //1,5–5  L
+        G = 60, //0,6–1,5 L
+        K = 8, //0,08–0,6 L
+        M = 3, //0,03–0,08 L
+        L = 2, //0,02-0,03 L these are brown dwarves basically stars where fusion cannot occur
         T = 0,
         BlackHole = -1,
     }
