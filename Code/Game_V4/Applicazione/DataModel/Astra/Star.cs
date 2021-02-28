@@ -141,7 +141,7 @@ namespace MainGame.Applicazione.DataModel
 		{
 
 			this.relativeMass = _relmass;
-			this.Core_temperature = _surfaceTemperature;
+			this.Surface_temperature = _surfaceTemperature;
 			this.relluminosity = _relluminosity;
 			this.overallClass = (OverallStarClassification)Enum.ToObject(typeof(OverallStarClassification), _class);
 		}
@@ -294,6 +294,11 @@ namespace MainGame.Applicazione.DataModel
             return Enum.GetValues(typeof(StarClassification_byColor)).Cast<int>().Where(stellarClass
                             => lumLevel >= stellarClass).Cast<StarClassification_byColor>().Max<StarClassification_byColor>();
 
+        }
+
+        public StarClassification_byColor getColor()
+        {
+            return this.starClassification_ByColor;
         }
 
         private void finalizeStar()

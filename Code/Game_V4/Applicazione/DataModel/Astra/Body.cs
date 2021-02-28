@@ -20,7 +20,8 @@ public abstract class Body
   
     public double bodyAge;
     public double Core_temperature;
-    public double Surface_temperature;
+    protected double _surface_temperature;
+    public double Surface_temperature { get { return _surface_temperature; } set { _surface_temperature = value; } }
     public double Core_density;
     public double Surface_density;
     public double Volume;
