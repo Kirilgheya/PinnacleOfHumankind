@@ -7,8 +7,8 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class Body
 {
-    public double relativeMass;
-    public double relativeVolume;
+    protected double relativeMass;
+    protected double relativeVolume;
     protected double _relativeRadius;
     public double relativeRadius { get; set; }
 
@@ -17,16 +17,17 @@ public abstract class Body
     
     protected double _relativeAvgDensity;
 
-  
-    public double bodyAge;
-    public double Core_temperature;
+
+    protected double bodyAge;
+    protected double _Core_temperature;
+    public double Core_temperature { get { return _Core_temperature; } set { _Core_temperature = value; } }
     protected double _surface_temperature;
     public double Surface_temperature { get { return _surface_temperature; } set { _surface_temperature = value; } }
-    public double Core_density;
-    public double Surface_density;
-    public double Volume;
+    protected double Core_density;
+    protected double Surface_density;
+    protected double Volume;
 
-    public ChemicalComposition body_composition;
+    protected ChemicalComposition body_composition;
     
 
     public Body()
