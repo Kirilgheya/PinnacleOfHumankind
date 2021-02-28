@@ -156,6 +156,8 @@ namespace GameUI
                     ss.Add(new Ellipse() { Width = radious * scale, Height = radious * scale, Fill = Brushes.Red, Tag = star });
                     backspace.Children.Add(ss[n]);
 
+                    
+
                     ss[n].MouseLeftButtonUp += Home_MouseLeftButtonUp;
 
                     Canvas.SetLeft(ss[n], 0);

@@ -36,10 +36,10 @@ namespace MainGame.Applicazione.DataModel.Astra
 
                 a = Converter.UA_to_Km(3);
 
-                m1 = (localStar.mass);
+                m1 = (localStar.Mass);
 
                 localStar = stars[1];
-                m2 = (localStar.mass);
+                m2 = (localStar.Mass);
 
                 r1 = a / (1 + (m1 / m2));
 

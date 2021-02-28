@@ -9,9 +9,15 @@ public abstract class Body
 {
     public double relativeMass;
     public double relativeVolume;
-    public double relativeRadius;
-    public double relativeg;
-    public double relativeAvgDensity;
+    protected double _relativeRadius;
+    public double relativeRadius { get; set; }
+
+    protected double _relativeg;
+    public double relativeg { get { return _relativeg; } set { _relativeg = value; } }
+    
+    protected double _relativeAvgDensity;
+
+  
     public double bodyAge;
     public double Core_temperature;
     public double Surface_temperature;
