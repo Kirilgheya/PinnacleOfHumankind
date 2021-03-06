@@ -242,7 +242,7 @@ namespace GameUI.UI
                 double length = 0;
                 if (Canvas.GetLeft(el)>0)
                 {
-                    Point p1 = new Point(get_x_center() - 5, get_y_center() - 5);
+                    Point p1 = new Point(get_x_center(), get_y_center() );
                     Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
                     length  = Point.Subtract(p1, p2).Length;
                     
@@ -346,16 +346,19 @@ namespace GameUI.UI
                 {
                     return;
                 }
+
+                zoomScale = zoomScale - 1000;
                 scale = scale - zoomScale;
+                
             }
             else
             {
                 
                 scale = scale + zoomScale;
-
+                zoomScale = zoomScale + 1000;
                 
             }
-
+            
             txt_scale.Text = scale.ToString();
         }
 
