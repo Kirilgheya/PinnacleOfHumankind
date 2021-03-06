@@ -226,6 +226,8 @@ namespace GameUI.UI
                 Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
                 Canvas.SetTop(el, (get_y_center()));
 
+                s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+
 
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
 
@@ -380,6 +382,8 @@ namespace GameUI.UI
 
         private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
         {
+            lbl_mouse_pos.Content = "X " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).X) + " Y " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).Y);
+
             //Return if mouse is not captured
             if (!cv_backspace.IsMouseCaptured) return;
             //Point on move from Parent

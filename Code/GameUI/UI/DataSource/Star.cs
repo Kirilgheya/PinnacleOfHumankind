@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
@@ -14,6 +15,8 @@ namespace GameUI.UI.DataSource
     {
 
         public GameCore.Star relatedStar;
+        internal Point position;
+
         public double Temperature {
                 get {
                     return this.relatedStar.Surface_temperature;
