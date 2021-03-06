@@ -28,7 +28,14 @@ namespace GameUI.UI
 
         StarSystem selected_SS = null;
 
-        double scale;
+        double scale = 1;
+
+        double zoomScale = 5000;
+
+        double horizontal_offset = 0;
+        double vertical_offset = 0;
+
+        private Point _pointOnClick; // Click Position for panning
 
 
         public Main_Map()
@@ -202,8 +209,8 @@ namespace GameUI.UI
 
             Ellipse centro = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Red };
             cv_backspace.Children.Add(centro);
-            Canvas.SetLeft(centro, cv_backspace.Width / 2 - centro.Width / 2);
-            Canvas.SetTop(centro, cv_backspace.Height / 2 - centro.Height / 2);
+            Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
+            Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
 
             Console.WriteLine("|||||||||||||");
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
@@ -216,8 +223,8 @@ namespace GameUI.UI
                 lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
              
-                Canvas.SetLeft(el, (cv_backspace.Width/2 - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale))) ;
-                Canvas.SetTop(el, (cv_backspace.Width / 2));
+                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
+                Canvas.SetTop(el, (get_y_center()));
 
 
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
@@ -235,7 +242,7 @@ namespace GameUI.UI
                 double length = 0;
                 if (Canvas.GetLeft(el)>0)
                 {
-                    Point p1 = new Point(cv_backspace.Width / 2 - 5, cv_backspace.Width / 2 - 5);
+                    Point p1 = new Point(get_x_center() - 5, get_y_center() - 5);
                     Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
                     length  = Point.Subtract(p1, p2).Length;
                     
@@ -249,7 +256,7 @@ namespace GameUI.UI
                     EllipseGeometry eg = new EllipseGeometry();
                     eg.Center = p1;
                     eg.RadiusX = length - (el.Width/2);
-                    eg.RadiusY = length - (el.Width / 2);
+                    eg.RadiusY = length - (el.Width/2);
 
                     // Add all the geometries to a GeometryGroup.  
                     GeometryGroup orbitGroup = new GeometryGroup();
@@ -267,8 +274,8 @@ namespace GameUI.UI
 
                     cv_backspace.Children.Add(orbitPath);
                     cv_backspace.Children.Add(line);
-                   // Canvas.SetLeft(orbit, cv_backspace.Width / 2 - orbit.Width / 2);
-                   //  Canvas.SetTop(orbit, cv_backspace.Width / 2 - orbit.Height / 2);
+                   // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
+                   //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
 
 
                 }
@@ -329,6 +336,81 @@ namespace GameUI.UI
 
                 draw_system(selected_SS);
             }
+        }
+
+        private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (scale - zoomScale < 0)
+                {
+                    return;
+                }
+                scale = scale - zoomScale;
+            }
+            else
+            {
+                
+                scale = scale + zoomScale;
+
+                
+            }
+
+            txt_scale.Text = scale.ToString();
+        }
+
+        private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //Capture Mouse
+            cv_backspace.CaptureMouse();
+            //Store click position relation to Parent of the canvas
+            _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+        }
+
+        private void cv_backspace_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //Release Mouse Capture
+            cv_backspace.ReleaseMouseCapture();
+            //Set cursor by default
+            Mouse.OverrideCursor = null;
+
+
+
+        }
+
+        private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
+        {
+            //Return if mouse is not captured
+            if (!cv_backspace.IsMouseCaptured) return;
+            //Point on move from Parent
+            Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+            //set TranslateTransform
+            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X);
+            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y);
+            //Update pointOnClic
+            _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+
+            draw_system(selected_SS);
+
+        }
+
+
+        public double get_x_center()
+        {
+            return cv_backspace.Width / 2 - horizontal_offset / (zoomScale/1000);
+        }
+
+        public double get_y_center()
+        {
+            return cv_backspace.Height / 2 - vertical_offset /(zoomScale/1000);
+        }
+
+        private void btn_reset_zoom_pan_Click(object sender, RoutedEventArgs e)
+        {
+            vertical_offset = horizontal_offset = 0;
+
+            draw_system(selected_SS);
+
         }
     }
 }

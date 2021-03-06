@@ -15,8 +15,8 @@
             <RowDefinition Height="101*"></RowDefinition>
             <RowDefinition Height="39*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0.333,0,0.333,-0.333">
-            <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="Black" Width="1000" Height="1000"/>
+        <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" MouseWheel="ZoomViewbox_MouseWheel">
+            <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="Black" Width="1000" Height="1000" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove"/>
         </Viewbox>
         <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1.667,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
@@ -25,5 +25,6 @@
         <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="1" Grid.Column="0" Margin="0,90.667,4.667,-0.333" Height="27"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,39.667,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="73" x:Name="txt_orbit" />
         <Button Content="Button" HorizontalAlignment="Left" Margin="78,41.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="0" HorizontalAlignment="Left" Margin="125,61.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="29" x:Name="btn_reset_zoom_pan" Click="btn_reset_zoom_pan_Click"  Height="21"/>
     </Grid>
 </Window>
