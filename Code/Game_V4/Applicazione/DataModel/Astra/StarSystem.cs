@@ -33,6 +33,17 @@ namespace MainGame.Applicazione.DataModel
             this.starRelativeMass = _parameters[2];
             this.composition = _composition;
         }
+         
+        public void setBarycenter()
+        {
+
+            this.stars.setBarycenter();
+        }
+
+        public double[] getDeltasFromBarycenter()
+        {
+           return this.stars.getDistances();
+        }
 
         public Star[] getStars()
         {
