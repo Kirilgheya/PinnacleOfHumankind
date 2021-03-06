@@ -183,20 +183,20 @@ namespace GameUI.UI
 
         public void draw_system()
         {
-            int n = 1;
+            int n = 0;
 
-            System_List.First().relatedStarSystem.
+            
 
-            //foreach (Star s in System_List.First().Children.Where(x => x is Star).ToList())
-            //{
-            //    Ellipse el = new Ellipse { Width = 100, Height = 100, Fill = Brushes.White };
-            //    cv_backspace.Children.Add(el);
+            foreach (Star s in System_List.First().Children.Where(x => x is Star).ToList())
+            {
+                Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
+                cv_backspace.Children.Add(el);
 
-            //    Canvas.SetLeft(el, cv_backspace.Width/2 - el.Width /2 );
-            //    Canvas.SetTop(el, cv_backspace.Width / 2 - el.Height /2);
+                Canvas.SetLeft(el, cv_backspace.Width/2 - el.Width /2 - System_List.First().relatedStarSystem.getDeltasFromBarycenter()[n]);
+                Canvas.SetTop(el, cv_backspace.Width / 2 - el.Height /2 - System_List.First().relatedStarSystem.getDeltasFromBarycenter()[n]);
 
-            //    n++;
-            //}
+                n++;
+            }
                 
         }
     }
