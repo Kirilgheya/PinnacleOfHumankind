@@ -18,8 +18,11 @@
         <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="Black" Width="1000" Height="1000"/>
         </Viewbox>
-        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" >
+        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged">
         </TreeView>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,33.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
+        <Button Content="recreate" HorizontalAlignment="Left" Margin="74,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,51.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" x:Name="txt_scale" TextChanged="txt_scale_TextChanged"/>
+        <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="1" Grid.Column="0"/>
     </Grid>
 </Window>

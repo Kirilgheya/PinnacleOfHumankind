@@ -26,6 +26,10 @@ namespace GameUI.UI
 
         List<StarSystem> System_List = new List<StarSystem>();
 
+        StarSystem selected_SS = null;
+
+        double scale;
+
 
         public Main_Map()
         {
@@ -35,7 +39,6 @@ namespace GameUI.UI
 
             add_starSystem_to_Tree();
 
-            draw_system();
 
 
         }
@@ -89,6 +92,8 @@ namespace GameUI.UI
 
         private void add_starSystem_to_Tree()
         {
+            SystemTree.Items.Clear();
+
             int n = 0;
             int m = 0;
             foreach (StarSystem sys in System_List)
@@ -181,23 +186,72 @@ namespace GameUI.UI
             }
         }
 
-        public void draw_system()
+        private void draw_system(StarSystem sy)
         {
+
+            cv_backspace.Children.Clear();
+
+            if(sy == null)
+            {
+                return;
+            }
+
             int n = 0;
 
-            
+            lbl_delta.Content = "";
 
-            foreach (Star s in System_List.First().Children.Where(x => x is Star).ToList())
+            foreach (Star s in sy.Children.Where(x => x is Star).ToList())
             {
+                double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
+
                 Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
                 cv_backspace.Children.Add(el);
 
-                Canvas.SetLeft(el, cv_backspace.Width/2 - el.Width /2 - System_List.First().relatedStarSystem.getDeltasFromBarycenter()[n]);
-                Canvas.SetTop(el, cv_backspace.Width / 2 - el.Height /2 - System_List.First().relatedStarSystem.getDeltasFromBarycenter()[n]);
+                lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
+
+                Canvas.SetLeft(el, (cv_backspace.Width/2 - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale))) ;
+                Canvas.SetTop(el, (cv_backspace.Width / 2 - el.Height / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
 
                 n++;
             }
                 
+        }
+
+
+        public double ConvertToRadians(double angle)
+        {
+            return (Math.PI / 180) * angle;
+        }
+
+        private void SystemTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if(SystemTree.SelectedItem == null)
+            {
+                return;
+            }
+
+            if ((SystemTree.SelectedItem as TreeViewItem).Tag is StarSystem)
+            {
+                selected_SS = (SystemTree.SelectedItem as TreeViewItem).Tag as StarSystem;
+                draw_system(selected_SS);
+            }
+        }
+
+        private void btn_recreate_Click(object sender, RoutedEventArgs e)
+        {
+            generate_Star_System();
+
+            add_starSystem_to_Tree();
+        }
+
+        private void txt_scale_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
+            {
+                scale = Int32.Parse(txt_scale.Text.Trim());
+
+                draw_system(selected_SS);
+            }
         }
     }
 }
