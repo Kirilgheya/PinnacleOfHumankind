@@ -12,17 +12,18 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="101*"></RowDefinition>
+            <RowDefinition Height="39*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+        <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0.333,0,0.333,-0.333">
             <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="Black" Width="1000" Height="1000"/>
         </Viewbox>
-        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged">
-        </TreeView>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
-        <Button Content="recreate" HorizontalAlignment="Left" Margin="74,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,51.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" x:Name="txt_scale" TextChanged="txt_scale_TextChanged"/>
-        <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="1" Grid.Column="0"/>
+        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1.667,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
+        <Button Content="recreate" HorizontalAlignment="Left" Margin="64,1.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click" Height="21"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,62.667,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" x:Name="txt_scale" TextChanged="txt_scale_TextChanged"/>
+        <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="1" Grid.Column="0" Margin="0,90.667,4.667,-0.333" Height="27"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,39.667,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="73" x:Name="txt_orbit" />
+        <Button Content="Button" HorizontalAlignment="Left" Margin="78,41.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

@@ -200,6 +200,12 @@ namespace GameUI.UI
 
             lbl_delta.Content = "";
 
+            Ellipse centro = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Red };
+            cv_backspace.Children.Add(centro);
+            Canvas.SetLeft(centro, cv_backspace.Width / 2 - centro.Width / 2);
+            Canvas.SetTop(centro, cv_backspace.Height / 2 - centro.Height / 2);
+
+
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
@@ -209,8 +215,29 @@ namespace GameUI.UI
 
                 lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
+             
                 Canvas.SetLeft(el, (cv_backspace.Width/2 - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale))) ;
                 Canvas.SetTop(el, (cv_backspace.Width / 2 - el.Height / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
+
+
+                double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
+
+
+                    Ellipse orbit = new Ellipse
+                    {
+                        Stroke = Brushes.Yellow,
+                        StrokeThickness = 4,
+                        Width = Double.Parse(txt_orbit.Text.Trim()),
+                        Height = Double.Parse(txt_orbit.Text.Trim()),
+                        Fill = Brushes.Transparent
+                    };
+
+                    cv_backspace.Children.Add(orbit);
+                    Canvas.SetLeft(orbit, cv_backspace.Width / 2 - orbit.Width / 2);
+                    Canvas.SetTop(orbit, cv_backspace.Width / 2 - orbit.Height / 2);
+
+
+                
 
                 n++;
             }
@@ -248,7 +275,17 @@ namespace GameUI.UI
         {
             if (txt_scale.Text != null && txt_scale.Text != String.Empty)
             {
-                scale = Int32.Parse(txt_scale.Text.Trim());
+                scale = Double.Parse(txt_scale.Text.Trim());
+
+                draw_system(selected_SS);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
+            {
+                scale = Double.Parse(txt_scale.Text.Trim());
 
                 draw_system(selected_SS);
             }
