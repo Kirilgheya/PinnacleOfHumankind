@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameUI.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,13 @@ namespace GameUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Home home = new Home();
+            //Home home = new Home();
 
-            home.Show();
+            //home.Show();
+
+            Main_Map map = new Main_Map();
+
+            map.Show();
 
             this.Close();
         }
