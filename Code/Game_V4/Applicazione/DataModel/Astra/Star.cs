@@ -65,7 +65,7 @@ namespace MainGame.Applicazione.DataModel
         public double Mass
         {
             get { return StarMass; }
-            set { this.StarMass = value; this.relativeMass = (value / 100) / Science.m_sun; }
+            set { this.StarMass = value; this.relativeMass = (value / 100) / ParametriUtente.Science.m_sun; }
         }
 
         public double RelativeMass

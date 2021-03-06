@@ -34,6 +34,99 @@ namespace MainGame.Applicazione.DataModel
             this.composition = _composition;
         }
 
+        public void randomizeParameter(int _parameterIndex = -1, double _deviation = 0.5)
+        {
+
+            switch (_parameterIndex)
+            {
+
+                case -1:
+                    this.randomizeParameters();
+                    break;
+                case 0:
+                    this.star_densityMul = new Random_Extension().NextDouble(this.star_densityMul * _deviation, this.star_densityMul * (1 + _deviation));
+
+                    break;
+                case 1:
+                    this.starRadius = new Random_Extension().NextDouble(this.starRadius * _deviation, this.starRadius * (1 + _deviation));
+                    break;
+                case 2:
+                    this.starRelativeMass = new Random_Extension().NextDouble(this.starRelativeMass * _deviation, this.starRelativeMass * (1 + _deviation));
+
+                    break;
+
+            }
+           
+        }
+
+            public void randomizeParameters()
+        {
+
+            Random_Extension random = new Random_Extension();
+            double min = 0.1, max =3.0;
+           
+            double value = random.NextDouble(min,max);
+
+            if(value < 1)
+            {
+
+              
+                min = 6;
+                max = 1700;
+
+                
+            }
+            else if( value < 2)
+            {
+
+                min = 0.8;
+                max = 6;
+            }
+            else
+            {
+
+                min = 0.2;
+                max = 0.8;
+            }
+
+            this.starRadius = ParametriUtente.Science.r_sun * value;
+            value = random.NextDouble(min, max);
+
+            double volume = (4 / 3) * Math.PI * (Math.Pow(ParametriUtente.Science.r_sun * value, 3));
+            double relVolume = volume / ParametriUtente.Science.v_sun;
+
+            if(relVolume < 1)
+            {
+
+                this.star_densityMul = 1.3;
+                this.starRelativeMass = 0.8;
+            }
+            else if(relVolume < 20)
+            {
+
+                this.star_densityMul = 1;
+                this.starRelativeMass = 1;
+            }
+            else
+            {
+                this.star_densityMul = 0.8;
+                this.starRelativeMass = 1.3;
+            }
+
+            
+        }
+
+        public void setBarycenter()
+        {
+
+            this.stars.setBarycenter();
+        }
+
+        public double[] getDeltasFromBarycenter()
+        {
+           return this.stars.getDistances();
+        }
+
         public Star[] getStars()
         {
 
@@ -127,7 +220,7 @@ namespace MainGame.Applicazione.DataModel
             habitableZone_min = Math.Sqrt(this.stars.getRelLuminosity()/1.1);
             habitableZone_max = Math.Sqrt((this.stars.getRelLuminosity()/ 0.53));
             //everything beyond habitableZone_max has (should have) less than 0° surface temp and be either rocky(frozen) or gas giant
-            //everything beyond habitableZone_min has (should have) more than 40° surfacete temp and can be only a rocky barren planet.
+            //everything beyond habitableZone_min has (should have) more than 40° surface temp and can be only a rocky barren planet.
 
             randomSeed = new Random_Extension();
             
