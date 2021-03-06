@@ -16,7 +16,7 @@ namespace MainGame.Applicazione.DataModel
         public double mass
         {
             get { return planetMass; }
-            set { this.planetMass = value; this.relativeMass = (value / 100) / Science.m_t; }
+            set { this.planetMass = value; this.relativeMass = (value / 100) / ParametriUtente.Science.m_t; }
         }
 
         public double relCoretemperature { get; set; }

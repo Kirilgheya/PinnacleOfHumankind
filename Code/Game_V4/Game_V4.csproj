@@ -75,7 +75,6 @@
     <Compile Include="Applicazione\Engine\Random_Extension.cs" />
     <Compile Include="Applicazione\Engine\SimulationEngine.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\ParametriUtente.cs" />
-    <Compile Include="Applicazione\OtherParametersStuff\Science.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\SeedParameters.cs" />
     <Compile Include="Applicazione\OtherParametersStuff\SessionData.cs" />
     <Compile Include="Applicazione\Partita.cs" />
