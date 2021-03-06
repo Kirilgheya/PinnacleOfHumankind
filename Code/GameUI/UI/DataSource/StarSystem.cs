@@ -12,7 +12,7 @@ namespace GameUI.UI.DataSource
 {
     class StarSystem : IBodyTreeViewItem
     {
-        GameCore.StarSystem relatedStarSystem;
+        public GameCore.StarSystem relatedStarSystem;
      
 
         public StarSystem(GameCore.StarSystem _starSystem)
