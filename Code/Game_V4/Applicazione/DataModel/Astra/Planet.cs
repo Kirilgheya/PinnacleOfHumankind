@@ -25,6 +25,7 @@ namespace MainGame.Applicazione.DataModel
         private ClimateModel climateModel;
         public String name { get; set; }
         private double planetMass;
+        private double _distance_from_star;
         public double mass
         {
             get { return planetMass; }
@@ -48,7 +49,7 @@ namespace MainGame.Applicazione.DataModel
             set
             { _distance_from_star = value;}
         }
-        private double _distance_from_star;
+        
 
         public double SurfaceG { get {return this.relativeg * ParametriUtente.Science.g_t; } }
         public double Density { get { return meanDensity; } }

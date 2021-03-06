@@ -205,7 +205,7 @@ namespace GameUI.UI
             Canvas.SetLeft(centro, cv_backspace.Width / 2 - centro.Width / 2);
             Canvas.SetTop(centro, cv_backspace.Height / 2 - centro.Height / 2);
 
-
+            Console.WriteLine("|||||||||||||");
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
@@ -217,12 +217,13 @@ namespace GameUI.UI
 
              
                 Canvas.SetLeft(el, (cv_backspace.Width/2 - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale))) ;
-                Canvas.SetTop(el, (cv_backspace.Width / 2 - el.Height / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
+                Canvas.SetTop(el, (cv_backspace.Width / 2));
 
 
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
 
 
+                /*
                     Ellipse orbit = new Ellipse
                     {
                         Stroke = Brushes.Yellow,
@@ -230,14 +231,53 @@ namespace GameUI.UI
                         Width = Double.Parse(txt_orbit.Text.Trim()),
                         Height = Double.Parse(txt_orbit.Text.Trim()),
                         Fill = Brushes.Transparent
+                    };*/
+                double length = 0;
+                if (Canvas.GetLeft(el)>0)
+                {
+                    Point p1 = new Point(cv_backspace.Width / 2 - 5, cv_backspace.Width / 2 - 5);
+                    Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+                    length  = Point.Subtract(p1, p2).Length;
+                    
+                    Path orbitPath = new Path
+                    {
+                        Stroke = Brushes.Yellow,
+                        StrokeThickness = 2,
+                        Fill = Brushes.Transparent
                     };
 
-                    cv_backspace.Children.Add(orbit);
-                    Canvas.SetLeft(orbit, cv_backspace.Width / 2 - orbit.Width / 2);
-                    Canvas.SetTop(orbit, cv_backspace.Width / 2 - orbit.Height / 2);
+                    EllipseGeometry eg = new EllipseGeometry();
+                    eg.Center = p1;
+                    eg.RadiusX = length - (el.Width/2);
+                    eg.RadiusY = length - (el.Width / 2);
+
+                    // Add all the geometries to a GeometryGroup.  
+                    GeometryGroup orbitGroup = new GeometryGroup();
+                    orbitGroup.Children.Add(eg);
+
+                    // Set Path.Data  
+                    orbitPath.Data = orbitGroup;
+           
+
+                    Line line = new Line();
+                    line.X1 = p1.X;
+                    line.X2 = p2.X;
+                    line.Y1 = p1.Y;
+                    line.Y2 = p2.Y;
+
+                    cv_backspace.Children.Add(orbitPath);
+                    cv_backspace.Children.Add(line);
+                   // Canvas.SetLeft(orbit, cv_backspace.Width / 2 - orbit.Width / 2);
+                   //  Canvas.SetTop(orbit, cv_backspace.Width / 2 - orbit.Height / 2);
 
 
-                
+                }
+
+                Console.WriteLine("---------");
+                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el)+ " \\// " + length);
+
+              
+
 
                 n++;
             }
