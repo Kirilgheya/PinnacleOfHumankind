@@ -468,15 +468,48 @@ namespace MainGame.Applicazione.DataModel
                     StringAtmosphereDensity = "thin";
                 }
 
-                StringAtmosphere = " its " + StringAtmosphereDensity + " atmosphere is filled with " + this.Atmosphere.greenHouseComposition.elements_percentage_list.First().el.name;
+                StringAtmosphere = " with " + StringAtmosphereDensity + " atmosphere is filled with " + this.Atmosphere.greenHouseComposition.elements_percentage_list.OrderByDescending(x => x.percentage).First().el.name;
             }
             else
             {
-                StringAtmosphere = " with no atmosphere ";
+                StringAtmosphere = " no atmosphere ";
             }
 
 
-            return this.name + " is  a " + this.planetClass.className.ToString().ToLower().Replace("_"," ") +" "  + StringAtmosphere;
+            String pln_comp = this.body_composition.elements_percentage_list.OrderByDescending(x => x.percentage).First().el.name;
+
+            String temp_comp = "It's a";
+
+            if (this.averageTemperature < 260)
+            {
+                temp_comp = temp_comp + " frozen";
+            }
+
+            if (this.averageTemperature >= 260 && this.averageTemperature < 273   )
+            {
+                temp_comp = temp_comp + " cold"; 
+            }
+
+            else if (this.averageTemperature < 273 + 16 &&  this.averageTemperature > 273 +10)
+            {
+                temp_comp = " it has a temperature similar to the Earth";
+            }
+            else if (this.averageTemperature >= 273 + 16  && this.averageTemperature < 273 + 40)
+            {
+                temp_comp = temp_comp + "hot"; 
+            }
+            else if (this.averageTemperature >= 273 + 40 && this.averageTemperature < 273 + 60)
+            {
+                temp_comp = temp_comp + "torrid";
+            }
+            else if (this.averageTemperature >= 273 + 60)
+            {
+                temp_comp = temp_comp + " furnace-like";
+            }
+
+            temp_comp = temp_comp + " planet";
+
+            return this.name + " is  a " + this.planetClass.className.ToString().ToLower().Replace("_"," ") +" mainly composed by " + pln_comp + StringAtmosphere + ". " + temp_comp;
         }
 
         }
