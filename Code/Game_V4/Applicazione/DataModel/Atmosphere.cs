@@ -9,8 +9,8 @@ namespace MainGame.Applicazione.DataModel
     class Atmosphere
     {
 
-        ChemicalComposition greenHouseComposition = new ChemicalComposition();
-        ChemicalComposition non_greenHouseComposition = new ChemicalComposition();
+        public ChemicalComposition greenHouseComposition = new ChemicalComposition();
+        public ChemicalComposition non_greenHouseComposition = new ChemicalComposition();
         double pressure;
         double parentBodyMasspercentage;
         public Atmosphere(ChemicalComposition _composition)

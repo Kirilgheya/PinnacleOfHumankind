@@ -448,6 +448,37 @@ namespace MainGame.Applicazione.DataModel
             return name;
             }
 
+        public String flavour_text()
+        {
+            String StringAtmosphere = "";
+            String StringAtmosphereDensity = "";
+
+            if (this.hasAtmosphere)
+            {
+                if(this.Atmosphere.getAtmosphericDensity() > 1.2)
+                {
+                    StringAtmosphereDensity = "dense";
+                }
+                else if (this.Atmosphere.getAtmosphericDensity() > 3) 
+                {
+                    StringAtmosphereDensity = "incredibly dense";
+                }
+                else if (this.Atmosphere.getAtmosphericDensity() < 1.2)
+                {
+                    StringAtmosphereDensity = "thin";
+                }
+
+                StringAtmosphere = " its " + StringAtmosphereDensity + " atmosphere is filled with " + this.Atmosphere.greenHouseComposition.elements_percentage_list.First().el.name;
+            }
+            else
+            {
+                StringAtmosphere = " with no atmosphere ";
+            }
+
+
+            return this.name + " is  a " + this.planetClass.className.ToString().ToLower().Replace("_"," ") +" "  + StringAtmosphere;
+        }
+
         }
     }   
 

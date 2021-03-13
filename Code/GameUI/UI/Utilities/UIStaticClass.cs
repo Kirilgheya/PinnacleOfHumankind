@@ -23,7 +23,7 @@ namespace GameUI.UI.Utilities
 
                 if ((to_show as Ellipse).Tag is GameCore.Planet)
                 {
-                    show_message(((to_show as Ellipse).Tag as GameCore.Planet).ToString());
+                    show_message(((to_show as Ellipse).Tag as GameCore.Planet).ToString() +"\n" + ((to_show as Ellipse).Tag as GameCore.Planet).flavour_text());
                 }
             }
            
