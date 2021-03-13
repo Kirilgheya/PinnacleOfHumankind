@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
@@ -47,6 +46,18 @@ namespace GameUI.UI.DataSource
         {
 
            this.Name =  this.relatedPlanet.name;
+        }
+
+        protected override void childrenDrawBody()
+        {
+
+            this.Shape  = new Ellipse { Width = 7, Height = 7, Fill = Brushes.Green };
+           
+        }
+
+        protected override void setColor()
+        {
+            
         }
     }
 }

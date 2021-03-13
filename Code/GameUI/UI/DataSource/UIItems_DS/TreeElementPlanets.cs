@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 using Gamecore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource.UIItems_DS
 {
@@ -48,6 +49,16 @@ namespace GameUI.UI.DataSource.UIItems_DS
                     }
                     break;
             }
+        }
+
+        protected override void childrenDrawBody()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void setColor()
+        {
+            throw new NotImplementedException();
         }
     }
 }

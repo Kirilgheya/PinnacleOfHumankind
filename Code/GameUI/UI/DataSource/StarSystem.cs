@@ -7,6 +7,7 @@ using GameCore = MainGame.Applicazione.DataModel;
 using System.Collections.ObjectModel;
 using GameUI.UI.DataSource.UIItems_DS;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace GameUI.UI.DataSource
 {
@@ -22,6 +23,8 @@ namespace GameUI.UI.DataSource
             this.setChildren();
             
         }
+
+       
 
         protected override void setChildren()
         {
@@ -50,6 +53,17 @@ namespace GameUI.UI.DataSource
 
             Children = local;
         }
+
+        protected override void setColor()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void childrenDrawBody()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void setName()
         {
             string majorStarName;
@@ -62,9 +76,7 @@ namespace GameUI.UI.DataSource
 
         }
 
-        public static explicit operator StarSystem(ItemsControl v)
-        {
-            throw new NotImplementedException();
-        }
+
+       
     }
 }
