@@ -75,6 +75,7 @@
     <Compile Include="UI\Main_Map.xaml.cs">
       <DependentUpon>Main_Map.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Utilities\UIStaticClass.cs" />
     <Page Include="UI\Interfaccia\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
