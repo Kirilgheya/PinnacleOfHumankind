@@ -392,7 +392,7 @@ namespace GameUI.UI
             UIStaticClass.Show_body_info(sender);
         }
 
-        public double ConvertToRadians(double angle)
+        public double ConvertToRadiants(double angle)
         {
             return (Math.PI / 180) * angle;
         }
