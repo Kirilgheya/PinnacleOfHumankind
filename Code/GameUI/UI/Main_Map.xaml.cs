@@ -23,9 +23,9 @@ namespace GameUI.UI
 
         StarSystem selected_SS = null;
 
-        double scale = 1;
+        double scale = 10;
 
-        double zoomScale = 1000;
+        double zoomScale = 1;
 
         double horizontal_offset = 0;
         double vertical_offset = 0;
@@ -257,7 +257,6 @@ namespace GameUI.UI
 
                 lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
-
                 Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
                 Canvas.SetTop(el, (get_y_center()));
 
@@ -330,6 +329,7 @@ namespace GameUI.UI
                 el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
 
                 cv_backspace.Children.Add(el);
+
 
                 Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (s.relatedPlanet.distance_from_star * 600/ scale)));
                 Canvas.SetTop(el, (get_y_center()));
@@ -442,7 +442,7 @@ namespace GameUI.UI
         {
             if (e.Delta > 0)
             {
-                if (scale - zoomScale < 0)
+                if (scale - zoomScale <= 0)
                 {
                     return;
                 }
