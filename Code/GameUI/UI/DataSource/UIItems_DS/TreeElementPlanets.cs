@@ -60,5 +60,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
             throw new NotImplementedException();
         }
+
+        protected override void linkShapeToBody()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

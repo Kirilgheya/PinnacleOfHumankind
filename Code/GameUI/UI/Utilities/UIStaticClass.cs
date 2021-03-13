@@ -48,14 +48,19 @@ namespace GameUI.UI.Utilities
             MessageBox.Show(Message);
         }
 
-        public static void generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates)
+        public static void generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null)
         {
+
+            if(_color == null)
+            {
+                _color = Brushes.Yellow;
+            }
 
             Path orbitPath = new Path
             {
-                Stroke = Brushes.Yellow,
+                Stroke = _color,
                 StrokeThickness = 2,
-                Fill = Brushes.Transparent
+                Fill = null
 
             };
             EllipseGeometry eg = new EllipseGeometry();

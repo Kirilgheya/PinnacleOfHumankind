@@ -25,11 +25,15 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
             this.childrenDrawBody();
             this.setColor();
+            this.linkShapeToBody();
             return Shape;
         }
 
+        protected abstract void linkShapeToBody();
+        
         protected abstract void childrenDrawBody();
         protected abstract void setColor();
+
 
     }
 }

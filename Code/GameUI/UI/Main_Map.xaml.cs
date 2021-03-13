@@ -220,68 +220,41 @@ namespace GameUI.UI
             Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
             Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
 
-            Console.WriteLine("|||||||||||||");
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
+                
+                //Draw new star
 
-                Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
-
-                el.Tag = s.relatedStar;
+                Ellipse el = s.drawBody();
 
                 el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
-
                 cv_backspace.Children.Add(el);
-
-                lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
                 Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
                 Canvas.SetTop(el, (get_y_center()));
 
+                //End Draw
                 s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+
+                lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
+
+
+           
 
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
 
                 double length = 0;
                 if (Canvas.GetLeft(el) > 0)
                 {
-                    Point p1 = new Point(get_x_center(), get_y_center());
-                    Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
-                    length = Point.Subtract(p1, p2).Length;
+                    Point center = new Point(get_x_center(), get_y_center());
+                    Point planetCoordinates = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
 
-                    Path orbitPath = new Path
-                    {
-                        Stroke = Brushes.Yellow,
-                        StrokeThickness = 2,
-                        Fill = Brushes.Transparent
-                    };
+                    UIStaticClass.generateOrbitForBody(cv_backspace, el, center, planetCoordinates);
 
-                    EllipseGeometry eg = new EllipseGeometry();
-                    eg.Center = p1;
-                    eg.RadiusX = length - (el.Width / 2);
-                    eg.RadiusY = length - (el.Width / 2);
-
-                    // Add all the geometries to a GeometryGroup.
-                    GeometryGroup orbitGroup = new GeometryGroup();
-                    orbitGroup.Children.Add(eg);
-
-                    // Set Path.Data
-                    orbitPath.Data = orbitGroup;
-
-                    Line line = new Line();
-                    line.X1 = p1.X;
-                    line.X2 = p2.X;
-                    line.Y1 = p1.Y;
-                    line.Y2 = p2.Y;
-
-                    cv_backspace.Children.Add(orbitPath);
-                    cv_backspace.Children.Add(line);
                     // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
                     //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
                 }
-
-                Console.WriteLine("---------");
-                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
 
                 find_node(s.Name, true);
 
@@ -308,43 +281,11 @@ namespace GameUI.UI
                 double length = 0;
                 if (Canvas.GetLeft(el) > 0)
                 {
-                    Point p1 = new Point(get_x_center(), get_y_center());
-                    Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
-                    length = Point.Subtract(p1, p2).Length;
+                    Point center = new Point(get_x_center(), get_y_center());
+                    Point planetCoordinates = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
 
-                    Path orbitPath = new Path
-                    {
-                        Stroke = Brushes.LightBlue,
-                        StrokeThickness = 2,
-                        Fill = null,
-
-                        Tag = s.relatedPlanet
-                    };
-
-                    EllipseGeometry eg = new EllipseGeometry();
-                    eg.Center = p1;
-                    eg.RadiusX = length - (el.Width / 2);
-                    eg.RadiusY = length - (el.Width / 2);
-
-                    // Add all the geometries to a GeometryGroup.
-                    GeometryGroup orbitGroup = new GeometryGroup();
-                    orbitGroup.Children.Add(eg);
-
-                    // Set Path.Data
-                    orbitPath.Data = orbitGroup;
-
-                    Line line = new Line();
-                    line.X1 = p1.X;
-                    line.X2 = p2.X;
-                    line.Y1 = p1.Y;
-                    line.Y2 = p2.Y;
-
-                    cv_backspace.Children.Add(orbitPath);
-                    cv_backspace.Children.Add(line);
+                    UIStaticClass.generateOrbitForBody(cv_backspace, el, center, planetCoordinates, Brushes.Aqua);
                 }
-
-                Console.WriteLine("---------");
-                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
 
                 find_node(s.Name, true);
 
@@ -407,7 +348,14 @@ namespace GameUI.UI
         {
             if (e.Delta > 0)
             {
-                if (scale - zoomScale <= 0)
+
+                if(scale <= zoomScale)
+                {
+
+                    zoomScale = zoomScale / 10;
+                }
+
+                if ((scale - zoomScale <= 0) || (zoomScale <= 0.0001))
                 {
                     return;
                 }
@@ -417,6 +365,12 @@ namespace GameUI.UI
             }
             else
             {
+
+                if(scale /10  == zoomScale )
+                {
+
+                    zoomScale = zoomScale * 10;
+                }
                 scale = scale + zoomScale;
                 //zoomScale = zoomScale + 1000;
             }

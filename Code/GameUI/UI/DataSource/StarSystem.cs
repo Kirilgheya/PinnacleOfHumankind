@@ -76,7 +76,9 @@ namespace GameUI.UI.DataSource
 
         }
 
-
-       
+        protected override void linkShapeToBody()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

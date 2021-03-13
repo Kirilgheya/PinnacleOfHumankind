@@ -62,5 +62,9 @@ namespace GameUI.UI.DataSource
         {
             
         }
+        protected override void linkShapeToBody()
+        {
+            this.Shape.Tag = this.relatedPlanet;
+        }
     }
 }

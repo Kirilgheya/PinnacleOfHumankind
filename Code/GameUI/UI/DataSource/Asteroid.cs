@@ -43,5 +43,10 @@ namespace GameUI.UI.DataSource
         {
             this.Shape.Fill = Brushes.LightGray;
         }
+
+        protected override void linkShapeToBody()
+        {
+            this.Shape.Tag = this.relatedAsteroid;
+        }
     }
 }

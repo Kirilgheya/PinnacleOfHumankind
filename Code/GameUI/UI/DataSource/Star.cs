@@ -114,6 +114,11 @@ namespace GameUI.UI.DataSource
 
             this.Shape.Fill = shapeColor;
         }
+
+        protected override void linkShapeToBody()
+        {
+            this.Shape.Tag = this.relatedStar;
+        }
     }
 
 
