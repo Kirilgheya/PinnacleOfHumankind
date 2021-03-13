@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
-    class Planet : IBodyTreeViewItem
+    public class Planet : IBodyTreeViewItem
     {
 
         public GameCore.Planet relatedPlanet

@@ -274,7 +274,11 @@ namespace GameUI.UI
                     Point center = new Point(get_x_center(), get_y_center());
                     Point planetCoordinates = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
 
-                    UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua);
+                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua);
+       
+                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(90) , orbitRadius, new Point(center.X, center.Y),true);
+
+                    moveShape(planet.bodyShape, planet.position);
                 }
 
                 find_node(planet.Name, true);
@@ -422,6 +426,14 @@ namespace GameUI.UI
             vertical_offset = horizontal_offset = 0;
 
             draw_system(selected_SS);
+        }
+
+        protected void moveShape(Shape _shape, Point _target)
+        {
+
+            Canvas.SetLeft(_shape,_target.X);
+            Canvas.SetTop(_shape, _target.Y);
+
         }
     }
 }

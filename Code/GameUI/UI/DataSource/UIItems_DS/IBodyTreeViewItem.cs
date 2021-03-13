@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace GameUI.UI.DataSource.UIItems_DS
 {
-    abstract class IBodyTreeViewItem
+    public abstract class IBodyTreeViewItem
     {
 
         protected Ellipse Shape;

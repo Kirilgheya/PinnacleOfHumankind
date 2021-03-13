@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="UI\DataSource\Asteroid.cs" />
+    <Compile Include="UI\GameEngine\GameSession.cs" />
     <Compile Include="UI\Utilities\OrbitalMotion.cs" />
     <Compile Include="UI\DataSource\Planet.cs" />
     <Compile Include="UI\DataSource\Star.cs" />
