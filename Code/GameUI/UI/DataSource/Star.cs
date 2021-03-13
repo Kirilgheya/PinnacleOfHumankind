@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
@@ -96,6 +97,15 @@ namespace GameUI.UI.DataSource
             var converter = new System.Windows.Media.BrushConverter();
             var brush = (Brush)converter.ConvertFromString(color);
             return brush;
+        }
+
+       
+
+        protected override void childrenDrawBody()
+        {
+
+            this.Shape = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
+            
         }
     }
 

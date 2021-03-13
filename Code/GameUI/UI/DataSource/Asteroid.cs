@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using Gamecore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
@@ -28,6 +30,13 @@ namespace GameUI.UI.DataSource
         protected override void setChildren()
         {
            
+        }
+
+        protected override void childrenDrawBody()
+        {
+
+            this.Shape = new Ellipse { Width = 5, Height = 5, Fill = Brushes.Brown };
+            
         }
     }
 }
