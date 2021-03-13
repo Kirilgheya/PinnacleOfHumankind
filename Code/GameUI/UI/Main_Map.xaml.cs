@@ -1,19 +1,14 @@
-﻿using System;
+﻿using GameUI.UI.DataSource;
+using GameUI.UI.DataSource.UIItems_DS;
+using GameUI.UI.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-using GameUI.UI.DataSource;
-using GameUI.UI.DataSource.UIItems_DS;
 using Gamecore = MainGame.Applicazione;
 
 namespace GameUI.UI
@@ -30,7 +25,7 @@ namespace GameUI.UI
 
         double scale = 1;
 
-        double zoomScale = 5000;
+        double zoomScale = 1000;
 
         double horizontal_offset = 0;
         double vertical_offset = 0;
@@ -50,7 +45,7 @@ namespace GameUI.UI
 
         }
 
-      
+
         private void generate_Star_System()
         {
 
@@ -93,7 +88,7 @@ namespace GameUI.UI
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 0.5 }, chemicalComposition);
             system.createStarSystem();
 
-    
+
 
         }
 
@@ -107,7 +102,7 @@ namespace GameUI.UI
             {
                 SystemTree.Items.Add(new TreeViewItem() { Header = sys.Name, Tag = sys });
 
-                foreach(Star s in sys.Children.Where(x => x is Star).ToList())
+                foreach (Star s in sys.Children.Where(x => x is Star).ToList())
                 {
                     SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = s.Name, Tag = s });
 
@@ -198,7 +193,7 @@ namespace GameUI.UI
 
             cv_backspace.Children.Clear();
 
-            if(sy == null)
+            if (sy == null)
             {
                 return;
             }
@@ -207,10 +202,12 @@ namespace GameUI.UI
 
             lbl_delta.Content = "";
 
-            Ellipse centro = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Red };
+            Ellipse centro = new Ellipse { Width = 2, Height = 2, Fill = Brushes.Red };
             cv_backspace.Children.Add(centro);
             Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
             Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
+
+            List<BodyPosition> bodypos = new List<BodyPosition>();
 
             Console.WriteLine("|||||||||||||");
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
@@ -218,12 +215,17 @@ namespace GameUI.UI
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
 
                 Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
+
+                el.Tag = s.relatedStar;
+
+                el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+
                 cv_backspace.Children.Add(el);
 
                 lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
-             
-                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1/scale)));
+
+                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
                 Canvas.SetTop(el, (get_y_center()));
 
                 s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
@@ -232,33 +234,26 @@ namespace GameUI.UI
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
 
 
-                /*
-                    Ellipse orbit = new Ellipse
-                    {
-                        Stroke = Brushes.Yellow,
-                        StrokeThickness = 4,
-                        Width = Double.Parse(txt_orbit.Text.Trim()),
-                        Height = Double.Parse(txt_orbit.Text.Trim()),
-                        Fill = Brushes.Transparent
-                    };*/
+
                 double length = 0;
-                if (Canvas.GetLeft(el)>0)
+                if (Canvas.GetLeft(el) > 0)
                 {
-                    Point p1 = new Point(get_x_center(), get_y_center() );
+                    Point p1 = new Point(get_x_center(), get_y_center());
                     Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
-                    length  = Point.Subtract(p1, p2).Length;
-                    
+                    length = Point.Subtract(p1, p2).Length;
+
                     Path orbitPath = new Path
                     {
                         Stroke = Brushes.Yellow,
                         StrokeThickness = 2,
                         Fill = Brushes.Transparent
+                        
                     };
 
                     EllipseGeometry eg = new EllipseGeometry();
                     eg.Center = p1;
-                    eg.RadiusX = length - (el.Width/2);
-                    eg.RadiusY = length - (el.Width/2);
+                    eg.RadiusX = length - (el.Width / 2);
+                    eg.RadiusY = length - (el.Width / 2);
 
                     // Add all the geometries to a GeometryGroup.  
                     GeometryGroup orbitGroup = new GeometryGroup();
@@ -266,7 +261,7 @@ namespace GameUI.UI
 
                     // Set Path.Data  
                     orbitPath.Data = orbitGroup;
-           
+
 
                     Line line = new Line();
                     line.X1 = p1.X;
@@ -276,23 +271,129 @@ namespace GameUI.UI
 
                     cv_backspace.Children.Add(orbitPath);
                     cv_backspace.Children.Add(line);
-                   // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
-                   //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
+                    // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
+                    //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
 
 
                 }
 
                 Console.WriteLine("---------");
-                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el)+ " \\// " + length);
+                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
 
-              
+
+                bodypos.Add(new BodyPosition { Body = s.relatedStar.FullName, Position = s.position });
+
+                n++;
+            }
+
+            foreach (Planet s in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
+            {
+                double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
+
+                Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue };
+
+                el.Tag = s.relatedPlanet;
+
+                el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+
+                cv_backspace.Children.Add(el);
+
+                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (s.relatedPlanet.distance_from_star * 600/ scale)));
+                Canvas.SetTop(el, (get_y_center()));
+
+                s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+
+
+           
+
+                double length = 0;
+                if (Canvas.GetLeft(el) > 0)
+                {
+                    Point p1 = new Point(get_x_center(), get_y_center());
+                    Point p2 = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+                    length = Point.Subtract(p1, p2).Length;
+
+                    Path orbitPath = new Path
+                    {
+                        Stroke = Brushes.LightBlue,
+                        StrokeThickness = 2,
+                        Fill = Brushes.Transparent
+
+                    };
+
+                    EllipseGeometry eg = new EllipseGeometry();
+                    eg.Center = p1;
+                    eg.RadiusX = length - (el.Width / 2);
+                    eg.RadiusY = length - (el.Width / 2);
+
+                    // Add all the geometries to a GeometryGroup.  
+                    GeometryGroup orbitGroup = new GeometryGroup();
+                    orbitGroup.Children.Add(eg);
+
+                    // Set Path.Data  
+                    orbitPath.Data = orbitGroup;
+
+
+                    Line line = new Line();
+                    line.X1 = p1.X;
+                    line.X2 = p2.X;
+                    line.Y1 = p1.Y;
+                    line.Y2 = p2.Y;
+
+                    cv_backspace.Children.Add(orbitPath);
+                    cv_backspace.Children.Add(line);
+                }
+
+                Console.WriteLine("---------");
+                Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
+
+
 
 
                 n++;
             }
-                
+
+
+            //dopo averlo disegnato aggiungi le posizioni all'albero
+
+
+
+                string nodeToFind = txt_search.Text.Trim();
+
+                foreach (TreeViewItem item in SystemTree.Items)
+                {
+                    if (item.Tag is Star)
+                    {
+                        if ((item.Tag as Star).relatedStar.FullName == nodeToFind)
+                        {
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
+                    }
+                    else if (item.Tag is Planet)
+                    {
+                        if ((item.Tag as Planet).relatedPlanet.name == nodeToFind)
+                        {
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
+                    }
+
+                    if (item.HasItems)
+                    {
+                        findNode(item, nodeToFind);
+                    }
+                }
+            
+
         }
 
+        private void Ellipse_preview_mouse_left_click(object sender, MouseButtonEventArgs e)
+        {
+            UIStaticClass.Show_body_info(sender);
+        }
 
         public double ConvertToRadians(double angle)
         {
@@ -301,7 +402,7 @@ namespace GameUI.UI
 
         private void SystemTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if(SystemTree.SelectedItem == null)
+            if (SystemTree.SelectedItem == null)
             {
                 return;
             }
@@ -349,23 +450,25 @@ namespace GameUI.UI
                     return;
                 }
 
-                zoomScale = zoomScale - 1000;
+                //zoomScale = zoomScale - 1000;
                 scale = scale - zoomScale;
-                
+
             }
             else
             {
-                
+
                 scale = scale + zoomScale;
-                zoomScale = zoomScale + 1000;
-                
+                //zoomScale = zoomScale + 1000;
+
             }
-            
+
             txt_scale.Text = scale.ToString();
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
+
             //Capture Mouse
             cv_backspace.CaptureMouse();
             //Store click position relation to Parent of the canvas
@@ -404,12 +507,12 @@ namespace GameUI.UI
 
         public double get_x_center()
         {
-            return cv_backspace.Width / 2 - horizontal_offset / (zoomScale/1000);
+            return cv_backspace.Width / 2 - horizontal_offset / (zoomScale / 1000);
         }
 
         public double get_y_center()
         {
-            return cv_backspace.Height / 2 - vertical_offset /(zoomScale/1000);
+            return cv_backspace.Height / 2 - vertical_offset / (zoomScale / 1000);
         }
 
         private void btn_reset_zoom_pan_Click(object sender, RoutedEventArgs e)
@@ -417,6 +520,15 @@ namespace GameUI.UI
             vertical_offset = horizontal_offset = 0;
 
             draw_system(selected_SS);
+
+        }
+
+        private class BodyPosition
+        {
+            public String Body;
+
+            public Point Position;
+
 
         }
     }
