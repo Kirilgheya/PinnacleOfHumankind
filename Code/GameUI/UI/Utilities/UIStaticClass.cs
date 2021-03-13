@@ -48,6 +48,15 @@ namespace GameUI.UI.Utilities
             MessageBox.Show(Message);
         }
 
+
+        public static Brush ColorToBrush(string color) // color = "#E7E44D"
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString(color);
+            return brush;
+        }
+
+
         public static SolidColorBrush BrushFromHex(string hexColorString)
         {
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(hexColorString));
