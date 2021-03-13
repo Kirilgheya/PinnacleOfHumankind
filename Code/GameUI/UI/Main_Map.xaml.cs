@@ -316,7 +316,7 @@ namespace GameUI.UI
                     {
                         Stroke = Brushes.LightBlue,
                         StrokeThickness = 2,
-                        Fill = Brushes.Transparent,
+                        Fill = null,
 
                         Tag = s.relatedPlanet
                     };
