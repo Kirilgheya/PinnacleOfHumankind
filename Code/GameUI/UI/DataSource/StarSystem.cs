@@ -80,5 +80,10 @@ namespace GameUI.UI.DataSource
         {
             throw new NotImplementedException();
         }
+
+        protected override void initShapeParameters()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

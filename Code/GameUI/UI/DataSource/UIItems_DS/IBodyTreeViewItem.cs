@@ -16,6 +16,8 @@ namespace GameUI.UI.DataSource.UIItems_DS
          public string Name { get; set; }
         public ObservableCollection<IBodyTreeViewItem> Children { get; set; }
 
+        protected double minShapeRadius =1;
+
         protected abstract void setName();
 
         protected abstract void setChildren();
@@ -34,6 +36,6 @@ namespace GameUI.UI.DataSource.UIItems_DS
         protected abstract void childrenDrawBody();
         protected abstract void setColor();
 
-
+        protected abstract void initShapeParameters();
     }
 }

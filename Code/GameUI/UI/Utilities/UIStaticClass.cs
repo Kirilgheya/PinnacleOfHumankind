@@ -48,6 +48,11 @@ namespace GameUI.UI.Utilities
             MessageBox.Show(Message);
         }
 
+        public static SolidColorBrush BrushFromHex(string hexColorString)
+        {
+            return (SolidColorBrush)(new BrushConverter().ConvertFrom(hexColorString));
+        }
+
         public static void generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null)
         {
 
@@ -63,13 +68,16 @@ namespace GameUI.UI.Utilities
                 Fill = null
 
             };
+
+            
+
             EllipseGeometry eg = new EllipseGeometry();
             double length = Point.Subtract(_center, _bodyCoordinates).Length;
 
             eg.Center = _center;
             eg.RadiusX = length - (_body.Width / 2);
             eg.RadiusY = length - (_body.Width / 2);
-
+            
             // Add all the geometries to a GeometryGroup.  
             GeometryGroup orbitGroup = new GeometryGroup();
             orbitGroup.Children.Add(eg);
@@ -86,6 +94,10 @@ namespace GameUI.UI.Utilities
 
             _canvas.Children.Add(orbitPath);
             _canvas.Children.Add(line);
+
+            Canvas.SetZIndex(orbitPath, 0);
+            Canvas.SetZIndex(line, 0);
+
         }
     }
 }

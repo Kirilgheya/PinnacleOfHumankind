@@ -217,77 +217,67 @@ namespace GameUI.UI
 
             Ellipse centro = new Ellipse { Width = 2, Height = 2, Fill = Brushes.Red };
             cv_backspace.Children.Add(centro);
+            
             Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
             Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
-
-            foreach (Star s in sy.Children.Where(x => x is Star).ToList())
+            
+            foreach (Star star in sy.Children.Where(x => x is Star).ToList())
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
                 
                 //Draw new star
 
-                Ellipse el = s.drawBody();
+                Ellipse starShape = star.drawBody();
 
-                el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
-                cv_backspace.Children.Add(el);
+                starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+                cv_backspace.Children.Add(starShape);
 
-                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
-                Canvas.SetTop(el, (get_y_center()));
+                Canvas.SetLeft(starShape, (get_x_center() - starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
+                Canvas.SetTop(starShape, (get_y_center()- starShape.Width / 2));
 
                 //End Draw
-                s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+                star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
                 lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
-
-           
-
-                double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
-
-                double length = 0;
-                if (Canvas.GetLeft(el) > 0)
+                if (Canvas.GetLeft(starShape) > 0)
                 {
                     Point center = new Point(get_x_center(), get_y_center());
-                    Point planetCoordinates = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+                    Point planetCoordinates = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
-                    UIStaticClass.generateOrbitForBody(cv_backspace, el, center, planetCoordinates);
+                    UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, planetCoordinates
+                                ,UIStaticClass.BrushFromHex("#e5e6c3"));
 
-                    // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
-                    //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
                 }
 
-                find_node(s.Name, true);
+                find_node(star.Name, true);
 
                 n++;
             }
 
-            foreach (Planet s in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
+            foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
 
-                Ellipse el = new Ellipse { Width = 25, Height = 25, Fill = Brushes.Blue, Stroke = Brushes.Transparent, StrokeThickness = 10 };
+                Ellipse planetShape = planet.drawBody();
 
-                el.Tag = s.relatedPlanet;
+                planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+                cv_backspace.Children.Add(planetShape);
 
-                el.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+                Canvas.SetLeft(planetShape, (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * 600 / scale)));
+                Canvas.SetTop(planetShape, (get_y_center()- planetShape.Width / 2));
 
-                cv_backspace.Children.Add(el);
+                planet.position = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
 
-                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (s.relatedPlanet.distance_from_star * 600 / scale)));
-                Canvas.SetTop(el, (get_y_center()));
-
-                s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
-
-                double length = 0;
-                if (Canvas.GetLeft(el) > 0)
+                if (Canvas.GetLeft(planetShape) > 0)
                 {
                     Point center = new Point(get_x_center(), get_y_center());
-                    Point planetCoordinates = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
+                    Point planetCoordinates = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
 
-                    UIStaticClass.generateOrbitForBody(cv_backspace, el, center, planetCoordinates, Brushes.Aqua);
+                    UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua);
                 }
 
-                find_node(s.Name, true);
+                find_node(planet.Name, true);
 
                 n++;
             }

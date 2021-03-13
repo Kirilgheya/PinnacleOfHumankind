@@ -65,5 +65,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
             throw new NotImplementedException();
         }
+
+        protected override void initShapeParameters()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

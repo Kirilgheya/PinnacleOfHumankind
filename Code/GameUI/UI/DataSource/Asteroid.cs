@@ -48,5 +48,10 @@ namespace GameUI.UI.DataSource
         {
             this.Shape.Tag = this.relatedAsteroid;
         }
+
+        protected override void initShapeParameters()
+        {
+            this.minShapeRadius = 2;
+        }
     }
 }

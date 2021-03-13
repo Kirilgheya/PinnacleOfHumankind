@@ -22,6 +22,8 @@ namespace GameUI.UI.DataSource
         private GameCore.Planet _relatedPlanet;
         internal Point position;
 
+        
+
         public double Temperature
         {
             get
@@ -65,6 +67,11 @@ namespace GameUI.UI.DataSource
         protected override void linkShapeToBody()
         {
             this.Shape.Tag = this.relatedPlanet;
+        }
+
+        protected override void initShapeParameters()
+        {
+            this.minShapeRadius = 5;
         }
     }
 }

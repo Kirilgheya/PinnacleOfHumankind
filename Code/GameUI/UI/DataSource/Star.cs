@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
@@ -105,7 +106,7 @@ namespace GameUI.UI.DataSource
         {
 
             this.Shape = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
-            
+            Canvas.SetZIndex(this.Shape, 1);
         }
 
         protected override void setColor()
@@ -118,6 +119,11 @@ namespace GameUI.UI.DataSource
         protected override void linkShapeToBody()
         {
             this.Shape.Tag = this.relatedStar;
+        }
+
+        protected override void initShapeParameters()
+        {
+            this.minShapeRadius = 10;
         }
     }
 

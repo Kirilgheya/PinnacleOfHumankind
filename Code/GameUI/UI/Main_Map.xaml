@@ -16,7 +16,7 @@
             <RowDefinition Height="137*"></RowDefinition>
         </Grid.RowDefinitions>
         <Viewbox  x:Name="ZoomViewbox" ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" MouseWheel="ZoomViewbox_MouseWheel" Margin="0.333,0,0.333,-0.333">
-            <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="Black" Width="1000" Height="1000" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove"/>
+            <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Background="#071073" Width="1000" Height="1000" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove"/>
         </Viewbox>
         <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged" Grid.RowSpan="2"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
