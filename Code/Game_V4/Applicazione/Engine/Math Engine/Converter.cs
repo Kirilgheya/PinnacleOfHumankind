@@ -10,6 +10,11 @@ public static class Converter
         return _UA * Constants.UA_to_km;
     }
 
+    public static double KM_to_UA(double _KM)
+    {
+        return _KM / Constants.UA_to_km;
+    }
+
     public static double UA_to_MKm(double _UA)
     {
         return _UA * Constants.UA_to_Mkm;

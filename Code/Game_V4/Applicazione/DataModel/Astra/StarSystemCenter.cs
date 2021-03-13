@@ -44,9 +44,9 @@ namespace MainGame.Applicazione.DataModel.Astra
                 r1 = a / (1 + (m1 / m2));
 
                 r2 = a - r1;
-
-                deltaFromBarycenter[0] = r1;
-                deltaFromBarycenter[1] = r2;
+                
+                deltaFromBarycenter[0] = Converter.KM_to_UA(r1);
+                deltaFromBarycenter[1] = Converter.KM_to_UA(r2);
                 //r = (a) / (1 + (m1/m2))
                 //r = a * (m2)/(m1+m2)
             }
