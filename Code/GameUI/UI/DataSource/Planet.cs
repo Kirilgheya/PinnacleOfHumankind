@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
@@ -19,6 +17,8 @@ namespace GameUI.UI.DataSource
             set { _relatedPlanet = value; }
         }
         private GameCore.Planet _relatedPlanet;
+        internal Point position;
+
         public double Temperature
         {
             get
