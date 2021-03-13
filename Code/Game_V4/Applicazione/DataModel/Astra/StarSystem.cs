@@ -2,7 +2,7 @@
 using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace MainGame.Applicazione.DataModel
 {
@@ -374,6 +374,8 @@ namespace MainGame.Applicazione.DataModel
                 asteroid.initAsteroid(1, relMassSeed);
                 this.asteroidBelt.Add(asteroid);
             }
+
+            this.planets = this.planets.OrderBy(x => x.distance_from_star).ToList();
 
             Console.WriteLine("AU min: " + habitableZone_min + " \n \tAU max: " + habitableZone_max);
 
