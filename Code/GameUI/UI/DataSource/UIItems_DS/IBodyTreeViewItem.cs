@@ -12,7 +12,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
     {
 
         protected Ellipse Shape;
-
+        public Ellipse bodyShape { get { return Shape; } }
          public string Name { get; set; }
         public ObservableCollection<IBodyTreeViewItem> Children { get; set; }
 
