@@ -90,6 +90,8 @@ namespace GameUI.UI
 
 
 
+            System_List.Add(new StarSystem(system));
+
         }
 
         private void add_starSystem_to_Tree()
@@ -128,35 +130,54 @@ namespace GameUI.UI
 
             string nodeToFind = txt_search.Text.Trim();
 
+            find_node(nodeToFind);
+        }
+
+        private void find_node(string nodeToFind, bool update = false)
+        {
             foreach (TreeViewItem item in SystemTree.Items)
             {
                 if (item.Tag is Star)
                 {
                     if ((item.Tag as Star).relatedStar.FullName == nodeToFind)
                     {
-                        (item.Parent as TreeViewItem).IsExpanded = true;
-                        item.IsSelected = true;
-                        break;
+                        if (update)
+                        {
+                            item.Header = (item.Tag as Star).Name + "X " + Math.Round((item.Tag as Star).position.X )+ " Y " + Math.Round((item.Tag as Star).position.Y);
+                        }
+                        else
+                        {
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
                     }
                 }
                 else if (item.Tag is Planet)
                 {
                     if ((item.Tag as Planet).relatedPlanet.name == nodeToFind)
                     {
-                        (item.Parent as TreeViewItem).IsExpanded = true;
-                        item.IsSelected = true;
-                        break;
+                        if (update)
+                        {
+                            item.Header = (item.Tag as Planet).Name + "X " + Math.Round((item.Tag as Planet).position.X )+ " Y " + Math.Round((item.Tag as Planet).position.Y);
+                        }
+                        else
+                        {
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
                     }
                 }
 
                 if (item.HasItems)
                 {
-                    findNode(item, nodeToFind);
+                    find_node_internal(item, nodeToFind, update);
                 }
             }
         }
 
-        public void findNode(TreeViewItem parent, string name)
+        public void find_node_internal(TreeViewItem parent, string name, bool update = false)
         {
             foreach (TreeViewItem item in parent.Items)
             {
@@ -165,25 +186,39 @@ namespace GameUI.UI
                     if ((item.Tag as Star).relatedStar.FullName == name)
                     {
 
-                        (item.Parent as TreeViewItem).IsExpanded = true;
-                        item.IsSelected = true;
-                        break;
+                        if (update)
+                        {
+                            item.Header = (item.Tag as Star).Name + " X " + Math.Round((item.Tag as Star).position.X) + " Y " + Math.Round((item.Tag as Star).position.Y);
+                        }
+                        else
+                        {
+
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
                     }
                 }
                 else if (item.Tag is Planet)
                 {
                     if ((item.Tag as Planet).relatedPlanet.name == name)
                     {
-
-                        (item.Parent as TreeViewItem).IsExpanded = true;
-                        item.IsSelected = true;
-                        break;
+                        if (update)
+                        {
+                            item.Header = (item.Tag as Planet).Name + " X " + Math.Round((item.Tag as Planet).position.X) + " Y " + Math.Round((item.Tag as Planet).position.Y);
+                        }
+                        else
+                        {
+                            (item.Parent as TreeViewItem).IsExpanded = true;
+                            item.IsSelected = true;
+                            break;
+                        }
                     }
                 }
 
                 if (item.HasItems)
                 {
-                    findNode(item, name);
+                    find_node_internal(item, name);
                 }
             }
         }
@@ -206,8 +241,6 @@ namespace GameUI.UI
             cv_backspace.Children.Add(centro);
             Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
             Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
-
-            List<BodyPosition> bodypos = new List<BodyPosition>();
 
             Console.WriteLine("|||||||||||||");
             foreach (Star s in sy.Children.Where(x => x is Star).ToList())
@@ -281,7 +314,7 @@ namespace GameUI.UI
                 Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
 
 
-                bodypos.Add(new BodyPosition { Body = s.relatedStar.FullName, Position = s.position });
+                find_node(s.Name, true);
 
                 n++;
             }
@@ -303,7 +336,7 @@ namespace GameUI.UI
 
                 s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
 
-
+                
            
 
                 double length = 0;
@@ -348,46 +381,10 @@ namespace GameUI.UI
                 Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
 
 
-
+                find_node(s.Name, true);
 
                 n++;
             }
-
-
-            //dopo averlo disegnato aggiungi le posizioni all'albero
-
-
-
-                string nodeToFind = txt_search.Text.Trim();
-
-                foreach (TreeViewItem item in SystemTree.Items)
-                {
-                    if (item.Tag is Star)
-                    {
-                        if ((item.Tag as Star).relatedStar.FullName == nodeToFind)
-                        {
-                            (item.Parent as TreeViewItem).IsExpanded = true;
-                            item.IsSelected = true;
-                            break;
-                        }
-                    }
-                    else if (item.Tag is Planet)
-                    {
-                        if ((item.Tag as Planet).relatedPlanet.name == nodeToFind)
-                        {
-                            (item.Parent as TreeViewItem).IsExpanded = true;
-                            item.IsSelected = true;
-                            break;
-                        }
-                    }
-
-                    if (item.HasItems)
-                    {
-                        findNode(item, nodeToFind);
-                    }
-                }
-            
-
         }
 
         private void Ellipse_preview_mouse_left_click(object sender, MouseButtonEventArgs e)
@@ -520,15 +517,6 @@ namespace GameUI.UI
             vertical_offset = horizontal_offset = 0;
 
             draw_system(selected_SS);
-
-        }
-
-        private class BodyPosition
-        {
-            public String Body;
-
-            public Point Position;
-
 
         }
     }
