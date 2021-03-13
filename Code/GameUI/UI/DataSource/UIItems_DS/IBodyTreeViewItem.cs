@@ -24,11 +24,12 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
 
             this.childrenDrawBody();
-
+            this.setColor();
             return Shape;
         }
 
         protected abstract void childrenDrawBody();
+        protected abstract void setColor();
 
     }
 }

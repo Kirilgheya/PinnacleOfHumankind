@@ -24,10 +24,7 @@ namespace GameUI.UI.DataSource
             
         }
 
-        protected override void childrenDrawBody()
-        {
-            throw new NotImplementedException();
-        }
+       
 
         protected override void setChildren()
         {
@@ -56,6 +53,17 @@ namespace GameUI.UI.DataSource
 
             Children = local;
         }
+
+        protected override void setColor()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void childrenDrawBody()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void setName()
         {
             string majorStarName;
@@ -67,6 +75,7 @@ namespace GameUI.UI.DataSource
             Name = "Stellar System: " + majorStarName;
 
         }
+
 
        
     }

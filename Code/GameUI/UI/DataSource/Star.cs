@@ -107,6 +107,13 @@ namespace GameUI.UI.DataSource
             this.Shape = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
             
         }
+
+        protected override void setColor()
+        {
+            Brush shapeColor = this.getBrushFromStarColor();
+
+            this.Shape.Fill = shapeColor;
+        }
     }
 
 

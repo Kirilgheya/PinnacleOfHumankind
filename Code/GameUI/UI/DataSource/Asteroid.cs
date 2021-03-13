@@ -38,5 +38,10 @@ namespace GameUI.UI.DataSource
             this.Shape = new Ellipse { Width = 5, Height = 5, Fill = Brushes.Brown };
             
         }
+
+        protected override void setColor()
+        {
+            this.Shape.Fill = Brushes.LightGray;
+        }
     }
 }
