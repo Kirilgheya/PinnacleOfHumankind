@@ -18,20 +18,18 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
+        private List<StarSystem> System_List = new List<StarSystem>();
 
-        List<StarSystem> System_List = new List<StarSystem>();
+        private StarSystem selected_SS = null;
 
-        StarSystem selected_SS = null;
+        private double scale = 10;
 
-        double scale = 10;
+        private double zoomScale = 1;
 
-        double zoomScale = 1;
-
-        double horizontal_offset = 0;
-        double vertical_offset = 0;
+        private double horizontal_offset = 0;
+        private double vertical_offset = 0;
 
         private Point _pointOnClick; // Click Position for panning
-
 
         public Main_Map()
         {
@@ -40,15 +38,10 @@ namespace GameUI.UI
             generate_Star_System();
 
             add_starSystem_to_Tree();
-
-
-
         }
-
 
         private void generate_Star_System()
         {
-
             Applicazione.DataModel.PeriodicTable.init();
 
             List<Gamecore.DataModel.ChemicalElement> chemicalElements = Gamecore.Engine.DataEngine.starSeed;
@@ -64,7 +57,6 @@ namespace GameUI.UI
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
             system.createStarSystem();
 
-
             System_List.Clear();
 
             System_List.Add(new StarSystem(system));
@@ -73,25 +65,19 @@ namespace GameUI.UI
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 5 }, chemicalComposition);
             system.createStarSystem();
 
-
             System_List.Add(new StarSystem(system));
 
             system = new Gamecore.DataModel.StarSystem();
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 10.7, 35 }, chemicalComposition);
             system.createStarSystem();
 
-
             System_List.Add(new StarSystem(system));
-
 
             system = new Gamecore.DataModel.StarSystem();
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 0.5 }, chemicalComposition);
             system.createStarSystem();
 
-
-
             System_List.Add(new StarSystem(system));
-
         }
 
         private void add_starSystem_to_Tree()
@@ -107,7 +93,6 @@ namespace GameUI.UI
                 foreach (Star s in sys.Children.Where(x => x is Star).ToList())
                 {
                     SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = s.Name, Tag = s });
-
                 }
 
                 foreach (TreeElementPlanets p in sys.Children.Where(x => x is TreeElementPlanets).ToList())
@@ -115,19 +100,15 @@ namespace GameUI.UI
                     foreach (Planet pl in p.Children)
                     {
                         SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
-
                     }
                     break;
                 }
                 n++;
             }
-
         }
 
         private void txt_search_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-
             string nodeToFind = txt_search.Text.Trim();
 
             find_node(nodeToFind);
@@ -143,7 +124,7 @@ namespace GameUI.UI
                     {
                         if (update)
                         {
-                            item.Header = (item.Tag as Star).Name + "X " + Math.Round((item.Tag as Star).position.X )+ " Y " + Math.Round((item.Tag as Star).position.Y);
+                            item.Header = (item.Tag as Star).Name + "X " + Math.Round((item.Tag as Star).position.X) + " Y " + Math.Round((item.Tag as Star).position.Y);
                         }
                         else
                         {
@@ -159,7 +140,7 @@ namespace GameUI.UI
                     {
                         if (update)
                         {
-                            item.Header = (item.Tag as Planet).Name + "X " + Math.Round((item.Tag as Planet).position.X )+ " Y " + Math.Round((item.Tag as Planet).position.Y);
+                            item.Header = (item.Tag as Planet).Name + "X " + Math.Round((item.Tag as Planet).position.X) + " Y " + Math.Round((item.Tag as Planet).position.Y);
                         }
                         else
                         {
@@ -185,14 +166,12 @@ namespace GameUI.UI
                 {
                     if ((item.Tag as Star).relatedStar.FullName == name)
                     {
-
                         if (update)
                         {
                             item.Header = (item.Tag as Star).Name + " X " + Math.Round((item.Tag as Star).position.X) + " Y " + Math.Round((item.Tag as Star).position.Y);
                         }
                         else
                         {
-
                             (item.Parent as TreeViewItem).IsExpanded = true;
                             item.IsSelected = true;
                             break;
@@ -225,7 +204,6 @@ namespace GameUI.UI
 
         private void draw_system(StarSystem sy)
         {
-
             cv_backspace.Children.Clear();
 
             if (sy == null)
@@ -262,10 +240,7 @@ namespace GameUI.UI
 
                 s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
 
-
                 double debug = selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale;
-
-
 
                 double length = 0;
                 if (Canvas.GetLeft(el) > 0)
@@ -279,7 +254,6 @@ namespace GameUI.UI
                         Stroke = Brushes.Yellow,
                         StrokeThickness = 2,
                         Fill = Brushes.Transparent
-                        
                     };
 
                     EllipseGeometry eg = new EllipseGeometry();
@@ -287,13 +261,12 @@ namespace GameUI.UI
                     eg.RadiusX = length - (el.Width / 2);
                     eg.RadiusY = length - (el.Width / 2);
 
-                    // Add all the geometries to a GeometryGroup.  
+                    // Add all the geometries to a GeometryGroup.
                     GeometryGroup orbitGroup = new GeometryGroup();
                     orbitGroup.Children.Add(eg);
 
-                    // Set Path.Data  
+                    // Set Path.Data
                     orbitPath.Data = orbitGroup;
-
 
                     Line line = new Line();
                     line.X1 = p1.X;
@@ -305,13 +278,10 @@ namespace GameUI.UI
                     cv_backspace.Children.Add(line);
                     // Canvas.SetLeft(orbit, get_x_center - orbit.Width / 2);
                     //  Canvas.SetTop(orbit, get_x_center - orbit.Height / 2);
-
-
                 }
 
                 Console.WriteLine("---------");
                 Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
-
 
                 find_node(s.Name, true);
 
@@ -322,7 +292,7 @@ namespace GameUI.UI
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
 
-                Ellipse el = new Ellipse { Width = 10, Height = 10, Fill = Brushes.Blue };
+                Ellipse el = new Ellipse { Width = 25, Height = 25, Fill = Brushes.Blue, Stroke = Brushes.Transparent, StrokeThickness = 10 };
 
                 el.Tag = s.relatedPlanet;
 
@@ -330,14 +300,10 @@ namespace GameUI.UI
 
                 cv_backspace.Children.Add(el);
 
-
-                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (s.relatedPlanet.distance_from_star * 600/ scale)));
+                Canvas.SetLeft(el, (get_x_center() - el.Width / 2 - (s.relatedPlanet.distance_from_star * 600 / scale)));
                 Canvas.SetTop(el, (get_y_center()));
 
                 s.position = new Point(Canvas.GetLeft(el), Canvas.GetTop(el));
-
-                
-           
 
                 double length = 0;
                 if (Canvas.GetLeft(el) > 0)
@@ -350,8 +316,9 @@ namespace GameUI.UI
                     {
                         Stroke = Brushes.LightBlue,
                         StrokeThickness = 2,
-                        Fill = Brushes.Transparent
+                        Fill = Brushes.Transparent,
 
+                        Tag = s.relatedPlanet
                     };
 
                     EllipseGeometry eg = new EllipseGeometry();
@@ -359,13 +326,12 @@ namespace GameUI.UI
                     eg.RadiusX = length - (el.Width / 2);
                     eg.RadiusY = length - (el.Width / 2);
 
-                    // Add all the geometries to a GeometryGroup.  
+                    // Add all the geometries to a GeometryGroup.
                     GeometryGroup orbitGroup = new GeometryGroup();
                     orbitGroup.Children.Add(eg);
 
-                    // Set Path.Data  
+                    // Set Path.Data
                     orbitPath.Data = orbitGroup;
-
 
                     Line line = new Line();
                     line.X1 = p1.X;
@@ -379,7 +345,6 @@ namespace GameUI.UI
 
                 Console.WriteLine("---------");
                 Console.WriteLine(Canvas.GetLeft(el) + " \\ " + Canvas.GetTop(el) + " \\// " + length);
-
 
                 find_node(s.Name, true);
 
@@ -449,14 +414,11 @@ namespace GameUI.UI
 
                 //zoomScale = zoomScale - 1000;
                 scale = scale - zoomScale;
-
             }
             else
             {
-
                 scale = scale + zoomScale;
                 //zoomScale = zoomScale + 1000;
-
             }
 
             txt_scale.Text = scale.ToString();
@@ -464,7 +426,11 @@ namespace GameUI.UI
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (!(e.OriginalSource is Canvas))
+            {
+                UIStaticClass.Show_body_info(e.OriginalSource);
+                return;
+            }
 
             //Capture Mouse
             cv_backspace.CaptureMouse();
@@ -478,9 +444,6 @@ namespace GameUI.UI
             cv_backspace.ReleaseMouseCapture();
             //Set cursor by default
             Mouse.OverrideCursor = null;
-
-
-
         }
 
         private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
@@ -498,9 +461,7 @@ namespace GameUI.UI
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
             draw_system(selected_SS);
-
         }
-
 
         public double get_x_center()
         {
@@ -517,7 +478,6 @@ namespace GameUI.UI
             vertical_offset = horizontal_offset = 0;
 
             draw_system(selected_SS);
-
         }
     }
 }
