@@ -335,6 +335,12 @@ namespace GameUI.UI
             GameSession.saveGame();
         }
 
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            GameSession.GameSessionSystems = this.System_List;
+            GameSession.saveGame();
+        }
+
         private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
