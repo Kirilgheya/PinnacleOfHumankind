@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
+using WpfAnimatedGif;
+using System.Windows.Controls;
+
 namespace GameUI.UI.DataSource
 {
     public class Planet : IBodyTreeViewItem
@@ -61,10 +64,27 @@ namespace GameUI.UI.DataSource
         protected override void childrenDrawBody(double scale = 1)
         {
 
-            ImageBrush PlanetBrush = new ImageBrush(new BitmapImage(
-            new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet12.png")));
+            //ImageBrush PlanetBrush = new ImageBrush(new BitmapImage(
+            //new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet12.png")));
 
-            this.Shape  = new Ellipse { Width = 7 * 1 / scale, Height = 7 * 1 / scale , Fill = PlanetBrush };
+
+            BitmapImage image_file = new BitmapImage();
+
+            Image Control_image = new Image();
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet_gif.gif");
+            image.EndInit();
+            ImageBehavior.SetAnimatedSource(Control_image, image);
+
+
+            VisualBrush PlanetBrush = new VisualBrush();
+            PlanetBrush.Visual = Control_image;
+             
+
+
+            this.Shape  = new Ellipse { Width = 100 * 1 / scale, Height = 100 * 1 / scale , Fill = PlanetBrush };
            
         }
 

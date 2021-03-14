@@ -141,7 +141,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Res\Planets\planet_gif.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game_V4\Game_V4.csproj">
       <Project>{7d39a20a-1fcf-4098-be80-00de5c3929fa}</Project>
