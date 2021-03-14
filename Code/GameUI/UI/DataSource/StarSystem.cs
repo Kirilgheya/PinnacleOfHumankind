@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace GameUI.UI.DataSource
 {
-    class StarSystem : IBodyTreeViewItem
+    public class StarSystem : IBodyTreeViewItem
     {
         public GameCore.StarSystem relatedStarSystem;
      

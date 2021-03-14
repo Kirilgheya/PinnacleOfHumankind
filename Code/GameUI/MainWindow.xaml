@@ -9,8 +9,11 @@
         <Image gif:ImageBehavior.AnimatedSource="Res/menu.gif" />
         <Image gif:ImageBehavior.RepeatBehavior="Forever"/>
         <Image gif:ImageBehavior.AutoStart="True"/>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="101,233,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="Button_Click"/>
-        <Label VerticalAlignment="Top" Height="139" Width="172" Content="POH" Foreground="White" FontSize="80" Margin="80,76,68,0" HorizontalAlignment="Center"/>
+        <Button Content="Play" HorizontalAlignment="Left" Margin="101,131,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="Button_Click"/>
+        <Button Content="Save Data" HorizontalAlignment="Left" Margin="101,168,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="BtnSaveData_Click"/>
+        <Label VerticalAlignment="Top" Height="107" Width="166" Content="POH" Foreground="White" FontSize="80" Margin="75,10,79,0" HorizontalAlignment="Center"/>
+        <Button Content="Load
+ Data" HorizontalAlignment="Left" Margin="101,205,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="Button_Click"/>
 
     </Grid>
 </Window>

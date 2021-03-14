@@ -1,4 +1,5 @@
 ﻿using GameUI.UI;
+using Session = GameUI.UI.GameEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
+using System.Collections.Specialized;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using GameUI.UI.GameEngine;
 
 namespace GameUI
 {
@@ -37,6 +43,31 @@ namespace GameUI
             map.Show();
 
             this.Close();
+        }
+        
+        private void BtnSaveData_Click(object sender, RoutedEventArgs e)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            String filename, filepath, folder;
+            int directoryCount;
+            filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
+            filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
+            folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
+
+
+            directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
+            Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
+            using (FileStream fs = File.Create(filepath+"\\"+ folder+(directoryCount+1)+ "\\"+filename))
+            { 
+
+                if(GameSessionSavedData.Instance.GameSessionSystems != null)
+                { 
+
+                    formatter.Serialize(fs, GameSessionSavedData.Instance);
+
+                }
+
+            }
         }
     }
 }

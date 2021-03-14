@@ -39,6 +39,7 @@
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="UI\DataSource\Asteroid.cs" />
     <Compile Include="UI\GameEngine\GameSession.cs" />
+    <Compile Include="UI\GameEngine\GameSessionSavedData.cs" />
     <Compile Include="UI\Utilities\OrbitalMotion.cs" />
     <Compile Include="UI\DataSource\Planet.cs" />
     <Compile Include="UI\DataSource\Star.cs" />
@@ -123,6 +125,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Config\UserData.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
