@@ -58,7 +58,7 @@ namespace GameUI.UI
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
             system.createStarSystem();
 
-            if(System_List != null && _forceRecreate)
+            if(System_List == null || System_List.Count == 0 || _forceRecreate)
             { 
                 System_List.Clear();
 
