@@ -14,11 +14,8 @@ namespace GameUI.UI.DataSource
     public class StarSystem : IBodyTreeViewItem
     {
         public GameCore.StarSystem relatedStarSystem;
+     
 
-        public StarSystem()
-        {
-
-        }
         public StarSystem(GameCore.StarSystem _starSystem)
         {
             this.relatedStarSystem = _starSystem;
@@ -62,7 +59,7 @@ namespace GameUI.UI.DataSource
             throw new NotImplementedException();
         }
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1)
         {
             throw new NotImplementedException();
         }

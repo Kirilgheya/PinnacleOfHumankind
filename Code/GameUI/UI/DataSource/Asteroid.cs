@@ -15,10 +15,6 @@ namespace GameUI.UI.DataSource
 
         Gamecore.Asteroid relatedAsteroid;
 
-        public Asteroid()
-        {
-
-        }
         public Asteroid(Gamecore.Asteroid _asteroid)
         {
             relatedAsteroid = _asteroid;
@@ -36,10 +32,10 @@ namespace GameUI.UI.DataSource
            
         }
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1 )
         {
 
-            this.Shape = new Ellipse { Width = 5, Height = 5, Fill = Brushes.Brown };
+            this.Shape = new Ellipse { Width = 5 * 1 /scale, Height = 5 * 1/ scale, Fill = Brushes.Brown };
             
         }
 

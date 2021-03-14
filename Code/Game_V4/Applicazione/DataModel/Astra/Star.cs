@@ -188,11 +188,7 @@ namespace MainGame.Applicazione.DataModel
 			this.starRadius = _star.starRadius;
 		}
 
-        public Star()
-        {
-        }
-
-        public void initStar(double _densityMul = 1.0,double rel_mass=1.0,List<double> percentage = null)
+		public void initStar(double _densityMul = 1.0,double rel_mass=1.0,List<double> percentage = null)
 		{
             ChemicalComposition chemicalComposition = new ChemicalComposition(this.stellarCompositionMats, percentage);
             this.starComposition = chemicalComposition;

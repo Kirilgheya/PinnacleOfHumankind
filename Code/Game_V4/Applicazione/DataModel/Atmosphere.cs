@@ -13,11 +13,6 @@ namespace MainGame.Applicazione.DataModel
         public ChemicalComposition non_greenHouseComposition = new ChemicalComposition();
         double pressure;
         double parentBodyMasspercentage;
-
-        public Atmosphere()
-        {
-        }
-
         public Atmosphere(ChemicalComposition _composition)
         {
             foreach (ChemicalElement element in _composition.get_elements())

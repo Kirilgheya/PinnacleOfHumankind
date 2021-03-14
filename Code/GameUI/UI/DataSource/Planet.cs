@@ -33,8 +33,7 @@ namespace GameUI.UI.DataSource
         }
 
 
-        public Planet()
-        { }
+
         public Planet(GameCore.Planet _generatedPlanet)
         {
             Children = new ObservableCollection<IBodyTreeViewItem>();
@@ -54,13 +53,13 @@ namespace GameUI.UI.DataSource
            this.Name =  this.relatedPlanet.name;
         }
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1)
         {
 
             ImageBrush PlanetBrush = new ImageBrush(new BitmapImage(
             new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet12.png")));
 
-            this.Shape  = new Ellipse { Width = 7, Height = 7, Fill = PlanetBrush };
+            this.Shape  = new Ellipse { Width = 7 * 1 / scale, Height = 7 * 1 / scale , Fill = PlanetBrush };
            
         }
 
