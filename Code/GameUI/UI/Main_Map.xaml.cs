@@ -1,6 +1,5 @@
 ﻿using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
-using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
-        private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
+        private List<StarSystem> System_List = new List<StarSystem>();
 
         private StarSystem selected_SS = null;
 
@@ -228,7 +227,7 @@ namespace GameUI.UI
                 
                 //Draw new star
 
-                Ellipse starShape = star.drawBody();
+                Ellipse starShape = star.drawBody(scale);
 
                 starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(starShape);
@@ -331,8 +330,12 @@ namespace GameUI.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GameSession.GameSessionSystems = this.System_List;
-            GameSession.saveGame();
+            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
+            {
+                scale = Double.Parse(txt_scale.Text.Trim());
+
+                draw_system(selected_SS);
+            }
         }
 
         private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -367,6 +370,10 @@ namespace GameUI.UI
             }
 
             txt_scale.Text = scale.ToString();
+
+            redraw_based_on_mouse_position(e);
+
+
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -400,12 +407,25 @@ namespace GameUI.UI
             //Point on move from Parent
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
             //set TranslateTransform
-            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X);
-            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y);
+            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X) / 10000 * scale;
+            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y) / 10000 * scale; 
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
             draw_system(selected_SS);
+        }
+
+        private void redraw_based_on_mouse_position(MouseWheelEventArgs e)
+        {
+            ////Point on move from Parent
+            //Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+            ////set TranslateTransform
+            //horizontal_offset = horizontal_offset + (cv_backspace.Width / 2 + e.GetPosition((FrameworkElement)cv_backspace).X) / 100000 * scale;
+            //vertical_offset = vertical_offset + (cv_backspace.Height /2 + e.GetPosition((FrameworkElement)cv_backspace).Y) / 100000 * scale;
+            ////Update pointOnClic
+            //_pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+
+            //draw_system(selected_SS);
         }
 
         public double get_x_center()

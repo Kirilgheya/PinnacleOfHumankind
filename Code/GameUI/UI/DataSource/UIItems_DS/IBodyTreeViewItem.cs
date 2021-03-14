@@ -22,10 +22,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         protected abstract void setChildren();
 
-        public Ellipse drawBody()
+        public Ellipse drawBody( double scale = 1)
         {
 
-            this.childrenDrawBody();
+            this.childrenDrawBody(scale);
             this.setColor();
             this.linkShapeToBody();
             return Shape;
@@ -33,7 +33,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         protected abstract void linkShapeToBody();
         
-        protected abstract void childrenDrawBody();
+        protected abstract void childrenDrawBody(double scale = 1);
         protected abstract void setColor();
 
         protected abstract void initShapeParameters();

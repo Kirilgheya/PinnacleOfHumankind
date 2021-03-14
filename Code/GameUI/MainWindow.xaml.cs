@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -20,7 +19,6 @@ using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using GameUI.UI.GameEngine;
-using System.Windows.Forms;
 
 namespace GameUI
 {
@@ -29,8 +27,6 @@ namespace GameUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -51,14 +47,27 @@ namespace GameUI
         
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
         {
+            BinaryFormatter formatter = new BinaryFormatter();
+            String filename, filepath, folder;
+            int directoryCount;
+            filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
+            filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
+            folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
 
-            GameSession.saveGame();
-        }
 
-        private void BtnLoadData_Click(object sender, RoutedEventArgs e)
-        {
+            directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
+            Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
+            using (FileStream fs = File.Create(filepath+"\\"+ folder+(directoryCount+1)+ "\\"+filename))
+            { 
 
-            GameSession.loadGame();
+                if(GameSessionSavedData.Instance.GameSessionSystems != null)
+                { 
+
+                    formatter.Serialize(fs, GameSessionSavedData.Instance);
+
+                }
+
+            }
         }
     }
 }

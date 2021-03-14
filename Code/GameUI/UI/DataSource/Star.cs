@@ -27,8 +27,7 @@ namespace GameUI.UI.DataSource
         }
 
 
-       public Star()
-        { }
+       
         public Star(GameCore.Star _generatedStar)
         {
 
@@ -97,10 +96,10 @@ namespace GameUI.UI.DataSource
 
        
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1)
         {
 
-            this.Shape = new Ellipse { Width = 10, Height = 10, Fill = Brushes.White };
+            this.Shape = new Ellipse { Width = 10 * 1 / scale, Height = 10 * 1 / scale, Fill = Brushes.White };
             Canvas.SetZIndex(this.Shape, 1);
         }
 

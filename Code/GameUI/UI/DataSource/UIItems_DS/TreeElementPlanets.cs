@@ -14,10 +14,6 @@ namespace GameUI.UI.DataSource.UIItems_DS
         public List<Body> bodies;
 
 
-        public TreeElementPlanets()
-        {
-
-        }
         public TreeElementPlanets(List<Body> _bodies)
         {
 
@@ -55,7 +51,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
             }
         }
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1)
         {
             throw new NotImplementedException();
         }

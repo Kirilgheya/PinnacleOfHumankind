@@ -28,10 +28,6 @@ namespace MainGame.Applicazione.DataModel
             this.modifiers = new ModifierList();
         }
 
-        public LatitudinalRegion()
-        {
-        }
-
         public double getFactor()
         {
 

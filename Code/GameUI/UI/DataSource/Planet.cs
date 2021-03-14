@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
@@ -33,8 +34,7 @@ namespace GameUI.UI.DataSource
         }
 
 
-        public Planet()
-        { }
+
         public Planet(GameCore.Planet _generatedPlanet)
         {
             Children = new ObservableCollection<IBodyTreeViewItem>();
@@ -54,10 +54,13 @@ namespace GameUI.UI.DataSource
            this.Name =  this.relatedPlanet.name;
         }
 
-        protected override void childrenDrawBody()
+        protected override void childrenDrawBody(double scale = 1)
         {
 
-            this.Shape  = new Ellipse { Width = 7, Height = 7, Fill = Brushes.Green };
+            ImageBrush PlanetBrush = new ImageBrush(new BitmapImage(
+            new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet12.png")));
+
+            this.Shape  = new Ellipse { Width = 7 * 1 / scale, Height = 7 * 1 / scale , Fill = PlanetBrush };
            
         }
 
