@@ -36,6 +36,10 @@ namespace GameUI.UI.DataSource
             this.setName();
         }
 
+        public Star()
+        {
+        }
+
         protected override void setChildren()
         {
          

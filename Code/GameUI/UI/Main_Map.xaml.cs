@@ -19,7 +19,7 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
-        private List<StarSystem> System_List = new List<StarSystem>();
+        private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
         private StarSystem selected_SS = null;
 
@@ -41,7 +41,7 @@ namespace GameUI.UI
             add_starSystem_to_Tree();
         }
 
-        private void generate_Star_System()
+        private void generate_Star_System(Boolean _forceRecreate = false)
         {
             Applicazione.DataModel.PeriodicTable.init();
 
@@ -58,27 +58,30 @@ namespace GameUI.UI
             system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun, 1 }, chemicalComposition);
             system.createStarSystem();
 
-            System_List.Clear();
+            if(System_List != null && _forceRecreate)
+            { 
+                System_List.Clear();
+
+                System_List.Add(new StarSystem(system));
+
+                system = new Gamecore.DataModel.StarSystem();
+                system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 5 }, chemicalComposition);
+                system.createStarSystem();
+
+                System_List.Add(new StarSystem(system));
+
+                system = new Gamecore.DataModel.StarSystem();
+                system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 10.7, 35 }, chemicalComposition);
+                system.createStarSystem();
+
+                System_List.Add(new StarSystem(system));
+
+                system = new Gamecore.DataModel.StarSystem();
+                system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 0.5 }, chemicalComposition);
+                system.createStarSystem();
 
             System_List.Add(new StarSystem(system));
-
-            system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 3, 5 }, chemicalComposition);
-            system.createStarSystem();
-
-            System_List.Add(new StarSystem(system));
-
-            system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 10.7, 35 }, chemicalComposition);
-            system.createStarSystem();
-
-            System_List.Add(new StarSystem(system));
-
-            system = new Gamecore.DataModel.StarSystem();
-            system.InitSystemParams(new Double[] { 1, Gamecore.ParametriUtente.Science.r_sun * 0.9, 0.5 }, chemicalComposition);
-            system.createStarSystem();
-
-            System_List.Add(new StarSystem(system));
+            }
         }
 
         private void add_starSystem_to_Tree()
@@ -314,7 +317,7 @@ namespace GameUI.UI
 
         private void btn_recreate_Click(object sender, RoutedEventArgs e)
         {
-            generate_Star_System();
+            generate_Star_System(true);
 
             add_starSystem_to_Tree();
         }

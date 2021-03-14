@@ -24,7 +24,7 @@ namespace GameUI.UI.GameEngine
         public static void saveGame()
         {
 
-            SharpSerializer formatter = new SharpSerializer(new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized));
+            SharpSerializer formatter = new SharpSerializer(true);
 
             int directoryCount;
 
@@ -58,7 +58,7 @@ namespace GameUI.UI.GameEngine
                 {
                     //Get the path of specified file
                     string localfilePath = openFileDialog.FileName;
-                     SharpSerializer binaryFormatter = new SharpSerializer();
+                     SharpSerializer binaryFormatter = new SharpSerializer(true);
                     if (openFileDialog.OpenFile().Length > 0)
                     {
                         GameSessionSavedData saveData = (GameSessionSavedData)binaryFormatter.Deserialize(openFileDialog.OpenFile());

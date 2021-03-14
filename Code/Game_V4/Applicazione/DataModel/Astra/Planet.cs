@@ -67,6 +67,10 @@ namespace MainGame.Applicazione.DataModel
             this.distance_from_star = distance_from_star;
         }
 
+        public Planet()
+        {
+        }
+
         public void initPlanet(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
             //elementsDistribution = percentage;

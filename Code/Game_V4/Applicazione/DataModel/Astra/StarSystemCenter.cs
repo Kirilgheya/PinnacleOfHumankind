@@ -11,6 +11,10 @@ namespace MainGame.Applicazione.DataModel.Astra
         protected Star[] stars;
         protected double[] deltaFromBarycenter;
 
+        protected StarSystemCenter()
+        {
+        }
+
         public double getRelLuminosity()
         {
             double maxRel;

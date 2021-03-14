@@ -43,6 +43,10 @@ namespace GameUI.UI.DataSource
             this.setChildren();
         }
 
+        public Planet()
+        {
+        }
+
         protected override void setChildren()
         {
 

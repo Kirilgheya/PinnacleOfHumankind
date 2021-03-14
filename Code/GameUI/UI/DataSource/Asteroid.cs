@@ -22,6 +22,10 @@ namespace GameUI.UI.DataSource
             this.setChildren();
         }
 
+        public Asteroid()
+        {
+        }
+
         protected override void setName()
         {
             this.Name = relatedAsteroid.generate_planet_name();

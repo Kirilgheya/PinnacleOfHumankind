@@ -33,6 +33,10 @@ namespace MainGame.Applicazione.DataModel
             this.name = this.generate_planet_name();
         }
 
+        public Asteroid()
+        {
+        }
+
         public void initAsteroid(double _densityMul = 1.0, double rel_mass = 1.0, List<double> percentage = null)
         {
           

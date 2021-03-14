@@ -24,7 +24,9 @@ namespace GameUI.UI.DataSource
             
         }
 
-       
+        public StarSystem()
+        {
+        }
 
         protected override void setChildren()
         {

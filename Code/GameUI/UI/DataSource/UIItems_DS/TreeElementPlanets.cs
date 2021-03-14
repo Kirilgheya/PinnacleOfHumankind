@@ -22,6 +22,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
             this.setChildren();
         }
 
+        public TreeElementPlanets()
+        {
+        }
+
         protected override void setName()
         {
             this.Name = "System Bodies:";
