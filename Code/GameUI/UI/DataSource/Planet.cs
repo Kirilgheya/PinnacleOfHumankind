@@ -77,6 +77,7 @@ namespace GameUI.UI.DataSource
             image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet_gif.gif");
             image.EndInit();
             ImageBehavior.SetAnimatedSource(Control_image, image);
+            //ImageBehavior.SetAnimationSpeedRatio(Control_image, 4);
 
 
             VisualBrush PlanetBrush = new VisualBrush();
