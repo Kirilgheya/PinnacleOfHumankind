@@ -11,8 +11,7 @@ namespace GameUI.UI.GameEngine
     public sealed class GameSessionSavedData
     {
 
-        
-
+        int i = 0;
 
         public List<StarSystem> GameSessionSystems { get; set; }
         
