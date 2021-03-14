@@ -24,5 +24,9 @@ namespace MainGame.Applicazione.DataModel
 
 			this.nucleusClass = NucleusClassification.Liquid;
 		}
+
+        public NucleusClass()
+        {
+        }
     }
 }

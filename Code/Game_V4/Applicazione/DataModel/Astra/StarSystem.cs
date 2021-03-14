@@ -25,6 +25,11 @@ namespace MainGame.Applicazione.DataModel
         double starRelativeMass = 1;
         ChemicalComposition composition;
         int maxSupportedPlanets = 10;
+
+        public StarSystem()
+        {
+        }
+
         public void InitSystemParams(double[] _parameters, ChemicalComposition _composition)
         {
 

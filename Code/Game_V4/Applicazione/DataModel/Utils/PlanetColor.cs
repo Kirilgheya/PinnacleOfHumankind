@@ -9,6 +9,11 @@ namespace MainGame.Applicazione.DataModel.Utils
     class PlanetColor 
     {
         System.Drawing.Color color;
+
+        public PlanetColor()
+        {
+        }
+
         public PlanetColor(System.Drawing.Color _color)
         {
 

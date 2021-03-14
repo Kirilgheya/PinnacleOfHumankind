@@ -24,6 +24,10 @@ namespace MainGame.Applicazione.DataModel
         protected double asteroidRadius;
         protected double distance_from_star;
 
+        public Asteroid()
+        {
+        }
+
         public Asteroid(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
         {
             this.asteroidRadius = radius_Km;

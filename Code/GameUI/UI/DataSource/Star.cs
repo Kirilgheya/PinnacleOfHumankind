@@ -27,7 +27,8 @@ namespace GameUI.UI.DataSource
         }
 
 
-       
+       public Star()
+        { }
         public Star(GameCore.Star _generatedStar)
         {
 

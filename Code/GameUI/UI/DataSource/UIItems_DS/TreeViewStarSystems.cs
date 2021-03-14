@@ -13,6 +13,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         public ObservableCollection<StarSystem> StarSystems { get;  }
 
+  
         public TreeViewStarSystems()
         {
 

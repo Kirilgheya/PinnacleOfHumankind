@@ -1,5 +1,6 @@
 ﻿using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
+using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
-        private List<StarSystem> System_List = new List<StarSystem>();
+        private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
         private StarSystem selected_SS = null;
 
@@ -330,12 +331,8 @@ namespace GameUI.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
-            {
-                scale = Double.Parse(txt_scale.Text.Trim());
-
-                draw_system(selected_SS);
-            }
+            GameSession.GameSessionSystems = this.System_List;
+            GameSession.saveGame();
         }
 
         private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)

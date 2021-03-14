@@ -33,7 +33,8 @@ namespace GameUI.UI.DataSource
         }
 
 
-
+        public Planet()
+        { }
         public Planet(GameCore.Planet _generatedPlanet)
         {
             Children = new ObservableCollection<IBodyTreeViewItem>();

@@ -15,6 +15,10 @@ namespace GameUI.UI.DataSource
 
         Gamecore.Asteroid relatedAsteroid;
 
+        public Asteroid()
+        {
+
+        }
         public Asteroid(Gamecore.Asteroid _asteroid)
         {
             relatedAsteroid = _asteroid;

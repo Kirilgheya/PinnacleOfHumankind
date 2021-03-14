@@ -14,6 +14,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
         public List<Body> bodies;
 
 
+        public TreeElementPlanets()
+        {
+
+        }
         public TreeElementPlanets(List<Body> _bodies)
         {
 

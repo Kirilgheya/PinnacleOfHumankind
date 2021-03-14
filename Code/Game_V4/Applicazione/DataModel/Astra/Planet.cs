@@ -32,6 +32,10 @@ namespace MainGame.Applicazione.DataModel
             set { this.planetMass = value; this.relativeMass = (value / 100) / ParametriUtente.Science.m_t; }
         }
 
+        public Planet()
+        {
+        }
+
         public double Radius { get { return this.planetRadius; } }
 
         public double relCoretemperature { get; set; }
