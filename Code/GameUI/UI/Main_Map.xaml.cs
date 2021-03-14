@@ -403,8 +403,8 @@ namespace GameUI.UI
             //Point on move from Parent
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
             //set TranslateTransform
-            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X);
-            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y);
+            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X) / 10000 * scale;
+            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y) / 10000 * scale; 
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
