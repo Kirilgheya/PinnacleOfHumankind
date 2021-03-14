@@ -47,27 +47,14 @@ namespace GameUI
         
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            String filename, filepath, folder;
-            int directoryCount;
-            filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
-            filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
-            folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
 
+            GameSession.saveGame();
+        }
 
-            directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
-            Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
-            using (FileStream fs = File.Create(filepath+"\\"+ folder+(directoryCount+1)+ "\\"+filename))
-            { 
+        private void BtnLoadData_Click(object sender, RoutedEventArgs e)
+        {
 
-                if(GameSessionSavedData.Instance.GameSessionSystems != null)
-                { 
-
-                    formatter.Serialize(fs, GameSessionSavedData.Instance);
-
-                }
-
-            }
+            GameSession.loadGame();
         }
     }
 }

@@ -12,7 +12,7 @@
         <Button Content="Play" HorizontalAlignment="Left" Margin="101,131,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="Button_Click"/>
         <Button Content="Save Data" HorizontalAlignment="Left" Margin="101,168,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="BtnSaveData_Click"/>
         <Label VerticalAlignment="Top" Height="107" Width="166" Content="POH" Foreground="White" FontSize="80" Margin="75,10,79,0" HorizontalAlignment="Center"/>
-        <Button Content="Load Data" HorizontalAlignment="Left" Margin="101,205,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="Button_Click"/>
+        <Button Content="Load Data" HorizontalAlignment="Left" Margin="101,205,0,0" VerticalAlignment="Top" Width="121" Height="32" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" Click="BtnLoadData_Click"/>
 
     </Grid>
 </Window>
