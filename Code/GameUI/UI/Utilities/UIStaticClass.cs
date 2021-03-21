@@ -73,7 +73,7 @@ namespace GameUI.UI.Utilities
             Path orbitPath = new Path
             {
                 Stroke = _color,
-                StrokeThickness = 2,
+                StrokeThickness = 1,
                 Fill = null
 
             };

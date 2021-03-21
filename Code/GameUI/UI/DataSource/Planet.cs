@@ -26,7 +26,9 @@ namespace GameUI.UI.DataSource
         private GameCore.Planet _relatedPlanet;
         internal Point position;
 
-        
+        private int _currentAngle = -1;
+
+        public int CurrentAngle { get => _currentAngle; set => _currentAngle = value; }
 
         public double Temperature
         {
@@ -82,10 +84,21 @@ namespace GameUI.UI.DataSource
 
             VisualBrush PlanetBrush = new VisualBrush();
             PlanetBrush.Visual = Control_image;
-             
+
+            double drawsize = 1;
+
+            scale = scale / 10;
+
+            drawsize = relatedPlanet.relativeRadius + 1 / scale;
+
+            if(drawsize < 5)
+            {
+                drawsize = 5;
+            }
 
 
-            this.Shape  = new Ellipse { Width = 100 * 1 / scale, Height = 100 * 1 / scale , Fill = PlanetBrush };
+
+            this.Shape  = new Ellipse { Width = drawsize, Height = drawsize , Fill = PlanetBrush };
            
         }
 
@@ -102,5 +115,6 @@ namespace GameUI.UI.DataSource
         {
             this.minShapeRadius = 5;
         }
+
     }
 }

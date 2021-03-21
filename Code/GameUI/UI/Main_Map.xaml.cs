@@ -5,6 +5,7 @@ using GameUI.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
+
         private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
         private StarSystem selected_SS = null;
@@ -31,6 +33,8 @@ namespace GameUI.UI
         private double vertical_offset = 0;
 
         private Point _pointOnClick; // Click Position for panning
+        private Point MouseLocation;
+        private Point oldPosition;
 
         public Main_Map()
         {
@@ -120,6 +124,7 @@ namespace GameUI.UI
 
         private void find_node(string nodeToFind, bool update = false)
         {
+
             foreach (TreeViewItem item in SystemTree.Items)
             {
                 if (item.Tag is Star)
@@ -206,7 +211,7 @@ namespace GameUI.UI
             }
         }
 
-        private void draw_system(StarSystem sy)
+        private void draw_system(StarSystem sy, bool onMouse = false)
         {
             cv_backspace.Children.Clear();
 
@@ -222,7 +227,7 @@ namespace GameUI.UI
             Ellipse centro = new Ellipse { Width = 2, Height = 2, Fill = Brushes.Red };
             cv_backspace.Children.Add(centro);
             
-            Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
+            Canvas.SetLeft(centro, get_x_center() - centro.Width / 2 );
             Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
             
             foreach (Star star in sy.Children.Where(x => x is Star).ToList())
@@ -236,8 +241,9 @@ namespace GameUI.UI
                 starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(starShape);
 
+
                 Canvas.SetLeft(starShape, (get_x_center() - starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
-                Canvas.SetTop(starShape, (get_y_center()- starShape.Width / 2));
+                Canvas.SetTop(starShape, (get_y_center()- starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
 
                 //End Draw
                 star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
@@ -259,11 +265,31 @@ namespace GameUI.UI
                 n++;
             }
 
+            Random rnd = new Random();
+
+            int oldAngolo = 0;
+
             foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
             {
-                double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
+       
+                int angolo = rnd.Next(0, 359);
 
-                Ellipse planetShape = planet.drawBody();
+                if( oldAngolo > angolo -10 && oldAngolo < angolo + 10)
+                {
+                    angolo = rnd.Next(0,359);
+                }
+
+                Ellipse planetShape = planet.drawBody(scale);
+
+                if(planet.CurrentAngle == -1)
+                {
+                    planet.CurrentAngle = angolo;
+             
+                }
+                else
+                {
+                    angolo = planet.CurrentAngle;
+                }
 
                 planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(planetShape);
@@ -280,7 +306,7 @@ namespace GameUI.UI
 
                     double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua);
        
-                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(90) , orbitRadius, new Point(center.X, center.Y),true);
+                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
 
                     moveShape(planet.bodyShape, planet.position);
                 }
@@ -288,6 +314,11 @@ namespace GameUI.UI
                 find_node(planet.Name, true);
 
                 n++;
+            }
+
+            if (onMouse)
+            {
+
             }
         }
 
@@ -303,6 +334,8 @@ namespace GameUI.UI
 
         private void SystemTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+
+
             if (SystemTree.SelectedItem == null)
             {
                 return;
@@ -312,6 +345,25 @@ namespace GameUI.UI
             {
                 selected_SS = (SystemTree.SelectedItem as TreeViewItem).Tag as StarSystem;
                 draw_system(selected_SS);
+
+            }
+            if ((SystemTree.SelectedItem as TreeViewItem).Tag is Planet)
+            {
+                try
+                {
+
+                    reset_pan();
+
+                    horizontal_offset = cv_backspace.Width/4 + (cv_backspace.Width/4 - ((SystemTree.SelectedItem as TreeViewItem).Tag as Planet).position.X );
+                    vertical_offset = cv_backspace.Width/4 + (cv_backspace.Height/4  - ((SystemTree.SelectedItem as TreeViewItem).Tag as Planet).position.Y) ;
+
+                    draw_system(selected_SS);
+
+                }
+                catch (Exception exc)
+                {
+
+                }
             }
         }
 
@@ -328,7 +380,7 @@ namespace GameUI.UI
             {
                 scale = Double.Parse(txt_scale.Text.Trim());
 
-                draw_system(selected_SS);
+               
             }
         }
 
@@ -359,7 +411,7 @@ namespace GameUI.UI
                     zoomScale = zoomScale / 10;
                 }
 
-                if ((scale - zoomScale <= 0) || (zoomScale <= 0.0001))
+                if ((scale - zoomScale < 1))
                 {
                     return;
                 }
@@ -381,9 +433,7 @@ namespace GameUI.UI
 
             txt_scale.Text = scale.ToString();
 
-            redraw_based_on_mouse_position(e);
-
-
+            draw_system(selected_SS, true);
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -410,6 +460,7 @@ namespace GameUI.UI
 
         private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
         {
+            MouseLocation = new Point(e.GetPosition((FrameworkElement)cv_backspace).X, e.GetPosition((FrameworkElement)cv_backspace).Y);
             lbl_mouse_pos.Content = "X " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).X) + " Y " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).Y);
 
             //Return if mouse is not captured
@@ -417,38 +468,32 @@ namespace GameUI.UI
             //Point on move from Parent
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
             //set TranslateTransform
-            horizontal_offset = horizontal_offset + (_pointOnClick.X - pointOnMove.X);
-            vertical_offset = vertical_offset + (_pointOnClick.Y - pointOnMove.Y);
+            horizontal_offset -= (_pointOnClick.X - pointOnMove.X) / 10;
+            vertical_offset -=  (_pointOnClick.Y - pointOnMove.Y)/10;
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
-
+           
             draw_system(selected_SS);
         }
 
-        private void redraw_based_on_mouse_position(MouseWheelEventArgs e)
-        {
-            ////Point on move from Parent
-            //Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
-            ////set TranslateTransform
-            //horizontal_offset = horizontal_offset + (cv_backspace.Width / 2 + e.GetPosition((FrameworkElement)cv_backspace).X) / 100000 * scale;
-            //vertical_offset = vertical_offset + (cv_backspace.Height /2 + e.GetPosition((FrameworkElement)cv_backspace).Y) / 100000 * scale;
-            ////Update pointOnClic
-            //_pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
-            //draw_system(selected_SS);
-        }
 
         public double get_x_center()
         {
-            return cv_backspace.Width / 2 - horizontal_offset / (zoomScale / 1000);
+            return cv_backspace.Width / 2 + horizontal_offset /*/ (zoomScale / 100)*/;
         }
 
         public double get_y_center()
         {
-            return cv_backspace.Height / 2 - vertical_offset / (zoomScale / 1000);
+            return cv_backspace.Height / 2 + vertical_offset/* / (zoomScale / 100)*/;
         }
 
         private void btn_reset_zoom_pan_Click(object sender, RoutedEventArgs e)
+        {
+            reset_pan();
+        }
+
+        private void reset_pan()
         {
             vertical_offset = horizontal_offset = 0;
 
@@ -462,5 +507,7 @@ namespace GameUI.UI
             Canvas.SetTop(_shape, _target.Y);
 
         }
+
+
     }
 }

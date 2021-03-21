@@ -102,8 +102,13 @@ namespace GameUI.UI.DataSource
 
         protected override void childrenDrawBody(double scale = 1)
         {
+            scale = scale / 150;
 
-            this.Shape = new Ellipse { Width = 10 * 1 / scale, Height = 10 * 1 / scale, Fill = Brushes.White };
+            double drawsize = relatedStar.relativeRadius + 1 / scale;
+
+
+
+            this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.White };
             Canvas.SetZIndex(this.Shape, 1);
         }
 
