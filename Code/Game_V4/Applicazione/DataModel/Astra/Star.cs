@@ -23,6 +23,7 @@ namespace MainGame.Applicazione.DataModel
         protected List<double> elementsDistribution;
         protected double starRadius;
         private double StarMass;
+        public double distanceFromCenter { get; set; }
         public double Radius { get { return this.relativeRadius * ParametriUtente.Science.r_sun; } set { this.starRadius = value; } }
         public double AvgDensity { get { return _relativeAvgDensity * ParametriUtente.Science.avg_d_sun; } set { _relativeAvgDensity = value / ParametriUtente.Science.avg_d_sun; } }
         public double RelativeAvgDensity { get { return _relativeAvgDensity; } set { _relativeAvgDensity = value; } }
@@ -169,6 +170,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tRadius: " + this.relativeRadius;
             formattedInfo+= "\n\tMass: " + this.relativeMass + " "+Converter.getUOMFromName("Massa solare");
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
+            formattedInfo += "\n\tDistance: " + this.distanceFromCenter + " km";
             formattedInfo += "\n\tCore Temperature: " + this.Core_temperature;
             formattedInfo += "\n\tEffective(surf.) Temperature: " + this.Surface_temperature;
             formattedInfo += "\n\tStar Class: " + this.overallClass.ToString();

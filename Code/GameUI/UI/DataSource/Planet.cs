@@ -28,7 +28,7 @@ namespace GameUI.UI.DataSource
 
         private int _currentAngle = -1;
 
-        public int CurrentAngle { get => _currentAngle; set => _currentAngle = value; }
+
 
         public double Temperature
         {
@@ -141,5 +141,34 @@ namespace GameUI.UI.DataSource
             this.minShapeRadius = 5;
         }
 
+        public override void advanceTime(double timestep = -1, double increment = 0)
+        {
+
+            if (timestep >= 0 && increment > 0)
+            {
+
+                throw new Exception("Bisogna specificare solo uno dei due argomenti");
+            }
+            else if (timestep >= 0)
+            {
+                double val = timestep;
+                if(timestep > 365)
+                {
+
+                    val = timestep % 365;
+                }
+                this.angleOnOrbit = val;
+            }
+            else
+            {
+                if(!this.hasMoved())
+                {
+
+                    this.angleOnOrbit = 0;
+                }
+
+                this.angleOnOrbit += increment;
+            }
+        }
     }
 }

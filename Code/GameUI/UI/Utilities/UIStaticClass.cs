@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.DataSource;
+using GameUI.UI.GameEngine;
 using GameUI.UI.Interfaccia;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,8 @@ namespace GameUI.UI.Utilities
         {
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(hexColorString));
         }
+
+    
 
         public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null, object body = null)
         {
@@ -129,6 +132,10 @@ namespace GameUI.UI.Utilities
             nextPosition = new Point(x, y);
 
             _body.position = nextPosition;
+  
+
+            Canvas.SetLeft(_body.bodyShape, _body.position.X);
+            Canvas.SetTop(_body.bodyShape, _body.position.Y);
 
         }
 
@@ -169,6 +176,14 @@ namespace GameUI.UI.Utilities
 
                 return _degrees * (Math.PI / 180);
             }
+        }
+
+        public static Boolean AdvanceTimeStep(double _timestep)
+        {
+            
+            GameSession.timeStep += _timestep;
+
+            return true;
         }
     }
 }

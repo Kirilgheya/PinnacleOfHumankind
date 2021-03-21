@@ -20,7 +20,7 @@ namespace GameUI.UI.GameEngine
         public static String filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
         public static String filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
         public static String folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
-      
+        public static double timeStep = 0;
         public static void saveGame()
         {
 

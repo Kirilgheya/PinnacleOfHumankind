@@ -18,9 +18,13 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         protected double minShapeRadius =1;
 
+        public double angleOnOrbit = -1;
+
         protected abstract void setName();
 
         protected abstract void setChildren();
+
+
 
         public Ellipse drawBody( double scale = 1)
         {
@@ -40,6 +44,21 @@ namespace GameUI.UI.DataSource.UIItems_DS
             return Shape;
         }
 
+        public Boolean hasMoved()
+        {
+
+            if(this.angleOnOrbit==-1)
+            {
+
+                return false;
+            }
+            else
+            {
+
+                return true;
+            }
+        }
+
         protected abstract void linkShapeToBody();
         
         protected abstract void childrenDrawBody(double scale = 1);
@@ -48,5 +67,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
         protected abstract void setColor();
 
         protected abstract void initShapeParameters();
+
+        public abstract void advanceTime(double timestep = -1, double increment = -1);
     }
 }

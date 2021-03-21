@@ -42,13 +42,17 @@ namespace MainGame.Applicazione.DataModel.Astra
 
                 m1 = (localStar.Mass);
 
+              
+
                 localStar = stars[1];
                 m2 = (localStar.Mass);
 
                 r1 = a / (1 + (m1 / m2));
 
                 r2 = a - r1;
-                
+
+                stars[0].distanceFromCenter = Converter.KM_to_UA(r1);
+                stars[1].distanceFromCenter = Converter.KM_to_UA(r2);
                 deltaFromBarycenter[0] = Converter.KM_to_UA(r1);
                 deltaFromBarycenter[1] = Converter.KM_to_UA(r2);
                 //r = (a) / (1 + (m1/m2))

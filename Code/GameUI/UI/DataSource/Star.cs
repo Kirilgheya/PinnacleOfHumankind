@@ -143,6 +143,31 @@ namespace GameUI.UI.DataSource
         {
             this.minShapeRadius = 10;
         }
+
+        public override void advanceTime(double timestep = -1, double increment = -1)
+        {
+
+            if (timestep >= 0 && increment > 0)
+            {
+
+                throw new Exception("Bisogna specificare solo uno dei due argomenti");
+            }
+            else if (timestep >= 0)
+            {
+
+                this.angleOnOrbit = timestep;
+            }
+            else
+            {
+                if (!this.hasMoved())
+                {
+
+                    this.angleOnOrbit = 0;
+                }
+
+                this.angleOnOrbit += increment;
+            }
+        }
     }
 
 

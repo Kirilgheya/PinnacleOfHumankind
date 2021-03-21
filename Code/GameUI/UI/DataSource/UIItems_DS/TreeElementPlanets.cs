@@ -79,5 +79,10 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
             throw new NotImplementedException();
         }
+
+        public override void advanceTime(double timestep = -1, double increment = -1)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
