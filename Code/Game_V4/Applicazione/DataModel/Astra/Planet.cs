@@ -3,6 +3,7 @@ using MainGame.Applicazione.Engine.ClimateEngine;
 using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace MainGame.Applicazione.DataModel
         public String name { get; set; }
         private double planetMass;
         private double _distance_from_star;
-
+        public Color PlanetColor { get; set; }
         public double mass
         {
             get { return planetMass; }
@@ -206,6 +207,40 @@ namespace MainGame.Applicazione.DataModel
             else
             {
                 waterState = ElementState.Solid;
+            }
+        }
+
+        public void setPlanetColor()
+        {
+
+            if(this.planetClass.className == PlanetClassification.Gasseous_Planet)
+            {
+
+                if(this.Surface_temperature <= 150)
+                {
+                    
+                    this.PlanetColor = ColorTranslator.FromHtml("#f0daad");
+                }
+                else if(this.Surface_temperature <= 250)
+                {
+
+                    this.PlanetColor = ColorTranslator.FromHtml("#e3e3e3");
+                }
+                else if(this.Surface_temperature <= 850)
+                {
+
+                    this.PlanetColor = ColorTranslator.FromHtml("#4e7bd4");
+                }
+                else if(this.Surface_temperature <= 1400)
+                {
+
+                    this.PlanetColor = ColorTranslator.FromHtml("#35355f");
+                }
+                else if(this.Surface_temperature > 1400)
+                {
+
+                    this.PlanetColor = ColorTranslator.FromHtml("#b5d9cd");
+                }
             }
         }
 
