@@ -104,8 +104,13 @@ namespace GameUI.UI.DataSource
         {
             scale = scale / 150;
 
+            
             double drawsize = relatedStar.relativeRadius + 1 / scale;
 
+            if(drawsize > 50)
+            {
+                drawsize = 50;
+            }
 
 
             this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.White };
