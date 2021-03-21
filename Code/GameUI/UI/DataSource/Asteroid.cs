@@ -43,6 +43,13 @@ namespace GameUI.UI.DataSource
             
         }
 
+        protected override void childrenDrawBody(double x, double y)
+        {
+
+            this.Shape = new Ellipse { Width = x, Height = y, Fill = Brushes.Brown };
+
+        }
+
         protected override void setColor()
         {
             this.Shape.Fill = Brushes.LightGray;
@@ -50,7 +57,7 @@ namespace GameUI.UI.DataSource
 
         protected override void linkShapeToBody()
         {
-            this.Shape.Tag = this.relatedAsteroid;
+            this.Shape.Tag = this;
         }
 
         protected override void initShapeParameters()

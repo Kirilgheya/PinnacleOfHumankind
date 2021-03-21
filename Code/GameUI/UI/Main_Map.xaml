@@ -30,7 +30,9 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="50" x:Name="txt_orbit" />
         <Button Content="Save Data" HorizontalAlignment="Left" Margin="64,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" Height="21"/>
         <Button Content="0" HorizontalAlignment="Left" Margin="125,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="29" x:Name="btn_reset_zoom_pan" Click="btn_reset_zoom_pan_Click"  Height="21"/>
-        <Label Content="xy" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_mouse_pos" Grid.Row="1" Grid.Column="0" Height="27" Margin="-5,84,4.667,25.667"/>
+        <Label Content="xy" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_mouse_pos" Grid.Row="1" Grid.Column="0" Height="27" Margin="-5,84,33.667,25.667"/>
+        <Button Content=">" HorizontalAlignment="Left" Margin="91,90,0,0" Grid.Row="1" VerticalAlignment="Top" Width="29" x:Name="btn_advance_time" Click="btn_advance_time_Click"  Height="21" RenderTransformOrigin="-0.176,0.475"/>
+        <Button Content=">>" HorizontalAlignment="Left" Margin="125,90,0,0" Grid.Row="1" VerticalAlignment="Top" Width="29" x:Name="btn_play_time" Click="btn_play_time_Click"  Height="21"/>
 
 
     </Grid>

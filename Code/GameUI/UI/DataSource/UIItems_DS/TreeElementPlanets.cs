@@ -60,6 +60,11 @@ namespace GameUI.UI.DataSource.UIItems_DS
             throw new NotImplementedException();
         }
 
+        protected override void childrenDrawBody(double x, double y)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void setColor()
         {
             throw new NotImplementedException();

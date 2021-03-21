@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.DataSource;
+using GameUI.UI.Interfaccia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,36 +17,34 @@ namespace GameUI.UI.Utilities
     {
         public static void Show_body_info(object to_show)
         {
+            PlanetInfoPage pg = new PlanetInfoPage();
+            pg.Show();
+
             if (to_show is Ellipse)
             {
-                if ((to_show as Ellipse).Tag is GameCore.Star)
+                if ((to_show as Ellipse).Tag is Star)
                 {
-                    show_message(((to_show as Ellipse).Tag as GameCore.Star).ToString_Info());
+                    pg.LoadInfo((to_show as Ellipse).Tag as Star);
                 }
 
-                if ((to_show as Ellipse).Tag is GameCore.Planet)
+                if ((to_show as Ellipse).Tag is Planet)
                 {
-                    show_message(((to_show as Ellipse).Tag as GameCore.Planet).ToString() +"\n" + ((to_show as Ellipse).Tag as GameCore.Planet).flavour_text());
+                    pg.LoadInfo((to_show as Ellipse).Tag as Planet);
                 }
             }
             else if (to_show is Path)
             {
-                if ((to_show as Path).Tag is GameCore.Star)
+                if ((to_show as Path).Tag is Star)
                 {
-                    show_message(((to_show as Path).Tag as GameCore.Star).ToString_Info());
+                    pg.LoadInfo((to_show as Path).Tag as Star);
                 }
 
-                if ((to_show as Path).Tag is GameCore.Planet)
+                if ((to_show as Path).Tag is Planet)
                 {
-                    show_message(((to_show as Path).Tag as GameCore.Planet).ToString() + "\n" + ((to_show as Path).Tag as GameCore.Planet).flavour_text());
+                    pg.LoadInfo((to_show as Path).Tag as Planet);
                 }
             }
 
-        }
-
-        public static void show_message(String Message)
-        {
-            MessageBox.Show(Message);
         }
 
 
@@ -62,7 +61,7 @@ namespace GameUI.UI.Utilities
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(hexColorString));
         }
 
-        public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null)
+        public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null, object body = null)
         {
 
             if(_color == null)
@@ -74,8 +73,8 @@ namespace GameUI.UI.Utilities
             {
                 Stroke = _color,
                 StrokeThickness = 1,
-                Fill = null
-
+                Fill = null,
+                Tag = body
             };
 
             

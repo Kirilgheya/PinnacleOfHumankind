@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
-    class Star : IBodyTreeViewItem
+    public class Star : IBodyTreeViewItem
     {
 
         public GameCore.Star relatedStar;
@@ -112,6 +112,16 @@ namespace GameUI.UI.DataSource
             Canvas.SetZIndex(this.Shape, 1);
         }
 
+        protected override void childrenDrawBody(double x, double y)
+        {
+          
+
+
+
+            this.Shape = new Ellipse { Width = x, Height = y, Fill = Brushes.White };
+            Canvas.SetZIndex(this.Shape, 1);
+        }
+
         protected override void setColor()
         {
             Brush shapeColor = this.getBrushFromStarColor();
@@ -121,7 +131,7 @@ namespace GameUI.UI.DataSource
 
         protected override void linkShapeToBody()
         {
-            this.Shape.Tag = this.relatedStar;
+            this.Shape.Tag = this;
         }
 
         protected override void initShapeParameters()

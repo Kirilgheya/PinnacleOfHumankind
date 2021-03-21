@@ -102,13 +102,38 @@ namespace GameUI.UI.DataSource
            
         }
 
+        protected override void childrenDrawBody(double x, double y)
+        {
+
+            BitmapImage image_file = new BitmapImage();
+
+            Image Control_image = new Image();
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet_gif.gif");
+            image.EndInit();
+            ImageBehavior.SetAnimatedSource(Control_image, image);
+            //ImageBehavior.SetAnimationSpeedRatio(Control_image, 4);
+
+
+            VisualBrush PlanetBrush = new VisualBrush();
+            PlanetBrush.Visual = Control_image;
+
+
+
+
+            this.Shape = new Ellipse { Width = x, Height = y, Fill = PlanetBrush };
+
+        }
+
         protected override void setColor()
         {
             
         }
         protected override void linkShapeToBody()
         {
-            this.Shape.Tag = this.relatedPlanet;
+            this.Shape.Tag = this;
         }
 
         protected override void initShapeParameters()

@@ -4,14 +4,20 @@ using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Gamecore = MainGame.Applicazione;
+
 
 namespace GameUI.UI
 {
@@ -23,7 +29,7 @@ namespace GameUI.UI
 
         private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
-        private StarSystem selected_SS = null;
+        public static StarSystem selected_SS = null;
 
         private double scale = 10;
 
@@ -35,6 +41,9 @@ namespace GameUI.UI
         private Point _pointOnClick; // Click Position for panning
         private Point MouseLocation;
         private Point oldPosition;
+        private bool timePassing;
+
+        DispatcherTimer timer = new DispatcherTimer();
 
         public Main_Map()
         {
@@ -43,6 +52,10 @@ namespace GameUI.UI
             generate_Star_System();
 
             add_starSystem_to_Tree();
+
+           
+            timer.Tick += (s, ev) => btn_advance_time.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            timer.Interval = new TimeSpan(0, 0, 0,0,500);
         }
 
         private void generate_Star_System(Boolean _forceRecreate = false)
@@ -211,7 +224,7 @@ namespace GameUI.UI
             }
         }
 
-        private void draw_system(StarSystem sy, bool onMouse = false)
+        public  void draw_system(StarSystem sy, int increment = 0, bool onMouse = false)
         {
             cv_backspace.Children.Clear();
 
@@ -256,7 +269,7 @@ namespace GameUI.UI
                     Point planetCoordinates = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
                     UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, planetCoordinates
-                                ,UIStaticClass.BrushFromHex("#e5e6c3"));
+                                ,UIStaticClass.BrushFromHex("#e5e6c3"),star);
 
                 }
 
@@ -288,7 +301,9 @@ namespace GameUI.UI
                 }
                 else
                 {
-                    angolo = planet.CurrentAngle;
+                    angolo = planet.CurrentAngle + increment;
+
+                    planet.CurrentAngle = angolo;
                 }
 
                 planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
@@ -304,7 +319,7 @@ namespace GameUI.UI
                     Point center = new Point(get_x_center(), get_y_center());
                     Point planetCoordinates = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
 
-                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua);
+                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua, planet);
        
                     UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
 
@@ -324,7 +339,7 @@ namespace GameUI.UI
 
         private void Ellipse_preview_mouse_left_click(object sender, MouseButtonEventArgs e)
         {
-            UIStaticClass.Show_body_info(sender);
+            //UIStaticClass.Show_body_info(sender);
         }
 
         public double ConvertToRadiants(double angle)
@@ -433,7 +448,7 @@ namespace GameUI.UI
 
             txt_scale.Text = scale.ToString();
 
-            draw_system(selected_SS, true);
+            draw_system(selected_SS, 0,true);
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -508,6 +523,26 @@ namespace GameUI.UI
 
         }
 
+        public void btn_advance_time_Click(object sender, RoutedEventArgs e)
+        {
+            draw_system(selected_SS, + 1);
+        }
 
+        private void btn_play_time_Click(object sender, RoutedEventArgs e)
+        {
+            timePassing = !timePassing;
+
+            if (timePassing)
+            {
+                timer.Start();
+            }
+            else
+            {
+                timer.Stop();
+            }
+
+           
+           
+        }
     }
 }

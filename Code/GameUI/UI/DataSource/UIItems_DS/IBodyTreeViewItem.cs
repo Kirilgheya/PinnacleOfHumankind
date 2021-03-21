@@ -31,9 +31,20 @@ namespace GameUI.UI.DataSource.UIItems_DS
             return Shape;
         }
 
+        public Ellipse drawBody(double x, double y)
+        {
+
+            this.childrenDrawBody(x,y);
+            this.setColor();
+            this.linkShapeToBody();
+            return Shape;
+        }
+
         protected abstract void linkShapeToBody();
         
         protected abstract void childrenDrawBody(double scale = 1);
+
+        protected abstract void childrenDrawBody(double x, double y);
         protected abstract void setColor();
 
         protected abstract void initShapeParameters();

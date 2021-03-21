@@ -66,6 +66,11 @@ namespace GameUI.UI.DataSource
             throw new NotImplementedException();
         }
 
+        protected override void childrenDrawBody(double x, double y)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void setName()
         {
             string majorStarName;
