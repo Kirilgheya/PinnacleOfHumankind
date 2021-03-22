@@ -16,6 +16,7 @@ namespace GameUI.UI.Utilities
 {
     public static class UIStaticClass
     {
+        private static Random random = new Random();
         public static void Show_body_info(object to_show)
         {
             PlanetInfoPage pg = new PlanetInfoPage();
@@ -48,6 +49,39 @@ namespace GameUI.UI.Utilities
 
         }
 
+        public static double GetNextOrbitAngle(Planet planet, double increment = 0)
+        {
+
+            double angle = 0;
+            double oldAngle = planet.angleOnOrbit;
+
+            if (!planet.hasMoved() && increment == 0)
+            {
+                angle = random.Next(0, 359);
+
+                if (oldAngle > angle - 10 && oldAngle < angle + 10)
+                {
+                    angle = random.Next(0, 359);
+                }
+            }
+            else
+            {
+
+                angle = planet.angleOnOrbit;
+            }
+
+            return angle;
+        }
+
+        public static void ScatterPlanetsOnOrbit(List<Planet> _planets)
+        {
+
+            foreach(Planet planet in _planets)
+            {
+
+                planet.angleOnOrbit = UIStaticClass.GetNextOrbitAngle(planet);
+            }
+        }
 
         public static Brush ColorToBrush(string color) // color = "#E7E44D"
         {

@@ -54,11 +54,8 @@ namespace GameUI.UI
 
             add_starSystem_to_Tree();
 
-
-      
-
             timer.Tick += (s, ev) => btn_advance_time.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            timer.Interval = new TimeSpan(0, 0, 0,0,500);
+            timer.Interval = new TimeSpan(0, 0, 0,1,000);
         }
 
         private void generate_Star_System(Boolean _forceRecreate = false)
@@ -80,6 +77,12 @@ namespace GameUI.UI
 
             if(System_List == null || System_List.Count == 0 || _forceRecreate)
             { 
+                if(System_List == null)
+                {
+
+                    System_List = new List<StarSystem>();
+                }
+
                 System_List.Clear();
 
                 System_List.Add(new StarSystem(system));
@@ -227,7 +230,7 @@ namespace GameUI.UI
             }
         }
 
-        public  void draw_system(StarSystem sy, int increment = 0, bool onMouse = false)
+        public  void draw_system(StarSystem sy, int increment = 0)
         {
             cv_backspace.Children.Clear();
 
@@ -250,7 +253,7 @@ namespace GameUI.UI
             {
                 double angolo = 360 / System_List.First().Children.Where(x => x is Star).ToList().Count();
                 
-                //Draw new star
+                //Draw new stars
 
                 Ellipse starShape = star.drawBody(scale);
 
@@ -289,60 +292,47 @@ namespace GameUI.UI
             {
 
                 double angolo = 0;
-
-                
+                Point originCoordPlanet = new Point();
 
                 Ellipse planetShape = planet.drawBody(scale);
 
              
 
                 planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
-                cv_backspace.Children.Add(planetShape);
 
-
-                if (increment == 0)
+                if(!planet.hasMoved())
                 {
 
-                    if(!planet.hasMoved())
-                    { 
-                        angolo = rnd.Next(0, 359);
-
-                        if (oldAngolo > angolo - 10 && oldAngolo < angolo + 10)
-                        {
-                            angolo = rnd.Next(0, 359);
-                        }
-
-                        planet.advanceTime(-1, angolo + increment);
-
-                    }
-                    else
-                    {
-
-                        angolo = planet.angleOnOrbit;
-                    }
-                }
-                else if(increment > 0)
-                {
-
-                    planet.advanceTime(-1, increment);
-                    angolo = planet.angleOnOrbit;
+                    UIStaticClass.ScatterPlanetsOnOrbit(new List<Planet>() { planet });
                 }
 
-                Canvas.SetLeft(planetShape, (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * 600 / scale)));
-                Canvas.SetTop(planetShape, (get_y_center() - planetShape.Width / 2));
+                planet.advanceTime(-1, increment);
 
-                planet.position = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
+                angolo = planet.angleOnOrbit;
 
-                if (Canvas.GetLeft(planetShape) > 0)
+                originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * 600 / scale));
+                originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2);
+
+               
+
+                if (originCoordPlanet.X > 0 && originCoordPlanet.Y > 0)
                 {
+                    cv_backspace.Children.Add(planetShape);
+
+                    Canvas.SetLeft(planetShape, originCoordPlanet.X);
+                    Canvas.SetTop(planetShape, originCoordPlanet.Y);
+
+                    planet.position = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
 
                     Point center = new Point(get_x_center(), get_y_center());
-                    Point planetCoordinates = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
+                  
 
-                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, planetCoordinates, Brushes.Aqua, planet);
+                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, originCoordPlanet, Brushes.Aqua, planet);
        
                     UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
                 }
+             
+
 
                 find_node(planet.Name, true);
 
@@ -462,7 +452,7 @@ namespace GameUI.UI
 
             txt_scale.Text = scale.ToString();
 
-            draw_system(selected_SS, 0,true);
+            draw_system(selected_SS, 0);
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -497,12 +487,15 @@ namespace GameUI.UI
             //Point on move from Parent
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
             //set TranslateTransform
-            horizontal_offset -= (_pointOnClick.X - pointOnMove.X) / 10;
-            vertical_offset -=  (_pointOnClick.Y - pointOnMove.Y)/10;
+            horizontal_offset -= (_pointOnClick.X - pointOnMove.X) ;
+            vertical_offset -=  (_pointOnClick.Y - pointOnMove.Y);
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
-           
+
+            Console.WriteLine(horizontal_offset + " / " + vertical_offset);
+     
             draw_system(selected_SS);
+            
         }
 
 
