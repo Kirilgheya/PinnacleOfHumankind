@@ -230,6 +230,14 @@ namespace GameUI.UI
             }
         }
 
+        private void setPosition(Ellipse _shape, double _fromLeft, double _fromTop)
+        {
+
+            Canvas.SetLeft(_shape, (get_x_center() - _fromLeft));
+            Canvas.SetTop(_shape, (get_y_center() - _fromTop));
+
+        }
+
         public  void draw_system(StarSystem sy, int increment = 0)
         {
             cv_backspace.Children.Clear();
@@ -261,9 +269,11 @@ namespace GameUI.UI
                 cv_backspace.Children.Add(starShape);
 
 
-                Canvas.SetLeft(starShape, (get_x_center() - starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
-                Canvas.SetTop(starShape, (get_y_center()- starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale)));
+                double leftPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale);
+                double topPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale);
 
+                this.setPosition(starShape, leftPositionStar, topPositionStar);
+                
                 //End Draw
                 star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
@@ -272,9 +282,9 @@ namespace GameUI.UI
                 if (Canvas.GetLeft(starShape) > 0)
                 {
                     Point center = new Point(get_x_center(), get_y_center());
-                    Point planetCoordinates = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
+                    Point starCoordinate = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
-                    UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, planetCoordinates
+                    UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, starCoordinate
                                 ,UIStaticClass.BrushFromHex("#e5e6c3"),star);
 
                 }
@@ -286,8 +296,6 @@ namespace GameUI.UI
 
             Random rnd = new Random();
 
-            int oldAngolo = 0;
-
             foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
             {
 
@@ -295,8 +303,6 @@ namespace GameUI.UI
                 Point originCoordPlanet = new Point();
 
                 Ellipse planetShape = planet.drawBody(scale);
-
-             
 
                 planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
 
