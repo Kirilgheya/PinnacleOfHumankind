@@ -165,5 +165,8 @@
   <ItemGroup>
     <Resource Include="Res\universebackground.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Res\Stars\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
