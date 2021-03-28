@@ -20,3 +20,5 @@
 /Code/POH_UI/.vs/*
 /Code/Game/Game.csproj.user
 /Code/GameUI/Config/*
+/Code/GameUI/Res/load2.gif
+/Code/GameUI/Res/matrix.gif
