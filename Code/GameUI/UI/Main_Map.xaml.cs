@@ -40,7 +40,7 @@ namespace GameUI.UI
 
         private Point _pointOnClick; // Click Position for panning
         private Point MouseLocation;
-        private Point oldPosition;
+        
         private bool timePassing;
 
 
@@ -230,9 +230,9 @@ namespace GameUI.UI
             }
         }
 
-        private void setPosition(Ellipse _shape, double _fromLeft, double _fromTop)
+        private void setPositionRelativeToCenter(Ellipse _shape, double _fromLeft, double _fromTop)
         {
-
+            
             Canvas.SetLeft(_shape, (get_x_center() - _fromLeft));
             Canvas.SetTop(_shape, (get_y_center() - _fromTop));
 
@@ -269,10 +269,10 @@ namespace GameUI.UI
                 cv_backspace.Children.Add(starShape);
 
 
-                double leftPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale);
-                double topPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale);
+                double leftPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale) ;
+                double topPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale) ;
 
-                this.setPosition(starShape, leftPositionStar, topPositionStar);
+                this.setPositionRelativeToCenter(starShape, leftPositionStar, topPositionStar);
                 
                 //End Draw
                 star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
@@ -325,10 +325,7 @@ namespace GameUI.UI
                 {
                     cv_backspace.Children.Add(planetShape);
 
-                    Canvas.SetLeft(planetShape, originCoordPlanet.X);
-                    Canvas.SetTop(planetShape, originCoordPlanet.Y);
-
-                    planet.position = new Point(Canvas.GetLeft(planetShape), Canvas.GetTop(planetShape));
+                    planet.setPosition(originCoordPlanet);
 
                     Point center = new Point(get_x_center(), get_y_center());
                   
@@ -376,11 +373,28 @@ namespace GameUI.UI
             {
                 try
                 {
-
+                    Planet selectedPlanet = (SystemTree.SelectedItem as TreeViewItem).Tag as Planet;
                     reset_pan();
 
-                    horizontal_offset = cv_backspace.Width/4 + (cv_backspace.Width/4 - ((SystemTree.SelectedItem as TreeViewItem).Tag as Planet).position.X );
-                    vertical_offset = cv_backspace.Width/4 + (cv_backspace.Height/4  - ((SystemTree.SelectedItem as TreeViewItem).Tag as Planet).position.Y) ;
+                    if(selectedPlanet.position.X > (cv_backspace.Width / 2) )
+                    {
+
+
+                    }
+                    else
+                    {
+
+
+                    }
+
+                    horizontal_offset = cv_backspace.Width/4 + (cv_backspace.Width/4 - (
+                                                                                        selectedPlanet.getShapeCenter().X
+                                                                                        )
+                                                               );
+                    vertical_offset = cv_backspace.Width/4 + (cv_backspace.Height/4  - (
+                                                                                        selectedPlanet.getShapeCenter().Y
+                                                                                        ) 
+                                                             );
 
                     draw_system(selected_SS);
 
@@ -458,7 +472,7 @@ namespace GameUI.UI
 
             txt_scale.Text = scale.ToString();
 
-            draw_system(selected_SS, 0);
+            draw_system(selected_SS);
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -97,6 +97,11 @@ namespace GameUI.UI.Utilities
         }
 
     
+        public static void getPathForClass(MainGame.StarClassification_byLum _lum)
+        {
+
+          
+        }
 
         public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null, object body = null)
         {

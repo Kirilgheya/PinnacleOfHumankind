@@ -56,7 +56,7 @@ namespace GameUI.UI.DataSource
             Children = local;
         }
 
-        protected override void setColor()
+        protected override void setSpriteForBody()
         {
             throw new NotImplementedException();
         }

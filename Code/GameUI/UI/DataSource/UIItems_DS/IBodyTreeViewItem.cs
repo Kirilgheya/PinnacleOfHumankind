@@ -30,8 +30,9 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
 
             this.childrenDrawBody(scale);
-            this.setColor();
+            this.setSpriteForBody();
             this.linkShapeToBody();
+         
             return Shape;
         }
 
@@ -39,11 +40,13 @@ namespace GameUI.UI.DataSource.UIItems_DS
         {
 
             this.childrenDrawBody(x,y);
-            this.setColor();
+            this.setSpriteForBody();
             this.linkShapeToBody();
+         
             return Shape;
         }
 
+        
         public Boolean hasMoved()
         {
 
@@ -59,12 +62,13 @@ namespace GameUI.UI.DataSource.UIItems_DS
             }
         }
 
+ 
         protected abstract void linkShapeToBody();
         
         protected abstract void childrenDrawBody(double scale = 1);
 
         protected abstract void childrenDrawBody(double x, double y);
-        protected abstract void setColor();
+        protected abstract void setSpriteForBody();
 
         protected abstract void initShapeParameters();
 

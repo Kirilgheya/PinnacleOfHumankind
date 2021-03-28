@@ -50,7 +50,7 @@ namespace GameUI.UI.DataSource
 
         }
 
-        protected override void setColor()
+        protected override void setSpriteForBody()
         {
             this.Shape.Fill = Brushes.LightGray;
         }

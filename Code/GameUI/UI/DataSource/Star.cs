@@ -4,13 +4,16 @@ using MaterialDesignColors.ColorManipulation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfAnimatedGif;
 using GameCore = MainGame.Applicazione.DataModel;
 namespace GameUI.UI.DataSource
 {
@@ -127,11 +130,64 @@ namespace GameUI.UI.DataSource
             Canvas.SetZIndex(this.Shape, 1);
         }
 
-        protected override void setColor()
+        protected override void setSpriteForBody()
         {
-            Brush shapeColor = this.getBrushFromStarColor();
+            //Brush shapeColor = this.getBrushFromStarColor();
+            string spriteFolder = AppDomain.CurrentDomain.BaseDirectory + "Res\\Stars\\";
+       
+            switch(this.relatedStar.luminosityClass)
+            {
 
-            this.Shape.Fill = shapeColor;
+                case MainGame.StarClassification_byLum.O:
+                    spriteFolder = String.Concat(spriteFolder, "Active_OType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.B:
+                    spriteFolder = String.Concat(spriteFolder, "Active_BType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.A:
+                    spriteFolder = String.Concat(spriteFolder, "Active_AType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.F:
+                    spriteFolder = String.Concat(spriteFolder, "Active_FType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.G:
+                    spriteFolder = String.Concat(spriteFolder, "Active_GType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.K:
+                    spriteFolder = String.Concat(spriteFolder, "Active_KType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.M:
+                    spriteFolder = String.Concat(spriteFolder, "Active_MType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.BlackHole:
+                    spriteFolder = String.Concat(spriteFolder, "Active_AType_Star");
+                    break;
+                       
+            }
+
+            spriteFolder = String.Concat(spriteFolder, ".gif");
+
+            BitmapImage image_file = new BitmapImage();
+
+            Image Control_image = new Image();
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(spriteFolder);
+            image.EndInit();
+            ImageBehavior.SetAnimatedSource(Control_image, image);
+
+            VisualBrush starBrush = new VisualBrush();
+            starBrush.Visual = Control_image;
+
+            this.Shape.Fill = starBrush;
         }
 
         protected override void linkShapeToBody()

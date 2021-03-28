@@ -45,10 +45,10 @@ namespace MainGame.Applicazione.DataModel
             set { this.finalizeStar(); }
         }
 
-        protected StarClassification_byLum luminosityClass;
-        protected StarClassification_byMass massClass;
-        protected OverallStarClassification overallClass;
-        protected StarClassification_byColor starClassification_ByColor;
+        public StarClassification_byLum luminosityClass;
+        public StarClassification_byMass massClass;
+        public OverallStarClassification overallClass;
+        public StarClassification_byColor starClassification_ByColor;
         
         public double Metallicity { get {
                                         if (this.metallicity <= 0.0)

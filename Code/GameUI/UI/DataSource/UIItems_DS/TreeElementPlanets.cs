@@ -65,7 +65,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
             throw new NotImplementedException();
         }
 
-        protected override void setColor()
+        protected override void setSpriteForBody()
         {
             throw new NotImplementedException();
         }

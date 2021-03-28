@@ -38,7 +38,14 @@ namespace GameUI.UI.DataSource
             }
         }
 
+        public Point getShapeCenter()
+        {
+            Point center = new Point();
 
+            center.X = position.X - this.Shape.Width;
+            center.Y = position.Y - this.Shape.Height;
+            return center;
+        }
 
         public Planet(GameCore.Planet _generatedPlanet)
         {
@@ -61,6 +68,15 @@ namespace GameUI.UI.DataSource
         {
 
            this.Name =  this.relatedPlanet.name;
+        }
+
+        public void setPosition(Point _newPosition)
+        {
+
+            this.position = _newPosition;
+
+            Canvas.SetLeft(this.bodyShape, this.position.X);
+            Canvas.SetTop(this.bodyShape, this.position.Y);
         }
 
         protected override void childrenDrawBody(double scale = 1)
@@ -102,6 +118,7 @@ namespace GameUI.UI.DataSource
            
         }
 
+
         protected override void childrenDrawBody(double x, double y)
         {
 
@@ -127,7 +144,7 @@ namespace GameUI.UI.DataSource
 
         }
 
-        protected override void setColor()
+        protected override void setSpriteForBody()
         {
             
         }
