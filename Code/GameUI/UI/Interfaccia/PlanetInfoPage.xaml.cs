@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.DataSource;
+using MainGame.Applicazione.Engine.CreatureEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MainGame.Applicazione.Engine.CreatureEngine.CreatureEngine;
 
 namespace GameUI.UI.Interfaccia
 {
@@ -23,6 +25,7 @@ namespace GameUI.UI.Interfaccia
         public PlanetInfoPage()
         {
             InitializeComponent();
+
         }
 
         public void LoadInfo(Star s)
@@ -37,6 +40,23 @@ namespace GameUI.UI.Interfaccia
             cv_back.Children.Add(s.drawBody(200, 200));
 
             txtInfo.Text = s.relatedPlanet.ToString() + "\n\n\n" +s.relatedPlanet.flavour_text();
+
+            List<Creature> EcoSystem = new List<Creature>();
+
+            EcoSystem = CreatureEngine.getEcoSystem(s.relatedPlanet);
+
+            foreach( Creature c in EcoSystem)
+            {
+                txtInfo.Text = txtInfo.Text + " \n\n" + c.FlavourText;
+            }
+
+            if(EcoSystem.Count == 0)
+            {
+                txtInfo.Text = txtInfo.Text + " \n\n" + "This planet has no life on it";
+            }
+
+           
         }
+
     }
 }

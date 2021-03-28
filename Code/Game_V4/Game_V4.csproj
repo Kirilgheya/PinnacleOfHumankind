@@ -67,6 +67,7 @@
     <Compile Include="Applicazione\Engine\ClimateEngine\ClimateEngine.cs" />
     <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel.cs" />
     <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel_TerrestrialPlanet.cs" />
+    <Compile Include="Applicazione\Engine\CreatureEngine\CreatureEngine.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
@@ -109,6 +110,7 @@
       <HintPath>Risorse Extra\DLL\MathParser.org-mXparser.Net472.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>

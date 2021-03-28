@@ -284,13 +284,13 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo += "\n";
             formattedInfo += "Planet Name: " + this.name;
             formattedInfo += "\n\t" + this.planetClass.toString();
-            formattedInfo += "\n\tRadius: " + this.relativeRadius;
-            formattedInfo += "\n\tMass: " + this.relativeMass;
-            formattedInfo += "\n\tDensity: " + this._relativeAvgDensity;
-            formattedInfo += "\n\tGravity is " + this.relativeg + " times the Earth's";
-            formattedInfo += "\n\tAverage Temperature: " + this.averageTemperature + "K ("
-                                + Converter.K_to_C(this.averageTemperature) + " C°)";
-            formattedInfo += "\n\tDistance from star: " + this.distance_from_star.ToString() + " AU";
+            formattedInfo += "\n\tRadius: " + Math.Round(this.relativeRadius,2);
+            formattedInfo += "\n\tMass: " + Math.Round(this.relativeMass,2);
+            formattedInfo += "\n\tDensity: " + Math.Round(this._relativeAvgDensity,2);
+            formattedInfo += "\n\tGravity is " + Math.Round(this.relativeg,2) + " times the Earth's";
+            formattedInfo += "\n\tAverage Temperature: " + Math.Round(this.averageTemperature,2) + "K ("
+                                + Math.Round(Converter.K_to_C(this.averageTemperature),2) + " C°)";
+            formattedInfo += "\n\tDistance from star: " + Math.Round(this.distance_from_star,2) + " AU";
             if (ringed)
             {
                 formattedInfo += "\n\tRinged: Yes";
@@ -301,15 +301,15 @@ namespace MainGame.Applicazione.DataModel
             }
             formattedInfo += "\n\t" + this.body_composition.ToString();
             formattedInfo += "\n\tWater on this planet has a Boiling point of:"
-                                + " " + Converter.K_to_C(this.waterBoilingPoint) + " C°"
+                                + " " + Math.Round(Converter.K_to_C(this.waterBoilingPoint),2) + " C°"
                                 + "\n\t\tand a Freezing point of:"
-                                + " " + Converter.K_to_C(this.waterMeltingPoint) + " C°"
+                                + " " + Math.Round(Converter.K_to_C(this.waterMeltingPoint),2) + " C°"
                                 + "\n\tSo water would be " + this.waterState.ToString();
 
             return formattedInfo;
         }
 
-        public String generate_planet_name()
+        public static String generate_planet_name()
         {
             Random r;
             int rannum = 0;

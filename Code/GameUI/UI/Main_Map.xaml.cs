@@ -21,12 +21,17 @@ using Gamecore = MainGame.Applicazione;
 
 namespace GameUI.UI
 {
+
+
+
+
     /// <summary>
     /// Interaction logic for Main_Map.xaml
     /// </summary>
     public partial class Main_Map : Window
     {
 
+      
         private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
         public static StarSystem selected_SS = null;
@@ -567,5 +572,19 @@ namespace GameUI.UI
            
            
         }
+
+      
+
+        private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+
+
     }
+
+   
+
+
 }
