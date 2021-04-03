@@ -18,17 +18,14 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
         public static ChemicalElement SolutionComposition;
 
         static Random random = new Random();
-        static Random random2 = new Random();
-        static Random random3 = new Random();
-        static Random random4 = new Random();
-        static Random random5 = new Random();
-        static Random random6 = new Random();
+
 
         public static List<Creature> getEcoSystem(Planet p)
         {
+               
             List<Creature> eco = new List<Creature>();
 
-            int n = new Random_Extension().Next(0, 25);
+            int n =random.Next(0, 40);
 
             while(n > 0)
             {
@@ -42,6 +39,8 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
 
         public static Creature GetRandomCreatures(Planet p)
         {
+
+
             Creature c = new Creature();
 
             Array values = Enum.GetValues(typeof(Alimentation));
@@ -51,21 +50,112 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             Alimentation al = (Alimentation)values.GetValue(a);
 
             Array values2 = Enum.GetValues(typeof(Movement));
-            random2 = new Random();
-            a = random2.Next(values2.Length);
+            a = random.Next(values2.Length);
             Movement mov = (Movement)values2.GetValue(a);
 
             c.alimentation = al;
             c.movement = mov;
 
-            c.Size = new Random_Extension().Next(1, 90);
+
+            List<moveType> moveTypeList = Enum.GetValues(typeof(moveType))
+                               .Cast<moveType>()
+                               .ToList();
+
+
+
+
+
+
+
+            if (mov == Movement.crawl)
+            {
+                moveTypeList.Remove(moveType.fin);
+                moveTypeList.Remove(moveType.pawn);
+                moveTypeList.Remove(moveType.tenclacles);
+                moveTypeList.Remove(moveType.wings);
+            }
+            if (mov == Movement.dig)
+            {
+                moveTypeList.Remove(moveType.fin);
+                moveTypeList.Remove(moveType.tenclacles);
+                moveTypeList.Remove(moveType.wings);
+            }
+            if (mov == Movement.fly)
+            {
+                moveTypeList.Remove(moveType.fin);
+                moveTypeList.Remove(moveType.pawn);
+                moveTypeList.Remove(moveType.tenclacles);
+            }
+            if (mov == Movement.apropulsion)
+            {
+                moveTypeList.Remove(moveType.fin);
+                moveTypeList.Remove(moveType.pawn);
+
+            }
+            if (mov == Movement.spropulsion)
+            {
+                moveTypeList.Remove(moveType.pawn);
+                moveTypeList.Remove(moveType.wings);
+
+            }
+            if (mov == Movement.swim)
+            {
+                moveTypeList.Remove(moveType.pawn);
+                moveTypeList.Remove(moveType.tenclacles);
+                moveTypeList.Remove(moveType.wings);
+
+            }
+            if (mov == Movement.walk)
+            {
+                moveTypeList.Remove(moveType.fin);
+                moveTypeList.Remove(moveType.tenclacles);
+                moveTypeList.Remove(moveType.wings);
+            }
+
+            List<Appendix> app = new List<Appendix>();
+
+            foreach(moveType t in moveTypeList)
+            {
+                int add = random.Next(2);
+
+                int maxCount = 9 ;
+
+                if(moveTypeList.Count > 2)
+                {
+                    maxCount =  7;
+                }
+
+                if(add == 1)
+                {
+                    int zampe = 0;
+                    if (t == moveType.fin)
+                    {
+                        zampe = random.Next(2, maxCount);
+                    }
+                    else
+                    {
+                        zampe = 2 * random.Next(2 / 2, (maxCount / 2) + 1);
+                    }
+
+                   app.Add(new Appendix(zampe, t));
+                }
+
+                if(mov != Movement.crawl && app.Count == 0)
+                {
+                    app.Add(new Appendix(2 * random.Next(2 / 2, (maxCount / 2) + 1), moveTypeList.First()));
+
+                }
+            }
+
+            c.app = app;
+
+            c.Size = random.Next(1, 95);
 
             Array values3 = Enum.GetValues(typeof(MeasureUnit));         
-            a = random3.Next(values3.Length);
-            MeasureUnit mes = (MeasureUnit)values3.GetValue(random3.Next(a));
+            a = random.Next(values3.Length);
+            MeasureUnit mes = (MeasureUnit)values3.GetValue(random.Next(a));
             c.measureSize = mes;
 
-            Random randomGen = new Random();
             KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
             List<KnownColor> nameList = names.ToList();
             List<KnownColor> toremove = new List<KnownColor>();
@@ -77,6 +167,23 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("medium")).ToList());
             toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("control")).ToList());
             toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("aqua")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("text")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("window")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("frame")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("navajo")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("tomato")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("rod")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("mocassin")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("water")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("olive")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("bar")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("coral")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("info")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("salmon")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("sky")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("spring")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("aqua")).ToList());
+            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("lime")).ToList());
 
             foreach (KnownColor cl in toremove)
             {
@@ -84,22 +191,22 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             }
 
 
-            KnownColor randomColorName = nameList[randomGen.Next(nameList.Count)];
+            KnownColor randomColorName = nameList[random.Next(nameList.Count)];
             Color randomColor = Color.FromKnownColor(randomColorName);
 
             c.color = randomColor;
 
             Array values4 = Enum.GetValues(typeof(Sociality));
-            a = random4.Next(values4.Length);
-            Sociality soc = (Sociality)values4.GetValue(random4.Next(a));
+            a = random.Next(values4.Length);
+            Sociality soc = (Sociality)values4.GetValue(random.Next(a));
             c.sociality = soc;
 
             mouthType mou;
             do
             {
                 Array values5 = Enum.GetValues(typeof(mouthType));
-                a = random5.Next(values5.Length);
-                mou = (mouthType)values5.GetValue(random5.Next(a));
+                a = random.Next(values5.Length);
+                mou = (mouthType)values5.GetValue(random.Next(a));
             }
             while (mou == mouthType.fangs && c.alimentation == Alimentation.herbivore);
 
@@ -110,90 +217,14 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
 
 
             Array values6 = Enum.GetValues(typeof(Skin));
-            a = random6.Next(values6.Length);
-            Skin skin = (Skin)values6.GetValue(random6.Next(a));
+            a = random.Next(values6.Length);
+            Skin skin = (Skin)values6.GetValue(random.Next(a));
             c.skin = skin;
 
             return c;
 
         }
-        public static Creature GetRandomCreatures(Planet p, Alimentation al)
-        {
-            Creature c = new Creature();
-
-            c.alimentation = al;
-
-            Array values2 = Enum.GetValues(typeof(Movement));
-            Random random2 = new Random();
-            int a = random2.Next(values2.Length);
-            Movement mov = (Movement)values2.GetValue(a);
-
-
-            c.movement = mov;
-
-            c.Size = new Random_Extension().Next(1, 90);
-
-            Array values3 = Enum.GetValues(typeof(MeasureUnit));
-            Random random3 = new Random();
-            a = random3.Next(values3.Length);
-            MeasureUnit mes = (MeasureUnit)values3.GetValue(random3.Next(a));
-            c.measureSize = mes;
-
-            Random randomGen = new Random();
-            KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
-            List<KnownColor> nameList = names.ToList();
-            List<KnownColor> toremove = new List<KnownColor>();
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("active")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("desktop")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("button")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("highlight")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("border")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("medium")).ToList());
-            toremove.AddRange(nameList.Where(x => Color.FromKnownColor(x).Name.ToLower().Contains("control")).ToList());
-
-            foreach (KnownColor cl in toremove)
-            {
-                nameList.Remove(cl);
-            }
-
-
-            KnownColor randomColorName = nameList[randomGen.Next(nameList.Count)];
-            Color randomColor = Color.FromKnownColor(randomColorName);
-
-            c.color = randomColor;
-
-            Array values4 = Enum.GetValues(typeof(Sociality));
-            Random random4 = new Random();
-            a = random4.Next(values4.Length);
-            Sociality soc = (Sociality)values4.GetValue(random4.Next(a));
-            c.sociality = soc;
-
-            mouthType mou;
-            do
-            {
-                Array values5 = Enum.GetValues(typeof(mouthType));
-                Random random5 = new Random();
-                a = random5.Next(values5.Length);
-                mou = (mouthType)values5.GetValue(random5.Next(a));
-            }
-            while (mou == mouthType.fangs && c.alimentation == Alimentation.herbivore);
-
-
-
-            c.mouth = mou;
-
-
-
-            Array values6 = Enum.GetValues(typeof(Skin));
-            Random random6 = new Random();
-            a = random6.Next(values6.Length);
-            Skin skin = (Skin)values6.GetValue(random6.Next(a));
-            c.skin = skin;
-
-            return c;
-
-        }
-
+    
 
 
 
@@ -210,8 +241,11 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             public moveType move;
             public Skin skin;
 
+            public List<Appendix> app = new List<Appendix>();
+
             public List<Creature> eat = new List<Creature>();
             public List<Creature> eatenBy = new List<Creature>();
+
 
             public String FlavourText
             {
@@ -223,7 +257,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
                     " creature is " + Size + " " + GetDescription(measureSize) + 
                     " long covered with a " + Regex.Replace(color.Name, "([a-z])([A-Z])", "$1 $2").ToLower().Replace("medium", "") +" "+GetDescription(skin) +
                     ". Apparently it cosume it's food with "+GetDescription(mouth)+
-                    " , usually this specie " + GetDescription(movement) + ", moving around " + GetDescription(sociality);
+                    " , usually this specie " + GetDescription(movement) + ", moving around " + GetDescription(sociality) + getMoveFlavour();
 
 
                     return text;
@@ -231,6 +265,31 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
 
             }
 
+            private string getMoveFlavour()
+            {
+                String retval = "";
+                if (this.movement == Movement.crawl)
+                {
+                    return "";
+                }
+                else
+                {
+                   for(int n = 0; n< app.Count(); n++)
+                    {
+                        if(n == 0)
+                        {
+                            retval = " using their " + app[0].number + " "+ app[0].shape.ToString(); 
+                        }
+                        else
+                        {
+                            retval = retval + " and their " + app[n].number + " " + app[n].shape.ToString();
+                        }
+
+                    }
+
+                    return retval;
+                }
+            }
         }
 
         public enum Alimentation : int
@@ -267,7 +326,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             [Description("swim with fluid propulsion")]
             spropulsion = 4,
             [Description("fly with atmospheric propulsion")]
-            fpropulsion = 5,
+            apropulsion = 5,
             [Description("crawl")]
             crawl = 6,
         }
@@ -311,13 +370,13 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
         public enum moveType : int
         {
             [Description("pawn")]
-            fangs = 0,
+            pawn = 0,
             [Description("wings")]
-            chelicerae = 1,
+            wings = 1,
             [Description("fin")]
-            molars = 2,
+            fin = 2,
             [Description("tenclacles")]
-            beak = 3
+            tenclacles = 3
         }
         public enum Skin : int
         {
@@ -380,5 +439,19 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
 
         }
 
+
+        public class Appendix
+        {
+            public int number;
+            public moveType shape;
+
+            public Appendix(int _number, moveType _shape)
+            {
+                number = _number;
+                shape = _shape;
+            }
+        }
     }
+
+  
 }

@@ -27,7 +27,7 @@ public abstract class Body
     protected double Surface_density;
     protected double Volume;
 
-    protected ChemicalComposition body_composition;
+    public ChemicalComposition body_composition;
     
 
     public Body()
