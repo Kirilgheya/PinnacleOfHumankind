@@ -105,22 +105,29 @@ namespace GameUI.UI.DataSource
 
         protected override void childrenDrawBody(double scale = 1)
         {
-            scale = scale / 150;
+           
+            
+            double drawsize = relatedStar.relativeRadius  * (1/scale);
 
             
-            double drawsize = relatedStar.relativeRadius + 1 / scale;
-
+            
             if(drawsize > 50)
             {
                 drawsize = 50;
             }
-            else if (this.relatedStar.overallClass == MainGame.OverallStarClassification.WhiteDwarf)
+            else if (this.relatedStar.relativeRadius < 1)
             {
-                drawsize = 20;
+                drawsize = 5 * (1/scale);
             }
 
+            if(drawsize < 1)
+            {
+
+                drawsize = 5;
+            }
 
             this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.Orange };
+            this.Shape.ClipToBounds = true;
             Canvas.SetZIndex(this.Shape, 1);
         }
 
@@ -136,7 +143,7 @@ namespace GameUI.UI.DataSource
 
         protected override void setSpriteForBody()
         {
-            
+         
             //Brush shapeColor = this.getBrushFromStarColor();
             string spriteFolder = AppDomain.CurrentDomain.BaseDirectory + "Res\\Stars\\";
        
@@ -194,11 +201,14 @@ namespace GameUI.UI.DataSource
             image.BeginInit();
             image.UriSource = new Uri(spriteFolder);
             image.EndInit();
+            
             ImageBehavior.SetAnimatedSource(Control_image, image);
-
+            Control_image.Width = this.bodyShape.Width;
+            Control_image.Height = this.bodyShape.Height;
             VisualBrush starBrush = new VisualBrush();
             starBrush.Visual = Control_image;
-
+            starBrush.Stretch = Stretch.UniformToFill;
+            
             this.Shape.Fill = starBrush;
         
         }

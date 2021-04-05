@@ -277,6 +277,21 @@ namespace GameUI.UI
             
                 starCoordinate.X =  (starShape.Width/2 + (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
                 starCoordinate.Y =  (starShape.Width/2 +(selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                /*
+                double drawsize = star.relatedStar.relativeRadius + 1 / scale;
+
+                if (drawsize > 50)
+                {
+                    drawsize = 50;
+                }
+                else if (star.relatedStar.overallClass == MainGame.OverallStarClassification.WhiteDwarf)
+                {
+                    drawsize = 20;
+                }
+
+                Ellipse testShape = new Ellipse { Width = drawsize, Height = drawsize, Fill = Brushes.Pin };
+                cv_backspace.Children.Add(testShape);
+                this.setPositionRelativeToCenter(testShape, starCoordinate.X, starCoordinate.Y);*/
 
                 this.setPositionRelativeToCenter(starShape, starCoordinate.X, starCoordinate.Y);
                 
