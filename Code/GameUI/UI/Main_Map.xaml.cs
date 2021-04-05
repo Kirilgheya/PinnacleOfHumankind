@@ -30,8 +30,10 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
+        double checkLocationX;
+        double UADistance;
+        double UnitLocation;
 
-      
         private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
 
         public static StarSystem selected_SS = null;
@@ -317,6 +319,7 @@ namespace GameUI.UI
 
             Random rnd = new Random();
 
+
             foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
             {
 
@@ -341,7 +344,9 @@ namespace GameUI.UI
                 originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
                 originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
 
-               
+                checkLocationX = originCoordPlanet.X;
+                UADistance = planet.relatedPlanet.distance_from_star;
+
 
                 if (originCoordPlanet.X > 0 && originCoordPlanet.Y > 0)
                 {
@@ -367,20 +372,22 @@ namespace GameUI.UI
             Line line = new Line();
 
 
+
             line.Visibility = Visibility.Visible;
             line.StrokeThickness = 1;
             line.Stroke = Brushes.Pink;
             line.X1 = this.get_x_center();
             line.Y1 = 10;
-
-            line.X2 = this.get_x_center() + 20;
+            line.X2 = checkLocationX;
             line.Y2 = 10;
             this.cv_backspace.Children.Add(line);
 
-             
+
+
+         
 
             TextBlock text = new TextBlock();
-            text.Text = "Legenda";
+            text.Text = Math.Round(UADistance,2).ToString();
             text.Foreground = Brushes.WhiteSmoke;
             text.FontSize = 8;
             text.Margin = new Thickness(this.get_x_center(), 20, this.get_x_center() * 2, this.get_y_center() * 2);
