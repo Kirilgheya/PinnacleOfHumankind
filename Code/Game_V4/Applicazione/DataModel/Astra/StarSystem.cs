@@ -287,10 +287,17 @@ namespace MainGame.Applicazione.DataModel
                     multiplierFactor = 2;
                 }
 
-                distance = (randomSeed.NextDouble() * ((multiplierFactor * habitableZone_max) - 0.1) + (0.1));
 
+    
+                  distance = (randomSeed.NextDouble() * ((multiplierFactor * habitableZone_max) - 0.1) + (0.1));
 
+                while(distance < this.getFartherstStarDistance())
+                {
 
+                    distance = randomSeed.NextDouble(this.getFartherstStarDistance(), habitableZone_max * 10);
+
+            
+                }
 
                 ChemicalComposition chemicalComposition;
 

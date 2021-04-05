@@ -21,7 +21,7 @@ namespace GameUI.UI.DataSource
     {
 
         public GameCore.Star relatedStar;
-        internal Point position;
+       
 
         public double Temperature {
                 get {
@@ -115,15 +115,11 @@ namespace GameUI.UI.DataSource
             {
                 drawsize = 50;
             }
-            else if (this.relatedStar.relativeRadius < 1)
-            {
-                drawsize = 5 * (1/scale);
-            }
 
             if(drawsize < 1)
             {
 
-                drawsize = 5;
+                drawsize = 20;
             }
 
             this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.Orange };

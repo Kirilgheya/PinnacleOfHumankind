@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.DataSource;
+using GameUI.UI.DataSource.UIItems_DS;
 using GameUI.UI.GameEngine;
 using GameUI.UI.Interfaccia;
 using System;
@@ -49,7 +50,7 @@ namespace GameUI.UI.Utilities
 
         }
 
-        public static double GetNextOrbitAngle(Planet planet, double increment = 0)
+        public static double GetNextOrbitAngle(IBodyTreeViewItem planet, double increment = 0)
         {
 
             double angle = 0;
@@ -73,10 +74,10 @@ namespace GameUI.UI.Utilities
             return angle;
         }
 
-        public static void ScatterPlanetsOnOrbit(List<Planet> _planets)
+        public static void ScatterBodiesOnOrbit(List<IBodyTreeViewItem> _planets)
         {
 
-            foreach(Planet planet in _planets)
+            foreach(IBodyTreeViewItem planet in _planets)
             {
 
                 planet.angleOnOrbit = UIStaticClass.GetNextOrbitAngle(planet);
@@ -151,7 +152,7 @@ namespace GameUI.UI.Utilities
             return eg.RadiusX;
         }
 
-        public static void moveBodyOnOrbit(Planet _body, double _radiants, double _orbitradius,Point _origin, Boolean _isClockwise)
+        public static void moveBodyOnOrbit(IBodyTreeViewItem _body, double _radiants, double _orbitradius,Point _origin, Boolean _isClockwise)
         {
 
             Point nextPosition;

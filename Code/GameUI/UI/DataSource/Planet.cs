@@ -24,7 +24,7 @@ namespace GameUI.UI.DataSource
             set { _relatedPlanet = value; }
         }
         private GameCore.Planet _relatedPlanet;
-        internal Point position;
+       
 
         private int _currentAngle = -1;
 

@@ -273,10 +273,21 @@ namespace GameUI.UI
                 starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(starShape);
         
-                Point starCoordinate = new Point();
+                Point origStarCoordinates = new Point();
             
-                starCoordinate.X =  (starShape.Width/2 + (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
-                starCoordinate.Y =  (starShape.Width/2 +(selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                origStarCoordinates.X =  (starShape.Width/2 + (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                //starCoordinate.Y =  (starShape.Width/2 +(selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                origStarCoordinates.Y = starShape.Width / 2;
+
+                if(!star.hasMoved())
+                {
+                    UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { star });
+                }
+
+                star.advanceTime(-1, increment / 1);
+
+                angolo = star.angleOnOrbit;
+
                 /*
                 double drawsize = star.relatedStar.relativeRadius + 1 / scale;
 
@@ -293,7 +304,7 @@ namespace GameUI.UI
                 cv_backspace.Children.Add(testShape);
                 this.setPositionRelativeToCenter(testShape, starCoordinate.X, starCoordinate.Y);*/
 
-                this.setPositionRelativeToCenter(starShape, starCoordinate.X, starCoordinate.Y);
+                this.setPositionRelativeToCenter(starShape, origStarCoordinates.X, origStarCoordinates.Y);
                 
                 //End Draw
                 star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
@@ -303,12 +314,14 @@ namespace GameUI.UI
                 if (Canvas.GetLeft(starShape) > 0)
                 {
                     Point center = new Point(get_x_center(), get_y_center());
-                    starCoordinate = new Point(Canvas.GetLeft(starShape) , Canvas.GetTop(starShape));
+                    origStarCoordinates = new Point(Canvas.GetLeft(starShape) , Canvas.GetTop(starShape));
 
                     if(sy.Children.Where(x => x is Star).ToList().Count() > 1)
                     { 
-                        double x = UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, starCoordinate
+                        double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, origStarCoordinates
                                     ,UIStaticClass.BrushFromHex("#e5e6c3"),star);
+
+                        UIStaticClass.moveBodyOnOrbit(star, UIStaticClass.DegreeToRadiants(angolo), orbitRadius, new Point(center.X, center.Y), true);
                     }
 
                 }
@@ -333,7 +346,7 @@ namespace GameUI.UI
                 if(!planet.hasMoved())
                 {
 
-                    UIStaticClass.ScatterPlanetsOnOrbit(new List<Planet>() { planet });
+                    UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { planet });
                 }
 
                 planet.advanceTime(-1, increment / planet.relatedPlanet.relativeRevolutionTime);

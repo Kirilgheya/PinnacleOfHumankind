@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace GameUI.UI.DataSource.UIItems_DS
@@ -19,7 +20,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
         protected double minShapeRadius =1;
 
         public double angleOnOrbit = -1;
-
+        internal Point position;
         protected abstract void setName();
 
         protected abstract void setChildren();
