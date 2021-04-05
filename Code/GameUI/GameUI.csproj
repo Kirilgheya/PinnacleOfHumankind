@@ -182,10 +182,27 @@
     <Resource Include="Res\universebackground.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Res\matrix.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Res\load2.gif" />
+    <EmbeddedResource Include="Res\Stars\Active_AType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_BType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_FType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_GType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_KType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_MType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Stars\Active_OType_Star.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

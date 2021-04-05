@@ -171,7 +171,10 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tMass: " + this.relativeMass + " "+Converter.getUOMFromName("Massa solare");
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
             formattedInfo += "\n\tDistance: " + this.distanceFromCenter + " km";
-            formattedInfo += "\n\tCore Temperature: " + this.Core_temperature;
+            formattedInfo += "\n\tLuminosity: " + this.relluminosity + " L⊙";
+            formattedInfo += "\n\tLuminosity Class: " + this.luminosityClass + " ";
+            formattedInfo += "\n\tMass Class: " + this.massClass + "";
+            formattedInfo += "\n\tTemperature Class: " + this.starClassification_ByColor + "";
             formattedInfo += "\n\tEffective(surf.) Temperature: " + this.Surface_temperature;
             formattedInfo += "\n\tStar Class: " + this.overallClass.ToString();
             formattedInfo += "\n\tVega-relative chromaticity: " + this.starClassification_ByColor.ToString();
@@ -377,11 +380,11 @@ namespace MainGame.Applicazione.DataModel
                 case StarClassification_byMass.K:
                     if (luminosityClass > StarClassification_byLum.K)
                     {
-                        overallClass = OverallStarClassification.MainSequenceDwarf;
+                        overallClass = OverallStarClassification.WhiteDwarf;
                     }
                     else
                     {
-                        overallClass = OverallStarClassification.WhiteDwarf;
+                        overallClass = OverallStarClassification.MainSequenceDwarf;
                     }
                     break;
 
