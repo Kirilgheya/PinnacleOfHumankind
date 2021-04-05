@@ -336,7 +336,7 @@ namespace GameUI.UI
                     UIStaticClass.ScatterPlanetsOnOrbit(new List<Planet>() { planet });
                 }
 
-                planet.advanceTime(-1, increment);
+                planet.advanceTime(-1, increment / planet.relatedPlanet.relativeRevolutionTime);
 
                 angolo = planet.angleOnOrbit;
 
