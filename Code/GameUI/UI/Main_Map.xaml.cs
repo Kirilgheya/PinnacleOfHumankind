@@ -276,7 +276,7 @@ namespace GameUI.UI
                 Point origStarCoordinates = new Point();
             
                 origStarCoordinates.X =  (starShape.Width/2 + (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
-                //starCoordinate.Y =  (starShape.Width/2 +(selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                
                 origStarCoordinates.Y = starShape.Width / 2;
 
                 if(!star.hasMoved())
@@ -287,22 +287,6 @@ namespace GameUI.UI
                 star.advanceTime(-1, increment / 1);
 
                 angolo = star.angleOnOrbit;
-
-                /*
-                double drawsize = star.relatedStar.relativeRadius + 1 / scale;
-
-                if (drawsize > 50)
-                {
-                    drawsize = 50;
-                }
-                else if (star.relatedStar.overallClass == MainGame.OverallStarClassification.WhiteDwarf)
-                {
-                    drawsize = 20;
-                }
-
-                Ellipse testShape = new Ellipse { Width = drawsize, Height = drawsize, Fill = Brushes.Pin };
-                cv_backspace.Children.Add(testShape);
-                this.setPositionRelativeToCenter(testShape, starCoordinate.X, starCoordinate.Y);*/
 
                 this.setPositionRelativeToCenter(starShape, origStarCoordinates.X, origStarCoordinates.Y);
                 
@@ -438,17 +422,7 @@ namespace GameUI.UI
                     Planet selectedPlanet = (SystemTree.SelectedItem as TreeViewItem).Tag as Planet;
                     reset_pan();
 
-                    if(selectedPlanet.position.X > (cv_backspace.Width / 2) )
-                    {
-
-
-                    }
-                    else
-                    {
-
-
-                    }
-
+                 
                     horizontal_offset = cv_backspace.Width/4 + (cv_backspace.Width/4 - (
                                                                                         selectedPlanet.getShapeCenter().X
                                                                                         )
@@ -471,36 +445,18 @@ namespace GameUI.UI
 
                 try
                 {
-                    Star selectedStar = (SystemTree.SelectedItem as TreeViewItem).Tag as Star;
+                    Star selectedPlanet = (SystemTree.SelectedItem as TreeViewItem).Tag as Star;
                     reset_pan();
 
-                    if (selectedStar.position.X > (cv_backspace.Width / 2))
-                    {
-
-
-                        horizontal_offset = cv_backspace.Width / 4 + (cv_backspace.Width / 4 - (
-                                                                                            selectedStar.position.X
-                                                                                            )
-                                                                   );
-                        vertical_offset = cv_backspace.Width / 4 + (cv_backspace.Height / 4 - (
-                                                                                            selectedStar.position.Y
-                                                                                            )
-                                                                 );
-                    }
-                    else
-                    {
-
-
-                        horizontal_offset = cv_backspace.Width / 4 - (cv_backspace.Width / 4 - (
-                                                                                            selectedStar.position.X
-                                                                                            )
-                                                                   );
-                        vertical_offset = cv_backspace.Width / 4 - (cv_backspace.Height / 4 - (
-                                                                                            selectedStar.position.Y
-                                                                                            )
-                                                                 );
-                    }
-
+                  
+                    horizontal_offset = cv_backspace.Width / 4 + (cv_backspace.Width / 4 - (
+                                                                                        selectedPlanet.getShapeCenter().X
+                                                                                        )
+                                                               );
+                    vertical_offset = cv_backspace.Width / 4 + (cv_backspace.Height / 4 - (
+                                                                                        selectedPlanet.getShapeCenter().Y
+                                                                                        )
+                                                             );
 
                     draw_system(selected_SS);
 
@@ -563,6 +519,7 @@ namespace GameUI.UI
 
                 //zoomScale = zoomScale - 1000;
                 scale = scale - zoomScale;
+
             }
             else
             {
@@ -571,12 +528,18 @@ namespace GameUI.UI
                 {
 
                     zoomScale = zoomScale * 10;
+
                 }
                 scale = scale + zoomScale;
+
+             
                 //zoomScale = zoomScale + 1000;
             }
 
             txt_scale.Text = scale.ToString();
+
+
+            
 
             draw_system(selected_SS);
         }

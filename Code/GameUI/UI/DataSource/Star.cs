@@ -243,6 +243,15 @@ namespace GameUI.UI.DataSource
                 this.angleOnOrbit += increment;
             }
         }
+
+        public Point getShapeCenter()
+        {
+            Point center = new Point();
+
+            center.X = position.X - this.Shape.Width;
+            center.Y = position.Y - this.Shape.Height;
+            return center;
+        }
     }
 
 
