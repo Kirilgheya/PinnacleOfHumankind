@@ -60,6 +60,7 @@ namespace MainGame.Applicazione.DataModel
 
         public List<Creature> Ecosystem;
 
+        public double relativeRevolutionTime;
 
 
         public Planet(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
@@ -135,6 +136,8 @@ namespace MainGame.Applicazione.DataModel
 
 
             Ecosystem = CreatureEngine.GenerateEcoSystem(this);
+
+            relativeRevolutionTime = Math.Pow(distanceFromBarycenter,1.5);
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
@@ -308,6 +311,9 @@ namespace MainGame.Applicazione.DataModel
             {
                 formattedInfo += "\n\tRinged: No";
             }
+
+            formattedInfo += "\n\t Revolution time is " + Math.Round(relativeRevolutionTime * 365, 1) + " terrestrial days";
+
             formattedInfo += "\n\t" + this.body_composition.ToString();
             formattedInfo += "\n\tWater on this planet has a Boiling point of:"
                                 + " " + Math.Round(Converter.K_to_C(this.waterBoilingPoint),2) + " C°"
