@@ -7,9 +7,9 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
  
         mc:Ignorable="d"
-        Title="PlanetInfoPage" Height="750" Width="1046" Background="Black" MinWidth="1046" MinHeight="750" MaxWidth="1040" MaxHeight="750" >
-    <ScrollViewer>
-    <Grid Height="557"  VerticalAlignment="Top">
+        Title="PlanetInfoPage" Height="750" Width="1046" Background="Black">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="692*"/>
             <ColumnDefinition Width="347*"/>
@@ -18,7 +18,7 @@
         <Image gif:ImageBehavior.RepeatBehavior="Forever" Grid.ColumnSpan="2" Margin="0,0,0.334,0"/>
         <Image gif:ImageBehavior.AutoStart="True" Grid.ColumnSpan="2" Margin="0,0,0.334,0"/>-->
         <Canvas HorizontalAlignment="Left" Height="193" Margin="28,53,0,0" VerticalAlignment="Top" Width="245" x:Name="cv_back" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Height="628" Margin="44,53,0,-124" TextWrapping="Wrap" VerticalAlignment="Top" Width="921" x:Name="txtInfo" Foreground="AliceBlue" Grid.ColumnSpan="2"><Run Text="TextBlock"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="921" x:Name="txtInfo" Foreground="AliceBlue" Grid.ColumnSpan="2"><Run Text="TextBlock"/></TextBlock>
         </Grid>
     </ScrollViewer>
 </Window>
