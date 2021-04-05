@@ -137,7 +137,8 @@ namespace MainGame.Applicazione.DataModel
 
             Ecosystem = CreatureEngine.GenerateEcoSystem(this);
 
-            relativeRevolutionTime = Math.Pow(distanceFromBarycenter,1.5);
+            //terza legge di Keplero vieni a me
+            relativeRevolutionTime = Math.Sqrt(Math.Pow(distanceFromBarycenter,3));
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)
