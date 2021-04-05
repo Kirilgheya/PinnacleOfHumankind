@@ -20,7 +20,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
         static Random random = new Random();
 
 
-        public static List<Creature> getEcoSystem(Planet p)
+        public static List<Creature> GenerateEcoSystem(Planet p)
         {
                
             List<Creature> eco = new List<Creature>();
@@ -241,10 +241,11 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             }
             if (c.MovementType == MovementType.airPropulsion || c.MovementType == MovementType.swimPropulsion)
             {
-                ExtraAppendixList.Remove(ExtraAppendix.horn);
+                ExtraAppendixList.Remove(ExtraAppendix.horns);
                 ExtraAppendixList.Remove(ExtraAppendix.Sheel);
                 ExtraAppendixList.Remove(ExtraAppendix.pincers);
                 ExtraAppendixList.Remove(ExtraAppendix.StingedTail);
+                ExtraAppendixList.Remove(ExtraAppendix.boneplating);
             }
             if(c.MovementType == MovementType.crawl)
             {
@@ -606,12 +607,17 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
             {
 
 
-                String retval = "this creature exhibit";
+                String retval = "";
 
                 int n = 0;
                 foreach (ExtraAppendixCount t in this.extra)
                 {
-                  
+
+
+                    if (n == 0)
+                    {
+                        retval = "this creature exhibits ";
+                    }
 
                     if (t.number == 1 || t.number == 2)
                     {
@@ -619,7 +625,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
                     }
                     if (t.number == 0)
                     {
-                        retval = retval +" a " + GetDescription(t.shape);
+                        retval = retval +" " + GetDescription(t.shape);
                     }
                     if (n != this.extra.Count && n != this.extra.Count - 1)
                     {
@@ -739,7 +745,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
         {
             [Description("Unidentified")]
             Unidentified = -1,
-            [Description("a long tail")]
+            [Description(" long tail")]
             LongTail = 0,
             [Description("a stinged tail")]
             StingedTail = 1,

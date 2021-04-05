@@ -1,5 +1,6 @@
 ﻿using MainGame.Applicazione.DataModel.Climate;
 using MainGame.Applicazione.Engine.ClimateEngine;
+using MainGame.Applicazione.Engine.CreatureEngine;
 using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using static MainGame.Applicazione.Engine.CreatureEngine.CreatureEngine;
 
 namespace MainGame.Applicazione.DataModel
 {
@@ -55,6 +57,10 @@ namespace MainGame.Applicazione.DataModel
         public double Density { get { return meanDensity; } }
 
         public PlanetClass PlanetClass { get { return this.planetClass; } }
+
+        public List<Creature> Ecosystem;
+
+
 
         public Planet(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
         {
@@ -126,6 +132,9 @@ namespace MainGame.Applicazione.DataModel
             }
 
             this.InitPlanetClassification();
+
+
+            Ecosystem = CreatureEngine.GenerateEcoSystem(this);
         }
 
         private void initAtmoSphere(Boolean _isBlackBody = true, int iterations = 10)

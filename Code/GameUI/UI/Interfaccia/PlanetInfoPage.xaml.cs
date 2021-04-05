@@ -41,16 +41,13 @@ namespace GameUI.UI.Interfaccia
 
             txtInfo.Text = s.relatedPlanet.ToString() + "\n\n\n" +s.relatedPlanet.flavour_text();
 
-            List<Creature> EcoSystem = new List<Creature>();
 
-            EcoSystem = CreatureEngine.getEcoSystem(s.relatedPlanet);
-
-            foreach( Creature c in EcoSystem)
+            foreach( Creature c in s.relatedPlanet.Ecosystem)
             {
                 txtInfo.Text = txtInfo.Text + " \n\n" + c.FlavourText;
             }
 
-            if(EcoSystem.Count == 0)
+            if(s.relatedPlanet.Ecosystem.Count == 0)
             {
                 txtInfo.Text = txtInfo.Text + " \n\n" + "This planet has no life on it";
             }
