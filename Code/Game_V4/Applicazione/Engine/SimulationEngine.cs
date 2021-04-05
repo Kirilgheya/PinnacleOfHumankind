@@ -58,19 +58,19 @@ namespace MainGame.Applicazione.Engine
 
         }
 
-        public static Planet createGasGiant(ChemicalComposition _chemicalComposition,double _earthRadii, double distance_from_star)
+        public static Planet createGasGiant(ChemicalComposition _chemicalComposition,double _earthRadii, double distanceFromBaryCenter)
         {
             Planet planet=null;
             
 
             int relMass = random.Next(50, 120 * 3);
 
-            planet = new Planet(_chemicalComposition, (_earthRadii*ParametriUtente.Science.r_t), distance_from_star);
+            planet = new Planet(_chemicalComposition, (_earthRadii*ParametriUtente.Science.r_t), distanceFromBaryCenter);
             planet.initPlanet(1, relMass);
             return planet;
         }
 
-        public static Planet createPlanet(ChemicalComposition _chemicalComposition, double _earthRadii, double distance_from_star)
+        public static Planet createPlanet(ChemicalComposition _chemicalComposition, double _earthRadii, double distanceFromBarycenter)
         {
             Planet planet = null;
         
@@ -85,7 +85,7 @@ namespace MainGame.Applicazione.Engine
             }
             
              
-            planet = new Planet(_chemicalComposition, (_earthRadii * ParametriUtente.Science.r_t), distance_from_star);
+            planet = new Planet(_chemicalComposition, (_earthRadii * ParametriUtente.Science.r_t), distanceFromBarycenter);
             planet.initPlanet(1, relMass);
             return planet;
         }

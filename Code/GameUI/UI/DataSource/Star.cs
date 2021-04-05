@@ -114,9 +114,13 @@ namespace GameUI.UI.DataSource
             {
                 drawsize = 50;
             }
+            else if (this.relatedStar.overallClass == MainGame.OverallStarClassification.WhiteDwarf)
+            {
+                drawsize = 20;
+            }
 
 
-            this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.White };
+            this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.Orange };
             Canvas.SetZIndex(this.Shape, 1);
         }
 
@@ -132,6 +136,7 @@ namespace GameUI.UI.DataSource
 
         protected override void setSpriteForBody()
         {
+            
             //Brush shapeColor = this.getBrushFromStarColor();
             string spriteFolder = AppDomain.CurrentDomain.BaseDirectory + "Res\\Stars\\";
        
@@ -166,6 +171,13 @@ namespace GameUI.UI.DataSource
                     spriteFolder = String.Concat(spriteFolder, "Active_MType_Star");
                     break;
 
+                case MainGame.StarClassification_byLum.L:
+                    spriteFolder = String.Concat(spriteFolder, "Active_MType_Star");
+                    break;
+
+                case MainGame.StarClassification_byLum.T:
+                    spriteFolder = String.Concat(spriteFolder, "Active_MType_Star");
+                    break;
                 case MainGame.StarClassification_byLum.BlackHole:
                     spriteFolder = String.Concat(spriteFolder, "Active_AType_Star");
                     break;
@@ -188,6 +200,7 @@ namespace GameUI.UI.DataSource
             starBrush.Visual = Control_image;
 
             this.Shape.Fill = starBrush;
+        
         }
 
         protected override void linkShapeToBody()

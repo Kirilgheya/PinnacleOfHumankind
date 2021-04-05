@@ -25,7 +25,7 @@ namespace MainGame.Applicazione.DataModel
         private ClimateModel climateModel;
         public String name { get; set; }
         private double planetMass;
-        private double _distance_from_star;
+        private double distanceFromBarycenter;
         public Color PlanetColor { get; set; }
         public double mass
         {
@@ -46,9 +46,9 @@ namespace MainGame.Applicazione.DataModel
         public double distance_from_star
         {
             get
-            { return _distance_from_star; }
+            { return distanceFromBarycenter; }
             set
-            { _distance_from_star = value; }
+            { distanceFromBarycenter = value; }
         }
 
         public double SurfaceG { get { return this.relativeg * ParametriUtente.Science.g_t; } }

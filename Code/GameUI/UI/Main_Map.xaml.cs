@@ -37,7 +37,7 @@ namespace GameUI.UI
         public static StarSystem selected_SS = null;
 
         private double scale = 10;
-
+        private double scale_UAtoCanvasUnit = 600;
         private double zoomScale = 1;
 
         private double horizontal_offset = 0;
@@ -272,25 +272,29 @@ namespace GameUI.UI
 
                 starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(starShape);
+        
+                Point starCoordinate = new Point();
+            
+                starCoordinate.X =  (starShape.Width/2 + (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
+                starCoordinate.Y =  (starShape.Width/2 +(selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit / scale));
 
-
-                double leftPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale) ;
-                double topPositionStar = starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * 1 / scale) ;
-
-                this.setPositionRelativeToCenter(starShape, leftPositionStar, topPositionStar);
+                this.setPositionRelativeToCenter(starShape, starCoordinate.X, starCoordinate.Y);
                 
                 //End Draw
                 star.position = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
 
-                lbl_delta.Content = lbl_delta.Content + "    " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
+                lbl_delta.Content = lbl_delta.Content + "Star: " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
                 if (Canvas.GetLeft(starShape) > 0)
                 {
                     Point center = new Point(get_x_center(), get_y_center());
-                    Point starCoordinate = new Point(Canvas.GetLeft(starShape), Canvas.GetTop(starShape));
+                    starCoordinate = new Point(Canvas.GetLeft(starShape) , Canvas.GetTop(starShape));
 
-                    UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, starCoordinate
-                                ,UIStaticClass.BrushFromHex("#e5e6c3"),star);
+                    if(sy.Children.Where(x => x is Star).ToList().Count() > 1)
+                    { 
+                        double x = UIStaticClass.generateOrbitForBody(cv_backspace, starShape, center, starCoordinate
+                                    ,UIStaticClass.BrushFromHex("#e5e6c3"),star);
+                    }
 
                 }
 
@@ -321,8 +325,9 @@ namespace GameUI.UI
 
                 angolo = planet.angleOnOrbit;
 
-                originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * 600 / scale));
-                originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2);
+
+                originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
+                originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
 
                
 
@@ -336,7 +341,7 @@ namespace GameUI.UI
                   
 
                     double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, originCoordPlanet, Brushes.Aqua, planet);
-       
+                   
                     UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
                 }
              
@@ -346,6 +351,30 @@ namespace GameUI.UI
 
                 n++;
             }
+
+            Line line = new Line();
+
+
+            line.Visibility = Visibility.Visible;
+            line.StrokeThickness = 1;
+            line.Stroke = Brushes.Pink;
+            line.X1 = this.get_x_center();
+            line.Y1 = 10;
+
+            line.X2 = this.get_x_center() + 20;
+            line.Y2 = 10;
+            this.cv_backspace.Children.Add(line);
+
+             
+
+            TextBlock text = new TextBlock();
+            text.Text = "Legenda";
+            text.Foreground = Brushes.WhiteSmoke;
+            text.FontSize = 8;
+            text.Margin = new Thickness(this.get_x_center(), 20, this.get_x_center() * 2, this.get_y_center() * 2);
+            this.cv_backspace.Children.Add(text);
+
+
 
         }
 
@@ -409,6 +438,50 @@ namespace GameUI.UI
 
                 }
             }
+            if ((SystemTree.SelectedItem as TreeViewItem).Tag is Star)
+            {
+
+                try
+                {
+                    Star selectedStar = (SystemTree.SelectedItem as TreeViewItem).Tag as Star;
+                    reset_pan();
+
+                    if (selectedStar.position.X > (cv_backspace.Width / 2))
+                    {
+
+
+                        horizontal_offset = cv_backspace.Width / 4 + (cv_backspace.Width / 4 - (
+                                                                                            selectedStar.position.X
+                                                                                            )
+                                                                   );
+                        vertical_offset = cv_backspace.Width / 4 + (cv_backspace.Height / 4 - (
+                                                                                            selectedStar.position.Y
+                                                                                            )
+                                                                 );
+                    }
+                    else
+                    {
+
+
+                        horizontal_offset = cv_backspace.Width / 4 - (cv_backspace.Width / 4 - (
+                                                                                            selectedStar.position.X
+                                                                                            )
+                                                                   );
+                        vertical_offset = cv_backspace.Width / 4 - (cv_backspace.Height / 4 - (
+                                                                                            selectedStar.position.Y
+                                                                                            )
+                                                                 );
+                    }
+
+
+                    draw_system(selected_SS);
+
+                }
+                catch (Exception exc)
+                {
+
+                }
+            }
         }
 
         private void btn_recreate_Click(object sender, RoutedEventArgs e)
@@ -455,7 +528,7 @@ namespace GameUI.UI
                     zoomScale = zoomScale / 10;
                 }
 
-                if ((scale - zoomScale < 1))
+                if (scale - zoomScale < 0.001)
                 {
                     return;
                 }

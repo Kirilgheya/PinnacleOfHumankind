@@ -1,4 +1,5 @@
 ﻿using MainGame.Applicazione.Engine;
+using MainGame.Applicazione.Engine.Math_Engine;
 using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,10 @@ namespace MainGame.Applicazione.DataModel
         private double metallicity;
 		protected double age;
         protected double meanDensity;
-        protected Boolean markAsBlackHole = false;
+        protected Boolean markAsDegenerateStar = false;
         protected List<ChemicalElement> stellarCompositionMats;
         protected List<double> elementsDistribution;
+        static Random_Extension randomSeed = new Random_Extension();
         protected double starRadius;
         private double StarMass;
         public double distanceFromCenter { get; set; }
@@ -103,7 +105,7 @@ namespace MainGame.Applicazione.DataModel
         public Boolean isStarABlackHole()
         {
 
-            return this.markAsBlackHole;
+            return this.markAsDegenerateStar;
         }
 
         public new double getSchwarzschildRadius()
@@ -170,7 +172,7 @@ namespace MainGame.Applicazione.DataModel
             formattedInfo+= "\n\tRadius: " + this.relativeRadius;
             formattedInfo+= "\n\tMass: " + this.relativeMass + " "+Converter.getUOMFromName("Massa solare");
             formattedInfo+= "\n\tDensity: " + this.meanDensity;
-            formattedInfo += "\n\tDistance: " + this.distanceFromCenter + " km";
+            formattedInfo += "\n\tDistance: " + this.distanceFromCenter + " AU";
             formattedInfo += "\n\tLuminosity: " + this.relluminosity + " L⊙";
             formattedInfo += "\n\tLuminosity Class: " + this.luminosityClass + " ";
             formattedInfo += "\n\tMass Class: " + this.massClass + "";
@@ -199,46 +201,49 @@ namespace MainGame.Applicazione.DataModel
 
         public void initStar(double _densityMul = 1.0,double rel_mass=1.0,List<double> percentage = null)
 		{
+           
             ChemicalComposition chemicalComposition = new ChemicalComposition(this.stellarCompositionMats, percentage);
-            this.starComposition = chemicalComposition;
-            elementsDistribution = percentage;
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            Random_Extension randomSeed = new Random_Extension();
-            nfi.NumberDecimalSeparator = ".";
-            Function hydrostaticEquilibrium = ParametriUtente.Science.hydrostaticEquilibrium;
-            int randomGenForBlackHoles;
-            //mass in grammi / 18.015 = moles
-            //ideal gas law
-            double molecularWeight = 0.0;
-            double sumofElement=0.0;
-            
+            OverallStarClassification forcedClass;
+       
+            int randomGenForNonOrdinaryStars;
             double pressione;
            
             this.meanDensity = 0;
+            this.starComposition = chemicalComposition;
+            elementsDistribution = percentage;
+
+            randomGenForNonOrdinaryStars = randomSeed.Next(0, 100);
 
 
-            randomGenForBlackHoles = randomSeed.Next(0, 100);
-
-
-
-            foreach (ChemicalElement element in starComposition.get_elements())
+            if (randomGenForNonOrdinaryStars > 90)
             {
 
-                double currentElement = starComposition.get_percentage_per_element(element);
-
-                sumofElement = sumofElement + currentElement;
-                molecularWeight = (molecularWeight + (element.mass)
-                                               );
+                this.starRadius = this.getSchwarzschildRadius();
+                this.markAsDegenerateStar = true;
+                forcedClass = OverallStarClassification.BlackHole;
             }
-            molecularWeight = molecularWeight / sumofElement;
+            else if (randomGenForNonOrdinaryStars > 70)
+            {
 
-            this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0) )* Math.PI); //km3
+                this.markAsDegenerateStar = true;
+                this.starRadius = this.starRadius / 10;
+                rel_mass = randomSeed.NextDouble(0.17, 1.4);
+                this.Radius = randomSeed.NextDouble(0.008, 0.02) * ParametriUtente.Science.r_sun;
+                forcedClass = OverallStarClassification.WhiteDwarf;
+            }
+            else
+            {
+
+                forcedClass = OverallStarClassification.None;
+            }
+
+            this.Volume = Formula.VolumeOfSphere(this.starRadius); //km3
 
             this.Mass = rel_mass * ParametriUtente.Science.m_sun;
 
             this.luminosity = SimulationEngine.getLuminosityFromMass(this.Mass);
 
-            this.meanDensity = (this.Mass*1000/ (Math.Pow(10,15)*Volume)) * _densityMul;
+            this.meanDensity = Formula.Density(this.Mass*1000, (Math.Pow(10,15)*Volume)) * _densityMul;
        
             
             pressione = ((ParametriUtente.Science.G 
@@ -255,21 +260,9 @@ namespace MainGame.Applicazione.DataModel
 
             this.Surface_temperature = SimulationEngine.getTemperatureFromLumRadiusRatio(this.starRadius, this.luminosity);//this.Core_temperature / (2717.203184);//2543.37;
 
-            if(randomGenForBlackHoles > 90)
-            {
-
-                this.starRadius = this.getSchwarzschildRadius();
-                this.Volume = ((Math.Pow(this.starRadius, 3) * (4.0 / 3.0)) * Math.PI); //km3
-                this.meanDensity = (this.Mass * 1000 / (Math.Pow(10, 15) * Volume));
-                this.Surface_density = this.meanDensity;
-                this.Core_density = this.meanDensity;
-                this.markAsBlackHole = true;
-            }
-
-
             this.setRelativeValues();
 
-            this.InitStarClassification();
+            this.InitStarClassification(forcedClass);
 
             this.finalizeStar();
         }
@@ -286,7 +279,9 @@ namespace MainGame.Applicazione.DataModel
             this.setMetallicity();
         }
 
-        private void InitStarClassification()
+        
+
+        private void InitStarClassification(OverallStarClassification forcedClass = OverallStarClassification.None)
         {
 
             int temperature = (int) this.Surface_temperature;
@@ -297,8 +292,8 @@ namespace MainGame.Applicazione.DataModel
             if(this.starRadius > this.getSchwarzschildRadius())
             { 
                 this.massClass = Star.FindStarMassClass(relmassClass);
-
-                this.overallClass = Star.mapClassificationsToOverallClassification(this.massClass, this.luminosityClass);
+              
+                this.overallClass = Star.mapClassificationsToOverallClassification(this.massClass, this.luminosityClass, forcedClass);
 
                 this.starClassification_ByColor = Star.FindStarColor(temperature);
 
@@ -355,101 +350,111 @@ namespace MainGame.Applicazione.DataModel
         }
 
         public static OverallStarClassification mapClassificationsToOverallClassification(StarClassification_byMass massClass,
-                                StarClassification_byLum luminosityClass)
+                                StarClassification_byLum luminosityClass, OverallStarClassification forcedClass = OverallStarClassification.None)
         {
 
             OverallStarClassification overallClass = OverallStarClassification.None;
 
-            switch (massClass)
+
+            if (forcedClass == OverallStarClassification.None)
             {
-                case StarClassification_byMass.T:
-                    int i = 0;
-                    break;
-                case StarClassification_byMass.L:
-                case StarClassification_byMass.M:
-                    if (luminosityClass > StarClassification_byLum.M)
-                    {
-                        overallClass = OverallStarClassification.WhiteDwarf;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.BrownDwarf;
-                    }
-                    break;
 
-                case StarClassification_byMass.K:
-                    if (luminosityClass > StarClassification_byLum.K)
-                    {
-                        overallClass = OverallStarClassification.WhiteDwarf;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.MainSequenceDwarf;
-                    }
-                    break;
+                switch (massClass)
+                {
+                    case StarClassification_byMass.T:
+                        int i = 0;
+                        break;
+                    case StarClassification_byMass.L:
+                    case StarClassification_byMass.M:
+                        if (luminosityClass > StarClassification_byLum.M)
+                        {
+                            overallClass = OverallStarClassification.WhiteDwarf;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.BrownDwarf;
+                        }
+                        break;
 
-                case StarClassification_byMass.G:
-                    if (luminosityClass > StarClassification_byLum.G)
-                    {
-                        overallClass = OverallStarClassification.LesserGiant;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.MainSequenceDwarf;
-                    }
-                    break;
+                    case StarClassification_byMass.K:
+                        if (luminosityClass > StarClassification_byLum.K)
+                        {
+                            overallClass = OverallStarClassification.WhiteDwarf;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.MainSequenceDwarf;
+                        }
+                        break;
 
-                case StarClassification_byMass.F:
-                    if (luminosityClass > StarClassification_byLum.F)
-                    {
-                        overallClass = OverallStarClassification.Giant;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.LesserGiant;
-                    }
-                    break;
+                    case StarClassification_byMass.G:
+                        if (luminosityClass > StarClassification_byLum.G)
+                        {
+                            overallClass = OverallStarClassification.LesserGiant;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.MainSequenceDwarf;
+                        }
+                        break;
 
-                case StarClassification_byMass.A:
-                    if (luminosityClass > StarClassification_byLum.A)
-                    {
-                        overallClass = OverallStarClassification.BrightGiant;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.Giant;
-                    }
-                    break;
+                    case StarClassification_byMass.F:
+                        if (luminosityClass > StarClassification_byLum.F)
+                        {
+                            overallClass = OverallStarClassification.Giant;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.LesserGiant;
+                        }
+                        break;
 
-                case StarClassification_byMass.B:
-                    if (luminosityClass > StarClassification_byLum.B)
-                    {
-                        overallClass = OverallStarClassification.SuperGiant;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.BrightGiant;
-                    }
-                    break;
+                    case StarClassification_byMass.A:
+                        if (luminosityClass > StarClassification_byLum.A)
+                        {
+                            overallClass = OverallStarClassification.BrightGiant;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.Giant;
+                        }
+                        break;
 
-                case StarClassification_byMass.O:
-                    if (luminosityClass > StarClassification_byLum.O)
-                    {
-                        overallClass = OverallStarClassification.HyperGiant;
-                    }
-                    else
-                    {
-                        overallClass = OverallStarClassification.SuperGiant;
-                    }
-                    break;
-                case StarClassification_byMass.BlackHole:
-                    if(luminosityClass == StarClassification_byLum.BlackHole)
-                    {
+                    case StarClassification_byMass.B:
+                        if (luminosityClass > StarClassification_byLum.B)
+                        {
+                            overallClass = OverallStarClassification.SuperGiant;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.BrightGiant;
+                        }
+                        break;
 
-                        overallClass = OverallStarClassification.BlackHole;
-                    }
-                    break;
+                    case StarClassification_byMass.O:
+                        if (luminosityClass > StarClassification_byLum.O)
+                        {
+                            overallClass = OverallStarClassification.HyperGiant;
+                        }
+                        else
+                        {
+                            overallClass = OverallStarClassification.SuperGiant;
+                        }
+                        break;
+                    case StarClassification_byMass.BlackHole:
+                        if (luminosityClass == StarClassification_byLum.BlackHole)
+                        {
 
+                            overallClass = OverallStarClassification.BlackHole;
+                        }
+                        break;
+
+                }
+            }
+            else
+            {
+
+                overallClass = forcedClass;
             }
 
             return overallClass;

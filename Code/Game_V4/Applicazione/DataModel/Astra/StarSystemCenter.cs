@@ -19,7 +19,7 @@ namespace MainGame.Applicazione.DataModel.Astra
         {
             double maxRel;
 
-            maxRel = stars.Max(x => x.relluminosity);
+            maxRel = stars.Sum(x => x.relluminosity);
 
             return maxRel;
         }
@@ -55,6 +55,13 @@ namespace MainGame.Applicazione.DataModel.Astra
                 stars[1].distanceFromCenter = Converter.KM_to_UA(r2);
                 deltaFromBarycenter[0] = Converter.KM_to_UA(r1);
                 deltaFromBarycenter[1] = Converter.KM_to_UA(r2);
+
+                if(this.stars.Length == 3)
+                {
+
+                    deltaFromBarycenter[2] = this.deltaFromBarycenter.Max()*1.5;
+                    this.stars[2].distanceFromCenter = deltaFromBarycenter[2];
+                }
                 //r = (a) / (1 + (m1/m2))
                 //r = a * (m2)/(m1+m2)
             }

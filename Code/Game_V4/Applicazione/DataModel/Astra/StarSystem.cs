@@ -121,6 +121,12 @@ namespace MainGame.Applicazione.DataModel
             
         }
 
+        protected double getFartherstStarDistance()
+        {
+
+            return this.getDeltasFromBarycenter().Max();
+        }
+
         public void setBarycenter()
         {
 
@@ -224,12 +230,26 @@ namespace MainGame.Applicazione.DataModel
             //This is measured in AU 
             habitableZone_min = Math.Sqrt(this.stars.getRelLuminosity()/1.1);
             habitableZone_max = Math.Sqrt((this.stars.getRelLuminosity()/ 0.53));
+
+            if (this.stars.getStars().Length > 1)
+            {
+                if(habitableZone_min < this.getFartherstStarDistance() || habitableZone_max < this.getFartherstStarDistance())
+                { 
+                    habitableZone_min = Math.Sqrt(this.stars.getRelLuminosity() / 1.1) + this.getFartherstStarDistance() ;
+                    habitableZone_max = Math.Sqrt((this.stars.getRelLuminosity() / 0.53)) + this.getFartherstStarDistance();
+                }
+        
+            }
+
             //everything beyond habitableZone_max has (should have) less than 0° surface temp and be either rocky(frozen) or gas giant
             //everything beyond habitableZone_min has (should have) more than 40° surface temp and can be only a rocky barren planet.
 
             randomSeed = new Random_Extension();
             
             asteroidBeltDistanceMax = randomSeed.NextDouble(habitableZone_min * 0.3, habitableZone_max * 10) + ((habitableZone_max-habitableZone_min)/2);
+
+         
+
             asteroidBeltDistanceMin = asteroidBeltDistanceMax - (habitableZone_max - habitableZone_min);
             Double radii;
             
@@ -268,6 +288,7 @@ namespace MainGame.Applicazione.DataModel
                 }
 
                 distance = (randomSeed.NextDouble() * ((multiplierFactor * habitableZone_max) - 0.1) + (0.1));
+
 
 
 

@@ -68,6 +68,7 @@
     <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel.cs" />
     <Compile Include="Applicazione\Engine\ClimateEngine\ClimateModel_TerrestrialPlanet.cs" />
     <Compile Include="Applicazione\Engine\CreatureEngine\CreatureEngine.cs" />
+    <Compile Include="Applicazione\Engine\Math Engine\Formula.cs" />
     <Compile Include="Applicazione\Engine\Math Engine\UOMHandler.cs" />
     <Compile Include="Applicazione\Engine\ChemicalEngine.cs" />
     <Compile Include="Applicazione\Engine\DataEngine.cs" />
