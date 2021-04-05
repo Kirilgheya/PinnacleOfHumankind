@@ -17,7 +17,7 @@
             <RowDefinition Height="137*"></RowDefinition>
         </Grid.RowDefinitions>
         <Viewbox  VerticalAlignment="Stretch" ClipToBounds="False" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_MouseWheel" Stretch="Fill" >
-            <Canvas HorizontalAlignment="Stretch" ClipToBounds="False" VerticalAlignment="Stretch"  x:Name="cv_backspace" Width="500" Height="500" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove" Background="Black">
+            <Canvas HorizontalAlignment="Stretch" ClipToBounds="True" VerticalAlignment="Stretch"  x:Name="cv_backspace" Width="500" Height="500" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove" Background="Black">
                 <Canvas.RenderTransform>
                     <MatrixTransform></MatrixTransform>
                 </Canvas.RenderTransform>

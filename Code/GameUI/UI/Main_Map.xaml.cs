@@ -374,8 +374,8 @@ namespace GameUI.UI
 
 
             line.Visibility = Visibility.Visible;
-            line.StrokeThickness = 1;
-            line.Stroke = Brushes.Pink;
+            line.StrokeThickness = 4;
+            line.Stroke = Brushes.SteelBlue;
             line.X1 = this.get_x_center();
             line.Y1 = 10;
             line.X2 = checkLocationX;
@@ -387,10 +387,10 @@ namespace GameUI.UI
          
 
             TextBlock text = new TextBlock();
-            text.Text = Math.Round(UADistance,2).ToString();
+            text.Text = Math.Round(UADistance,2).ToString() + " UA";
             text.Foreground = Brushes.WhiteSmoke;
             text.FontSize = 8;
-            text.Margin = new Thickness(this.get_x_center(), 20, this.get_x_center() * 2, this.get_y_center() * 2);
+            text.Margin = new Thickness(this.get_x_center() + 2, 5, this.get_x_center() * 2, this.get_y_center() * 2);
             this.cv_backspace.Children.Add(text);
 
 
