@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Media;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GameUI.UI.GameEngine
 {
-    
+
     public static class GameSession
     {
 
@@ -21,6 +24,59 @@ namespace GameUI.UI.GameEngine
         public static String filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
         public static String folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
         public static double timeStep = 0;
+
+
+
+        public static String musicDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "Res\\Sounds\\";
+        public static List<String> AudioFiles = new List<string>();
+
+
+        public static SoundPlayerEx MusicPlayer;
+        public static int filesnumber = 0;
+        public static int playing = 0;
+
+        private static bool _audio;
+        public static bool audio
+        {
+            set
+            {
+                _audio = value;
+
+                if (audio)
+                {
+                    AudioFiles = new List<string>();
+                    foreach (string musicFilePath in Directory.EnumerateFiles(musicDirectoryPath, "*", SearchOption.AllDirectories))
+                    {
+                        AudioFiles.Add(musicFilePath);
+
+                        filesnumber++;
+                    }
+
+
+                    PlayAllMusics();
+
+
+                }
+                else
+                {
+                    MusicPlayer.Stop();
+                }
+            }
+            get
+            {
+                return _audio;
+            }
+        }
+
+        private static void PlayAllMusics()
+        {
+            playing = 0;
+            MusicPlayer = new SoundPlayerEx(AudioFiles[playing]);
+            MusicPlayer.SoundFinished += player_SoundFinished;
+            MusicPlayer.PlayAsync();
+        }
+
+
         public static void saveGame()
         {
 
@@ -38,7 +94,7 @@ namespace GameUI.UI.GameEngine
                 if (GameSession.GameSessionSystems != null)
                 {
 
-                    formatter.Serialize(GameSession.saveDataInto(),fs);
+                    formatter.Serialize(GameSession.saveDataInto(), fs);
 
                 }
 
@@ -58,7 +114,7 @@ namespace GameUI.UI.GameEngine
                 {
                     //Get the path of specified file
                     string localfilePath = openFileDialog.FileName;
-                     SharpSerializer binaryFormatter = new SharpSerializer(true);
+                    SharpSerializer binaryFormatter = new SharpSerializer(true);
                     if (openFileDialog.OpenFile().Length > 0)
                     {
                         GameSessionSavedData saveData = (GameSessionSavedData)binaryFormatter.Deserialize(openFileDialog.OpenFile());
@@ -84,10 +140,10 @@ namespace GameUI.UI.GameEngine
 
             Boolean result = true;
             try
-            { 
+            {
                 GameSession.GameSessionSystems = _savedData.GameSessionSystems;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 result = false;
                 throw e;
@@ -105,6 +161,114 @@ namespace GameUI.UI.GameEngine
 
 
             return saveData;
+        }
+
+
+
+        static void player_SoundFinished(object sender, EventArgs e)
+        {
+            playing++;
+            if (playing > AudioFiles.Count)
+            {
+                playing = 0;
+
+                MusicPlayer = new SoundPlayerEx(AudioFiles[playing]);
+                MusicPlayer.SoundFinished += player_SoundFinished;
+            }
+        }
+    }
+
+
+    public static class SoundInfo
+    {
+        [DllImport("winmm.dll")]
+        private static extern uint mciSendString(
+            string command,
+            StringBuilder returnValue,
+            int returnLength,
+            IntPtr winHandle);
+
+        public static int GetSoundLength(string fileName)
+        {
+            StringBuilder lengthBuf = new StringBuilder(32);
+
+            mciSendString(string.Format("open \"{0}\" type waveaudio alias wave", fileName), null, 0, IntPtr.Zero);
+            mciSendString("status wave length", lengthBuf, lengthBuf.Capacity, IntPtr.Zero);
+            mciSendString("close wave", null, 0, IntPtr.Zero);
+
+            int length = 0;
+            int.TryParse(lengthBuf.ToString(), out length);
+
+            return length;
+        }
+    }
+
+    public class SoundPlayerEx : SoundPlayer
+    {
+        public bool Finished { get; private set; }
+
+        private Task _playTask;
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private CancellationToken _ct;
+        private string _fileName;
+        private bool _playingAsync = false;
+
+        public event EventHandler SoundFinished;
+
+        public SoundPlayerEx(string soundLocation)
+            : base(soundLocation)
+        {
+            _fileName = soundLocation;
+            _ct = _tokenSource.Token;
+        }
+
+        public void PlayAsync()
+        {
+            Finished = false;
+            _playingAsync = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    double lenMs = SoundInfo.GetSoundLength(_fileName);
+                    DateTime stopAt = DateTime.Now.AddMilliseconds(lenMs);
+                    this.Play();
+                    while (DateTime.Now < stopAt)
+                    {
+                        _ct.ThrowIfCancellationRequested();
+                        //The delay helps reduce processor usage while "spinning"
+                        Task.Delay(10).Wait();
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    base.Stop();
+                }
+                finally
+                {
+                    OnSoundFinished();
+                }
+
+            }, _ct);
+        }
+
+        public new void Stop()
+        {
+            if (_playingAsync)
+                _tokenSource.Cancel();
+            else
+                base.Stop();   //To stop the SoundPlayer Wave file
+        }
+
+        protected virtual void OnSoundFinished()
+        {
+            Finished = true;
+            _playingAsync = false;
+
+            EventHandler handler = SoundFinished;
+
+            if (handler != null)
+                handler(this, EventArgs.Empty);
         }
     }
 }

@@ -56,5 +56,10 @@ namespace GameUI
 
             GameSession.loadGame();
         }
+
+        private void ToggleAudioCLick(object sender, RoutedEventArgs e)
+        {
+            GameSession.audio = !GameSession.audio;
+        }
     }
 }
