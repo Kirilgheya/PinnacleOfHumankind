@@ -31,6 +31,7 @@ namespace GameUI.UI
     public partial class Main_Map : Window
     {
         double checkLocationX;
+        double checkLocationY;
         double UADistance;
         double UnitLocation;
 
@@ -345,6 +346,7 @@ namespace GameUI.UI
                 originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
 
                 checkLocationX = originCoordPlanet.X;
+                checkLocationX = originCoordPlanet.Y;
                 UADistance = planet.relatedPlanet.distance_from_star;
 
 
@@ -372,14 +374,15 @@ namespace GameUI.UI
             Line line = new Line();
 
 
-
+            //VACCA TROIA
             line.Visibility = Visibility.Visible;
             line.StrokeThickness = 4;
             line.Stroke = Brushes.SteelBlue;
             line.X1 = this.get_x_center();
             line.Y1 = 10;
-            line.X2 = checkLocationX;
+            line.X2 = Math.Sqrt(Math.Pow(checkLocationX, 2) + Math.Pow(checkLocationX, 2));
             line.Y2 = 10;
+            line.Stretch = Stretch.UniformToFill;
             this.cv_backspace.Children.Add(line);
 
 
