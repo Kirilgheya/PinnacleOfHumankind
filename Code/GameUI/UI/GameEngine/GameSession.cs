@@ -59,7 +59,14 @@ namespace GameUI.UI.GameEngine
                 }
                 else
                 {
-                    MusicPlayer.Stop();
+                    try
+                    {
+                        MusicPlayer.Stop();
+                    }
+                    catch(Exception exc)
+                    {
+
+                    }
                 }
             }
             get
@@ -71,9 +78,12 @@ namespace GameUI.UI.GameEngine
         private static void PlayAllMusics()
         {
             playing = 0;
-            MusicPlayer = new SoundPlayerEx(AudioFiles[playing]);
-            MusicPlayer.SoundFinished += player_SoundFinished;
-            MusicPlayer.PlayAsync();
+            if (AudioFiles.Count > 0)
+            {
+                MusicPlayer = new SoundPlayerEx(AudioFiles[playing]);
+                MusicPlayer.SoundFinished += player_SoundFinished;
+                MusicPlayer.PlayAsync();
+            }
         }
 
 

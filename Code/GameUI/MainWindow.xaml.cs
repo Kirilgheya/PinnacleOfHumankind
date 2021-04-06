@@ -60,6 +60,14 @@ namespace GameUI
         private void ToggleAudioCLick(object sender, RoutedEventArgs e)
         {
             GameSession.audio = !GameSession.audio;
+            if (GameSession.audio)
+            {
+                btnAudio.Content = "🔈";
+            }
+            else
+            {
+                btnAudio.Content = "🔇";
+            }
         }
     }
 }
