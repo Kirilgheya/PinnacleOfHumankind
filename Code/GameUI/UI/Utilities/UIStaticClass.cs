@@ -17,37 +17,146 @@ namespace GameUI.UI.Utilities
 {
     public static class UIStaticClass
     {
+        public static PlanetInfoPage pg = new PlanetInfoPage();
+
         private static Random random = new Random();
-        public static void Show_body_info(object to_show)
+
+        //ritorna true se devi refreshare lo schermo (sennò non ricaricava i pianeti levando loro il selezionato);
+        public static bool Show_body_info(object to_show)
         {
-            PlanetInfoPage pg = new PlanetInfoPage();
-            pg.Show();
+
 
             if (to_show is Ellipse)
             {
                 if ((to_show as Ellipse).Tag is Star)
                 {
-                    pg.LoadInfo((to_show as Ellipse).Tag as Star);
+                    if(((to_show as Ellipse).Tag as Star).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    {
+                        pg.Close();
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                    }
+                    else if ((!((to_show as Ellipse).Tag as Star).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Ellipse).Tag as Star);
+                    }
+                    else if (((to_show as Ellipse).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    {
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Ellipse).Tag as Star);
+                    }
+                    else if (((to_show as Ellipse).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                    }
+
+                    if (((to_show as Ellipse).Tag as Star).bodyShape.StrokeThickness == 0 )
+                    {
+                        return true;
+                    }
+
                 }
 
                 if ((to_show as Ellipse).Tag is Planet)
                 {
-                    pg.LoadInfo((to_show as Ellipse).Tag as Planet);
+                    if (((to_show as Ellipse).Tag as Planet).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    {
+                        pg.Close();
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                    }
+                    else if ((!((to_show as Ellipse).Tag as Planet).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Ellipse).Tag as Planet);
+                    }
+                    else if (((to_show as Ellipse).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    {
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Ellipse).Tag as Planet);
+                    }
+                    else if (((to_show as Ellipse).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                    }
+
+                    if (((to_show as Ellipse).Tag as Planet).bodyShape.StrokeThickness == 0)
+                    {
+                        return true;
+                    }
                 }
             }
             else if (to_show is Path)
             {
                 if ((to_show as Path).Tag is Star)
                 {
-                    pg.LoadInfo((to_show as Path).Tag as Star);
+                    if (((to_show as Path).Tag as Star).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    {
+                        pg.Close();
+                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                    }
+                    else if ((!((to_show as Path).Tag as Star).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
+                    {
+                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Path).Tag as Star);
+                    }
+                    else if (((to_show as Path).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    {
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Path).Tag as Star);
+                    }
+                    else if (((to_show as Path).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                    }
+
+                    if (((to_show as Path).Tag as Star).bodyShape.StrokeThickness == 0 )
+                    {
+                        return true;
+                    }
                 }
 
                 if ((to_show as Path).Tag is Planet)
                 {
-                    pg.LoadInfo((to_show as Path).Tag as Planet);
+                    if (((to_show as Path).Tag as Planet).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    {
+                        pg.Close();
+                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                    }
+                    else if ((!((to_show as Path).Tag as Planet).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Path).Tag as Planet);
+                    }
+                    else if (((to_show as Path).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    {
+                        pg = new PlanetInfoPage();
+                        pg.Show();
+                        pg.LoadInfo((to_show as Path).Tag as Planet);
+                    }
+                    else if (((to_show as Path).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                    }
+
+                    if (((to_show as Path).Tag as Planet).bodyShape.StrokeThickness == 0 )
+                    {
+                        return true;
+                    }
                 }
             }
 
+            return false;
         }
 
         public static double GetNextOrbitAngle(IBodyTreeViewItem planet, double increment = 0)

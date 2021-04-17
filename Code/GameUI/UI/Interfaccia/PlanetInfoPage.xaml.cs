@@ -55,5 +55,9 @@ namespace GameUI.UI.Interfaccia
            
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+           GameEngine.GameSession.Map_UpdateRequested();
+        }
     }
 }

@@ -7,7 +7,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
  
         mc:Ignorable="d"
-        Title="PlanetInfoPage" Height="750" Width="1046" Background="Black">
+        Title="PlanetInfoPage" Height="750" Width="1046" Background="Black" Closed="Window_Closed">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
