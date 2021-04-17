@@ -19,7 +19,7 @@ namespace GameUI.Artificial
 
         public Ellipse shape;
 
-        public Point destination = new Point(250,250);
+        public Point destination = new Point(470,470);
 
         public double speed = 1;
 
@@ -45,6 +45,8 @@ namespace GameUI.Artificial
 
         public void redrawZoom(double xoffset, double yoffset)
         {
+            this.Position.X *= xoffset;
+            this.Position.Y *= yoffset;
             Canvas.SetLeft(this.shape, this.Position.X );
             Canvas.SetTop(this.shape, this.Position.Y );
 

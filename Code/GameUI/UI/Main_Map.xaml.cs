@@ -32,9 +32,6 @@ namespace GameUI.UI
     public partial class Main_Map : Window
     {
 
-        private Point oldLocation;
-        private Point newLocation;
-
         double checkLocationX;
         double checkLocationY;
         double UADistance;
@@ -338,7 +335,7 @@ namespace GameUI.UI
 
             Random rnd = new Random();
 
-
+            bool primoGiro = true;
             foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
             {
 
@@ -366,12 +363,7 @@ namespace GameUI.UI
                 checkLocationX = originCoordPlanet.X;
                 checkLocationX = originCoordPlanet.Y;
 
-                if (oldLocation.X == 0 && oldLocation.Y == 0 && newLocation.X == 0 && newLocation.Y == 0)
-                {
-                    oldLocation = newLocation;
-                    newLocation = new Point(originCoordPlanet.X, originCoordPlanet.Y);
-                }
-
+              
                 UADistance = planet.relatedPlanet.distance_from_star;
 
 
@@ -478,8 +470,7 @@ namespace GameUI.UI
               
                 draw_artificial(fromZoom, fromPan, increment);
 
-            oldLocation = new Point();
-            newLocation = new Point();
+                primoGiro = true;
         }
 
         private void createCenter()
@@ -521,7 +512,7 @@ namespace GameUI.UI
                         if (fromZoom)
                         {
 
-                            (art as Ship).redrawZoom((art as Ship).Position.X + (oldLocation.X - newLocation.X), (art as Ship).Position.Y +(oldLocation.Y - newLocation.Y ));
+                            (art as Ship).redrawZoom(1,1);
                         }
 
                         cv_backspace.Children.Add((art as Ship).shape);
