@@ -364,8 +364,6 @@ namespace GameUI.UI
                 UADistance = planet.relatedPlanet.distance_from_star;
 
 
-                if (originCoordPlanet.X > 0 && originCoordPlanet.Y > 0)
-                {
                     cv_backspace.Children.Add(planetShape);
 
                     planet.setPosition(originCoordPlanet);
@@ -374,8 +372,7 @@ namespace GameUI.UI
                     double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, originCoordPlanet, Brushes.Aqua, planet);
                    
                     UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
-                }
-             
+           
 
 
                 find_node(planet.Name, true);
@@ -646,7 +643,7 @@ namespace GameUI.UI
             }
             else
             {
-                cv_backspace.RenderTransform = new ScaleTransform(zoom, zoom, cv_backspace.Width/2, cv_backspace.Height/2); // transform Canvas size
+                cv_backspace.RenderTransform = new ScaleTransform(zoom, zoom, mousePos.X, mousePos.Y); // transform Canvas size
             }
         }
         //private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)

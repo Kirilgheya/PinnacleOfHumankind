@@ -120,7 +120,7 @@ namespace GameUI.UI.DataSource
 
 
             this.Shape  = new Ellipse { Width = drawsize, Height = drawsize , Fill = PlanetBrush };
-           
+            Canvas.SetZIndex(this.Shape, 1);
         }
 
 
@@ -146,7 +146,7 @@ namespace GameUI.UI.DataSource
 
 
             this.Shape = new Ellipse { Width = x, Height = y, Fill = PlanetBrush };
-
+            Canvas.SetZIndex(this.Shape, 1);
         }
 
         protected override void setSpriteForBody()

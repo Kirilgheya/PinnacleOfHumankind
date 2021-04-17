@@ -42,6 +42,13 @@ namespace GameUI.Artificial
             ls.Add(new ShipSector("missile frontale sx"));
             ls.Add(new ShipSector("muso"));
             ls.Add(new ShipSector("missile frontale dx"));
+
+            Structure.Add(ls);
+
+            ls = new List<ShipSector>();
+            ls.Add(new ShipSector("test 2 frontale sx"));
+            ls.Add(new ShipSector("muso quello vero"));
+            ls.Add(new ShipSector("a frontale dx"));
             Structure.Add(ls);
 
 
