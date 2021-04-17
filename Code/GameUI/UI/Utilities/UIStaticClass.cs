@@ -232,7 +232,7 @@ namespace GameUI.UI.Utilities
             
 
             EllipseGeometry eg = new EllipseGeometry();
-            double length = Point.Subtract(_center, _bodyCoordinates).Length;
+            double length = Point.Subtract(_center, new Point(Canvas.GetLeft(_body),Canvas.GetTop(_body))).Length;
 
             eg.Center = _center;
             eg.RadiusX = length - (_body.Width / 2);
@@ -261,6 +261,43 @@ namespace GameUI.UI.Utilities
             return eg.RadiusX;
         }
 
+        public static Ellipse RedrawStar( Star star, double scale, int numberOfstars, double deltaFromCenter, double timePassed)
+        {
+
+
+            double angolo = 360 / numberOfstars;
+
+            //Draw new stars
+
+            Ellipse starShape = star.drawBody(scale);
+
+            Point origStarCoordinates = new Point();
+
+            origStarCoordinates.X = (starShape.Width / 2 + (deltaFromCenter / scale));
+
+            origStarCoordinates.Y = starShape.Width / 2;
+
+            setBodyPosition(star, starShape, origStarCoordinates);
+
+            if (!star.hasMoved())
+            {
+                UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { star });
+            }
+
+            //lbl_delta.Content = lbl_delta.Content + "Star: " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
+
+
+            return starShape;
+        }
+
+        public static void setBodyPosition(IBodyTreeViewItem _body, Shape _bodyShape, Point _position)
+        {
+
+            Canvas.SetLeft(_bodyShape, _position.X);
+            Canvas.SetTop(_bodyShape, _position.Y);
+            _body.position = _position;
+        }
+
         public static void moveBodyOnOrbit(IBodyTreeViewItem _body, double _radiants, double _orbitradius,Point _origin, Boolean _isClockwise)
         {
 
@@ -285,6 +322,8 @@ namespace GameUI.UI.Utilities
 
             Canvas.SetLeft(_body.bodyShape, _body.position.X);
             Canvas.SetTop(_body.bodyShape, _body.position.Y);
+
+            
 
         }
 
