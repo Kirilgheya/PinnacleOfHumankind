@@ -284,11 +284,7 @@ namespace GameUI.UI
 
             lbl_delta.Content = "";
 
-            Ellipse centro = new Ellipse { Width = 2, Height = 2, Fill = Brushes.Red };
-            cv_backspace.Children.Add(centro);
-            
-            Canvas.SetLeft(centro, get_x_center() - centro.Width / 2 );
-            Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
+            createCenter();
 
             List<IBodyTreeViewItem> StarList = sy.Children.Where(x => x is Star).ToList();
 
@@ -434,8 +430,6 @@ namespace GameUI.UI
 
                         Asteroid.setPosition(originCoordAsteroid);
 
-                        Point center = new Point(get_x_center(), get_y_center());
-
                         double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, AsteroidShape, center, originCoordAsteroid, Brushes.Aqua, Asteroid);
 
                         UIStaticClass.moveBodyOnOrbit(Asteroid, UIStaticClass.DegreeToRadiants(angolo), orbitRadius, new Point(center.X, center.Y), true);
@@ -486,6 +480,16 @@ namespace GameUI.UI
 
             oldLocation = new Point();
             newLocation = new Point();
+        }
+
+        private void createCenter()
+        {
+
+            Ellipse centro = new Ellipse { Width = 2, Height = 2, Fill = Brushes.Red };
+            cv_backspace.Children.Add(centro);
+
+            Canvas.SetLeft(centro, get_x_center() - centro.Width / 2);
+            Canvas.SetTop(centro, get_y_center() - centro.Height / 2);
         }
 
         private void draw_artificial(bool fromZoom, bool fromPan, int increment)
