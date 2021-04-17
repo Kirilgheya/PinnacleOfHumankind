@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Gamecore = MainGame.Applicazione.DataModel;
@@ -13,7 +15,7 @@ namespace GameUI.UI.DataSource
     class Asteroid : IBodyTreeViewItem
     {
 
-        Gamecore.Asteroid relatedAsteroid;
+        public Gamecore.Asteroid relatedAsteroid;
 
         public Asteroid(Gamecore.Asteroid _asteroid)
         {
@@ -55,6 +57,15 @@ namespace GameUI.UI.DataSource
             this.Shape.Fill = Brushes.LightGray;
         }
 
+        public void setPosition(Point _newPosition)
+        {
+
+            this.position = _newPosition;
+
+            Canvas.SetLeft(this.bodyShape, this.position.X);
+            Canvas.SetTop(this.bodyShape, this.position.Y);
+        }
+
         protected override void linkShapeToBody()
         {
             this.Shape.Tag = this;
@@ -92,7 +103,7 @@ namespace GameUI.UI.DataSource
 
         protected override void UpdateHiglight()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

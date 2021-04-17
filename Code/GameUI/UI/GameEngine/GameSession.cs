@@ -1,4 +1,5 @@
-﻿using GameUI.UI.DataSource;
+﻿using GameUI.Artificial;
+using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
 using Polenter.Serialization;
 using System;
@@ -19,6 +20,11 @@ namespace GameUI.UI.GameEngine
 
     public static class GameSession
     {
+
+        public static List<artificialObj> artificialList = new List<artificialObj>();
+
+        public static bool drawAsteroids = false;
+        public static bool drawAsteroidsOrbits = false;
 
         public static List<StarSystem> GameSessionSystems { get; set; }
         public static String filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");

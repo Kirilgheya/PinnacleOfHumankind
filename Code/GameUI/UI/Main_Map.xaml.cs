@@ -1,4 +1,5 @@
-﻿using GameUI.UI.DataSource;
+﻿using GameUI.Artificial;
+using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
 using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
@@ -30,6 +31,10 @@ namespace GameUI.UI
     /// </summary>
     public partial class Main_Map : Window
     {
+
+        private Point oldLocation;
+        private Point newLocation;
+
         double checkLocationX;
         double checkLocationY;
         double UADistance;
@@ -139,11 +144,24 @@ namespace GameUI.UI
 
                 foreach (TreeElementPlanets p in sys.Children.Where(x => x is TreeElementPlanets).ToList())
                 {
-                    foreach (Planet pl in p.Children)
+                    if (p.Children.First() is Planet)
                     {
-                        SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
+                        foreach (Planet pl in p.Children)
+                        {
+                            SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
+                        }
                     }
-                    break;
+                    if (GameSession.drawAsteroids)
+                    {
+                        if (p.Children.First() is Asteroid)
+                        {
+                            foreach (Asteroid ast in p.Children)
+                            {
+                                SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = ast.Name, Tag = ast });
+                            }
+                        }
+                    }
+                    //break;
                 }
                 n++;
             }
@@ -253,7 +271,7 @@ namespace GameUI.UI
 
         }
 
-        public  void draw_system(StarSystem sy, int increment = 0)
+        public void draw_system(StarSystem sy, int increment = 0, bool fromZoom = false, bool fromPan = false)
         {
             cv_backspace.Children.Clear();
             Point center = new Point(get_x_center(), get_y_center());
@@ -351,6 +369,13 @@ namespace GameUI.UI
 
                 checkLocationX = originCoordPlanet.X;
                 checkLocationX = originCoordPlanet.Y;
+
+                if (oldLocation.X == 0 && oldLocation.Y == 0 && newLocation.X == 0 && newLocation.Y == 0)
+                {
+                    oldLocation = newLocation;
+                    newLocation = new Point(originCoordPlanet.X, originCoordPlanet.Y);
+                }
+
                 UADistance = planet.relatedPlanet.distance_from_star;
 
 
@@ -379,33 +404,128 @@ namespace GameUI.UI
                 n++;
             }
 
+            if (GameSession.drawAsteroids)
+            {
+                foreach (Asteroid Asteroid in sy.Children.Where(x => x is TreeElementPlanets).ToList()[1].Children.Where(y => y is Asteroid).ToList())
+                {
+
+                    double angolo = 0;
+                    Point originCoordAsteroid = new Point();
+
+                    Ellipse AsteroidShape = Asteroid.drawBody(scale);
+
+                    AsteroidShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+
+                    if (!Asteroid.hasMoved())
+                    {
+
+                        UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { Asteroid });
+                    }
+
+                    //Asteroid.advanceTime(-1, increment / Asteroid.relatedAsteroid.relativeRevolutionTime);
+
+                    angolo = Asteroid.angleOnOrbit;
+
+
+             
+                    if (originCoordAsteroid.X > 0 && originCoordAsteroid.Y > 0)
+                    {
+                        cv_backspace.Children.Add(AsteroidShape);
+
+                        Asteroid.setPosition(originCoordAsteroid);
+
+                        Point center = new Point(get_x_center(), get_y_center());
+
+                        double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, AsteroidShape, center, originCoordAsteroid, Brushes.Aqua, Asteroid);
+
+                        UIStaticClass.moveBodyOnOrbit(Asteroid, UIStaticClass.DegreeToRadiants(angolo), orbitRadius, new Point(center.X, center.Y), true);
+                    }
+
+
+
+                    find_node(Asteroid.Name, true);
+
+
+                    if (GameSession.selected.Contains(Asteroid))
+                    {
+                        Asteroid.selected = true;
+                    }
+
+                    n++;
+                }
+            }
+
             Line line = new Line();
 
-
-            //VACCA TROIA
-            line.Visibility = Visibility.Visible;
-            line.StrokeThickness = 4;
-            line.Stroke = Brushes.SteelBlue;
-            line.X1 = this.get_x_center();
-            line.Y1 = 10;
-            line.X2 = Math.Sqrt(Math.Pow(checkLocationX, 2) + Math.Pow(checkLocationX, 2));
-            line.Y2 = 10;
-            line.Stretch = Stretch.UniformToFill;
-            this.cv_backspace.Children.Add(line);
-
-
-
-         
-
-            TextBlock text = new TextBlock();
-            text.Text = Math.Round(UADistance,2).ToString() + " UA";
-            text.Foreground = Brushes.WhiteSmoke;
-            text.FontSize = 8;
-            text.Margin = new Thickness(this.get_x_center() + 2, 5, this.get_x_center() * 2, this.get_y_center() * 2);
-            this.cv_backspace.Children.Add(text);
+            if (fromZoom)
+            {
+                //VACCA TROIA
+                line.Visibility = Visibility.Visible;
+                line.StrokeThickness = 4;
+                line.Stroke = Brushes.SteelBlue;
+                line.X1 = this.get_x_center();
+                line.Y1 = 10;
+                line.X2 = Math.Sqrt(Math.Pow(checkLocationX, 2) + Math.Pow(checkLocationX, 2));
+                line.Y2 = 10;
+                line.Stretch = Stretch.UniformToFill;
+                this.cv_backspace.Children.Add(line);
 
 
 
+
+
+                TextBlock text = new TextBlock();
+                text.Text = Math.Round(UADistance, 2).ToString() + " UA";
+                text.Foreground = Brushes.WhiteSmoke;
+                text.FontSize = 8;
+                text.Margin = new Thickness(this.get_x_center() + 2, 5, this.get_x_center() * 2, this.get_y_center() * 2);
+                this.cv_backspace.Children.Add(text);
+            }
+              
+                draw_artificial(fromZoom, fromPan, increment);
+
+            oldLocation = new Point();
+            newLocation = new Point();
+        }
+
+        private void draw_artificial(bool fromZoom, bool fromPan, int increment)
+        {
+            if (GameSession.artificialList.Count == 0)
+            {
+                Ship s = new Ship();
+
+                s.spawn( 300 , 300 );
+
+                cv_backspace.Children.Add(s.shape);
+
+                GameSession.artificialList.Add(s);
+            }
+            else
+            {
+                foreach (artificialObj art in GameSession.artificialList)
+                {
+                    if (art is Ship)
+                    {
+                        if (increment > 0)
+                        {
+                            (art as Ship).moveToDestination();
+                        }
+                        if (fromPan)
+                        {
+                            (art as Ship).redrawPan(horizontal_offset, vertical_offset);
+                        }
+                        if (fromZoom)
+                        {
+
+                            (art as Ship).redrawZoom((art as Ship).Position.X + (oldLocation.X - newLocation.X), (art as Ship).Position.Y +(oldLocation.Y - newLocation.Y ));
+                        }
+
+                        cv_backspace.Children.Add((art as Ship).shape);
+
+                        txtShip.Text = (art as Ship).Position.X + " " + (art as Ship).Position.Y;
+                    }
+                }
+            }
         }
 
         private void Ellipse_preview_mouse_left_click(object sender, MouseButtonEventArgs e)
@@ -491,6 +611,8 @@ namespace GameUI.UI
             generate_Star_System(true);
 
             add_starSystem_to_Tree();
+
+            GameSession.artificialList = new List<artificialObj>();
         }
 
         private void txt_scale_TextChanged(object sender, TextChangedEventArgs e)
@@ -559,7 +681,7 @@ namespace GameUI.UI
 
             
 
-            draw_system(selected_SS);
+            draw_system(selected_SS, 0, true, false);
         }
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -578,7 +700,14 @@ namespace GameUI.UI
                 }
                 else
                 {
-                    GameSession.UpdateSelected((e.OriginalSource as Ellipse).Tag as IBodyTreeViewItem);
+                    if (e.OriginalSource is Ellipse)
+                    {
+                        GameSession.UpdateSelected((e.OriginalSource as Ellipse).Tag as IBodyTreeViewItem);
+                    }
+                    if(e.OriginalSource is Path)
+                    {
+                        GameSession.UpdateSelected((e.OriginalSource as Path).Tag as IBodyTreeViewItem);
+                    }
 
                 }
             }
@@ -617,7 +746,7 @@ namespace GameUI.UI
 
             Console.WriteLine(horizontal_offset + " / " + vertical_offset);
      
-            draw_system(selected_SS);
+            draw_system(selected_SS,0,false,true);
             
         }
 

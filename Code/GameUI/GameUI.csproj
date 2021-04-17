@@ -82,6 +82,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Artificial\artificialObj.cs" />
+    <Compile Include="Artificial\Ship.cs" />
     <Compile Include="UI\DataSource\Asteroid.cs" />
     <Compile Include="UI\GameEngine\GameSession.cs" />
     <Compile Include="UI\GameEngine\GameSessionSavedData.cs" />
