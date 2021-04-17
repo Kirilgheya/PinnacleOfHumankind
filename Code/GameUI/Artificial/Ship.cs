@@ -17,41 +17,54 @@ namespace GameUI.Artificial
 
         public Point Position = new Point();
 
-        public Ellipse shape;
-
         public Point destination = new Point(470,470);
 
         public double speed = 1;
+        public bool selected;
+
+        public List<List<ShipSector>> Structure = new List<List<ShipSector>>();
+
 
         public Ship()
         {
-            shape = new Ellipse() { Width = 5, Height = 5, Fill = Brushes.LightGray };
+            Shape = new Ellipse() { Width = 5, Height = 5, Fill = Brushes.LightGray };
+
+            Shape.Tag = this;
+
+            List<ShipSector> ls = new List<ShipSector>();
+            ls.Add(new ShipSector("ala sx"));
+            ls.Add(new ShipSector("reattore"));
+            ls.Add(new ShipSector("ala dx"));
+
+            Structure.Add(ls);
+
+            ls = new List<ShipSector>();
+            ls.Add(new ShipSector("missile frontale sx"));
+            ls.Add(new ShipSector("muso"));
+            ls.Add(new ShipSector("missile frontale dx"));
+            Structure.Add(ls);
+
+
+
+
         }
 
         public void spawn(double X, double Y)
         {
             this.Position = new Point(X,Y);
 
-            Canvas.SetLeft(this.shape, this.Position.X);
-            Canvas.SetTop(this.shape, this.Position.Y);
+            Canvas.SetLeft(this.Shape, this.Position.X);
+            Canvas.SetTop(this.Shape, this.Position.Y);
         }
 
         public void redrawPan(double xoffset, double yoffset)
         {
-            Canvas.SetLeft(this.shape, this.Position.X + xoffset);
-            Canvas.SetTop(this.shape, this.Position.Y + yoffset);
+            Canvas.SetLeft(this.Shape, this.Position.X + xoffset);
+            Canvas.SetTop(this.Shape, this.Position.Y + yoffset);
            
         }
 
-        public void redrawZoom(double xoffset, double yoffset)
-        {
-            this.Position.X *= xoffset;
-            this.Position.Y *= yoffset;
-            Canvas.SetLeft(this.shape, this.Position.X );
-            Canvas.SetTop(this.shape, this.Position.Y );
-
-
-        }
+     
 
         public void moveToDestination()
         {
@@ -77,9 +90,11 @@ namespace GameUI.Artificial
                     yIncrement = -speed;
                 }
                 this.Position = new Point(this.Position.X + xIncrement, this.Position.Y + yIncrement);
-                Canvas.SetLeft(this.shape, Position.X);
-                Canvas.SetTop(this.shape, Position.Y);
+                Canvas.SetLeft(this.Shape, Position.X);
+                Canvas.SetTop(this.Shape, Position.Y);
             }
         }
+
+       
     }
 }

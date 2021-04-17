@@ -43,7 +43,6 @@ namespace GameUI.UI
 
         private double scale = 10;
         private double scale_UAtoCanvasUnit = 600;
-        private double zoomScale = 1;
 
         private double horizontal_offset = 0;
         private double vertical_offset = 0;
@@ -293,7 +292,6 @@ namespace GameUI.UI
               
                 starShape = UIStaticClass.RedrawStar(star, scale, StarList.Count(), selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit, angolo);
 
-                starShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
                 cv_backspace.Children.Add(starShape);
 
                 //this.setPositionRelativeToCenter(starShape, star.position.X, star.position.Y);
@@ -344,7 +342,6 @@ namespace GameUI.UI
 
                 Ellipse planetShape = planet.drawBody(scale);
 
-                planetShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
 
                 if(!planet.hasMoved())
                 {
@@ -401,8 +398,6 @@ namespace GameUI.UI
                     Point originCoordAsteroid = new Point();
 
                     Ellipse AsteroidShape = Asteroid.drawBody(scale);
-
-                    AsteroidShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
 
                     if (!Asteroid.hasMoved())
                     {
@@ -489,9 +484,9 @@ namespace GameUI.UI
             {
                 Ship s = new Ship();
 
-                s.spawn( 300 , 300 );
+                s.spawn( 700 , 300 );
 
-                cv_backspace.Children.Add(s.shape);
+                cv_backspace.Children.Add(s.Shape);
 
                 GameSession.artificialList.Add(s);
             }
@@ -509,13 +504,8 @@ namespace GameUI.UI
                         {
                             (art as Ship).redrawPan(horizontal_offset, vertical_offset);
                         }
-                        if (fromZoom)
-                        {
 
-                            (art as Ship).redrawZoom(1,1);
-                        }
-
-                        cv_backspace.Children.Add((art as Ship).shape);
+                        cv_backspace.Children.Add((art as Ship).Shape);
 
                         txtShip.Text = (art as Ship).Position.X + " " + (art as Ship).Position.Y;
                     }
@@ -523,10 +513,7 @@ namespace GameUI.UI
             }
         }
 
-        private void Ellipse_preview_mouse_left_click(object sender, MouseButtonEventArgs e)
-        {
-            //UIStaticClass.Show_body_info(sender);
-        }
+
 
         public double ConvertToRadiants(double angle)
         {
@@ -636,48 +623,74 @@ namespace GameUI.UI
             GameSession.saveGame();
         }
 
-        private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
+        // Zoom
+        private Double zoomMax = 50;
+        private Double zoomMin = 1;
+        private Double zoomSpeed = 0.001;
+        private Double zoom = 1;
+
+       
+
+        // Zoom on Mouse wheel
+        private void Canvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
+            zoom += zoomSpeed * e.Delta; // Ajust zooming speed (e.Delta = Mouse spin value )
+            if (zoom < zoomMin) { zoom = zoomMin; } // Limit Min Scale
+            if (zoom > zoomMax) { zoom = zoomMax; } // Limit Max Scale
+
+            Point mousePos = e.GetPosition(cv_backspace);
+
+            if (zoom > 1)
             {
-
-                if(scale <= zoomScale)
-                {
-
-                    zoomScale = zoomScale / 10;
-                }
-
-                if (scale - zoomScale < 0.001)
-                {
-                    return;
-                }
-
-                //zoomScale = zoomScale - 1000;
-                scale = scale - zoomScale;
-
+                cv_backspace.RenderTransform = new ScaleTransform(zoom, zoom, mousePos.X, mousePos.Y); // transform Canvas size from mouse position
             }
             else
             {
-
-                if(scale /10  == zoomScale )
-                {
-
-                    zoomScale = zoomScale * 10;
-
-                }
-                scale = scale + zoomScale;
-
-             
-                //zoomScale = zoomScale + 1000;
+                cv_backspace.RenderTransform = new ScaleTransform(zoom, zoom, cv_backspace.Width/2, cv_backspace.Height/2); // transform Canvas size
             }
-
-            txt_scale.Text = scale.ToString();
-
-
-            
-
-            draw_system(selected_SS, 0, true, false);
         }
+        //private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    if (e.Delta > 0)
+        //    {
+
+        //        if(scale <= zoomScale)
+        //        {
+
+        //            zoomScale = zoomScale / 10;
+        //        }
+
+        //        if (scale - zoomScale < 0.001)
+        //        {
+        //            return;
+        //        }
+
+        //        //zoomScale = zoomScale - 1000;
+        //        scale = scale - zoomScale;
+
+        //    }
+        //    else
+        //    {
+
+        //        if(scale /10  == zoomScale )
+        //        {
+
+        //            zoomScale = zoomScale * 10;
+
+        //        }
+        //        scale = scale + zoomScale;
+
+
+        //        //zoomScale = zoomScale + 1000;
+        //    }
+
+        //    txt_scale.Text = scale.ToString();
+
+
+
+
+        //    draw_system(selected_SS, 0, true, false);
+        //}
 
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

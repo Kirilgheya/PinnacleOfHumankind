@@ -84,11 +84,16 @@
     </ApplicationDefinition>
     <Compile Include="Artificial\artificialObj.cs" />
     <Compile Include="Artificial\Ship.cs" />
+    <Compile Include="Artificial\ShipComponents.cs" />
+    <Compile Include="Artificial\ShipSector.cs" />
     <Compile Include="UI\DataSource\Asteroid.cs" />
     <Compile Include="UI\GameEngine\GameSession.cs" />
     <Compile Include="UI\GameEngine\GameSessionSavedData.cs" />
     <Compile Include="UI\Interfaccia\PlanetInfoPage.xaml.cs">
       <DependentUpon>PlanetInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Interfaccia\ShipInfoPage.xaml.cs">
+      <DependentUpon>ShipInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Utilities\OrbitalMotion.cs" />
     <Compile Include="UI\DataSource\Planet.cs" />
@@ -124,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\Interfaccia\PlanetInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Interfaccia\ShipInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

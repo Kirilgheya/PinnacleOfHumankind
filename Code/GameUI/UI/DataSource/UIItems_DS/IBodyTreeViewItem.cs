@@ -13,7 +13,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
     public abstract class IBodyTreeViewItem
     {
 
-        protected Ellipse Shape;
+        public Ellipse Shape;
         public Ellipse bodyShape { get { return Shape; } }
          public string Name { get; set; }
         public ObservableCollection<IBodyTreeViewItem> Children { get; set; }

@@ -16,16 +16,18 @@
             <RowDefinition Height="284*"></RowDefinition>
             <RowDefinition Height="137*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Viewbox  VerticalAlignment="Stretch" ClipToBounds="False" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_MouseWheel" Stretch="UniformToFill" >
-            <Canvas HorizontalAlignment="Center"  ClipToBounds="True" VerticalAlignment="Center"  x:Name="cv_backspace" Width="500" Height="500" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove" Background="Black">
-                <Canvas.RenderTransform>
-                    <MatrixTransform></MatrixTransform>
-                </Canvas.RenderTransform>
-                <!--<Canvas.Background>
+        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" >
+            <Viewbox  VerticalAlignment="Stretch" ClipToBounds="True" HorizontalAlignment="Stretch"  x:Name="ZoomViewbox"  Stretch="UniformToFill" >
+                <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Width="1481" Height="957" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove" Background="Black" MouseWheel="Canvas_MouseWheel" >
+                    <Canvas.RenderTransform>
+                        <MatrixTransform></MatrixTransform>
+                    </Canvas.RenderTransform>
+                    <!--<Canvas.Background>
                     <ImageBrush ImageSource="/Res/universebackground.jpg" Stretch="UniformToFill"/>
                 </Canvas.Background>-->
-            </Canvas>
-        </Viewbox>
+                </Canvas>
+            </Viewbox>
+        </Border>
         <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="1" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged" Grid.RowSpan="2"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
         <Button Content="recreate" HorizontalAlignment="Left" Margin="64,1,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click" Height="21"/>

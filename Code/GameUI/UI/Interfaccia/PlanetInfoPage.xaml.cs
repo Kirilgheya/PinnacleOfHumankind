@@ -1,4 +1,5 @@
-﻿using GameUI.UI.DataSource;
+﻿using GameUI.Artificial;
+using GameUI.UI.DataSource;
 using MainGame.Applicazione.Engine.CreatureEngine;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,21 @@ namespace GameUI.UI.Interfaccia
             }
 
            
+        }
+
+        public void LoadInfo(Ship s)
+        {
+            Ellipse el = new Ellipse();
+
+            el.Width = 200;
+            el.Height = 200;
+            el.Fill = s.Shape.Fill;
+
+            cv_back.Children.Add(el);
+
+            txtInfo.Text = s.name;
+
+
         }
 
         private void Window_Closed(object sender, EventArgs e)

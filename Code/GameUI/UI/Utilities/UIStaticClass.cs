@@ -1,4 +1,5 @@
-﻿using GameUI.UI.DataSource;
+﻿using GameUI.Artificial;
+using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
 using GameUI.UI.GameEngine;
 using GameUI.UI.Interfaccia;
@@ -17,7 +18,9 @@ namespace GameUI.UI.Utilities
 {
     public static class UIStaticClass
     {
-        public static PlanetInfoPage pg = new PlanetInfoPage();
+        public static PlanetInfoPage PlanetInfoP = new PlanetInfoPage();
+
+        public static ShipInfoPage ShipInfoP = new ShipInfoPage();
 
         private static Random random = new Random();
 
@@ -30,25 +33,25 @@ namespace GameUI.UI.Utilities
             {
                 if ((to_show as Ellipse).Tag is Star)
                 {
-                    if(((to_show as Ellipse).Tag as Star).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    if(((to_show as Ellipse).Tag as Star).selected && PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
-                        pg.Close();
+                        PlanetInfoP.Close();
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
                     }
-                    else if ((!((to_show as Ellipse).Tag as Star).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
+                    else if ((!((to_show as Ellipse).Tag as Star).selected) && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
                     {
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Ellipse).Tag as Star);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Star);
                     }
-                    else if (((to_show as Ellipse).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    else if (((to_show as Ellipse).Tag as Star).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
                     {
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Ellipse).Tag as Star);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Star);
                     }
-                    else if (((to_show as Ellipse).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    else if (((to_show as Ellipse).Tag as Star).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
                     }
@@ -62,25 +65,25 @@ namespace GameUI.UI.Utilities
 
                 if ((to_show as Ellipse).Tag is Planet)
                 {
-                    if (((to_show as Ellipse).Tag as Planet).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    if (((to_show as Ellipse).Tag as Planet).selected && PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
-                        pg.Close();
+                        PlanetInfoP.Close();
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
                     }
-                    else if ((!((to_show as Ellipse).Tag as Planet).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
+                    else if ((!((to_show as Ellipse).Tag as Planet).selected) && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
                     {
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Ellipse).Tag as Planet);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Planet);
                     }
-                    else if (((to_show as Ellipse).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    else if (((to_show as Ellipse).Tag as Planet).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
                     {
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Ellipse).Tag as Planet);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Planet);
                     }
-                    else if (((to_show as Ellipse).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    else if (((to_show as Ellipse).Tag as Planet).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
                         GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
                     }
@@ -90,30 +93,61 @@ namespace GameUI.UI.Utilities
                         return true;
                     }
                 }
+                if ((to_show as Ellipse).Tag is Ship)
+                {
+                    if (((to_show as Ellipse).Tag as Ship).selected && ShipInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    {
+                        ShipInfoP.Close();
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                    }
+                    else if ((!((to_show as Ellipse).Tag as Ship).selected) && !ShipInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                        ShipInfoP = new ShipInfoPage();
+                        ShipInfoP.Show();
+                        ShipInfoP.LoadInfo((to_show as Ellipse).Tag as Ship);
+                    }
+                    else if (((to_show as Ellipse).Tag as Ship).selected && !ShipInfoP.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    {
+                        ShipInfoP = new ShipInfoPage();
+                        ShipInfoP.Show();
+                        ShipInfoP.LoadInfo((to_show as Ellipse).Tag as Ship);
+                    }
+                    else if (((to_show as Ellipse).Tag as Ship).selected && !ShipInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    {
+                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                    }
+
+                    if (((to_show as Ellipse).Tag as Ship).bodyShape.StrokeThickness == 0)
+                    {
+                        return true;
+                    }
+
+                }
             }
             else if (to_show is Path)
             {
                 if ((to_show as Path).Tag is Star)
                 {
-                    if (((to_show as Path).Tag as Star).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    if (((to_show as Path).Tag as Star).selected && PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
-                        pg.Close();
+                        PlanetInfoP.Close();
                         GameSession.UpdateSelected((to_show as Path).Tag as Star);
                     }
-                    else if ((!((to_show as Path).Tag as Star).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
+                    else if ((!((to_show as Path).Tag as Star).selected) && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
                     {
                         GameSession.UpdateSelected((to_show as Path).Tag as Star);
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Path).Tag as Star);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Path).Tag as Star);
                     }
-                    else if (((to_show as Path).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    else if (((to_show as Path).Tag as Star).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
                     {
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Path).Tag as Star);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Path).Tag as Star);
                     }
-                    else if (((to_show as Path).Tag as Star).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    else if (((to_show as Path).Tag as Star).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
                         GameSession.UpdateSelected((to_show as Path).Tag as Star);
                     }
@@ -126,25 +160,25 @@ namespace GameUI.UI.Utilities
 
                 if ((to_show as Path).Tag is Planet)
                 {
-                    if (((to_show as Path).Tag as Planet).selected && pg.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
+                    if (((to_show as Path).Tag as Planet).selected && PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
-                        pg.Close();
+                        PlanetInfoP.Close();
                         GameSession.UpdateSelected((to_show as Path).Tag as Planet);
                     }
-                    else if ((!((to_show as Path).Tag as Planet).selected) && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
+                    else if ((!((to_show as Path).Tag as Planet).selected) && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
                     {
                         GameSession.UpdateSelected((to_show as Path).Tag as Planet);
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Path).Tag as Planet);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Path).Tag as Planet);
                     }
-                    else if (((to_show as Path).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
+                    else if (((to_show as Path).Tag as Planet).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta selezionato e finestra chiusa apri
                     {
-                        pg = new PlanetInfoPage();
-                        pg.Show();
-                        pg.LoadInfo((to_show as Path).Tag as Planet);
+                        PlanetInfoP = new PlanetInfoPage();
+                        PlanetInfoP.Show();
+                        PlanetInfoP.LoadInfo((to_show as Path).Tag as Planet);
                     }
-                    else if (((to_show as Path).Tag as Planet).selected && !pg.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
+                    else if (((to_show as Path).Tag as Planet).selected && !PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
                         GameSession.UpdateSelected((to_show as Path).Tag as Planet);
                     }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="GameUI.UI.Interfaccia.ShipInfoPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameUI.UI.Interfaccia"
+        mc:Ignorable="d"
+        Title="ShipInfoPage" Height="750" Width="1046" Background="Black" Closed="Window_Closed">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="692*"/>
+                <ColumnDefinition Width="347*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas HorizontalAlignment="Left" Height="193" Margin="28,53,0,0" VerticalAlignment="Top" Width="245" x:Name="cv_back" Grid.Column="1"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="921" x:Name="txtInfo" Foreground="AliceBlue" Grid.ColumnSpan="2"><Run Text="TextBlock"/></TextBlock>
+            <Grid HorizontalAlignment="Left" Height="470" Margin="0,251,0,-473.667" VerticalAlignment="Top" Width="1039" Grid.ColumnSpan="2" x:Name="shipBluePrint"/>
+
+        </Grid>
+    </ScrollViewer>
+</Window>
+

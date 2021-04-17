@@ -1,0 +1,643 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Controls.PanAndZoom</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Controls.PanAndZoom.ButtonName">
+            <summary>
+            Describes mouse button names.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ButtonName.Left">
+            <summary>
+            The left mouse button.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ButtonName.Right">
+            <summary>
+            The right mouse button.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ButtonName.Middle">
+            <summary>
+            The middle mouse button.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.MatrixHelper">
+            <summary>
+            Avalonia Matrix helper methods.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Translate(System.Double,System.Double)">
+            <summary>
+            Creates a translation matrix using the specified offsets.
+            </summary>
+            <param name="offsetX">X-coordinate offset.</param>
+            <param name="offsetY">Y-coordinate offset.</param>
+            <returns>The created translation matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.TranslatePrepend(Avalonia.Matrix,System.Double,System.Double)">
+            <summary>
+            Prepends a translation around the center of provided matrix.
+            </summary>
+            <param name="matrix">The matrix to prepend translation.</param>
+            <param name="offsetX">X-coordinate offset.</param>
+            <param name="offsetY">Y-coordinate offset.</param>
+            <returns>The created translation matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Scale(System.Double,System.Double)">
+            <summary>
+            Creates a matrix that scales along the x-axis and y-axis.
+            </summary>
+            <param name="scaleX">Scaling factor that is applied along the x-axis.</param>
+            <param name="scaleY">Scaling factor that is applied along the y-axis.</param>
+            <returns>The created scaling matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.ScaleAt(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a matrix that is scaling from a specified center.
+            </summary>
+            <param name="scaleX">Scaling factor that is applied along the x-axis.</param>
+            <param name="scaleY">Scaling factor that is applied along the y-axis.</param>
+            <param name="centerX">The center X-coordinate of the scaling.</param>
+            <param name="centerY">The center Y-coordinate of the scaling.</param>
+            <returns>The created scaling matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.ScaleAtPrepend(Avalonia.Matrix,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Prepends a scale around the center of provided matrix.
+            </summary>
+            <param name="matrix">The matrix to prepend scale.</param>
+            <param name="scaleX">Scaling factor that is applied along the x-axis.</param>
+            <param name="scaleY">Scaling factor that is applied along the y-axis.</param>
+            <param name="centerX">The center X-coordinate of the scaling.</param>
+            <param name="centerY">The center Y-coordinate of the scaling.</param>
+            <returns>The created scaling matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.ScaleAndTranslate(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a translation and scale matrix using the specified offsets and scales along the x-axis and y-axis.
+            </summary>
+            <param name="scaleX">Scaling factor that is applied along the x-axis.</param>
+            <param name="scaleY">Scaling factor that is applied along the y-axis.</param>
+            <param name="offsetX">X-coordinate offset.</param>
+            <param name="offsetY">Y-coordinate offset.</param>
+            <returns>The created translation and scale matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Skew(System.Single,System.Single)">
+            <summary>
+            Creates a skew matrix.
+            </summary>
+            <param name="angleX">Angle of skew along the X-axis in radians.</param>
+            <param name="angleY">Angle of skew along the Y-axis in radians.</param>
+            <returns>When the method completes, contains the created skew matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Rotation(System.Double)">
+            <summary>
+            Creates a matrix that rotates.
+            </summary>
+            <param name="radians">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis.</param>
+            <returns>The created rotation matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Rotation(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a matrix that rotates about a specified center.
+            </summary>
+            <param name="angle">Angle of rotation in radians.</param>
+            <param name="centerX">The center X-coordinate of the rotation.</param>
+            <param name="centerY">The center Y-coordinate of the rotation.</param>
+            <returns>The created rotation matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.Rotation(System.Double,Avalonia.Vector)">
+            <summary>
+            Creates a matrix that rotates about a specified center.
+            </summary>
+            <param name="angle">Angle of rotation in radians.</param>
+            <param name="center">The center of the rotation.</param>
+            <returns>The created rotation matrix.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.MatrixHelper.TransformPoint(Avalonia.Matrix,Avalonia.Point)">
+            <summary>
+            Transforms a point by this matrix.
+            </summary>
+            <param name="matrix">The matrix to use as a transformation matrix.</param>
+            <param name="point">>The original point to apply the transformation.</param>
+            <returns>The result of the transformation for the input point.</returns>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.StretchMode">
+            <summary>
+            Describes how content is resized to fill its allocated space.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.StretchMode.None">
+            <summary>
+            The content preserves its original size.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.StretchMode.Fill">
+            <summary>
+            The content is resized to fill the destination dimensions. The aspect ratio is not preserved.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.StretchMode.Uniform">
+            <summary>
+            The content is resized to fit in the destination dimensions while it preserves its native aspect ratio.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.StretchMode.UniformToFill">
+            <summary>
+            The content is resized to fill the destination dimensions while it preserves its native aspect ratio. If the aspect ratio of the destination rectangle differs from the source, the source content is clipped to fit in the destination dimensions.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs">
+            <summary>
+            Zoom changed event arguments.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs.ZoomX">
+            <summary>
+            Gets the zoom ratio for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs.ZoomY">
+            <summary>
+            Gets the zoom ratio for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs.OffsetX">
+            <summary>
+            Gets the pan offset for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs.OffsetY">
+            <summary>
+            Gets the pan offset for y axis.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.ZoomChangedEventHandler">
+            <summary>
+            Zoom changed event handler.
+            </summary>
+            <param name="sender">The sender object.</param>
+            <param name="e">Zoom changed event arguments.</param>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.ZoomBorder">
+            <summary>
+            Pan and zoom control for Avalonia.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.StretchModes">
+            <summary>
+            Gets available stretch modes.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ButtonNames">
+            <summary>
+            Gets available button names.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.PanButtonProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.PanButton"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomSpeedProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomSpeed"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.StretchProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Stretch"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableConstrainsProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableConstrains"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetXProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetX"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetYProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetY"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnablePanProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnablePan"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableZoomProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableZoom"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureZoomProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureZoom"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureRotationProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureRotation"/> avalonia property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureTranslationProperty">
+            <summary>
+            Identifies the <seealso cref="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureTranslation"/> avalonia property.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomChanged">
+            <summary>
+            Zoom changed event.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.PanButton">
+            <summary>
+            Gets or sets pan input button.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomSpeed">
+            <summary>
+            Gets or sets zoom speed ratio.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Stretch">
+            <summary>
+            Gets or sets stretch mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Matrix">
+            <summary>
+            Gets the render transform matrix.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomX">
+            <summary>
+            Gets the zoom ratio for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomY">
+            <summary>
+            Gets the zoom ratio for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetX">
+            <summary>
+            Gets the pan offset for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.OffsetY">
+            <summary>
+            Gets the pan offset for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableConstrains">
+            <summary>
+            Gets or sets flag indicating whether zoom ratio and pan offset constrains are applied.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomX">
+            <summary>
+            Gets or sets minimum zoom ratio for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomX">
+            <summary>
+            Gets or sets maximum zoom ratio for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinZoomY">
+            <summary>
+            Gets or sets minimum zoom ratio for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxZoomY">
+            <summary>
+            Gets or sets maximum zoom ratio for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetX">
+            <summary>
+            Gets or sets minimum offset for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetX">
+            <summary>
+            Gets or sets maximum offset for x axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MinOffsetY">
+            <summary>
+            Gets or sets minimum offset for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.MaxOffsetY">
+            <summary>
+            Gets or sets maximum offset for y axis.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnablePan">
+            <summary>
+            Gets or sets flag indicating whether pan input events are processed.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableZoom">
+            <summary>
+            Gets or sets flag indicating whether input zoom events are processed.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureZoom">
+            <summary>
+            Gets or sets flag indicating whether zoom gesture is enabled.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureRotation">
+            <summary>
+            Gets or sets flag indicating whether rotation gesture is enabled.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.EnableGestureTranslation">
+            <summary>
+            Gets or sets flag indicating whether translation (pan) gesture is enabled.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Controls.PanAndZoom.ZoomBorder"/> class.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ArrangeOverride(Avalonia.Size)">
+            <summary>
+            Arranges the control's child.
+            </summary>
+            <param name="finalSize">The size allocated to the control.</param>
+            <returns>The space taken.</returns>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.OnZoomChanged(Avalonia.Controls.PanAndZoom.ZoomChangedEventArgs)">
+            <summary>
+            Raises <see cref="E:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomChanged"/> event.
+            </summary>
+            <param name="e">Zoom changed event arguments.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Invalidate(System.Boolean)">
+            <summary>
+            Invalidate pan and zoom control.
+            </summary>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.InvalidateProperties">
+            <summary>
+            Invalidate properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.InvalidateElement">
+            <summary>
+            Invalidate child element.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.SetMatrix(Avalonia.Matrix)">
+            <summary>
+            Set pan and zoom matrix.
+            </summary>
+            <param name="matrix">The matrix to set as current.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ResetMatrix">
+            <summary>
+            Reset pan and zoom matrix.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Zoom(System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Zoom to provided zoom value and provided center point.
+            </summary>
+            <param name="zoom">The zoom value.</param>
+            <param name="x">The center point x axis coordinate.</param>
+            <param name="y">The center point y axis coordinate.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomTo(System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Zoom to provided zoom ratio and provided center point.
+            </summary>
+            <param name="ratio">The zoom ratio.</param>
+            <param name="x">The center point x axis coordinate.</param>
+            <param name="y">The center point y axis coordinate.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomIn">
+            <summary>
+            Zoom in one step positive delta ratio and panel center point.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomOut">
+            <summary>
+            Zoom out one step positive delta ratio and panel center point.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ZoomDeltaTo(System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Zoom to provided zoom delta ratio and provided center point.
+            </summary>
+            <param name="delta">The zoom delta ratio.</param>
+            <param name="x">The center point x axis coordinate.</param>
+            <param name="y">The center point y axis coordinate.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.PanDelta(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Pan control to provided delta.
+            </summary>
+            <param name="dx">The target x axis delta.</param>
+            <param name="dy">The target y axis delta.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Pan(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Pan control to provided target point.
+            </summary>
+            <param name="x">The target point x axis coordinate.</param>
+            <param name="y">The target point y axis coordinate.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.BeginPanTo(System.Double,System.Double)">
+            <summary>
+            Set pan origin.
+            </summary>
+            <param name="x">The origin point x axis coordinate.</param>
+            <param name="y">The origin point y axis coordinate.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ContinuePanTo(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Continue pan to provided target point.
+            </summary>
+            <param name="x">The target point x axis coordinate.</param>
+            <param name="y">The target point y axis coordinate.</param>
+            <param name="invalidateScroll">The flag indicating whether to invalidate scroll.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.None(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Zoom and pan.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Fill(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Zoom and pan to fill panel.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Uniform(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Zoom and pan to panel extents while maintaining aspect ratio.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.UniformToFill(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Zoom and pan to panel extents while maintaining aspect ratio. If aspect of panel is different panel is filled.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.AutoFit(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Zoom and pan child element inside panel using stretch mode.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.ToggleStretchMode">
+            <summary>
+            Set next stretch mode.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.None">
+            <summary>
+            Zoom and pan.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Fill">
+            <summary>
+            Zoom and pan to fill panel.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.Uniform">
+            <summary>
+            Zoom and pan to panel extents while maintaining aspect ratio.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.UniformToFill">
+            <summary>
+            Zoom and pan to panel extents while maintaining aspect ratio. If aspect of panel is different panel is filled.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomBorder.AutoFit">
+            <summary>
+            Zoom and pan child element inside panel using stretch mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Avalonia#Controls#Primitives#IScrollable#Extent">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Avalonia#Controls#Primitives#IScrollable#Offset">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Controls.PanAndZoom.ZoomBorder.Avalonia#Controls#Primitives#IScrollable#Viewport">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Controls.PanAndZoom.ZoomHelper">
+            <summary>
+            Zoom helper methods.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomHelper.CalculateMatrix(System.Double,System.Double,System.Double,System.Double,Avalonia.Controls.PanAndZoom.StretchMode)">
+            <summary>
+            Calculate pan and zoom matrix based on provided streatch mode.
+            </summary>
+            <param name="panelWidth">The panel width.</param>
+            <param name="panelHeight">The panel height.</param>
+            <param name="elementWidth">The element width.</param>
+            <param name="elementHeight">The element height.</param>
+            <param name="mode">The stretch mode.</param>
+        </member>
+        <member name="M:Avalonia.Controls.PanAndZoom.ZoomHelper.CalculateScrollable(Avalonia.Rect,Avalonia.Matrix,Avalonia.Size@,Avalonia.Size@,Avalonia.Vector@)">
+            <summary>
+            Calculate scrollable properties.
+            </summary>
+            <param name="source">The source bounds.</param>
+            <param name="matrix">The transform matrix.</param>
+            <param name="extent">The extent of the scrollable content.</param>
+            <param name="viewport">The size of the viewport.</param>
+            <param name="offset">The current scroll offset.</param>
+        </member>
+    </members>
+</doc>
