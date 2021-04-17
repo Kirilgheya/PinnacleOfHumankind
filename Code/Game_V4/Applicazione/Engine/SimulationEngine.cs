@@ -16,6 +16,8 @@ namespace MainGame.Applicazione.Engine
         public static List<Star>  resultOfGenerateStar;
         protected static Stopwatch watch;
         static Random random = new Random();
+
+  
         public static void generateStars(int _number=0,List<ChemicalElement> chemicalElements = null
                                             , List<double> percentage = null)
         {
