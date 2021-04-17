@@ -18,6 +18,8 @@ namespace GameUI.UI.DataSource
     public class Planet : IBodyTreeViewItem
     {
 
+        private string SpritePath = "Res\\Planets\\DryPlanet.png";
+        private string animatedSpritePath = "Res\\Planets\\DryPlanet.gif";
         public GameCore.Planet relatedPlanet
         {
             get { return _relatedPlanet; }
@@ -92,7 +94,7 @@ namespace GameUI.UI.DataSource
 
             var image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet_gif.gif");
+            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + SpritePath);
             image.EndInit();
             ImageBehavior.SetAnimatedSource(Control_image, image);
             //ImageBehavior.SetAnimationSpeedRatio(Control_image, 4);
@@ -128,7 +130,7 @@ namespace GameUI.UI.DataSource
 
             var image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Res\\Planets\\planet_gif.gif");
+            image.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + animatedSpritePath);
             image.EndInit();
             ImageBehavior.SetAnimatedSource(Control_image, image);
             //ImageBehavior.SetAnimationSpeedRatio(Control_image, 4);

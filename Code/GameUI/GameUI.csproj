@@ -207,5 +207,15 @@
   <ItemGroup>
     <Folder Include="Res\Sounds\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Res\Planets\DryPlanet.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Res\Planets\DryPlanet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
