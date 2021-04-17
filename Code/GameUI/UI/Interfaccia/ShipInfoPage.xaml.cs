@@ -54,7 +54,7 @@ namespace GameUI.UI.Interfaccia
                     Grid.SetColumn(btn, column);
                     Grid.SetRow(btn, row);
 
-                    row++;
+                    row++; 
                 }
                 row = 0;
                 column++;
