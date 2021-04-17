@@ -28,7 +28,10 @@ namespace GameUI.UI.DataSource
 
         private int _currentAngle = -1;
 
+        SolidColorBrush StrokeColor = new SolidColorBrush() { Color = Colors.Red };
+        private int StrokeThickeness = 4;
 
+        SolidColorBrush Transparent = new SolidColorBrush() { Color = Colors.Transparent };
 
         public double Temperature
         {
@@ -188,5 +191,19 @@ namespace GameUI.UI.DataSource
             }
         }
 
+        protected override void UpdateHiglight()
+        {
+            if (this.selected)
+            {
+                this.Shape.Stroke = StrokeColor;
+                this.Shape.StrokeThickness = StrokeThickeness;
+
+            }
+            else
+            {
+                this.Shape.Stroke = Transparent;
+                this.Shape.StrokeThickness = 0;
+            }
+        }
     }
 }

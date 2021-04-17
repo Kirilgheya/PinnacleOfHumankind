@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameUI.UI.GameEngine;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,7 +26,38 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         protected abstract void setChildren();
 
+        private bool _selected = false;
+        public bool selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+                if (value)
+                {
+                    if (!GameSession.selected.Contains(this))
+                    {
+                        GameSession.selected.Add(this);
 
+                        
+                    }                  
+                }
+                else
+                {
+                    if (GameSession.selected.Contains(this))
+                    {
+                        GameSession.selected.Remove(this);
+                    }
+                }
+
+                this.UpdateHiglight();
+            }
+        }
+
+        protected abstract void UpdateHiglight();
 
         public Ellipse drawBody( double scale = 1)
         {

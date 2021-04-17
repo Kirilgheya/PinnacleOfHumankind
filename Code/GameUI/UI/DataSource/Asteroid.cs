@@ -89,5 +89,10 @@ namespace GameUI.UI.DataSource
                 this.angleOnOrbit += increment;
             }
         }
+
+        protected override void UpdateHiglight()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

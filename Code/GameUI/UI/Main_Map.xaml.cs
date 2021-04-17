@@ -64,6 +64,13 @@ namespace GameUI.UI
 
             timer.Tick += (s, ev) => btn_advance_time.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             timer.Interval = new TimeSpan(0, 0, 0,1,000);
+
+            GameSession.map = this;
+        }
+
+        internal void redrawSystem()
+        {
+            draw_system(selected_SS);
         }
 
         private void generate_Star_System(Boolean _forceRecreate = false)
@@ -315,6 +322,11 @@ namespace GameUI.UI
 
                 find_node(star.Name, true);
 
+                if (GameSession.selected.Contains(star))
+                {
+                    star.selected = true;
+                }
+
                 n++;
             }
 
@@ -367,6 +379,12 @@ namespace GameUI.UI
 
 
                 find_node(planet.Name, true);
+
+
+                if (GameSession.selected.Contains(planet))
+                {
+                    planet.selected = true;
+                }
 
                 n++;
             }
@@ -558,14 +576,30 @@ namespace GameUI.UI
         {
             if (!(e.OriginalSource is Canvas))
             {
-                UIStaticClass.Show_body_info(e.OriginalSource);
-                return;
-            }
+             
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
 
-            //Capture Mouse
-            cv_backspace.CaptureMouse();
-            //Store click position relation to Parent of the canvas
-            _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+                    if (UIStaticClass.Show_body_info(e.OriginalSource))
+                    {
+                        draw_system(selected_SS);
+                    }
+                    return;
+                }
+                else
+                {
+                    GameSession.UpdateSelected((e.OriginalSource as Ellipse).Tag as IBodyTreeViewItem);
+
+                }
+            }
+            else
+            {
+
+                //Capture Mouse
+                cv_backspace.CaptureMouse();
+                //Store click position relation to Parent of the canvas
+                _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+            }
         }
 
         private void cv_backspace_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.DataSource;
+using GameUI.UI.DataSource.UIItems_DS;
 using Polenter.Serialization;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,50 @@ namespace GameUI.UI.GameEngine
         public static List<StarSystem> GameSessionSystems { get; set; }
         public static String filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
         public static String filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
+
+        internal static bool UpdateSelected(IBodyTreeViewItem item)
+        {
+            if (selected.Contains(item))
+            {
+                selected.Remove(item);
+
+                item.selected = false;
+            }
+            else
+            {
+                selected.Add(item);
+
+                item.selected = true;
+
+                return true;
+            }
+
+            return false;
+        }
+
         public static String folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
         public static double timeStep = 0;
 
 
+        public static List<IBodyTreeViewItem> selected = new List<IBodyTreeViewItem>();
+
+        public static bool somethingSelected
+        {
+            get
+            {
+                return selected.Count > 0;
+            }
+        }
+
+
 
         public static String musicDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "Res\\Sounds\\";
+
+        internal static void Map_UpdateRequested()
+        {
+            map.redrawSystem();
+        }
+
         public static List<String> AudioFiles = new List<string>();
 
 
@@ -36,6 +75,8 @@ namespace GameUI.UI.GameEngine
         public static int playing = 0;
 
         private static bool _audio;
+        internal static Main_Map map;
+
         public static bool audio
         {
             set
@@ -186,6 +227,8 @@ namespace GameUI.UI.GameEngine
                 MusicPlayer.SoundFinished += player_SoundFinished;
             }
         }
+
+
     }
 
 

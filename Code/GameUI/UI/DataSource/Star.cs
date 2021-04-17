@@ -20,17 +20,26 @@ namespace GameUI.UI.DataSource
     public class Star : IBodyTreeViewItem
     {
 
-        public GameCore.Star relatedStar;
-       
 
-        public double Temperature {
-                get {
-                    return this.relatedStar.Surface_temperature;
-                }
+        SolidColorBrush StrokeColor = new SolidColorBrush() { Color = Colors.Green };
+        private int StrokeThickeness = 4;
+
+        SolidColorBrush Transparent = new SolidColorBrush() { Color = Colors.Transparent };
+
+
+        public GameCore.Star relatedStar;
+
+
+        public double Temperature
+        {
+            get
+            {
+                return this.relatedStar.Surface_temperature;
+            }
         }
 
 
-       
+
         public Star(GameCore.Star _generatedStar)
         {
 
@@ -45,7 +54,7 @@ namespace GameUI.UI.DataSource
 
         protected override void setChildren()
         {
-         
+
         }
         protected override void setName()
         {
@@ -101,35 +110,35 @@ namespace GameUI.UI.DataSource
         }
 
 
-       
+
 
         protected override void childrenDrawBody(double scale = 1)
         {
-           
-            
-            double drawsize = relatedStar.relativeRadius  * (1/scale);
 
-            
-            
-            if(drawsize > 50)
+
+            double drawsize = relatedStar.relativeRadius * (1 / scale);
+
+
+
+            if (drawsize > 50)
             {
                 drawsize = 50;
             }
 
-            if(drawsize < 1)
+            if (drawsize < 1)
             {
 
                 drawsize = 20;
             }
 
-            this.Shape = new Ellipse { Width = drawsize, Height = drawsize , Fill = Brushes.Orange };
+            this.Shape = new Ellipse { Width = drawsize, Height = drawsize, Fill = Brushes.Orange };
             this.Shape.ClipToBounds = true;
             Canvas.SetZIndex(this.Shape, 1);
         }
 
         protected override void childrenDrawBody(double x, double y)
         {
-          
+
 
 
 
@@ -139,11 +148,11 @@ namespace GameUI.UI.DataSource
 
         protected override void setSpriteForBody()
         {
-         
+
             //Brush shapeColor = this.getBrushFromStarColor();
             string spriteFolder = AppDomain.CurrentDomain.BaseDirectory + "Res\\Stars\\";
-       
-            switch(this.relatedStar.luminosityClass)
+
+            switch (this.relatedStar.luminosityClass)
             {
 
                 case MainGame.StarClassification_byLum.O:
@@ -184,7 +193,7 @@ namespace GameUI.UI.DataSource
                 case MainGame.StarClassification_byLum.BlackHole:
                     spriteFolder = String.Concat(spriteFolder, "Active_AType_Star");
                     break;
-                       
+
             }
 
             spriteFolder = String.Concat(spriteFolder, ".gif");
@@ -197,16 +206,16 @@ namespace GameUI.UI.DataSource
             image.BeginInit();
             image.UriSource = new Uri(spriteFolder);
             image.EndInit();
-            
+
             ImageBehavior.SetAnimatedSource(Control_image, image);
             Control_image.Width = this.bodyShape.Width;
             Control_image.Height = this.bodyShape.Height;
             VisualBrush starBrush = new VisualBrush();
             starBrush.Visual = Control_image;
             starBrush.Stretch = Stretch.UniformToFill;
-            
+
             this.Shape.Fill = starBrush;
-        
+
         }
 
         protected override void linkShapeToBody()
@@ -252,7 +261,23 @@ namespace GameUI.UI.DataSource
             center.Y = position.Y - this.Shape.Height;
             return center;
         }
+
+
+        protected override void UpdateHiglight()
+        {
+            if (this.selected)
+            {
+                this.Shape.Stroke = StrokeColor;
+                this.Shape.StrokeThickness = StrokeThickeness;
+            }
+            else
+            {
+                this.Shape.Stroke = Transparent;
+                this.Shape.StrokeThickness = 0;
+            }
+        }
     }
+
 
 
 }
