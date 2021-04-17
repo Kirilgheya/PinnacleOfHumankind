@@ -37,6 +37,7 @@
         <Label Content="xy" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_mouse_pos" Grid.Row="2" Grid.Column="0" Height="27" Margin="-5,84,33.667,25.667"/>
         <Button Content=">" HorizontalAlignment="Left" Margin="91,90,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_advance_time" Click="btn_advance_time_Click"  Height="21" RenderTransformOrigin="-0.176,0.475"/>
         <Button Content=">>" HorizontalAlignment="Left" Margin="125,90,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_play_time" Click="btn_play_time_Click"  Height="21"/>
+        <TextBox TextWrapping="Wrap" Text="TextBox" x:Name="txtShip" Grid.Column="1" Grid.RowSpan="1"/>
     </Grid>
 
 </Window>

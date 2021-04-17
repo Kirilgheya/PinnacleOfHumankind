@@ -103,7 +103,7 @@ namespace GameUI.UI.DataSource
 
         protected override void UpdateHiglight()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
