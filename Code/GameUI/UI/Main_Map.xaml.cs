@@ -139,11 +139,24 @@ namespace GameUI.UI
 
                 foreach (TreeElementPlanets p in sys.Children.Where(x => x is TreeElementPlanets).ToList())
                 {
-                    foreach (Planet pl in p.Children)
+                    if (p.Children.First() is Planet)
                     {
-                        SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
+                        foreach (Planet pl in p.Children)
+                        {
+                            SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
+                        }
                     }
-                    break;
+                    if (GameSession.drawAsteroids)
+                    {
+                        if (p.Children.First() is Asteroid)
+                        {
+                            foreach (Asteroid ast in p.Children)
+                            {
+                                SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = ast.Name, Tag = ast });
+                            }
+                        }
+                    }
+                    //break;
                 }
                 n++;
             }
@@ -387,6 +400,62 @@ namespace GameUI.UI
                 }
 
                 n++;
+            }
+
+            if (GameSession.drawAsteroids)
+            {
+                foreach (Asteroid Asteroid in sy.Children.Where(x => x is TreeElementPlanets).ToList()[1].Children.Where(y => y is Asteroid).ToList())
+                {
+
+                    double angolo = 0;
+                    Point originCoordAsteroid = new Point();
+
+                    Ellipse AsteroidShape = Asteroid.drawBody(scale);
+
+                    AsteroidShape.PreviewMouseLeftButtonDown += Ellipse_preview_mouse_left_click;
+
+                    if (!Asteroid.hasMoved())
+                    {
+
+                        UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { Asteroid });
+                    }
+
+                    //Asteroid.advanceTime(-1, increment / Asteroid.relatedAsteroid.relativeRevolutionTime);
+
+                    angolo = Asteroid.angleOnOrbit;
+
+
+                    originCoordAsteroid.X = (get_x_center() - AsteroidShape.Width / 2 - (Asteroid.relatedAsteroid.distance_from_star * this.scale_UAtoCanvasUnit / scale));
+                    originCoordAsteroid.Y = (get_y_center() - AsteroidShape.Width / 2 - (Asteroid.relatedAsteroid.distance_from_star * this.scale_UAtoCanvasUnit / scale));
+
+
+
+
+                    if (originCoordAsteroid.X > 0 && originCoordAsteroid.Y > 0)
+                    {
+                        cv_backspace.Children.Add(AsteroidShape);
+
+                        Asteroid.setPosition(originCoordAsteroid);
+
+                        Point center = new Point(get_x_center(), get_y_center());
+
+                        double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, AsteroidShape, center, originCoordAsteroid, Brushes.Aqua, Asteroid);
+
+                        UIStaticClass.moveBodyOnOrbit(Asteroid, UIStaticClass.DegreeToRadiants(angolo), orbitRadius, new Point(center.X, center.Y), true);
+                    }
+
+
+
+                    find_node(Asteroid.Name, true);
+
+
+                    if (GameSession.selected.Contains(Asteroid))
+                    {
+                        Asteroid.selected = true;
+                    }
+
+                    n++;
+                }
             }
 
             Line line = new Line();

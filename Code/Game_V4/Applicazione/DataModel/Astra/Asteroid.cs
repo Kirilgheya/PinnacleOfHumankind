@@ -11,7 +11,7 @@ namespace MainGame.Applicazione.DataModel
 
         private Core asteroidCore;
 
-        protected String name { get; set; }
+        public String name { get; set; }
         private double planetMass;
         public double mass
         {
@@ -22,7 +22,7 @@ namespace MainGame.Applicazione.DataModel
         public double relCoretemperature { get; set; }
         private double meanDensity;
         protected double asteroidRadius;
-        protected double distance_from_star;
+        public double distance_from_star;
 
         public Asteroid(ChemicalComposition _chemical, double radius_Km, double distance_from_star)
         {

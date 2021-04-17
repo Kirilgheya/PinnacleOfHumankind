@@ -20,6 +20,9 @@ namespace GameUI.UI.GameEngine
     public static class GameSession
     {
 
+        public static bool drawAsteroids = false;
+        public static bool drawAsteroidsOrbits = false;
+
         public static List<StarSystem> GameSessionSystems { get; set; }
         public static String filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
         public static String filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
