@@ -1,5 +1,6 @@
 ﻿using MainGame.Applicazione.DataModel.Astra;
 using MainGame.Applicazione.Engine;
+using MainGame.Applicazione.Engine.Math_Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -370,6 +371,9 @@ namespace MainGame.Applicazione.DataModel
                     createdPlanet = SimulationEngine.createGasGiant(chemicalComposition, radii, distance);
                 }
                 
+                double orbitalPeriod = Formula.OrbitalPeriod(this.stars.getStars().Max<Star>(x => x.Mass), createdPlanet.mass, (Converter.UA_to_Km(distance)) );
+                createdPlanet.setRelativeRevolutionTime(orbitalPeriod);
+
                 this.planets.Add(createdPlanet);
 
                 

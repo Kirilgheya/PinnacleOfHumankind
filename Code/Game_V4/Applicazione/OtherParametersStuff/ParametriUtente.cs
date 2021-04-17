@@ -39,6 +39,7 @@ namespace MainGame.Applicazione
             public static double AU = 1.496 * Math.Pow(10, 8); //km
 			public static double alphaStefBoltz = 5.670374419 * Math.Pow(10, -8); //Stefan–Boltzmann constant
 			public static double idealgasconstant = 8.31446261815324; //J*K^-1*mol^-1
+			public static double meanOrbitalSpeed_t = 29.8; 
 			//public static Function hydrostaticEquilibrium = new Function("HiEq(d,g,h)=(-1*d)*g*h");
 			public static Function hydrostaticEquilibrium = new Function("HiEq(G,M,p,r)=(G*M*p)/r");
         }

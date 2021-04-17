@@ -22,5 +22,16 @@ namespace MainGame.Applicazione.Engine.Math_Engine
 
             return mass / volume;
         }
+
+        public static double OrbitalPeriod(double _starMass, double _planetMass, double _orbitRadius)
+        {
+            //T² = 4 * π² * a³ / μ
+            double μ = (ParametriUtente.Science.G ) * (_starMass + _planetMass);
+            double a = _orbitRadius * 1000;
+
+            double T = Math.Sqrt( (4 * Math.Pow(Math.PI, 2) * Math.Pow(a, 3) / μ) );
+            T = T / 60 / 60 / 24; //seconds to days
+            return T;
+        }
     }
 }
