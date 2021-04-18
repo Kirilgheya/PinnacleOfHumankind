@@ -271,6 +271,7 @@ namespace GameUI.UI
         {
             cv_backspace.Children.Clear();
             Point center = new Point(get_x_center(), get_y_center());
+            double furthestOrbit = 0;
             if (sy == null)
             {
                 return;
@@ -283,6 +284,9 @@ namespace GameUI.UI
             createCenter();
 
             List<IBodyTreeViewItem> StarList = sy.Children.Where(x => x is Star).ToList();
+            List<IBodyTreeViewItem> PlanetList = sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList();
+
+            
 
             foreach (Star star in StarList)
             {
@@ -290,7 +294,7 @@ namespace GameUI.UI
 
                 double angolo = 0;
               
-                starShape = UIStaticClass.RedrawStar(star, scale, StarList.Count(), selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit, angolo);
+                starShape = UIStaticClass.RedrawStar(star,1, StarList.Count(), selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit, angolo);
 
                 cv_backspace.Children.Add(starShape);
 
@@ -333,14 +337,14 @@ namespace GameUI.UI
 
             Random rnd = new Random();
 
-            bool primoGiro = true;
-            foreach (Planet planet in sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList())
+          
+            foreach (Planet planet in )
             {
 
                 double angolo = 0;
                 Point originCoordPlanet = new Point();
 
-                Ellipse planetShape = planet.drawBody(scale);
+                Ellipse planetShape = planet.drawBody();
 
 
                 if(!planet.hasMoved())
@@ -354,8 +358,8 @@ namespace GameUI.UI
                 angolo = planet.angleOnOrbit;
 
 
-                originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
-                originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit / scale));
+                originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
+                originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
 
                 checkLocationX = originCoordPlanet.X;
                 checkLocationX = originCoordPlanet.Y;
@@ -364,14 +368,14 @@ namespace GameUI.UI
                 UADistance = planet.relatedPlanet.distance_from_star;
 
 
-                    cv_backspace.Children.Add(planetShape);
+                cv_backspace.Children.Add(planetShape);
 
-                    planet.setPosition(originCoordPlanet);
+                planet.setPosition(originCoordPlanet);
 
                   
-                    double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, originCoordPlanet, Brushes.Aqua, planet);
+                double orbitRadius = UIStaticClass.generateOrbitForBody(cv_backspace, planetShape, center, originCoordPlanet, Brushes.Aqua, planet);
                    
-                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
+                UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(angolo) , orbitRadius, new Point(center.X, center.Y),true);
            
 
 
@@ -394,7 +398,7 @@ namespace GameUI.UI
                     double angolo = 0;
                     Point originCoordAsteroid = new Point();
 
-                    Ellipse AsteroidShape = Asteroid.drawBody(scale);
+                    Ellipse AsteroidShape = Asteroid.drawBody();
 
                     if (!Asteroid.hasMoved())
                     {
@@ -462,7 +466,6 @@ namespace GameUI.UI
               
                 draw_artificial(fromZoom, fromPan, increment);
 
-                primoGiro = true;
         }
 
         private void createCenter()
