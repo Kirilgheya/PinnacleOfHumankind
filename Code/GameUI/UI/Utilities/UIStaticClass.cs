@@ -294,28 +294,18 @@ namespace GameUI.UI.Utilities
             return eg.RadiusX;
         }
 
-        public static Ellipse RedrawStar( Star star, double scale, int numberOfstars, double deltaFromCenter, double timePassed)
+        public static Ellipse RedrawStar( Star star, double scale, int numberOfstars, double deltaFromCenter)
         {
 
 
-            double angolo = 360 / numberOfstars;
+           
 
             //Draw new stars
 
             Ellipse starShape = star.drawBody(scale);
 
-            Point origStarCoordinates = new Point();
+         
 
-            origStarCoordinates.X = (starShape.Width / 2 + (deltaFromCenter / scale));
-
-            origStarCoordinates.Y = starShape.Width / 2;
-
-            setBodyPosition(star, starShape, origStarCoordinates);
-
-            if (!star.hasMoved())
-            {
-                UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { star });
-            }
 
             //lbl_delta.Content = lbl_delta.Content + "Star: " + selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n];
 
@@ -354,27 +344,10 @@ namespace GameUI.UI.Utilities
 
             _body.position = Point.Add(_body.position, distance);
 
-            TranslateTransform translate = _body.bodyShape.RenderTransform as TranslateTransform;
-
-            
             Canvas.SetLeft(_body.bodyShape, _body.position.X);
             Canvas.SetTop(_body.bodyShape, _body.position.Y);
-            /*
-            if(translate!=null)
-            {
-                translate.X += distance.X;
-                translate.Y += distance.Y;
+      
             
-            }
-            else
-            {
-
-                translate = new TranslateTransform(distance.X, distance.Y);
-            }
-
-            _body.bodyShape.RenderTransform = translate;
-
-            Canvas.GetLeft(_body.bodyShape);*/
         }
 
         public static double DegreeToRadiants(double _degrees = -1, double _radiants = -1)

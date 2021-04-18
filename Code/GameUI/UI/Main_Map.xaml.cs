@@ -270,7 +270,7 @@ namespace GameUI.UI
 
         }
 
-        public void draw_system(StarSystem sy, int increment = 0, bool fromZoom = false, bool fromPan = false)
+        public void draw_system(StarSystem sy)
         {
            
             
@@ -306,8 +306,8 @@ namespace GameUI.UI
                                                     ( (scale_UAtoCanvasUnit * furthestOrbit) / cv_backspace.Width)
                                                 ,1/
                                                    ( (scale_UAtoCanvasUnit  * furthestOrbit) / cv_backspace.Height));
-                Console.WriteLine("La scala è:"+this.scale_UAtoCanvasUnit);
-                Console.WriteLine("L'orbita più lontana è:" + scale_UAtoCanvasUnit * furthestOrbit);
+               // Console.WriteLine("La scala è:"+this.scale_UAtoCanvasUnit);
+               // Console.WriteLine("L'orbita più lontana è:" + scale_UAtoCanvasUnit * furthestOrbit);
             }
           
            
@@ -316,15 +316,33 @@ namespace GameUI.UI
             {
                 Ellipse starShape;
 
-                double angolo = 0;
-              
-                starShape = UIStaticClass.RedrawStar(star,1, StarList.Count(), selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit, angolo);
+                starShape = UIStaticClass.RedrawStar(star,1, StarList.Count(), selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit);
 
+
+                Point origStarCoordinates = new Point();
+
+                if (!star.hasMoved() )
+                {
+                    origStarCoordinates.X = (get_x_center() - starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit ));
+
+                    origStarCoordinates.Y = (get_y_center() - starShape.Width / 2 - (selected_SS.relatedStarSystem.getDeltasFromBarycenter()[n] * this.scale_UAtoCanvasUnit));
+
+
+                    
+                }
+                else
+                {
+
+                    origStarCoordinates = star.position;
+                }
                 cv_backspace.Children.Add(starShape);
+                star.setPosition(origStarCoordinates);
 
-                //this.setPositionRelativeToCenter(starShape, star.position.X, star.position.Y);
+                Console.WriteLine(starShape.Width);
 
-                this.setPositionRelativeToCenter(starShape, star.position.X, star.position.Y);
+               // this.setPositionRelativeToCenter(starShape, origStarCoordinates.X, origStarCoordinates.Y);
+
+              
 
                 if (Canvas.GetLeft(starShape) > 0)
                 {
@@ -339,8 +357,16 @@ namespace GameUI.UI
 
 
                     
+                        if (StarList.Count() > 1 && !star.hasMoved())
+                        {
+                            UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { star });
+                            UIStaticClass.moveBodyOnOrbit(star, UIStaticClass.DegreeToRadiants(star.angleOnOrbit), orbitRadius, new Point(get_x_center(), get_y_center()), true);
+                        }
+                        //UIStaticClass.moveBodyOnOrbit(star,UIStaticClass.DegreeToRadiants(star.angleOnOrbit),orbitRadius,new Point(get_x_center(),get_y_center()),true);
                     }
+                    
 
+                   
                 }
 
                 find_node(star.Name, true);
@@ -365,14 +391,6 @@ namespace GameUI.UI
 
                 Ellipse planetShape = planet.drawBody();
              
-
-          
-                /*
-                planet.advanceTime(-1, increment / planet.relatedPlanet.relativeRevolutionTime);
-
-                angolo = planet.angleOnOrbit;
-                */
-
                 originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
                 originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
 
@@ -395,8 +413,9 @@ namespace GameUI.UI
                 {
 
                     UIStaticClass.ScatterBodiesOnOrbit(new List<IBodyTreeViewItem>() { planet });
-                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(planet.angleOnOrbit), planet.orbitRadius, new Point(get_x_center(), get_y_center()), true);
                 }
+                UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(planet.angleOnOrbit), planet.orbitRadius, new Point(get_x_center(), get_y_center()), true);
+                
 
                 if (GameSession.selected.Contains(planet))
                 {
@@ -454,32 +473,7 @@ namespace GameUI.UI
 
             Line line = new Line();
 
-            if (fromZoom)
-            {
-                //VACCA TROIA
-                line.Visibility = Visibility.Visible;
-                line.StrokeThickness = 4;
-                line.Stroke = Brushes.SteelBlue;
-                line.X1 = this.get_x_center();
-                line.Y1 = 10;
-                line.X2 = Math.Sqrt(Math.Pow(checkLocationX, 2) + Math.Pow(checkLocationX, 2));
-                line.Y2 = 10;
-                line.Stretch = Stretch.UniformToFill;
-                this.cv_backspace.Children.Add(line);
-
-
-
-
-
-                TextBlock text = new TextBlock();
-                text.Text = Math.Round(UADistance, 2).ToString() + " UA";
-                text.Foreground = Brushes.WhiteSmoke;
-                text.FontSize = 8;
-                text.Margin = new Thickness(this.get_x_center() + 2, 5, this.get_x_center() * 2, this.get_y_center() * 2);
-                this.cv_backspace.Children.Add(text);
-            }
-              
-                draw_artificial(fromZoom, fromPan, increment);
+         
 
         }
 
@@ -786,8 +780,7 @@ namespace GameUI.UI
                         if(bodyShape.Tag is Planet)
                         { 
                             find_node((bodyShape.Tag as Planet).Name, true);
-                            Console.Write((bodyShape.Tag as Planet).Name);
-                            Console.WriteLine("Panned position is: "+(bodyShape.Tag as Planet).position);
+                       
                         }
 
                        
@@ -853,9 +846,10 @@ namespace GameUI.UI
 
                     if (StarList.Count() > 1)
                     {
+                        //Console.WriteLine("PreAdvanceTime:" + star.Name + " " + star.angleOnOrbit + "° -" + star.position);
                         star.advanceTime(-1, 1);
                         UIStaticClass.moveBodyOnOrbit(star, star.angleOnOrbit, star.orbitRadius, new Point(get_x_center(), get_y_center()), true);
-                        
+                        //Console.WriteLine("PostAdvanceTime:"+star.Name + " " + star.angleOnOrbit + "° -" + star.position);
                     }
 
                 }
@@ -869,7 +863,7 @@ namespace GameUI.UI
                 /// planet.relatedPlanet.relativeRevolutionTime
        
                 UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(planet.angleOnOrbit), planet.orbitRadius, new Point(get_x_center(), get_y_center()), true);
-                Console.WriteLine("AdvancingTime position is: " + (planet).position);
+                
                 find_node(planet.Name, true);
             }
 

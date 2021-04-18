@@ -63,7 +63,14 @@ namespace GameUI.UI.DataSource
             this.Name = relatedStar.FullName;
 
         }
+        public void setPosition(Point _newPosition)
+        {
 
+            this.position = _newPosition;
+
+            Canvas.SetLeft(this.bodyShape, this.position.X);
+            Canvas.SetTop(this.bodyShape, this.position.Y);
+        }
         public Brush getBrushFromStarColor()
         {
 
@@ -125,7 +132,7 @@ namespace GameUI.UI.DataSource
                 drawsize = 50;
             }
 
-            if (drawsize < 1)
+            if (drawsize < 20)
             {
 
                 drawsize = 20;
