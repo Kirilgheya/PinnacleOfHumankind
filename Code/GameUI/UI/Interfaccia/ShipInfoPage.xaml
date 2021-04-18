@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameUI.UI.Interfaccia"
         mc:Ignorable="d"
-        Title="ShipInfoPage" Height="750" Width="1046" Background="Black" Closed="Window_Closed">
+        Title="ShipInfoPage" Height="750" Width="1046" Background="Black" Closed="Window_Closed" WindowStartupLocation="CenterScreen" Topmost="True">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>

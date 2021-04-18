@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.GameEngine;
+using GameUI.UI.Interfaccia;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,11 @@ namespace GameUI.UI.DataSource.UIItems_DS
 {
     public abstract class IBodyTreeViewItem
     {
+        public PlanetInfoPage PlanetInfoP = new PlanetInfoPage();
+
+        public ShipInfoPage ShipInfoP = new ShipInfoPage();
+
+
 
         public Ellipse Shape;
         public Ellipse bodyShape { get { return Shape; } }
