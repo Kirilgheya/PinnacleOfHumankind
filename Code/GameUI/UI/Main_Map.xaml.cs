@@ -48,7 +48,7 @@ namespace GameUI.UI
         private double vertical_offset = 0;
 
         private Point _pointOnClick; // Click Position for panning
-        private Point MouseLocation;
+        
         
         private bool timePassing;
 
@@ -699,7 +699,7 @@ namespace GameUI.UI
 
                     if (UIStaticClass.Show_body_info(e.OriginalSource))
                     {
-                        draw_system(selected_SS);
+                        
                     }
                     return;
                 }
@@ -736,22 +736,41 @@ namespace GameUI.UI
 
         private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
         {
-            MouseLocation = new Point(e.GetPosition((FrameworkElement)cv_backspace).X, e.GetPosition((FrameworkElement)cv_backspace).Y);
+         
             lbl_mouse_pos.Content = "X " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).X) + " Y " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).Y);
 
-            //Return if mouse is not captured
-            if (!cv_backspace.IsMouseCaptured) return;
-            //Point on move from Parent
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
+
+         
+
+            //Return if mouse is not captured
+            if (cv_backspace.IsMouseCaptured)
+            {
+
+                horizontal_offset -= (_pointOnClick.X - pointOnMove.X);
+                vertical_offset -= (_pointOnClick.Y - pointOnMove.Y);
+
+                foreach (UIElement element in cv_backspace.Children)
+                {
+
+                    if(element is Shape)
+                    {
+
+                        Shape bodyShape = element as Shape;
+                        bodyShape.RenderTransform = new TranslateTransform(horizontal_offset, vertical_offset);
+                    }
+                }
+            }
+            //Point on move from Parent
+       
             //set TranslateTransform
-            horizontal_offset -= (_pointOnClick.X - pointOnMove.X) ;
-            vertical_offset -=  (_pointOnClick.Y - pointOnMove.Y);
+           
             //Update pointOnClic
             _pointOnClick = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
-            Console.WriteLine(horizontal_offset + " / " + vertical_offset);
+            //Console.WriteLine(horizontal_offset + " / " + vertical_offset);
      
-            draw_system(selected_SS,0,false,true);
+            // draw_system(selected_SS,0,false,true);
             
         }
 
