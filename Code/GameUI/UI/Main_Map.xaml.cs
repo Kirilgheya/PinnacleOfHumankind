@@ -520,6 +520,7 @@ namespace GameUI.UI
                             (art as Ship).redrawPan(horizontal_offset, vertical_offset);
                         }
 
+                        cv_backspace.Children.Remove((art as Ship).Shape);
                         cv_backspace.Children.Add((art as Ship).Shape);
 
                         txtShip.Text = (art as Ship).Position.X + " " + (art as Ship).Position.Y;
@@ -873,7 +874,7 @@ namespace GameUI.UI
                 find_node(planet.Name, true);
             }
 
-    
+            draw_artificial(false,false,1);
 
             //draw_system(selected_SS, + 1);
 
