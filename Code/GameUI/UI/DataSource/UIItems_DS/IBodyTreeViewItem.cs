@@ -17,7 +17,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         public ShipInfoPage ShipInfoP = new ShipInfoPage();
 
-
+        public double orbitRadius;
 
         public Ellipse Shape;
         public Ellipse bodyShape { get { return Shape; } }

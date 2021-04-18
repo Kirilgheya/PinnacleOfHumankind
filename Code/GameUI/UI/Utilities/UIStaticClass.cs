@@ -244,7 +244,7 @@ namespace GameUI.UI.Utilities
           
         }
 
-        public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null, object body = null)
+        public static double generateOrbitForBody(Canvas _canvas, Ellipse _body,Point _center, Point _bodyCoordinates, SolidColorBrush _color = null, IBodyTreeViewItem body = null)
         {
 
             if(_color == null)
@@ -288,6 +288,8 @@ namespace GameUI.UI.Utilities
 
             Canvas.SetZIndex(orbitPath, 0);
             Canvas.SetZIndex(line, 0);
+
+            body.orbitRadius = eg.RadiusX;
 
             return eg.RadiusX;
         }
@@ -348,38 +350,31 @@ namespace GameUI.UI.Utilities
             */
             nextPosition = new Point(x, y);
 
-            _body.position = nextPosition;
-  
+            Vector distance = Point.Subtract(nextPosition, _body.position);
 
-            Canvas.SetLeft(_body.bodyShape, _body.position.X);
-            Canvas.SetTop(_body.bodyShape, _body.position.Y);
+            _body.position = Point.Add(_body.position, distance);
+
+            TranslateTransform translate = _body.bodyShape.RenderTransform as TranslateTransform;
 
             
-
-        }
-
-        public static void moveBodyOnOrbit2(Planet _body, double _radiants, double _orbitradius, Point _origin, Boolean _isClockwise)
-        {
-
-            Point nextPosition;
-            double x, y;
-
-            if (_isClockwise)
-            {
-                _radiants = _radiants * -1;
-            }
-            x = (Math.Cos(_radiants) * _orbitradius) + _origin.X - (_body.bodyShape.Width / 2);
-            y = (Math.Sin(_radiants) * _orbitradius) + _origin.Y - (_body.bodyShape.Width / 2);
-
+            Canvas.SetLeft(_body.bodyShape, _body.position.X);
+            Canvas.SetTop(_body.bodyShape, _body.position.Y);
             /*
-            x =  (Math.Cos(_degrees) * _body.position.X) + (Math.Sin(_degrees) * _body.position.Y);
-            y = -(Math.Sin(_degrees) * _body.position.X) + (Math.Cos(_degrees) * _body.position.Y);
-            */
-            nextPosition = new Point(x, y);
+            if(translate!=null)
+            {
+                translate.X += distance.X;
+                translate.Y += distance.Y;
+            
+            }
+            else
+            {
 
-            _body.position = nextPosition;
+                translate = new TranslateTransform(distance.X, distance.Y);
+            }
 
+            _body.bodyShape.RenderTransform = translate;
 
+            Canvas.GetLeft(_body.bodyShape);*/
         }
 
         public static double DegreeToRadiants(double _degrees = -1, double _radiants = -1)
