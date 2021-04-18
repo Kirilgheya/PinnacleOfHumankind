@@ -913,9 +913,221 @@ namespace GameUI.UI
                 }
             }
         }
+
+        private void ExitCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("no");
+        }
+
+        private void RaceCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void RaceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Race");
+        }
+
+        private void EmpireCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void EmpireCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Empire");
+        }
+
+        private void ScienceCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Scince");
+        }
+
+        private void LogCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void LogCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Log");
+        }
+
+        private void PlanetCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void PlanetCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Planet");
+        }
+
+        private void ProjectCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ProjectCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Project");
+        }
+
+        private void MarketCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void MarketCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Market");
+        }
+
+        private void SettingsCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void SettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Settings");
+        }
+
+        private void DiplomacyCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void DiplomacyCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Diplomacy");
+        }
     }
 
-   
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand Exit = new RoutedUICommand
+            (
+                "Exit",
+                "Exit",
+                typeof(CustomCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+                }
+            );
+
+        public static readonly RoutedUICommand Race = new RoutedUICommand
+          (
+              "Race",
+              "Race",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Empire = new RoutedUICommand
+          (
+              "Empire",
+              "Empire",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Science = new RoutedUICommand
+          (
+              "Science",
+              "Science",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Log = new RoutedUICommand
+          (
+              "Log",
+              "Log",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Settings = new RoutedUICommand
+          (
+              "Settings",
+              "Settings",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Planet = new RoutedUICommand
+          (
+              "Planet",
+              "Planet",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Project = new RoutedUICommand
+          (
+              "Project",
+              "Project",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Market = new RoutedUICommand
+          (
+              "Market",
+              "Market",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+
+        public static readonly RoutedUICommand Diplomacy = new RoutedUICommand
+          (
+              "Diplomacy",
+              "Diplomacy",
+              typeof(CustomCommands),
+              new InputGestureCollection()
+              {
+                    new KeyGesture(Key.F4, ModifierKeys.Alt)
+              }
+          );
+        //Define more commands here, just like the one above
+    }
 
 
 }
