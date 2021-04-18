@@ -42,7 +42,7 @@ namespace GameUI.UI
         public static StarSystem selected_SS = null;
 
         private double scale = 10;
-        private double scale_UAtoCanvasUnit = 600;
+        private double scale_UAtoCanvasUnit;
 
         private double horizontal_offset = 0;
         private double vertical_offset = 0;
@@ -270,8 +270,10 @@ namespace GameUI.UI
         public void draw_system(StarSystem sy, int increment = 0, bool fromZoom = false, bool fromPan = false)
         {
             cv_backspace.Children.Clear();
+
             Point center = new Point(get_x_center(), get_y_center());
             double furthestOrbit = 0;
+
             if (sy == null)
             {
                 return;
@@ -284,9 +286,27 @@ namespace GameUI.UI
             createCenter();
 
             List<IBodyTreeViewItem> StarList = sy.Children.Where(x => x is Star).ToList();
-            List<IBodyTreeViewItem> PlanetList = sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).ToList();
+            List<Planet> PlanetList = sy.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).Cast<Planet>().ToList<Planet>();
 
-            
+            furthestOrbit = PlanetList.Max<Planet>(x => x.relatedPlanet.distance_from_star);
+
+
+            scale_UAtoCanvasUnit = 600;
+
+            if ( (scale_UAtoCanvasUnit * furthestOrbit > cv_backspace.Width) || (scale_UAtoCanvasUnit * furthestOrbit > cv_backspace.Height))
+            {
+
+                
+
+                this.scale_UAtoCanvasUnit *= Math.Min(1 / 
+                                                    ( (scale_UAtoCanvasUnit * furthestOrbit) / cv_backspace.Width)
+                                                ,1/
+                                                   ( (scale_UAtoCanvasUnit  * furthestOrbit) / cv_backspace.Height));
+                Console.WriteLine("La scala è:"+this.scale_UAtoCanvasUnit);
+                Console.WriteLine("L'orbita più lontana è:" + scale_UAtoCanvasUnit * furthestOrbit);
+            }
+          
+           
 
             foreach (Star star in StarList)
             {
@@ -338,7 +358,7 @@ namespace GameUI.UI
             Random rnd = new Random();
 
           
-            foreach (Planet planet in )
+            foreach (Planet planet in PlanetList)
             {
 
                 double angolo = 0;
@@ -636,7 +656,7 @@ namespace GameUI.UI
         {
             zoom += zoomSpeed * e.Delta; // Ajust zooming speed (e.Delta = Mouse spin value )
             if (zoom < zoomMin) { zoom = zoomMin; } // Limit Min Scale
-            if (zoom > zoomMax) { zoom = zoomMax; } // Limit Max Scale
+            //if (zoom > zoomMax) { zoom = zoomMax; } // Limit Max Scale
 
             Point mousePos = e.GetPosition(cv_backspace);
 
