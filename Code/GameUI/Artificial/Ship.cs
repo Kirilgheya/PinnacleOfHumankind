@@ -83,26 +83,46 @@ namespace GameUI.Artificial
 
         private void SetComponenetList()
         {
-
+            int n = 0;
+            int m = 0;
             ShipsComponentsList = new List<ComponentsEnumerator>();
 
             foreach (List<ShipSector> secList in Structure)
             {
+                
+                m = 0;
                 foreach (ShipSector s in secList)
+                {
+                    s.x = n;
+                    s.y = m;
 
                     foreach (ShipComponents c in s.SectorComponents)
                     {
-                        if (ShipsComponentsList.Where(p => p.comp.Equals(c)).Count() == 0 )
+                        if (ShipsComponentsList.Where(p => p.comp.Equals(c)).Count() == 0)
                         {
-                            ShipsComponentsList.Add( new ComponentsEnumerator(c, 1, 1));
+                            int active = 0;
+                            if (c.active)
+                            {
+                                active = 1;
+                            }
+                            ShipsComponentsList.Add(new ComponentsEnumerator(c, active, 1));
                         }
                         else
                         {
-                            ShipsComponentsList.Where(x => x.comp.Equals(c)).ToList().ForEach(x => x.totali++) ;
-                            ShipsComponentsList.Where(x => x.comp.Equals(c) && x.comp.active).ToList().ForEach(x => x.attivi++);
+                           
+                            if (c.active)
+                            {
+                                ShipsComponentsList.Where(x => x.comp.Equals(c) && x.comp.active).ToList().ForEach(x => x.attivi++);
+                            }
+                            ShipsComponentsList.Where(x => x.comp.Equals(c)).ToList().ForEach(x => x.totali++);
+
+                            
                         }
                     }
-
+                    
+                    m++;
+                }
+                n++;
             }
         }
 
@@ -185,9 +205,52 @@ namespace GameUI.Artificial
 
         public void Setdamage(int Damage, int x, int y)
         {
-            Structure[x][y].allocateDamage(Damage);
+            if (Structure[x][y].HP > 0)
+            {
+                Structure[x][y].allocateDamage(Damage);
 
-            SetComponenetList();
+                SetComponenetList();
+            }
+        }
+
+        public void Setdamage(int Damage, Point p)
+        {
+            Setdamage(Damage, (int)(p.X), (int)(p.Y));
+        }
+
+        public  List<Point> GetvalidDamageLocations()
+        {
+            List<Point> to_return = new List<Point>();
+
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    if (s.HP > 0)
+                    {
+                        to_return.Add(new Point(s.x, s.y));
+                    }
+                }
+
+                   
+            }
+            return to_return;
+        }
+
+        public Point GetRandomValidDamageLocation()
+        {
+            List<Point> validList = GetvalidDamageLocations();
+
+            if(validList.Count == 0)
+            {
+                throw new Exception("Ship already destroyed");
+            }
+
+            var random = new Random();
+
+            int a = random.Next(validList.Count);
+
+            return validList[a];
         }
 
         public class ComponentsEnumerator

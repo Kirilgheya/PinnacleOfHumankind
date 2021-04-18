@@ -31,6 +31,8 @@ namespace GameUI.UI.Interfaccia
 
         public void LoadInfo(Ship s)
         {
+            cv_back.Children.Clear();
+
             Ellipse el = new Ellipse();
 
             el.Width = 200;
@@ -48,10 +50,10 @@ namespace GameUI.UI.Interfaccia
                 txtInfo.Text += "\n " + sc.comp.Name + " TOTAL " + sc.totali + " ACTIVE " + sc.attivi;
             }
 
-           
+            shipBluePrint.RowDefinitions.Clear();
+            shipBluePrint.ColumnDefinitions.Clear();
+            shipBluePrint.Children.Clear();
 
-            int column = 0;
-            int row = 0;
             foreach(List<ShipSector> Lsec in s.Structure)
             {
                 shipBluePrint.ColumnDefinitions.Add(new ColumnDefinition());             
@@ -60,7 +62,7 @@ namespace GameUI.UI.Interfaccia
                     shipBluePrint.RowDefinitions.Add(new RowDefinition());
 
                     Button btn = new Button();
-                    btn.Content = column.ToString() + " " + row.ToString() + " " + sec.SectorComponents.First().Name + " HP " + sec.HP;
+                    btn.Content = sec.x.ToString() + " " + sec.y.ToString() + " " + sec.SectorComponents.First().Name + " HP " + sec.HP;
 
                     if(sec.SectorComponents.Where(x => x.active).Count() == 0)
                     {
@@ -69,13 +71,11 @@ namespace GameUI.UI.Interfaccia
 
                     shipBluePrint.Children.Add(btn);
 
-                    Grid.SetColumn(btn, column);
-                    Grid.SetRow(btn, row);
+                    Grid.SetColumn(btn, sec.x);
+                    Grid.SetRow(btn, sec.y);
 
-                    row++; 
                 }
-                row = 0;
-                column++;
+
             }
 
             ship = s;
@@ -88,8 +88,15 @@ namespace GameUI.UI.Interfaccia
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ship.Setdamage(1, 0, 0);
+            try
+            {
+                ship.Setdamage(1, ship.GetRandomValidDamageLocation());
 
+            }
+            catch(Exception exc)
+            {
+                return;
+            }
             LoadInfo(ship);
         }
     }
