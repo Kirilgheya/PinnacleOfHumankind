@@ -4,42 +4,65 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameUI.UI"
+        xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         mc:Ignorable="d"
         Title="Main_Map" Height="450" Width="800" WindowState="Maximized" >
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.Race" CanExecute="RaceCommand_CanExecute" Executed="RaceCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Empire" CanExecute="EmpireCommand_CanExecute" Executed="EmpireCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Log" CanExecute="LogCommand_CanExecute" Executed="LogCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Planet" CanExecute="PlanetCommand_CanExecute" Executed="PlanetCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Project" CanExecute="ProjectCommand_CanExecute" Executed="ProjectCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Market" CanExecute="MarketCommand_CanExecute" Executed="MarketCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.Diplomacy" CanExecute="DiplomacyCommand_CanExecute" Executed="DiplomacyCommand_Executed" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="638*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="284*"></RowDefinition>
             <RowDefinition Height="137*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" >
+        <Border Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
             <Viewbox  VerticalAlignment="Stretch" ClipToBounds="True" HorizontalAlignment="Stretch"  x:Name="ZoomViewbox"  Stretch="UniformToFill" >
                 <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  x:Name="cv_backspace" Width="1481" Height="957" MouseLeftButtonDown="cv_backspace_MouseLeftButtonDown" MouseLeftButtonUp="cv_backspace_MouseLeftButtonUp" MouseMove="cv_backspace_MouseMove" Background="Black" MouseWheel="Canvas_MouseWheel" MouseRightButtonUp="cv_backspace_MouseRightButtonUp">
                     <Canvas.RenderTransform>
                         <MatrixTransform></MatrixTransform>
                     </Canvas.RenderTransform>
-                    <!--<Canvas.Background>
-                    <ImageBrush ImageSource="/Res/universebackground.jpg" Stretch="UniformToFill"/>
-                </Canvas.Background>-->
                 </Canvas>
             </Viewbox>
         </Border>
-        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="1" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged" Grid.RowSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged"/>
-        <Button Content="recreate" HorizontalAlignment="Left" Margin="64,1,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click" Height="21"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,61,0,0" Grid.Row="2" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120" x:Name="txt_scale" TextChanged="txt_scale_TextChanged"/>
-        <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="2" Grid.Column="0" Margin="-1,110,5.667,-0.333" Height="27"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,33,0,0" Grid.Row="2" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="50" x:Name="txt_orbit" />
-        <Button Content="Save Data" HorizontalAlignment="Left" Margin="64,34,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" Height="21"/>
-        <Button Content="0" HorizontalAlignment="Left" Margin="125,60,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_reset_zoom_pan" Click="btn_reset_zoom_pan_Click"  Height="21"/>
-        <Label Content="xy" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_mouse_pos" Grid.Row="2" Grid.Column="0" Height="27" Margin="-5,84,33.667,25.667"/>
-        <Button Content=">" HorizontalAlignment="Left" Margin="91,90,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_advance_time" Click="btn_advance_time_Click"  Height="21" RenderTransformOrigin="-0.176,0.475"/>
-        <Button Content=">>" HorizontalAlignment="Left" Margin="125,90,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_play_time" Click="btn_play_time_Click"  Height="21"/>
-        <TextBox TextWrapping="Wrap" Text="TextBox" x:Name="txtShip" Grid.Column="1" Grid.RowSpan="1"/>
+        <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged" Grid.ColumnSpan="2"/>
+        <Button Content="recreate" HorizontalAlignment="Left" Margin="38,1.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click" Height="21" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,58.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="119" x:Name="txt_scale" TextChanged="txt_scale_TextChanged" Grid.ColumnSpan="2"/>
+        <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="2" Grid.Column="0" Margin="-1,108.333,6.333,-1.333" Height="27" Grid.ColumnSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,33.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="150" x:Name="txt_orbit" Grid.ColumnSpan="2" />
+        <Button Content="Save Data" HorizontalAlignment="Left" Margin="100,34.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" Height="21" Grid.Column="1"/>
+        <Button Content="0" HorizontalAlignment="Left" Margin="79,60.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_reset_zoom_pan" Click="btn_reset_zoom_pan_Click"  Height="21" Grid.Column="1"/>
+        <Label Content="xy" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_mouse_pos" Grid.Row="2" Grid.Column="0" Height="27" Margin="-1,82.333,64.333,24.667" Grid.ColumnSpan="2"/>
+        <Button Content=">" HorizontalAlignment="Left" Margin="45,90.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_advance_time" Click="btn_advance_time_Click"  Height="21" RenderTransformOrigin="-0.176,0.475" Grid.Column="1"/>
+        <Button Content=">>" HorizontalAlignment="Left" Margin="79,90.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" x:Name="btn_play_time" Click="btn_play_time_Click"  Height="21" Grid.Column="1"/>
+        <TextBox TextWrapping="Wrap" Text="TextBox" x:Name="txtShip" Grid.Column="2" Grid.RowSpan="1" />
+
+
+        <HamburgerMenu:HamburgerMenu Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="Black" MenuIconColor="White" SelectionIndicatorColor="Red" MenuItemForeground="White" HorizontalAlignment="Left" Width="46">
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Race" SelectionCommand="local:CustomCommands.Race"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Empire" SelectionCommand="local:CustomCommands.Empire"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Science" SelectionCommand="local:CustomCommands.Science"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Log" SelectionCommand="local:CustomCommands.Log"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/person.png" Text="Settings" SelectionCommand="local:CustomCommands.Settings"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Planet" SelectionCommand="local:CustomCommands.Planet"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Project" SelectionCommand="local:CustomCommands.Project" />
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Market" SelectionCommand="local:CustomCommands.Market"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Diplomacy" SelectionCommand="local:CustomCommands.Diplomacy"/>
+        </HamburgerMenu:HamburgerMenu>
     </Grid>
 
 </Window>
