@@ -75,26 +75,57 @@ namespace GameUI.Artificial
 
         public void moveToDestination()
         {
-            if(destination != null)
+            if (destination != null)
             {
                 double xIncrement = 0;
-                if(destination.X > Position.X)
+                if (destination.X > Position.X)
                 {
-                    xIncrement = speed;
+                    if (Math.Abs(destination.X - Position.X) < speed)
+                    {
+                        xIncrement = Math.Abs(destination.X - Position.X);
+                    }
+                    else
+                    {
+                        xIncrement = speed;
+                    }
                 }
                 else if (destination.X < Position.X)
                 {
-                    xIncrement = -speed;
+                    if (Math.Abs(destination.X - Position.X) < speed)
+                    {
+                        xIncrement = -Math.Abs(destination.X - Position.X);
+                    }
+                    else
+                    {
+
+                        xIncrement = -speed;
+                    }
                 }
 
                 double yIncrement = 0;
                 if (destination.Y > Position.Y)
                 {
-                    yIncrement = speed;
+                    if (Math.Abs(destination.Y - Position.Y) < speed)
+                    {
+                        yIncrement = Math.Abs(destination.Y - Position.Y);
+                    }
+                    else
+                    {
+
+                        yIncrement = speed;
+                    }
                 }
                 else if (destination.Y < Position.Y)
                 {
-                    yIncrement = -speed;
+                    if (Math.Abs(destination.Y - Position.Y) < speed)
+                    {
+                        yIncrement = -Math.Abs(destination.Y - Position.Y);
+                    }
+                    else
+                    {
+
+                        yIncrement = -speed;
+                    }
                 }
                 this.Position = new Point(this.Position.X + xIncrement, this.Position.Y + yIncrement);
                 Canvas.SetLeft(this.Shape, Position.X);

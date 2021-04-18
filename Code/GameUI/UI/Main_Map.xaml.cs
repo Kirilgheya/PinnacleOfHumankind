@@ -834,8 +834,16 @@ namespace GameUI.UI
             e.CanExecute = true;
         }
 
-
-
+        private void cv_backspace_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            foreach (artificialObj art in GameSession.selected)
+            {
+                if(art is Ship)
+                {
+                    (art as Ship).destination = new Point(e.GetPosition(cv_backspace).X, e.GetPosition(cv_backspace).Y);
+                }
+            }
+        }
     }
 
    
