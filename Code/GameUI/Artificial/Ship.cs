@@ -22,6 +22,30 @@ namespace GameUI.Artificial
         public double speed = 1;
         public bool selected;
 
+        public List<ComponentsEnumerator> ShipsComponentsList = new List<ComponentsEnumerator>();
+
+         public int totalHP
+        {
+            get
+            {
+                return calculateSctorHP();
+            }
+        }
+
+        public int calculateSctorHP()
+        {
+            int HP = 0;
+           foreach( List<ShipSector> secList in Structure)
+            {
+                foreach( ShipSector s in secList)
+                {
+                    HP = HP + s.HP;
+                }
+            }
+
+            return HP;
+        }
+
         public List<List<ShipSector>> Structure = new List<List<ShipSector>>();
 
 
@@ -46,14 +70,40 @@ namespace GameUI.Artificial
             Structure.Add(ls);
 
             ls = new List<ShipSector>();
-            ls.Add(new ShipSector("test 2 frontale sx"));
+            ls.Add(new ShipSector("ala sx"));
             ls.Add(new ShipSector("muso quello vero"));
-            ls.Add(new ShipSector("a frontale dx"));
+            ls.Add(new ShipSector("ala dx"));
             Structure.Add(ls);
 
+            SetComponenetList();
 
 
+        }
 
+
+        private void SetComponenetList()
+        {
+
+            ShipsComponentsList = new List<ComponentsEnumerator>();
+
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+
+                    foreach (ShipComponents c in s.SectorComponents)
+                    {
+                        if (ShipsComponentsList.Where(p => p.comp.Equals(c)).Count() == 0 )
+                        {
+                            ShipsComponentsList.Add( new ComponentsEnumerator(c, 1, 1));
+                        }
+                        else
+                        {
+                            ShipsComponentsList.Where(x => x.comp.Equals(c)).ToList().ForEach(x => x.totali++) ;
+                            ShipsComponentsList.Where(x => x.comp.Equals(c) && x.comp.active).ToList().ForEach(x => x.attivi++);
+                        }
+                    }
+
+            }
         }
 
         public void spawn(double X, double Y)
@@ -133,6 +183,24 @@ namespace GameUI.Artificial
             }
         }
 
-       
+        public void Setdamage(int Damage, int x, int y)
+        {
+            Structure[x][y].allocateDamage(Damage);
+
+            SetComponenetList();
+        }
+
+        public class ComponentsEnumerator
+        {
+            public ShipComponents comp;
+            public int attivi = 0;
+            public int totali = 0;
+            public ComponentsEnumerator(ShipComponents s, int _attivi, int _totali)
+            {
+                comp = s;
+                attivi = _attivi;
+                totali = _totali;
+            }
+        }
     }
 }

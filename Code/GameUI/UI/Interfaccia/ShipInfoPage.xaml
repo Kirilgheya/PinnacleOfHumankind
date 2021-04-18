@@ -15,7 +15,7 @@
             <Canvas HorizontalAlignment="Left" Height="193" Margin="28,53,0,0" VerticalAlignment="Top" Width="245" x:Name="cv_back" Grid.Column="1"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="921" x:Name="txtInfo" Foreground="AliceBlue" Grid.ColumnSpan="2"><Run Text="TextBlock"/></TextBlock>
             <Grid HorizontalAlignment="Left" Height="470" Margin="0,251,0,-473.667" VerticalAlignment="Top" Width="1039" Grid.ColumnSpan="2" x:Name="shipBluePrint"/>
-
+            <Button Margin="325,670,105,-473.667" Content="PEW PEW" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Window>

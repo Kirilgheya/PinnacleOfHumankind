@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static GameUI.Artificial.Ship;
 
 namespace GameUI.UI.Interfaccia
 {
@@ -20,6 +21,9 @@ namespace GameUI.UI.Interfaccia
     /// </summary>
     public partial class ShipInfoPage : Window
     {
+
+        public Ship ship;
+
         public ShipInfoPage()
         {
             InitializeComponent();
@@ -35,7 +39,16 @@ namespace GameUI.UI.Interfaccia
 
             cv_back.Children.Add(el);
 
-            txtInfo.Text = s.name;
+            txtInfo.Text = s.name + " HP " + s.totalHP;
+
+           
+
+            foreach(ComponentsEnumerator sc in s.ShipsComponentsList)
+            {
+                txtInfo.Text += "\n " + sc.comp.Name + " TOTAL " + sc.totali + " ACTIVE " + sc.attivi;
+            }
+
+           
 
             int column = 0;
             int row = 0;
@@ -47,7 +60,12 @@ namespace GameUI.UI.Interfaccia
                     shipBluePrint.RowDefinitions.Add(new RowDefinition());
 
                     Button btn = new Button();
-                    btn.Content = column.ToString() + " " + row.ToString() + sec.SectorComponents.First().Name;
+                    btn.Content = column.ToString() + " " + row.ToString() + " " + sec.SectorComponents.First().Name + " HP " + sec.HP;
+
+                    if(sec.SectorComponents.Where(x => x.active).Count() == 0)
+                    {
+                        btn.Background = new SolidColorBrush(Colors.Red);
+                    }
 
                     shipBluePrint.Children.Add(btn);
 
@@ -60,6 +78,7 @@ namespace GameUI.UI.Interfaccia
                 column++;
             }
 
+            ship = s;
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -67,5 +86,11 @@ namespace GameUI.UI.Interfaccia
             GameEngine.GameSession.Map_UpdateRequested();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ship.Setdamage(1, 0, 0);
+
+            LoadInfo(ship);
+        }
     }
 }
