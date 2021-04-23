@@ -6,9 +6,14 @@
 
         public bool active = true;
 
-        public ShipComponents(string _name)
+        public double SpeedIncrement = 0;
+        public double Firepower = 0;
+
+        public ShipComponents(string _name, double _SpeedIncrement = 0, double _Firepower = 0)
         {
             Name = _name;
+            SpeedIncrement = _SpeedIncrement;
+            Firepower = _Firepower;
         }
 
         public override bool Equals(object obj)

@@ -37,7 +37,7 @@ namespace GameUI.Artificial
 
         public ShipSector(string c, int _HP = 1)
         {
-            SectorComponents.Add(new ShipComponents(c));
+            SectorComponents.Add(new ShipComponents(c, 1, 1));
             HP = _HP;
         }
     }

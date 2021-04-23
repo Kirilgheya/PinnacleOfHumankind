@@ -41,11 +41,15 @@ namespace GameUI.UI.Interfaccia
 
             cv_back.Children.Add(el);
 
-            txtInfo.Text = s.name + " HP " + s.totalHP;
+            txtInfo.Text = s.name + " HP " + s.totalHP + "\n SPEED " + s.speed + "\n FIREPOWER " + s.totalFirePower +
+                "\n POSITION    X = " + Math.Round(s.position.X, 0) + " Y = " + Math.Round(s.position.Y, 0) +
+                "\n DESTINATION X = " + Math.Round(s.destination.X,0)  + " Y = " + Math.Round(s.destination.Y,0); 
 
-           
+         
 
-            foreach(ComponentsEnumerator sc in s.ShipsComponentsList)
+
+
+            foreach (ComponentsEnumerator sc in s.ShipsComponentsList)
             {
                 txtInfo.Text += "\n " + sc.comp.Name + " TOTAL " + sc.totali + " ACTIVE " + sc.attivi;
             }

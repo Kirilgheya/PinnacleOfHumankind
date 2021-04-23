@@ -15,11 +15,30 @@ namespace GameUI.Artificial
 
         public String name = "Aurora";
 
-        public Point Position = new Point();
+        private Point _destination = new Point(470, 470);
 
-        public Point destination = new Point(470,470);
+        public Point destination
+        {
+            get
+            {
+                return _destination;
+            }
 
-        public double speed = 1;
+            set
+            {
+                _destination = value;
+
+                this.ShipInfoP.LoadInfo(this);
+            }
+        }
+
+        public double speed
+        {
+            get
+            {
+                return calculateSectorsSpeed();
+            }
+        }
         public bool selected;
 
         public List<ComponentsEnumerator> ShipsComponentsList = new List<ComponentsEnumerator>();
@@ -28,11 +47,27 @@ namespace GameUI.Artificial
         {
             get
             {
-                return calculateSctorHP();
+                return calculateSectorsHP();
             }
         }
 
-        public int calculateSctorHP()
+        public double totalSpeed
+        {
+            get
+            {
+                return calculateSectorsSpeed();
+            }
+        }
+
+        public double totalFirePower
+        {
+            get
+            {
+                return calculateSectorsFirePower();
+            }
+        }
+
+        public int calculateSectorsHP()
         {
             int HP = 0;
            foreach( List<ShipSector> secList in Structure)
@@ -44,6 +79,34 @@ namespace GameUI.Artificial
             }
 
             return HP;
+        }
+
+        public double calculateSectorsSpeed()
+        {
+            double Speed = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    Speed = Speed + s.SectorComponents.Where(x => x.active).Sum(x => x.SpeedIncrement);
+                }
+            }
+
+            return Speed;
+        }
+
+        public double calculateSectorsFirePower()
+        {
+            double FirePower = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    FirePower = FirePower + s.SectorComponents.Where(x => x.active).Sum(x => x.Firepower);
+                }
+            }
+
+            return FirePower;
         }
 
         public List<List<ShipSector>> Structure = new List<List<ShipSector>>();
@@ -128,16 +191,16 @@ namespace GameUI.Artificial
 
         public void spawn(double X, double Y)
         {
-            this.Position = new Point(X,Y);
+            this.position = new Point(X,Y);
 
-            Canvas.SetLeft(this.Shape, this.Position.X);
-            Canvas.SetTop(this.Shape, this.Position.Y);
+            Canvas.SetLeft(this.Shape, this.position.X);
+            Canvas.SetTop(this.Shape, this.position.Y);
         }
 
         public void redrawPan(double xoffset, double yoffset)
         {
-            Canvas.SetLeft(this.Shape, this.Position.X + xoffset);
-            Canvas.SetTop(this.Shape, this.Position.Y + yoffset);
+            Canvas.SetLeft(this.Shape, this.position.X + xoffset);
+            Canvas.SetTop(this.Shape, this.position.Y + yoffset);
            
         }
 
@@ -145,61 +208,87 @@ namespace GameUI.Artificial
 
         public void moveToDestination()
         {
+
+
+
+
+            Point v1 = new Point(destination.X - position.X, destination.Y - position.Y);
+            Point v2 = new Point(position.X , position.Y);
+
+            // Calculate the vector lengths.
+            double len1 = Math.Sqrt(v1.X * v1.X + v1.Y * v1.Y);
+            double len2 = Math.Sqrt(v2.X * v2.X + v2.Y * v2.Y);
+
+            // Use the dot product to get the cosine.
+            double dot_product = v1.X * v2.X + v1.Y * v2.Y;
+            double cos = dot_product / len1 / len2;
+
+            // Use the cross product to get the sine.
+            double cross_product = v1.X * v2.Y - v1.Y * v2.X;
+            double sin = cross_product / len1 / len2;
+
+            // Find the angle. angolo tra la posizione attuale della nave e la verticale
+            double angolo = Math.Acos(cos);
+            if (sin < 0) angolo = -angolo;
+
+
+
+
             if (destination != null)
             {
                 double xIncrement = 0;
-                if (destination.X > Position.X)
+                if (destination.X > position.X)
                 {
-                    if (Math.Abs(destination.X - Position.X) < speed)
+                    if (Math.Abs(destination.X - position.X) < speed * Math.Sin(angolo))
                     {
-                        xIncrement = Math.Abs(destination.X - Position.X);
+                        xIncrement = Math.Abs(destination.X - position.X);
                     }
                     else
                     {
-                        xIncrement = speed;
+                        xIncrement = speed * Math.Sin(angolo);
                     }
                 }
-                else if (destination.X < Position.X)
+                else if (destination.X < position.X)
                 {
-                    if (Math.Abs(destination.X - Position.X) < speed)
+                    if (Math.Abs(destination.X - position.X) < speed * Math.Sin(angolo))
                     {
-                        xIncrement = -Math.Abs(destination.X - Position.X);
+                        xIncrement = -Math.Abs(destination.X - position.X);
                     }
                     else
                     {
 
-                        xIncrement = -speed;
+                        xIncrement = speed * Math.Sin(angolo);
                     }
                 }
 
                 double yIncrement = 0;
-                if (destination.Y > Position.Y)
+                if (destination.Y > position.Y)
                 {
-                    if (Math.Abs(destination.Y - Position.Y) < speed)
+                    if (Math.Abs(destination.Y - position.Y) < speed * Math.Cos(angolo))
                     {
-                        yIncrement = Math.Abs(destination.Y - Position.Y);
+                        yIncrement = Math.Abs(destination.Y - position.Y);
                     }
                     else
                     {
 
-                        yIncrement = speed;
+                        yIncrement = speed * Math.Cos(angolo);
                     }
                 }
-                else if (destination.Y < Position.Y)
+                else if (destination.Y < position.Y)
                 {
-                    if (Math.Abs(destination.Y - Position.Y) < speed)
+                    if (Math.Abs(destination.Y - position.Y) < speed * Math.Cos(angolo))
                     {
-                        yIncrement = -Math.Abs(destination.Y - Position.Y);
+                        yIncrement = -Math.Abs(destination.Y - position.Y);
                     }
                     else
                     {
 
-                        yIncrement = -speed;
+                        yIncrement = speed * Math.Cos(angolo);
                     }
                 }
-                this.Position = new Point(this.Position.X + xIncrement, this.Position.Y + yIncrement);
-                Canvas.SetLeft(this.Shape, Position.X);
-                Canvas.SetTop(this.Shape, Position.Y);
+                this.position = new Point(this.position.X + xIncrement, this.position.Y + yIncrement);
+                Canvas.SetLeft(this.Shape, position.X);
+                Canvas.SetTop(this.Shape, position.Y);
             }
         }
 

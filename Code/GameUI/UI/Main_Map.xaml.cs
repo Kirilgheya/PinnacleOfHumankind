@@ -517,7 +517,7 @@ namespace GameUI.UI
                         cv_backspace.Children.Remove((art as Ship).Shape);
                         cv_backspace.Children.Add((art as Ship).Shape);
 
-                        txtShip.Text = (art as Ship).Position.X + " " + (art as Ship).Position.Y;
+                        txtShip.Text = (art as Ship).position.X + " " + (art as Ship).position.Y;
                     }
                 }
             }
