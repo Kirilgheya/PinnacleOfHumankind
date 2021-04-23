@@ -1,4 +1,5 @@
 ﻿using GameUI.Artificial;
+using GameUI.UI.GameEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace GameUI.UI.Interfaccia
 
             cv_back.Children.Add(el);
 
-            txtInfo.Text = s.name + " HP " + s.totalHP + "\n SPEED " + s.speed + "\n FIREPOWER " + s.totalFirePower +
+            txtInfo.Text = s.Name + " HP " + s.totalHP + "\n SPEED " + s.speed + "\n FIREPOWER " + s.totalFirePower + " " + s.totalFLACKFirePower + "(F) " + s.totalNONFLACKFirePower + "(N)" +
                 "\n POSITION    X = " + Math.Round(s.position.X, 0) + " Y = " + Math.Round(s.position.Y, 0) +
                 "\n DESTINATION X = " + Math.Round(s.destination.X,0)  + " Y = " + Math.Round(s.destination.Y,0); 
 
@@ -94,7 +95,11 @@ namespace GameUI.UI.Interfaccia
         {
             try
             {
-                ship.Setdamage(1, ship.GetRandomValidDamageLocation());
+                foreach (artificialObj art in GameSession.artificialList.Where(s => s.Name != ship.Name))
+                {
+                    AttackOBJ(art);
+
+                }
 
             }
             catch(Exception exc)
@@ -102,6 +107,16 @@ namespace GameUI.UI.Interfaccia
                 return;
             }
             LoadInfo(ship);
+        }
+
+        private void AttackOBJ(artificialObj art)
+        {
+            (art as Ship).Setdamage(ship.totalNONFLACKFirePower, (art as Ship).GetRandomValidDamageLocation());
+
+            for (int n = 0; n < ship.totalFLACKFirePower; n++)
+            {
+                (art as Ship).Setdamage(1, (art as Ship).GetRandomValidDamageLocation());
+            }
         }
     }
 }

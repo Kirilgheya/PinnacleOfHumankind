@@ -66,7 +66,7 @@ namespace GameUI.UI.Interfaccia
 
             cv_back.Children.Add(el);
 
-            txtInfo.Text = s.name;
+            txtInfo.Text = s.Name;
 
 
         }

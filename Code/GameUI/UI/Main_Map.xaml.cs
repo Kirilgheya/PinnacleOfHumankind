@@ -491,13 +491,23 @@ namespace GameUI.UI
         {
             if (GameSession.artificialList.Count == 0)
             {
-                Ship s = new Ship();
+                Ship s = new Ship("Aurora");
 
                 s.spawn( 700 , 300 );
 
                 cv_backspace.Children.Add(s.Shape);
 
                 GameSession.artificialList.Add(s);
+
+                Ship s2 = new Ship("Gantritor");
+
+                s2.spawn(600, 300);
+
+                cv_backspace.Children.Add(s2.Shape);
+
+                GameSession.artificialList.Add(s2);
+
+
             }
             else
             {

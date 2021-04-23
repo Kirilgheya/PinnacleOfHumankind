@@ -13,8 +13,6 @@ namespace GameUI.Artificial
     public class Ship :artificialObj
     {
 
-        public String name = "Aurora";
-
         private Point _destination = new Point(470, 470);
 
         public Point destination
@@ -59,11 +57,27 @@ namespace GameUI.Artificial
             }
         }
 
-        public double totalFirePower
+        public int totalFirePower
         {
             get
             {
                 return calculateSectorsFirePower();
+            }
+        }
+
+        public int totalFLACKFirePower
+        {
+            get
+            {
+                return calculateFLACKSectorsFirePower();
+            }
+        }
+
+        public int totalNONFLACKFirePower
+        {
+            get
+            {
+                return calculateSectorsFirePower() - calculateFLACKSectorsFirePower();
             }
         }
 
@@ -95,9 +109,9 @@ namespace GameUI.Artificial
             return Speed;
         }
 
-        public double calculateSectorsFirePower()
+        public int calculateSectorsFirePower()
         {
-            double FirePower = 0;
+            int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
             {
                 foreach (ShipSector s in secList)
@@ -109,11 +123,27 @@ namespace GameUI.Artificial
             return FirePower;
         }
 
+        public int calculateFLACKSectorsFirePower()
+        {
+            int FirePower = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    FirePower = FirePower + s.SectorComponents.Where(x => x.active && x.Flack).Sum(x => x.Firepower);
+                }
+            }
+
+            return FirePower;
+        }
+
         public List<List<ShipSector>> Structure = new List<List<ShipSector>>();
 
 
-        public Ship()
+        public Ship(String _name = "")
         {
+            this.Name = _name;
+
             Shape = new Ellipse() { Width = 5, Height = 5, Fill = Brushes.LightGray };
 
             Shape.Tag = this;
@@ -144,6 +174,8 @@ namespace GameUI.Artificial
         }
 
 
+
+
         private void SetComponenetList()
         {
             int n = 0;
@@ -168,6 +200,8 @@ namespace GameUI.Artificial
                             {
                                 active = 1;
                             }
+
+
                             ShipsComponentsList.Add(new ComponentsEnumerator(c, active, 1));
                         }
                         else
@@ -305,6 +339,8 @@ namespace GameUI.Artificial
         public void Setdamage(int Damage, Point p)
         {
             Setdamage(Damage, (int)(p.X), (int)(p.Y));
+
+            this.ShipInfoP.LoadInfo(this);
         }
 
         public  List<Point> GetvalidDamageLocations()

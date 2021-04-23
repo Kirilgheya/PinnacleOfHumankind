@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GameUI.Artificial
@@ -14,7 +15,16 @@ namespace GameUI.Artificial
 
         public void allocateDamage(int damage)
         {
+            if(this.HP == 0)
+            {
+                return;
+            }
             this.HP = HP - damage;
+
+            if(this.HP < 0)
+            {
+                this.HP = 0;
+            }
 
             int n = damage;
 
@@ -34,11 +44,14 @@ namespace GameUI.Artificial
             }
         }
 
+        public static Random r = new Random();
 
         public ShipSector(string c, int _HP = 1)
         {
-            SectorComponents.Add(new ShipComponents(c, 1, 1));
-            HP = _HP;
+            
+            SectorComponents.Add(new ShipComponents(c, 1, 1, r.Next(0, 10) < 5));
+            //HP = _HP;
+            HP = r.Next(1, 5);
         }
     }
 }
