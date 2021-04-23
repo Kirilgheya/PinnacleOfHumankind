@@ -508,6 +508,7 @@ namespace GameUI.UI
                         if (increment > 0)
                         {
                             (art as Ship).moveToDestination();
+                            art.ShipInfoP.LoadInfo(art as Ship);
                         }
                         if (fromPan)
                         {
