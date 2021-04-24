@@ -76,9 +76,6 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TreeContainer">
-      <HintPath>..\..\..\..\..\..\Downloads\SilverTreeContainer\TreeContainer\VisLogTree\bin\Debug\TreeContainer.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -117,9 +114,6 @@
     <Compile Include="UI\Main_Map.xaml.cs">
       <DependentUpon>Main_Map.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Utilities\TreeVisualizer.xaml.cs">
-      <DependentUpon>TreeVisualizer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Utilities\UIStaticClass.cs" />
     <Page Include="UI\Interfaccia\Home.xaml">
       <SubType>Designer</SubType>
@@ -153,10 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Main_Map.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Utilities\TreeVisualizer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
