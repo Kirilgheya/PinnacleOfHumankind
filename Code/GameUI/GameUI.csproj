@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphLayout">
+      <HintPath>..\..\..\..\..\..\Downloads\SilverTreeContainer\TreeContainer\VisLogTree\bin\Debug\GraphLayout.dll</HintPath>
+    </Reference>
     <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
     </Reference>

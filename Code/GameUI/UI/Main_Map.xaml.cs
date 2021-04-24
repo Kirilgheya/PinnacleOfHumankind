@@ -957,7 +957,8 @@ namespace GameUI.UI
 
         private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Scince");
+            TreeVisualizer tr = new TreeVisualizer();
+            tr.Show();
         }
 
         private void LogCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
