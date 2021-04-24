@@ -10,7 +10,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.Race" CanExecute="RaceCommand_CanExecute" Executed="RaceCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Empire" CanExecute="EmpireCommand_CanExecute" Executed="EmpireCommand_Executed" />
-      <!--  <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />-->
+        <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Log" CanExecute="LogCommand_CanExecute" Executed="LogCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Planet" CanExecute="PlanetCommand_CanExecute" Executed="PlanetCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Project" CanExecute="ProjectCommand_CanExecute" Executed="ProjectCommand_Executed" />
