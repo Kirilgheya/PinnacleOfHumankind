@@ -1,4 +1,4 @@
-﻿<Window x:Class="GameUI.UI.Main_Map"
+﻿<Window x:Class="GameUI.UI.EditorMap"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:GameUI.UI"
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         mc:Ignorable="d"
-        Title="Main_Map" Height="450" Width="800" WindowState="Maximized" >
+        Title="Editor Map" Height="450" Width="800" WindowState="Maximized" >
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.Race" CanExecute="RaceCommand_CanExecute" Executed="RaceCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Empire" CanExecute="EmpireCommand_CanExecute" Executed="EmpireCommand_Executed" />
-      <!--  <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />-->
+        <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Log" CanExecute="LogCommand_CanExecute" Executed="LogCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Planet" CanExecute="PlanetCommand_CanExecute" Executed="PlanetCommand_Executed" />
         <CommandBinding Command="local:CustomCommands.Project" CanExecute="ProjectCommand_CanExecute" Executed="ProjectCommand_Executed" />
@@ -39,7 +39,7 @@
             </Viewbox>
         </Border>
         <TreeView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1" x:Name="SystemTree" SelectedItemChanged="SystemTree_SelectedItemChanged"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,1.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" x:Name="txt_search" TextChanged="txt_search_TextChanged" Grid.ColumnSpan="2"/>
+        
         <Button Content="recreate" HorizontalAlignment="Left" Margin="38,1.333,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" x:Name="btn_recreate" Click="btn_recreate_Click" Height="21" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="0,58.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="119" x:Name="txt_scale" TextChanged="txt_scale_TextChanged" Grid.ColumnSpan="2"/>
         <Label Content="Label" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="lbl_delta" Grid.Row="2" Grid.Column="0" Margin="-1,108.333,6.333,-1.333" Height="27" Grid.ColumnSpan="2"/>
