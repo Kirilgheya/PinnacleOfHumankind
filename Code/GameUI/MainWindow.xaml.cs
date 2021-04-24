@@ -48,19 +48,19 @@ namespace GameUI
         private void BtnSaveData_Click(object sender, RoutedEventArgs e)
         {
 
-            GameSession.saveGame();
+            GameSessionHandler.saveGame();
         }
 
         private void BtnLoadData_Click(object sender, RoutedEventArgs e)
         {
 
-            GameSession.loadGame();
+            GameSessionHandler.loadGame();
         }
 
         private void ToggleAudioCLick(object sender, RoutedEventArgs e)
         {
-            GameSession.audio = !GameSession.audio;
-            if (GameSession.audio)
+            GameSessionHandler.audio = !GameSessionHandler.audio;
+            if (GameSessionHandler.audio)
             {
                 btnAudio.Content = "🔈";
             }

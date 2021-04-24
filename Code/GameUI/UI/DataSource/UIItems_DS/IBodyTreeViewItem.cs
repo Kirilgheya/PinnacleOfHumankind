@@ -21,13 +21,13 @@ namespace GameUI.UI.DataSource.UIItems_DS
 
         public Ellipse Shape;
         public Ellipse bodyShape { get { return Shape; } }
-         public string Name { get; set; }
+        public string Name { get; set; }
         public ObservableCollection<IBodyTreeViewItem> Children { get; set; }
 
-        protected double minShapeRadius =1;
+        public double minShapeRadius =1;
 
         public double angleOnOrbit = -1;
-        internal Point position;
+        public  Point position;
         protected abstract void setName();
 
         protected abstract void setChildren();
@@ -44,18 +44,18 @@ namespace GameUI.UI.DataSource.UIItems_DS
                 _selected = value;
                 if (value)
                 {
-                    if (!GameSession.selected.Contains(this))
+                    if (!GameSessionHandler.selected.Contains(this))
                     {
-                        GameSession.selected.Add(this);
+                        GameSessionHandler.selected.Add(this);
 
                         
                     }                  
                 }
                 else
                 {
-                    if (GameSession.selected.Contains(this))
+                    if (GameSessionHandler.selected.Contains(this))
                     {
-                        GameSession.selected.Remove(this);
+                        GameSessionHandler.selected.Remove(this);
                     }
                 }
 

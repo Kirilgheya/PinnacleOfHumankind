@@ -18,17 +18,39 @@ using System.Windows.Forms;
 namespace GameUI.UI.GameEngine
 {
 
-    public static class GameSession
+    public static class GameSessionHandler
     {
 
         public static List<artificialObj> artificialList = new List<artificialObj>();
 
+
+
         public static bool drawAsteroids = false;
         public static bool drawAsteroidsOrbits = false;
 
-        public static List<StarSystem> GameSessionSystems { get; set; }
+        public static List<StarSystem> GameSessionSystemList = new List<StarSystem>();
+        public static List<StarSystem> GameSessionSystems { get { return GameSessionSystemList; } set { GameSessionSystemList = value; } }
         public static String filename = ConfigurationManager.AppSettings.Get("SaveDataFilename");
         public static String filepath = ConfigurationManager.AppSettings.Get("SaveDataPath");
+        public static String folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
+        public static double TimePassed = 0;
+
+
+        //Audio Player? START
+        public static List<String> AudioFiles = new List<string>();
+
+
+        public static SoundPlayerEx MusicPlayer;
+        public static int filesnumber = 0;
+        public static int playing = 0;
+        public static String musicDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "Res\\Sounds\\";
+        private static bool _audio;
+        internal static Main_Map map;
+        //Audio Player END
+
+
+        public static List<IBodyTreeViewItem> selected = new List<IBodyTreeViewItem>();
+
 
         internal static bool UpdateSelected(IBodyTreeViewItem item)
         {
@@ -50,11 +72,13 @@ namespace GameUI.UI.GameEngine
             return false;
         }
 
-        public static String folder = ConfigurationManager.AppSettings.Get("SaveDataFolderPattern");
-        public static double timeStep = 0;
+        public static void AdvanceTime(double _timestep)
+        {
 
+            TimePassed += _timestep;
 
-        public static List<IBodyTreeViewItem> selected = new List<IBodyTreeViewItem>();
+            
+        }
 
         public static bool somethingSelected
         {
@@ -65,23 +89,12 @@ namespace GameUI.UI.GameEngine
         }
 
 
-
-        public static String musicDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "Res\\Sounds\\";
-
         internal static void Map_UpdateRequested()
         {
             map.redrawSystem();
         }
 
-        public static List<String> AudioFiles = new List<string>();
-
-
-        public static SoundPlayerEx MusicPlayer;
-        public static int filesnumber = 0;
-        public static int playing = 0;
-
-        private static bool _audio;
-        internal static Main_Map map;
+   
 
         public static bool audio
         {
@@ -137,21 +150,21 @@ namespace GameUI.UI.GameEngine
         public static void saveGame()
         {
 
-            SharpSerializer formatter = new SharpSerializer(true);
+            SharpSerializer formatter = new SharpSerializer();
 
             int directoryCount;
 
-            String extension = ".bin";
+            String fileExtension = ".bin";
 
             directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
             Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
-            using (FileStream fs = File.Create(filepath + "\\" + folder + (directoryCount + 1) + "\\" + filename + extension))
+            using (FileStream fs = File.Create(filepath + "\\" + folder + (directoryCount + 1) + "\\" + filename + fileExtension))
             {
 
-                if (GameSession.GameSessionSystems != null)
+                if (GameSessionHandler.GameSessionSystems != null)
                 {
 
-                    formatter.Serialize(GameSession.saveDataInto(), fs);
+                    formatter.Serialize(GameSessionHandler.saveDataInto(), fs);
 
                 }
 
@@ -177,7 +190,7 @@ namespace GameUI.UI.GameEngine
                         GameSessionSavedData saveData = (GameSessionSavedData)binaryFormatter.Deserialize(openFileDialog.OpenFile());
                         //Read the contents of the file into a stream
 
-                        if (GameSession.loadDataInto(saveData))
+                        if (GameSessionHandler.loadDataInto(saveData))
                         {
 
                             Console.WriteLine("Game loaded Successfully from: " + localfilePath);
@@ -198,7 +211,8 @@ namespace GameUI.UI.GameEngine
             Boolean result = true;
             try
             {
-                GameSession.GameSessionSystems = _savedData.GameSessionSystems;
+                GameSessionHandler.GameSessionSystems = _savedData.GameSessionSystems;
+                GameSessionHandler.TimePassed = _savedData.TimePassed;
             }
             catch (Exception e)
             {
@@ -209,13 +223,18 @@ namespace GameUI.UI.GameEngine
             return result;
         }
 
+        internal static double GetTimePassed()
+        {
+            return GameSessionHandler.TimePassed;
+        }
+
         private static GameSessionSavedData saveDataInto()
         {
 
             GameSessionSavedData saveData = new GameSessionSavedData();
 
-            saveData.GameSessionSystems = GameSession.GameSessionSystems;
-
+            saveData.GameSessionSystems = GameSessionHandler.GameSessionSystems;
+            saveData.TimePassed = GameSessionHandler.TimePassed;
 
             return saveData;
         }

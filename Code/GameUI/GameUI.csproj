@@ -93,7 +93,8 @@
     <Compile Include="Artificial\ShipComponents.cs" />
     <Compile Include="Artificial\ShipSector.cs" />
     <Compile Include="UI\DataSource\Asteroid.cs" />
-    <Compile Include="UI\GameEngine\GameSession.cs" />
+    <Compile Include="UI\GameEngine\GameEngine.cs" />
+    <Compile Include="UI\GameEngine\GameSessionHandler.cs" />
     <Compile Include="UI\GameEngine\GameSessionSavedData.cs" />
     <Compile Include="UI\Interfaccia\EditorMap.xaml.cs">
       <DependentUpon>EditorMap.xaml</DependentUpon>

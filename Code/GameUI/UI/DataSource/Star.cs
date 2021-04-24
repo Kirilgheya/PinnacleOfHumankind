@@ -27,7 +27,7 @@ namespace GameUI.UI.DataSource
         SolidColorBrush Transparent = new SolidColorBrush() { Color = Colors.Transparent };
 
 
-        public GameCore.Star relatedStar;
+        public GameCore.Star relatedStar { get; set; }
 
 
         public double Temperature
@@ -235,18 +235,18 @@ namespace GameUI.UI.DataSource
             this.minShapeRadius = 10;
         }
 
-        public override void advanceTime(double timestep = -1, double increment = -1)
+        public override void advanceTime(double totalTimePassed = -1, double increment = -1)
         {
 
-            if (timestep >= 0 && increment > 0)
+            if (totalTimePassed >= 0 && increment > 0)
             {
 
                 throw new Exception("Bisogna specificare solo uno dei due argomenti");
             }
-            else if (timestep >= 0)
+            else if (totalTimePassed >= 0)
             {
 
-                this.angleOnOrbit = timestep;
+                this.angleOnOrbit = totalTimePassed;
             }
             else
             {
@@ -272,15 +272,18 @@ namespace GameUI.UI.DataSource
 
         protected override void UpdateHiglight()
         {
-            if (this.selected)
-            {
-                this.Shape.Stroke = StrokeColor;
-                this.Shape.StrokeThickness = StrokeThickeness;
-            }
-            else
-            {
-                this.Shape.Stroke = Transparent;
-                this.Shape.StrokeThickness = 0;
+            if(this.bodyShape!=null)
+            { 
+                if (this.selected)
+                {
+                    this.Shape.Stroke = StrokeColor;
+                    this.Shape.StrokeThickness = StrokeThickeness;
+                }
+                else
+                {
+                    this.Shape.Stroke = Transparent;
+                    this.Shape.StrokeThickness = 0;
+                }
             }
         }
     }

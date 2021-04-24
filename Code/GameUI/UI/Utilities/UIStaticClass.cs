@@ -1,7 +1,7 @@
 ﻿using GameUI.Artificial;
 using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
-using GameUI.UI.GameEngine;
+using GameEngineNs = GameUI.UI.GameEngine;
 using GameUI.UI.Interfaccia;
 using System;
 using System.Collections.Generic;
@@ -33,11 +33,11 @@ namespace GameUI.UI.Utilities
                     if(((to_show as Ellipse).Tag as Star).selected && ((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.Close();
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Star);
                     }
                     else if ((!((to_show as Ellipse).Tag as Star).selected) && !((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Star);
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP = new PlanetInfoPage();
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.Show();
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Star);
@@ -50,7 +50,7 @@ namespace GameUI.UI.Utilities
                     }
                     else if (((to_show as Ellipse).Tag as Star).selected && !((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Star);
                     }
 
                     if (((to_show as Ellipse).Tag as Star).bodyShape.StrokeThickness == 0 )
@@ -65,11 +65,11 @@ namespace GameUI.UI.Utilities
                     if (((to_show as Ellipse).Tag as Planet).selected && ((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.Close();
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Planet);
                     }
                     else if ((!((to_show as Ellipse).Tag as Planet).selected) && !((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Planet);
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP = new PlanetInfoPage();
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.Show();
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.LoadInfo((to_show as Ellipse).Tag as Planet);
@@ -82,7 +82,7 @@ namespace GameUI.UI.Utilities
                     }
                     else if (((to_show as Ellipse).Tag as Planet).selected && !((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Planet);
                     }
 
                     if (((to_show as Ellipse).Tag as Planet).bodyShape.StrokeThickness == 0)
@@ -95,11 +95,11 @@ namespace GameUI.UI.Utilities
                     if (((to_show as Ellipse).Tag as Ship).selected && ((to_show as Ellipse).Tag as Ship).ShipInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
                         ((to_show as Ellipse).Tag as Ship).ShipInfoP.Close();
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Ship);
                     }
                     else if ((!((to_show as Ellipse).Tag as Ship).selected) && !((to_show as Ellipse).Tag as Ship).ShipInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Ship);
                         ((to_show as Ellipse).Tag as Ship).ShipInfoP = new ShipInfoPage();
                         ((to_show as Ellipse).Tag as Ship).ShipInfoP.Show();
                         ((to_show as Ellipse).Tag as Ship).ShipInfoP.LoadInfo((to_show as Ellipse).Tag as Ship);
@@ -112,7 +112,7 @@ namespace GameUI.UI.Utilities
                     }
                     else if (((to_show as Ellipse).Tag as Ship).selected && !((to_show as Ellipse).Tag as Ship).ShipInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Ellipse).Tag as Ship);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Ellipse).Tag as Ship);
                     }
 
                     if (((to_show as Ellipse).Tag as Ship).bodyShape.StrokeThickness == 0)
@@ -129,11 +129,11 @@ namespace GameUI.UI.Utilities
                     if (((to_show as Path).Tag as Star).selected && ((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.Close();
-                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Star);
                     }
                     else if ((!((to_show as Path).Tag as Star).selected) && !((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri
                     {
-                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Star);
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP = new PlanetInfoPage();
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.Show();
                         ((to_show as Ellipse).Tag as Star).PlanetInfoP.LoadInfo((to_show as Path).Tag as Star);
@@ -146,7 +146,7 @@ namespace GameUI.UI.Utilities
                     }
                     else if (((to_show as Path).Tag as Star).selected && !((to_show as Ellipse).Tag as Star).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Path).Tag as Star);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Star);
                     }
 
                     if (((to_show as Path).Tag as Star).bodyShape.StrokeThickness == 0 )
@@ -160,11 +160,11 @@ namespace GameUI.UI.Utilities
                     if (((to_show as Path).Tag as Planet).selected && ((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)   //ctrl click con pianeta selezionato e finestra aperta chiude tutto e deseleziona
                     {
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.Close();
-                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Planet);
                     }
                     else if ((!((to_show as Path).Tag as Planet).selected) && !((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra chiusa apri e seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Planet);
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP = new PlanetInfoPage();
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.Show();
                         ((to_show as Ellipse).Tag as Planet).PlanetInfoP.LoadInfo((to_show as Path).Tag as Planet);
@@ -177,7 +177,7 @@ namespace GameUI.UI.Utilities
                     }
                     else if (((to_show as Path).Tag as Planet).selected && !((to_show as Ellipse).Tag as Planet).PlanetInfoP.IsVisible)  // ctrl click con pianeta non selezionato e finestra aperta seleziona
                     {
-                        GameSession.UpdateSelected((to_show as Path).Tag as Planet);
+                        GameEngineNs.GameSessionHandler.UpdateSelected((to_show as Path).Tag as Planet);
                     }
 
                     if (((to_show as Path).Tag as Planet).bodyShape.StrokeThickness == 0 )
@@ -367,10 +367,58 @@ namespace GameUI.UI.Utilities
 
         public static Boolean AdvanceTimeStep(double _timestep)
         {
-            
-            GameSession.timeStep += _timestep;
+            Boolean timehasPassed = true;
+            try
+            { 
+                if(_timestep>0)
+                {
+                    GameEngineNs.GameEngine.AdvanceInTime(_timestep);
 
-            return true;
+                  
+                }
+                else
+                {
+
+                    timehasPassed = false;
+                }
+            }
+            catch(Exception e)
+            {
+                timehasPassed = false;
+            }
+            return timehasPassed;
         }
+
+        public static void MoveBodies(Point _centerOfCanvas, StarSystem _systemToBeDrawn)
+        {
+            
+           
+                List<Star> StarList = _systemToBeDrawn.Children.Where(x => x is Star).Cast<Star>().ToList<Star>();
+                List<Planet> PlanetList = _systemToBeDrawn.Children.Where(x => x is TreeElementPlanets).First().Children.Where(y => y is Planet).Cast<Planet>().ToList<Planet>();
+
+                foreach (Star star in StarList)
+                {
+
+                    if (Canvas.GetLeft(star.bodyShape) > 0)
+                    {
+
+                        if (StarList.Count() > 1)
+                        {
+
+                            UIStaticClass.moveBodyOnOrbit(star, star.angleOnOrbit, star.orbitRadius, _centerOfCanvas, true);
+
+                        }
+                    }
+                }
+
+                foreach (Planet planet in PlanetList)
+                {
+
+
+                    UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(planet.angleOnOrbit), planet.orbitRadius, _centerOfCanvas, true);
+                    
+                }
+            }
+       
     }
 }

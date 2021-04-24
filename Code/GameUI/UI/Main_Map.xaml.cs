@@ -37,11 +37,10 @@ namespace GameUI.UI
         double UADistance;
         double UnitLocation;
 
-        private List<StarSystem> System_List = GameSession.GameSessionSystems == null ? new List<StarSystem>() : GameSession.GameSessionSystems;
+        private List<StarSystem> System_List = GameSessionHandler.GameSessionSystems == null ? new List<StarSystem>() : GameSessionHandler.GameSessionSystems;
 
         public static StarSystem selected_SS = null;
 
-        private double scale = 10;
         private double scale_UAtoCanvasUnit;
 
         private double horizontal_offset = 0;
@@ -66,7 +65,7 @@ namespace GameUI.UI
             timer.Tick += (s, ev) => btn_advance_time.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             timer.Interval = new TimeSpan(0, 0, 0,1,000);
 
-            GameSession.map = this;
+            GameSessionHandler.map = this;
         }
 
         internal void redrawSystem()
@@ -149,7 +148,7 @@ namespace GameUI.UI
                             SystemTree.Items.Cast<TreeViewItem>().ToList()[n].Items.Add(new TreeViewItem() { Header = pl.Name, Tag = pl });
                         }
                     }
-                    if (GameSession.drawAsteroids)
+                    if (GameSessionHandler.drawAsteroids)
                     {
                         if (p.Children.First() is Asteroid)
                         {
@@ -371,7 +370,7 @@ namespace GameUI.UI
 
                 find_node(star.Name, true);
 
-                if (GameSession.selected.Contains(star))
+                if (GameSessionHandler.selected.Contains(star))
                 {
                     star.selected = true;
                 }
@@ -417,7 +416,7 @@ namespace GameUI.UI
                 UIStaticClass.moveBodyOnOrbit(planet, UIStaticClass.DegreeToRadiants(planet.angleOnOrbit), planet.orbitRadius, new Point(get_x_center(), get_y_center()), true);
                 
 
-                if (GameSession.selected.Contains(planet))
+                if (GameSessionHandler.selected.Contains(planet))
                 {
                     planet.selected = true;
                 }
@@ -425,7 +424,7 @@ namespace GameUI.UI
                 n++;
             }
 
-            if (GameSession.drawAsteroids)
+            if (GameSessionHandler.drawAsteroids)
             {
                 foreach (Asteroid Asteroid in sy.Children.Where(x => x is TreeElementPlanets).ToList()[1].Children.Where(y => y is Asteroid).ToList())
                 {
@@ -462,7 +461,7 @@ namespace GameUI.UI
                     find_node(Asteroid.Name, true);
 
 
-                    if (GameSession.selected.Contains(Asteroid))
+                    if (GameSessionHandler.selected.Contains(Asteroid))
                     {
                         Asteroid.selected = true;
                     }
@@ -489,7 +488,7 @@ namespace GameUI.UI
 
         private void draw_artificial(bool fromZoom, bool fromPan, int increment)
         {
-            if (GameSession.artificialList.Count == 0)
+            if (GameSessionHandler.artificialList.Count == 0)
             {
                 Ship s = new Ship();
 
@@ -497,11 +496,11 @@ namespace GameUI.UI
 
                 cv_backspace.Children.Add(s.Shape);
 
-                GameSession.artificialList.Add(s);
+                GameSessionHandler.artificialList.Add(s);
             }
             else
             {
-                foreach (artificialObj art in GameSession.artificialList)
+                foreach (artificialObj art in GameSessionHandler.artificialList)
                 {
                     if (art is Ship)
                     {
@@ -607,14 +606,14 @@ namespace GameUI.UI
 
             add_starSystem_to_Tree();
 
-            GameSession.artificialList = new List<artificialObj>();
+            GameSessionHandler.artificialList = new List<artificialObj>();
         }
 
         private void txt_scale_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txt_scale.Text != null && txt_scale.Text != String.Empty)
             {
-                scale = Double.Parse(txt_scale.Text.Trim());
+               
 
                
             }
@@ -624,7 +623,7 @@ namespace GameUI.UI
         {
             if (txt_scale.Text != null && txt_scale.Text != String.Empty)
             {
-                scale = Double.Parse(txt_scale.Text.Trim());
+                
 
                 draw_system(selected_SS);
             }
@@ -632,8 +631,8 @@ namespace GameUI.UI
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            GameSession.GameSessionSystems = this.System_List;
-            GameSession.saveGame();
+            GameSessionHandler.GameSessionSystems = this.System_List;
+            GameSessionHandler.saveGame();
         }
 
         // Zoom
@@ -726,11 +725,11 @@ namespace GameUI.UI
                 {
                     if (e.OriginalSource is Ellipse)
                     {
-                        GameSession.UpdateSelected((e.OriginalSource as Ellipse).Tag as IBodyTreeViewItem);
+                        GameSessionHandler.UpdateSelected((e.OriginalSource as Ellipse).Tag as IBodyTreeViewItem);
                     }
                     if(e.OriginalSource is Path)
                     {
-                        GameSession.UpdateSelected((e.OriginalSource as Path).Tag as IBodyTreeViewItem);
+                        GameSessionHandler.UpdateSelected((e.OriginalSource as Path).Tag as IBodyTreeViewItem);
                     }
 
                 }
@@ -901,7 +900,7 @@ namespace GameUI.UI
 
         private void cv_backspace_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            foreach (artificialObj art in GameSession.selected)
+            foreach (artificialObj art in GameSessionHandler.selected)
             {
                 if(art is Ship)
                 {

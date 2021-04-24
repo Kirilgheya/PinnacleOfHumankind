@@ -30,6 +30,18 @@ namespace MainGame.Applicazione.DataModel
         public double AvgDensity { get { return _relativeAvgDensity * ParametriUtente.Science.avg_d_sun; } set { _relativeAvgDensity = value / ParametriUtente.Science.avg_d_sun; } }
         public double RelativeAvgDensity { get { return _relativeAvgDensity; } set { _relativeAvgDensity = value; } }
 
+        public double Mass
+        {
+            get { return StarMass; }
+            set { this.StarMass = value; this.relativeMass = (value / 100) / ParametriUtente.Science.m_sun; }
+        }
+
+        public double RelativeMass
+        {
+            get { return relativeMass; }
+            set { this.relativeMass = value; }
+        }
+        public double equilibriumFactor;
 
         public ChemicalComposition StarComposition { get { return starComposition; } }
         public OverallStarClassification StarClass { get { return overallClass; } }
@@ -65,18 +77,7 @@ namespace MainGame.Applicazione.DataModel
                                         }
             
                                   }
-        public double Mass
-        {
-            get { return StarMass; }
-            set { this.StarMass = value; this.relativeMass = (value / 100) / ParametriUtente.Science.m_sun; }
-        }
-
-        public double RelativeMass
-        {
-            get { return relativeMass; }
-            set { this.relativeMass = value; }
-        }
-        public double equilibriumFactor;
+       
 	
         public override string ToString()
         {

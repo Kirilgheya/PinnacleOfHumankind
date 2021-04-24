@@ -88,14 +88,14 @@ namespace GameUI.UI.Interfaccia
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            GameEngine.GameSession.Map_UpdateRequested();
+            GameEngine.GameSessionHandler.Map_UpdateRequested();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                foreach (artificialObj art in GameSession.artificialList.Where(s => s.Name != ship.Name))
+                foreach (artificialObj art in GameSessionHandler.artificialList.Where(s => s.Name != ship.Name))
                 {
                     AttackOBJ(art);
 

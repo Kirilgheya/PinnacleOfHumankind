@@ -163,21 +163,21 @@ namespace GameUI.UI.DataSource
             this.minShapeRadius = 5;
         }
 
-        public override void advanceTime(double timestep = -1, double increment = 0)
+        public override void advanceTime(double totalTimePassed = -1, double increment = 0)
         {
 
-            if (timestep >= 0 && increment > 0)
+            if (totalTimePassed >= 0 && increment > 0)
             {
 
                 throw new Exception("Bisogna specificare solo uno dei due argomenti");
             }
-            else if (timestep >= 0)
+            else if (totalTimePassed >= 0)
             {
-                double val = timestep;
-                if(timestep > 365)
+                double val = totalTimePassed;
+                if(totalTimePassed > 365)
                 {
 
-                    val = timestep % 365;
+                    val = totalTimePassed % 365;
                 }
                 this.angleOnOrbit = val;
             }
@@ -195,16 +195,20 @@ namespace GameUI.UI.DataSource
 
         protected override void UpdateHiglight()
         {
-            if (this.selected)
-            {
-                this.Shape.Stroke = StrokeColor;
-                this.Shape.StrokeThickness = StrokeThickeness;
 
-            }
-            else
-            {
-                this.Shape.Stroke = Transparent;
-                this.Shape.StrokeThickness = 0;
+            if(this.bodyShape!=null)
+            { 
+                if (this.selected)
+                {
+                    this.Shape.Stroke = StrokeColor;
+                    this.Shape.StrokeThickness = StrokeThickeness;
+
+                }
+                else
+                {
+                    this.Shape.Stroke = Transparent;
+                    this.Shape.StrokeThickness = 0;
+                }
             }
         }
     }
