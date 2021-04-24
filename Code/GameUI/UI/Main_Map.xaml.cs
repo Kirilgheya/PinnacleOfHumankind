@@ -955,11 +955,11 @@ namespace GameUI.UI
             e.CanExecute = true;
         }
 
-        private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+      /*  private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             TreeVisualizer tr = new TreeVisualizer();
             tr.Show();
-        }
+        }*/
 
         private void LogCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
