@@ -491,23 +491,13 @@ namespace GameUI.UI
         {
             if (GameSession.artificialList.Count == 0)
             {
-                Ship s = new Ship("Aurora");
+                Ship s = new Ship();
 
                 s.spawn( 700 , 300 );
 
                 cv_backspace.Children.Add(s.Shape);
 
                 GameSession.artificialList.Add(s);
-
-                Ship s2 = new Ship("Gantritor");
-
-                s2.spawn(600, 300);
-
-                cv_backspace.Children.Add(s2.Shape);
-
-                GameSession.artificialList.Add(s2);
-
-
             }
             else
             {
@@ -957,8 +947,8 @@ namespace GameUI.UI
 
         private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            TreeVisualizer tr = new TreeVisualizer();
-            tr.Show();
+            TreeVisualizer tv = new TreeVisualizer();
+            tv.Show();
         }
 
         private void LogCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

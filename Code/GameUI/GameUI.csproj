@@ -101,6 +101,9 @@
     <Compile Include="UI\Interfaccia\ShipInfoPage.xaml.cs">
       <DependentUpon>ShipInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Utilities\GraphStyle.xaml.cs">
+      <DependentUpon>GraphStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Utilities\OrbitalMotion.cs" />
     <Compile Include="UI\DataSource\Planet.cs" />
     <Compile Include="UI\DataSource\Star.cs" />
@@ -113,6 +116,9 @@
     </Compile>
     <Compile Include="UI\Main_Map.xaml.cs">
       <DependentUpon>Main_Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Utilities\TreeVisualizer.xaml.cs">
+      <DependentUpon>TreeVisualizer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Utilities\UIStaticClass.cs" />
     <Page Include="UI\Interfaccia\Home.xaml">
@@ -147,6 +153,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Main_Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Utilities\GraphStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Utilities\TreeVisualizer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,6 +254,9 @@
     <Resource Include="Res\MenuIcon\list.png" />
     <Resource Include="Res\MenuIcon\person.png" />
     <Resource Include="Res\MenuIcon\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\Utilities\Nodes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

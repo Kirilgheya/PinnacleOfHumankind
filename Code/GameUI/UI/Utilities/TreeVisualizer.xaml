@@ -3,36 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameUI.UI.Utilities" xmlns:TreeContainer="clr-namespace:TreeContainer;assembly=TreeContainer"
+        xmlns:local="clr-namespace:GameUI.UI.Utilities"
         mc:Ignorable="d"
-        Title="TreeVisualizer" Height="450" Width="800">
-    <Grid ShowGridLines="False" Width="Auto">
-        <Grid.RowDefinitions>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Rectangle Fill="#FFE3E6FF" Stroke="#FF000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"/>
-        <Rectangle Fill="#FFF5EBD6" Stroke="#FF000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Grid.Column="1"/>
-        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <TreeContainer:TreeContainer Width="Auto" Height="Auto" x:Name="tcMain" Margin="8,8,8,8" VerticalBuffer="20" ButtonBase.Click="tcMain_Click"/>
-        </ScrollViewer>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto" Grid.Column="1" Margin="0,0,0,0">
-            <StackPanel Background="OrangeRed" Height="Auto" x:Name="spnlDialog" Width="218.15">
-                <Label FontSize="20" FontFamily="Arial" Foreground="White" Name="lblDialog">Tree Dialog Control</Label>
-                <ListBox>
-                    <ListBoxItem Content="Chapter 1"/>
-                    <ListBoxItem Content="Chapter 2"/>
-                </ListBox>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button MinWidth="75" Margin="10" Content="Help" IsEnabled="True"/>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Height="Auto" Margin="0,14,0,0" HorizontalAlignment="Center">
-                <RadioButton x:Name="rbLogicalTree" Width="Auto" Height="15.96" Content="Logical Tree" IsChecked="True" Checked="rbLogicalTree_Checked"/>
-                <RadioButton x:Name="rbVisualTree" Width="Auto" Height="15.96" Content="Visual Tree" Checked="rbVisualTree_Checked"/>
-            </StackPanel>
-        </StackPanel>
-    </Grid>
+        Title="TreeVisualizer" Height="450" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="GraphStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <XmlDataProvider x:Key="nodes" Source=".\nodes.xml" XPath="Node"/>
+
+            <HierarchicalDataTemplate DataType="Node" 
+									  ItemsSource="{Binding XPath=Children/Node}">
+
+                <Border Name="bdr" CornerRadius="20" BorderThickness="3" 
+						BorderBrush="LightGreen" Width="Auto" Height="50" MinWidth="50" Padding="5">
+                    <TextBlock Text="{Binding XPath=@Name}" 
+							   HorizontalAlignment="Center" 
+							   VerticalAlignment="Center" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
+                </Border>
+            </HierarchicalDataTemplate>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <TreeView ItemContainerStyle="{StaticResource GraphStyle}" 
+			  ItemsSource="{Binding Source={StaticResource nodes}}"/>
 </Window>
