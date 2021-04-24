@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphLayout">
+      <HintPath>..\..\..\..\..\..\Downloads\SilverTreeContainer\TreeContainer\VisLogTree\bin\Debug\GraphLayout.dll</HintPath>
+    </Reference>
     <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
     </Reference>
@@ -72,6 +75,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TreeContainer">
+      <HintPath>..\..\..\..\..\..\Downloads\SilverTreeContainer\TreeContainer\VisLogTree\bin\Debug\TreeContainer.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -111,6 +117,9 @@
     <Compile Include="UI\Main_Map.xaml.cs">
       <DependentUpon>Main_Map.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Utilities\TreeVisualizer.xaml.cs">
+      <DependentUpon>TreeVisualizer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Utilities\UIStaticClass.cs" />
     <Page Include="UI\Interfaccia\Home.xaml">
       <SubType>Designer</SubType>
@@ -144,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Main_Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Utilities\TreeVisualizer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

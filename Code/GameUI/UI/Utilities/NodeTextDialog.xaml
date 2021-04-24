@@ -1,0 +1,14 @@
+﻿<Window x:Class="GameUI.UI.Utilities.NodeTextDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameUI.UI.Utilities"
+        mc:Ignorable="d"
+        Title="NodeTextDialog" Height="214.369" Width="460.812">
+    <Grid>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="71,155,0,0" VerticalAlignment="Top" Width="75" x:Name="btnOK"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="272,155,0,0" VerticalAlignment="Top" Width="75" x:Name="btnCancel"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="96,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" x:Name="txtNodeText"/>
+    </Grid>
+</Window>
