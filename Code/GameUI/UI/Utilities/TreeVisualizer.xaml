@@ -17,12 +17,29 @@
             <HierarchicalDataTemplate DataType="Node" 
 									  ItemsSource="{Binding XPath=Children/Node}">
 
-                <Border Name="bdr" CornerRadius="20" BorderThickness="3" 
-						BorderBrush="LightGreen" Width="Auto" Height="50" MinWidth="50" Padding="5">
-                    <TextBlock Text="{Binding XPath=@Name}" 
+                <!--<Border Name="bdr" CornerRadius="10" BorderThickness="3" 
+						BorderBrush="LightGreen" Width="Auto" Height="50" MinWidth="50" Padding="5">-->
+                    <Button Content="{Binding XPath=@Name}" 
 							   HorizontalAlignment="Center" 
-							   VerticalAlignment="Center" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
-                </Border>
+							   VerticalAlignment="Center" Click="Button_Click"
+                               Foreground="Black"
+                               Tag="{Binding XPath=@Desc}" 
+                               Margin="5,0" 
+                               Padding="5">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding XPath=@Researched}" Value="True">
+                                        <Setter Property="Background" Value="DarkCyan"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding XPath=@Researched}" Value="False">
+                                        <Setter Property="Background" Value="DarkGoldenrod"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                <!--</Border>-->
             </HierarchicalDataTemplate>
 
         </ResourceDictionary>
