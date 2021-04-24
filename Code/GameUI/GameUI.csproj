@@ -92,6 +92,9 @@
     <Compile Include="UI\DataSource\Asteroid.cs" />
     <Compile Include="UI\GameEngine\GameSession.cs" />
     <Compile Include="UI\GameEngine\GameSessionSavedData.cs" />
+    <Compile Include="UI\Interfaccia\EditorMap.xaml.cs">
+      <DependentUpon>EditorMap.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Interfaccia\PlanetInfoPage.xaml.cs">
       <DependentUpon>PlanetInfoPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Interfaccia\EditorMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Interfaccia\PlanetInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

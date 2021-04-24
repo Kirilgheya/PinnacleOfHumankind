@@ -69,5 +69,14 @@ namespace GameUI
                 btnAudio.Content = "🔇";
             }
         }
+
+
+        private void BtnMapEditor_Click(object sender, RoutedEventArgs e)
+        {
+            EditorMap map = new EditorMap();
+
+            map.Show();
+
+        }
     }
 }
