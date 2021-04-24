@@ -24,9 +24,10 @@ namespace GameUI.UI.Utilities
             InitializeComponent();
         }
 
-        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show((sender as TextBlock).Text);
+            MessageBox.Show(((sender as Button).Content as System.Xml.XmlAttribute).Value + " " + ((sender as Button).Tag as System.Xml.XmlAttribute).Value);
         }
     }
 }
