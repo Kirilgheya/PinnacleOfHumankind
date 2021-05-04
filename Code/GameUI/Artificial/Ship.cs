@@ -48,6 +48,19 @@ namespace GameUI.Artificial
                 return calculateSectorsHP();
             }
         }
+        public int calculateSectorsHP()
+        {
+            int HP = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    HP = HP + s.HP;
+                }
+            }
+
+            return HP;
+        }
 
         public double totalSpeed
         {
@@ -57,11 +70,25 @@ namespace GameUI.Artificial
             }
         }
 
+
+        public double calculateSectorsSpeed()
+        {
+            double Speed = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    Speed = Speed + s.SectorComponents.Where(x => x.active).Sum(x => x.SpeedIncrement);
+                }
+            }
+
+            return Speed;
+        }
         public int totalFirePower
         {
             get
             {
-                return calculateSectorsFirePower();
+                return calculateALLSectorsFirePower();
             }
         }
 
@@ -77,60 +104,48 @@ namespace GameUI.Artificial
         {
             get
             {
-                return calculateSectorsFirePower() - calculateFLACKSectorsFirePower();
+                return calculateNONFLACKSectorsFirePower();
             }
         }
 
-        public int calculateSectorsHP()
-        {
-            int HP = 0;
-           foreach( List<ShipSector> secList in Structure)
-            {
-                foreach( ShipSector s in secList)
-                {
-                    HP = HP + s.HP;
-                }
-            }
 
-            return HP;
-        }
 
-        public double calculateSectorsSpeed()
-        {
-            double Speed = 0;
-            foreach (List<ShipSector> secList in Structure)
-            {
-                foreach (ShipSector s in secList)
-                {
-                    Speed = Speed + s.SectorComponents.Where(x => x.active).Sum(x => x.SpeedIncrement);
-                }
-            }
-
-            return Speed;
-        }
-
-        public int calculateSectorsFirePower()
+        public int calculateALLSectorsFirePower(int targetDistance = -1)
         {
             int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
             {
                 foreach (ShipSector s in secList)
                 {
-                    FirePower = FirePower + s.SectorComponents.Where(x => x.active).Sum(x => x.Firepower);
+                    FirePower = FirePower + s.SectorComponents.Where(x => x.active && x.range >= targetDistance).Sum(x => x.Firepower);
                 }
             }
 
             return FirePower;
         }
 
-        public int calculateFLACKSectorsFirePower()
+        public int calculateFLACKSectorsFirePower(int targetDistance = -1)
         {
             int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
             {
                 foreach (ShipSector s in secList)
                 {
-                    FirePower = FirePower + s.SectorComponents.Where(x => x.active && x.Flack).Sum(x => x.Firepower);
+                    FirePower = FirePower + s.SectorComponents.Where(x => x.active && x.Flack && x.range >= targetDistance).Sum(x => x.Firepower);
+                }
+            }
+
+            return FirePower;
+        }
+
+        public int calculateNONFLACKSectorsFirePower(int targetDistance = -1)
+        {
+            int FirePower = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    FirePower = FirePower + s.SectorComponents.Where(x => x.active && !x.Flack && x.range >= targetDistance).Sum(x => x.Firepower);
                 }
             }
 

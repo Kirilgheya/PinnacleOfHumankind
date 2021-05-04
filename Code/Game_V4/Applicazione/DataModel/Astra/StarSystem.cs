@@ -427,6 +427,7 @@ namespace MainGame.Applicazione.DataModel
 
             formattedInfo = "\n Distance A-B: " + this.stars.getDistances()[0] + " - " + this.stars.getDistances()[1];
 
+
             foreach(Planet planet in this.planets)
             {
                 formattedInfo = formattedInfo + "\n" + planet.ToString();
