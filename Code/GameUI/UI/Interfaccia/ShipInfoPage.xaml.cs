@@ -91,7 +91,7 @@ namespace GameUI.UI.Interfaccia
             GameEngine.GameSessionHandler.Map_UpdateRequested();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btn_fire_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -111,12 +111,36 @@ namespace GameUI.UI.Interfaccia
 
         private void AttackOBJ(artificialObj art)
         {
-            (art as Ship).Setdamage(ship.totalNONFLACKFirePower, (art as Ship).GetRandomValidDamageLocation());
+            Point shipd = (art as Ship).position;
+            double distance = Math.Sqrt((Math.Pow(ship.position.X - shipd.X, 2) + Math.Pow(ship.position.Y - shipd.Y, 2)));
 
-            for (int n = 0; n < ship.totalFLACKFirePower; n++)
+            (art as Ship).Setdamage(ship.calculateNONFLACKSectorsFirePower(distance), (art as Ship).GetRandomValidDamageLocation());
+
+            for (int n = 0; n < ship.calculateFLACKSectorsFirePower(distance); n++)
             {
                 (art as Ship).Setdamage(1, (art as Ship).GetRandomValidDamageLocation());
             }
+        }
+
+        private void btnEngage_Click(object sender, RoutedEventArgs e)
+        {
+            String radar = "";
+            foreach (artificialObj art in GameSessionHandler.artificialList.Where(s => s.Name != ship.Name))
+            {
+                Point shipd = (art as Ship).position;
+
+                
+                double distance = Math.Sqrt((Math.Pow(ship.position.X - shipd.X, 2) + Math.Pow(ship.position.Y - shipd.Y, 2)));
+
+                if (distance <= ship.radarRange)
+                {
+                    radar = radar + "VESSEL " + (art as Ship).Name + " POSITION " + shipd + " DISTANCE " + distance;
+                }
+
+
+            }
+
+            txtRadar.Text = radar;
         }
     }
 }

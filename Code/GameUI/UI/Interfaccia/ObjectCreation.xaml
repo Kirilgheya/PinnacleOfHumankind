@@ -1,0 +1,13 @@
+﻿<Window x:Class="GameUI.UI.Interfaccia.ObjectCreation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameUI.UI.Interfaccia"
+        mc:Ignorable="d"
+        Title="ObjectCreation" Height="450" Width="800">
+    <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="71,89,0,0" VerticalAlignment="Top" Width="174" Height="76" Click="Button_Click"/>
+
+    </Grid>
+</Window>

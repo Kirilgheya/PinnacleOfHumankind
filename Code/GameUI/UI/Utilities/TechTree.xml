@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Node Name="Post-uranium resource" Desc ="ciao" Researched ="False">
+  <Children>
+    <Node Name="post-uranium engine" Desc ="ciao" Researched ="True"/>
+    <Node Name="Antimatter ideas" Desc ="ciao" Researched ="False">
+      <Children>
+        <Node Name="Antimatter magnetic chambers" Desc ="ciao" Researched ="False">
+          <Children>
+            <Node Name="portable antimatter magnetic chmaber" Desc ="ciao" Researched ="False">
+              <Children>
+                <Node Name="Antimatter reactor" Desc ="ciao" Researched ="False"/>
+                <Node Name="Antimatter cannon" Desc ="ciao" Researched ="False"/>
+                <Node Name="Antimatter safety procedure" Desc ="ciao" Researched ="False"/>
+                <Node Name="Antimatter efficency" Desc ="ciao" Researched ="False"/>
+              </Children>
+            </Node>
+            <Node Name="Psitronyc theory" Desc ="ciao" Researched ="False">
+              <Children>
+                <Node Name="Psitronyc theory formulation" Desc ="ciao" Researched ="False"/>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+      </Children>
+    </Node>
+    <Node Name="Masses control" Desc ="ciao" Researched ="False"/>
+  </Children>
+</Node>
+

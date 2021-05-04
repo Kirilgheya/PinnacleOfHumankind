@@ -108,9 +108,10 @@ namespace GameUI.Artificial
             }
         }
 
+        public double radarRange = 300;
 
 
-        public int calculateALLSectorsFirePower(int targetDistance = -1)
+        public int calculateALLSectorsFirePower(double targetDistance = -1)
         {
             int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
@@ -124,7 +125,7 @@ namespace GameUI.Artificial
             return FirePower;
         }
 
-        public int calculateFLACKSectorsFirePower(int targetDistance = -1)
+        public int calculateFLACKSectorsFirePower(double targetDistance = -1)
         {
             int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
@@ -138,7 +139,7 @@ namespace GameUI.Artificial
             return FirePower;
         }
 
-        public int calculateNONFLACKSectorsFirePower(int targetDistance = -1)
+        public int calculateNONFLACKSectorsFirePower(double targetDistance = -1)
         {
             int FirePower = 0;
             foreach (List<ShipSector> secList in Structure)
