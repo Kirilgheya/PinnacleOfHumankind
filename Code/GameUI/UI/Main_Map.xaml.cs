@@ -672,49 +672,6 @@ namespace GameUI.UI
             }
         }
 
-        //private void ZoomViewbox_MouseWheel(object sender, MouseWheelEventArgs e)
-        //{
-        //    if (e.Delta > 0)
-        //    {
-
-        //        if(scale <= zoomScale)
-        //        {
-
-        //            zoomScale = zoomScale / 10;
-        //        }
-
-        //        if (scale - zoomScale < 0.001)
-        //        {
-        //            return;
-        //        }
-
-        //        //zoomScale = zoomScale - 1000;
-        //        scale = scale - zoomScale;
-
-        //    }
-        //    else
-        //    {
-
-        //        if(scale /10  == zoomScale )
-        //        {
-
-        //            zoomScale = zoomScale * 10;
-
-        //        }
-        //        scale = scale + zoomScale;
-
-
-        //        //zoomScale = zoomScale + 1000;
-        //    }
-
-        //    txt_scale.Text = scale.ToString();
-
-
-
-
-        //    draw_system(selected_SS, 0, true, false);
-        //}
-
         private void cv_backspace_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!(e.OriginalSource is Canvas))

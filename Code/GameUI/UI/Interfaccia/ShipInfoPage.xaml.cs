@@ -124,23 +124,13 @@ namespace GameUI.UI.Interfaccia
 
         private void btnEngage_Click(object sender, RoutedEventArgs e)
         {
-            String radar = "";
-            foreach (artificialObj art in GameSessionHandler.artificialList.Where(s => s.Name != ship.Name))
+            ship.isRadaring = !ship.isRadaring;
+            if (ship.isRadaring)
             {
-                Point shipd = (art as Ship).position;
 
-                
-                double distance = Math.Sqrt((Math.Pow(ship.position.X - shipd.X, 2) + Math.Pow(ship.position.Y - shipd.Y, 2)));
-
-                if (distance <= ship.radarRange)
-                {
-                    radar = radar + "VESSEL " + (art as Ship).Name + " POSITION " + shipd + " DISTANCE " + distance;
-                }
-
+                txtRadar.Text = ship.PulseRadarAndGetFormattedInfo();
 
             }
-
-            txtRadar.Text = radar;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameUI.UI.GameEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,7 +109,10 @@ namespace GameUI.Artificial
             }
         }
 
+        public List<artificialObj> OggettiInradar = new List<artificialObj>(); 
+
         public double radarRange = 300;
+        public bool isRadaring = false;
 
 
         public int calculateALLSectorsFirePower(double targetDistance = -1)
@@ -154,7 +158,7 @@ namespace GameUI.Artificial
         }
 
         public List<List<ShipSector>> Structure = new List<List<ShipSector>>();
-
+      
 
         public Ship(String _name = "")
         {
@@ -189,8 +193,49 @@ namespace GameUI.Artificial
 
         }
 
+        internal string getRadarFormattedInfo()
+        {
+            string radar = "";
+            foreach (artificialObj art in OggettiInradar)
+            {
+                Point shipd = (art as Ship).position;
 
+                double distance = Math.Sqrt((Math.Pow(this.position.X - shipd.X, 2) + Math.Pow(this.position.Y - shipd.Y, 2)));
 
+                if (distance <= this.radarRange)
+                {
+                    radar = radar + "VESSEL " + (art as Ship).Name + " POSITION " + shipd + " DISTANCE " + distance;
+                }
+
+            }
+
+            return radar;
+        }
+
+        public void RadarPulse()
+        {
+
+            OggettiInradar = new List<artificialObj>();
+
+            foreach (artificialObj art in GameSessionHandler.artificialList.Where(s => s.Name != this.Name))
+            {
+                Point shipd = (art as Ship).position;
+
+                double distance = Math.Sqrt((Math.Pow(this.position.X - shipd.X, 2) + Math.Pow(this.position.Y - shipd.Y, 2)));
+
+                if (distance <= this.radarRange)
+                {
+                    OggettiInradar.Add(art);
+                }
+
+            }
+        }
+
+        public string PulseRadarAndGetFormattedInfo()
+        {
+            RadarPulse();
+            return getRadarFormattedInfo();
+        }
 
         private void SetComponenetList()
         {
@@ -406,5 +451,7 @@ namespace GameUI.Artificial
                 totali = _totali;
             }
         }
+
+
     }
 }
