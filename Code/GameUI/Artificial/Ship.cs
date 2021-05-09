@@ -14,6 +14,8 @@ namespace GameUI.Artificial
     public class Ship :artificialObj
     {
 
+
+
         private Point _destination = new Point(470, 470);
 
         public Point destination
@@ -114,6 +116,57 @@ namespace GameUI.Artificial
         public double radarRange = 300;
         public bool isRadaring = false;
 
+        public int Mass 
+        {
+            get
+            {
+                return getShipMass();
+            }
+        }
+
+        public int CargoSpace
+        {
+            get
+            {
+                return getShipCargoSpace();
+            }
+        }
+
+        private int _currentShield = -1;
+        public int CurrentShield
+        {
+            get
+            {
+                return _currentShield;
+            }
+
+            set
+            {
+                _currentShield  = value;
+            }
+        }
+
+        public int MAXShield
+        {
+            get
+            {
+                return getShipMAXShield();
+            }
+        }
+
+        private int getShipMAXShield()
+        {
+            int shield = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    shield = shield + s.SectorComponents.Where(x => x.active).Sum(x => x.shield);
+                }
+            }
+
+            return shield;
+        }
 
         public int calculateALLSectorsFirePower(double targetDistance = -1)
         {
@@ -192,6 +245,7 @@ namespace GameUI.Artificial
 
 
         }
+
 
         internal string getRadarFormattedInfo()
         {
@@ -282,6 +336,11 @@ namespace GameUI.Artificial
                 }
                 n++;
             }
+
+            if (this.CurrentShield == -1)
+            {
+                this.CurrentShield = getShipMAXShield();
+            }
         }
 
         public void spawn(double X, double Y)
@@ -299,7 +358,34 @@ namespace GameUI.Artificial
            
         }
 
-     
+        public int getShipMass()
+        {
+            int mass = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    mass = mass + s.SectorComponents.Sum(x => x.mass);
+                }
+            }
+
+            return mass;
+        }
+
+        public int getShipCargoSpace()
+        {
+            int mass = 0;
+            foreach (List<ShipSector> secList in Structure)
+            {
+                foreach (ShipSector s in secList)
+                {
+                    mass = mass + s.SectorComponents.Sum(x => x.cargoSpace);
+                }
+            }
+
+            return mass;
+        }
+
 
         public void moveToDestination()
         {
@@ -399,7 +485,17 @@ namespace GameUI.Artificial
 
         public void Setdamage(int Damage, Point p)
         {
-            Setdamage(Damage, (int)(p.X), (int)(p.Y));
+            
+            while(CurrentShield > 0 && Damage > 0)
+            {
+                CurrentShield--;
+                Damage--;
+            }
+
+            if (Damage > 0)
+            {
+                Setdamage(Damage, (int)(p.X), (int)(p.Y));
+            }
 
             this.ShipInfoP.LoadInfo(this);
         }

@@ -42,7 +42,8 @@ namespace GameUI.UI.Interfaccia
 
             cv_back.Children.Add(el);
 
-            txtInfo.Text = s.Name + " HP " + s.totalHP + "\n SPEED " + s.speed + "\n FIREPOWER " + s.totalFirePower + " " + s.totalFLACKFirePower + "(F) " + s.totalNONFLACKFirePower + "(N)" +
+            txtInfo.Text = s.Name + " HP " + s.totalHP + "\n SHIELD " + s.CurrentShield + "\\" + s.MAXShield +"\n SPEED " + s.speed + "\n FIREPOWER " + s.totalFirePower + " " + s.totalFLACKFirePower + "(F) " + s.totalNONFLACKFirePower + "(N)" +
+                "\n MASS " + s.Mass + "\n CARGO SPACE " + s.CargoSpace +
                 "\n POSITION    X = " + Math.Round(s.position.X, 0) + " Y = " + Math.Round(s.position.Y, 0) +
                 "\n DESTINATION X = " + Math.Round(s.destination.X,0)  + " Y = " + Math.Round(s.destination.Y,0); 
 
