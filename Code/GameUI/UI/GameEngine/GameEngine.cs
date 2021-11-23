@@ -76,9 +76,11 @@ namespace GameUI.UI.GameEngine
 
                 GameEngine.GameSessionSystems.Clear();
 
-                GameEngine.GameSessionSystems.Add(new StarSystem(system));
+              
 
             }
+
+            GameEngine.GameSessionSystems.Add(new StarSystem(system));
         }
     }
 }

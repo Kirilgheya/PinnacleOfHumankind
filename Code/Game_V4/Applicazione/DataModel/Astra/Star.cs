@@ -22,7 +22,7 @@ namespace MainGame.Applicazione.DataModel
         protected Boolean markAsDegenerateStar = false;
         protected List<ChemicalElement> stellarCompositionMats;
         protected List<double> elementsDistribution;
-        static Random_Extension randomSeed = new Random_Extension();
+        static Random_Extension randomSeed = SimulationEngine.random;
         protected double starRadius;
         private double StarMass;
         public double distanceFromCenter { get; set; }
@@ -325,7 +325,7 @@ namespace MainGame.Applicazione.DataModel
         {
             if(String.IsNullOrEmpty(baseName))
             {
-                Random random = new Random();
+                Random random = SimulationEngine.random;
                 baseName = ((int)(random.NextDouble() * 10000))+" ";
             }
             string extendedName = baseName

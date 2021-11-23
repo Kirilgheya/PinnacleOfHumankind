@@ -167,7 +167,7 @@ namespace MainGame.Applicazione.Engine
             NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
 
-
+            string s = extraResourcePath;
             var lines = File.ReadLines(@"" + extraResourcePath + "PeriodicTable.csv");
 
             //per togliere l'intestazione

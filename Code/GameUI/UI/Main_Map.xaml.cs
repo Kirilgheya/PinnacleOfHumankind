@@ -3,6 +3,8 @@ using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
 using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
+using MainGame.Applicazione;
+using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,6 +79,8 @@ namespace GameUI.UI
 
         private void generate_Star_System(Boolean _forceRecreate = false)
         {
+
+            SimulationEngine.init(ParametriUtente.userSeed);
             Applicazione.DataModel.PeriodicTable.init();
 
             List<Gamecore.DataModel.ChemicalElement> chemicalElements = Gamecore.Engine.DataEngine.starSeed;
@@ -379,9 +383,10 @@ namespace GameUI.UI
                 n++;
             }
 
-            Random rnd = new Random();
+            Random rnd = SimulationEngine.random;
 
-          
+
+
             foreach (Planet planet in PlanetList)
             {
 
@@ -976,119 +981,7 @@ namespace GameUI.UI
         }
     }
 
-    public static class CustomCommands
-    {
-        public static readonly RoutedUICommand Exit = new RoutedUICommand
-            (
-                "Exit",
-                "Exit",
-                typeof(CustomCommands),
-                new InputGestureCollection()
-                {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-                }
-            );
-
-        public static readonly RoutedUICommand Race = new RoutedUICommand
-          (
-              "Race",
-              "Race",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Empire = new RoutedUICommand
-          (
-              "Empire",
-              "Empire",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Science = new RoutedUICommand
-          (
-              "Science",
-              "Science",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Log = new RoutedUICommand
-          (
-              "Log",
-              "Log",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Settings = new RoutedUICommand
-          (
-              "Settings",
-              "Settings",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Planet = new RoutedUICommand
-          (
-              "Planet",
-              "Planet",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Project = new RoutedUICommand
-          (
-              "Project",
-              "Project",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Market = new RoutedUICommand
-          (
-              "Market",
-              "Market",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-
-        public static readonly RoutedUICommand Diplomacy = new RoutedUICommand
-          (
-              "Diplomacy",
-              "Diplomacy",
-              typeof(CustomCommands),
-              new InputGestureCollection()
-              {
-                    new KeyGesture(Key.F4, ModifierKeys.Alt)
-              }
-          );
-        //Define more commands here, just like the one above
-    }
+ 
 
 
 }

@@ -15,9 +15,24 @@ namespace MainGame.Applicazione.Engine
         public static Boolean mustShowInfo = false;
         public static List<Star>  resultOfGenerateStar;
         protected static Stopwatch watch;
-        static Random random = new Random();
+        public static Random_Extension random;
 
   
+        public static void init(int _seed = 0)
+        {
+            if (_seed == 0)
+            {
+
+                random = new Random_Extension(ParametriUtente.userSeed);
+            }
+            else
+            {
+
+                random = new Random_Extension(_seed);
+            }
+        }
+    
+
         public static void generateStars(int _number=0,List<ChemicalElement> chemicalElements = null
                                             , List<double> percentage = null)
         {

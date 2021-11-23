@@ -17,7 +17,7 @@ namespace MainGame.Applicazione.Engine.CreatureEngine
         public static ChemicalElement primaryMeatCompisition;
         public static ChemicalElement SolutionComposition;
 
-        static Random random = new Random();
+        static Random random = SimulationEngine.random;
 
 
         public static List<Creature> GenerateEcoSystem(Planet p)

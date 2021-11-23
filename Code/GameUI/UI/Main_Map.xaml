@@ -4,19 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameUI.UI"
+        xmlns:keybind="clr-namespace:GameUI.Keybinds"
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         mc:Ignorable="d"
         Title="Main_Map" Height="450" Width="800" WindowState="Maximized" >
     <Window.CommandBindings>
-        <CommandBinding Command="local:CustomCommands.Race" CanExecute="RaceCommand_CanExecute" Executed="RaceCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Empire" CanExecute="EmpireCommand_CanExecute" Executed="EmpireCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Log" CanExecute="LogCommand_CanExecute" Executed="LogCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Planet" CanExecute="PlanetCommand_CanExecute" Executed="PlanetCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Project" CanExecute="ProjectCommand_CanExecute" Executed="ProjectCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Market" CanExecute="MarketCommand_CanExecute" Executed="MarketCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
-        <CommandBinding Command="local:CustomCommands.Diplomacy" CanExecute="DiplomacyCommand_CanExecute" Executed="DiplomacyCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Race" CanExecute="RaceCommand_CanExecute" Executed="RaceCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Empire" CanExecute="EmpireCommand_CanExecute" Executed="EmpireCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Science" CanExecute="ScienceCommand_CanExecute" Executed="ScienceCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Log" CanExecute="LogCommand_CanExecute" Executed="LogCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Planet" CanExecute="PlanetCommand_CanExecute" Executed="PlanetCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Project" CanExecute="ProjectCommand_CanExecute" Executed="ProjectCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Market" CanExecute="MarketCommand_CanExecute" Executed="MarketCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
+        <CommandBinding Command="keybind:CustomCommands.Diplomacy" CanExecute="DiplomacyCommand_CanExecute" Executed="DiplomacyCommand_Executed" />
     </Window.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -53,15 +54,15 @@
 
 
         <HamburgerMenu:HamburgerMenu Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="Black" MenuIconColor="White" SelectionIndicatorColor="Red" MenuItemForeground="White" HorizontalAlignment="Left" Width="46">
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Race" SelectionCommand="local:CustomCommands.Race"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Empire" SelectionCommand="local:CustomCommands.Empire"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Science" SelectionCommand="local:CustomCommands.Science"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Log" SelectionCommand="local:CustomCommands.Log"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/person.png" Text="Settings" SelectionCommand="local:CustomCommands.Settings"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Planet" SelectionCommand="local:CustomCommands.Planet"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Project" SelectionCommand="local:CustomCommands.Project" />
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Market" SelectionCommand="local:CustomCommands.Market"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Diplomacy" SelectionCommand="local:CustomCommands.Diplomacy"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Race" SelectionCommand="keybind:CustomCommands.Race"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Empire" SelectionCommand="keybind:CustomCommands.Empire"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Science" SelectionCommand="keybind:CustomCommands.Science"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Log" SelectionCommand="keybind:CustomCommands.Log"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/person.png" Text="Settings" SelectionCommand="keybind:CustomCommands.Settings"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Planet" SelectionCommand="keybind:CustomCommands.Planet"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/search.png" Text="Project" SelectionCommand="keybind:CustomCommands.Project" />
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/favorite.png" Text="Market" SelectionCommand="keybind:CustomCommands.Market"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/Res/MenuIcon/home.png" Text="Diplomacy" SelectionCommand="keybind:CustomCommands.Diplomacy"/>
         </HamburgerMenu:HamburgerMenu>
     </Grid>
 

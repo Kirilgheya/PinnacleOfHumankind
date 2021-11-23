@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace MainGame.Applicazione.Engine
 {
-    class Random_Extension : Random
+    public class Random_Extension : Random
     {
+
+        public Random_Extension(int Seed) : base(Seed)
+        {
+
+
+        }
 
         public double NextDouble(double min, double max)
         {

@@ -1,4 +1,5 @@
 ﻿using MainGame.Applicazione.DataModel.Climate;
+using MainGame.Applicazione.Engine;
 using MainGame.Applicazione.Engine.ClimateEngine;
 using MainGame.Applicazione.Engine.CreatureEngine;
 using org.mariuszgromada.math.mxparser;
@@ -197,7 +198,7 @@ namespace MainGame.Applicazione.DataModel
 
         public void applyChemicalBonds()
         {
-            Random random = new Random();
+            Random random = SimulationEngine.random;
             List<ChemicalElement> chemicalElements = this.body_composition.get_elements();
             List<ChemicalElement> chosenOnes = new List<ChemicalElement>();
             List<int> chosenIndexes = new List<int>();
@@ -339,7 +340,7 @@ namespace MainGame.Applicazione.DataModel
 
             for (int i = 0; i < 3; i++)
             {
-                r = new Random(Guid.NewGuid().GetHashCode());
+                r = SimulationEngine.random;
                 rannum = r.Next(104);
                 switch (rannum)
                 {

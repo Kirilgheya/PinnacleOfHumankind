@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MainGame.Applicazione
 {
-	class ChemicalEngine
+	public class ChemicalEngine
 	{
 		public double[] defaultElemDensity = new double[]{0.0000899, 0.0001785,0.534, 1.848, 2.34, 2.26, 0.0012506, 0.001429, 0.001696, 0.0009
 												, 0.971, 1.738, 2.702, 2.33, 1.82, 2.07, 0.003214, 0.0017824,0.862, 1.55
@@ -152,7 +152,7 @@ namespace MainGame.Applicazione
             {
 
                 moleculeDistList = SimulationEngine.generateDistributionList(4,1, validMolecules.Count);
-                DataEngine.Shuffle<ChemicalElement>(validMolecules, new Random());
+                DataEngine.Shuffle<ChemicalElement>(validMolecules, SimulationEngine.random);
                 moleculeComposition = new ChemicalComposition(validMolecules, moleculeDistList);
             }
 

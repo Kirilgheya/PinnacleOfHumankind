@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainGame.Applicazione.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -111,14 +112,14 @@ namespace MainGame.Applicazione.DataModel
 
         public String generate_planet_name()
         {
-            Random r = new Random(Guid.NewGuid().GetHashCode());
+           
             int rannum = 0;
             String name = String.Empty;
 
             for (int i = 0; i < 3; i++)
             {
-                r = new Random(Guid.NewGuid().GetHashCode());
-                rannum = r.Next(104);
+                
+                rannum = SimulationEngine.random.Next(104);
                 switch (rannum)
                 {
                     case 0: name = name + ("a"); if (rannum % 7 == 0) { name = name + "-"; } break;

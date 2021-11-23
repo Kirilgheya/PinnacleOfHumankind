@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game_V4", "Game_V4\Game_V4.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUI", "GameUI\GameUI.csproj", "{6DE857BB-F293-4270-99D2-3F94675FDE19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSerialization", "DataSerialization\DataSerialization.csproj", "{00DFD61B-BECB-4CFF-B150-CFFFF1ADA33C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6DE857BB-F293-4270-99D2-3F94675FDE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DE857BB-F293-4270-99D2-3F94675FDE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DE857BB-F293-4270-99D2-3F94675FDE19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DFD61B-BECB-4CFF-B150-CFFFF1ADA33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DFD61B-BECB-4CFF-B150-CFFFF1ADA33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DFD61B-BECB-4CFF-B150-CFFFF1ADA33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DFD61B-BECB-4CFF-B150-CFFFF1ADA33C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

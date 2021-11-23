@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 
 namespace GameUI.UI.DataSource.UIItems_DS
 {
+    
     public abstract class IBodyTreeViewItem
     {
         public PlanetInfoPage PlanetInfoP = new PlanetInfoPage();
@@ -24,7 +25,7 @@ namespace GameUI.UI.DataSource.UIItems_DS
         public string Name { get; set; }
         public ObservableCollection<IBodyTreeViewItem> Children { get; set; }
 
-        public double minShapeRadius =1;
+        public double minShapeRadius =1; 
 
         public double angleOnOrbit = -1;
         public  Point position;

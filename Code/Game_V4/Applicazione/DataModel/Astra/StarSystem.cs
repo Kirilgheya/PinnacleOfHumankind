@@ -50,14 +50,14 @@ namespace MainGame.Applicazione.DataModel
                     this.randomizeParameters();
                     break;
                 case 0:
-                    this.star_densityMul = new Random_Extension().NextDouble(this.star_densityMul * _deviation, this.star_densityMul * (1 + _deviation));
+                    this.star_densityMul = SimulationEngine.random .NextDouble(this.star_densityMul * _deviation, this.star_densityMul * (1 + _deviation));
 
                     break;
                 case 1:
-                    this.starRadius = new Random_Extension().NextDouble(this.starRadius * _deviation, this.starRadius * (1 + _deviation));
+                    this.starRadius = SimulationEngine.random .NextDouble(this.starRadius * _deviation, this.starRadius * (1 + _deviation));
                     break;
                 case 2:
-                    this.starRelativeMass = new Random_Extension().NextDouble(this.starRelativeMass * _deviation, this.starRelativeMass * (1 + _deviation));
+                    this.starRelativeMass = SimulationEngine.random .NextDouble(this.starRelativeMass * _deviation, this.starRelativeMass * (1 + _deviation));
 
                     break;
 
@@ -68,7 +68,7 @@ namespace MainGame.Applicazione.DataModel
             public void randomizeParameters()
         {
 
-            Random_Extension random = new Random_Extension();
+            Random_Extension random = SimulationEngine.random ;
             double min = 0.1, max =3.0;
            
             double value = random.NextDouble(min,max);
@@ -172,7 +172,7 @@ namespace MainGame.Applicazione.DataModel
 
         private void createStarCenter()
         {
-            Random_Extension random = new Random_Extension();
+            Random_Extension random = SimulationEngine.random;
             Star star = new Star(this.starRadius, 0, this.composition.get_elements());
 
 
@@ -223,7 +223,7 @@ namespace MainGame.Applicazione.DataModel
             double radiiMultiplierFactor = 1;
             double asteroidBeltDistanceMax = 0.0, asteroidBeltDistanceMin =0.0;
             int[] supportedAsteroids = new int[] { 100, 2000 };
-            Random_Extension randomSeed = new Random_Extension();
+            Random_Extension randomSeed = SimulationEngine.random ;
 
             this.createStarCenter();
             
@@ -245,7 +245,7 @@ namespace MainGame.Applicazione.DataModel
             //everything beyond habitableZone_max has (should have) less than 0° surface temp and be either rocky(frozen) or gas giant
             //everything beyond habitableZone_min has (should have) more than 40° surface temp and can be only a rocky barren planet.
 
-            randomSeed = new Random_Extension();
+            randomSeed = SimulationEngine.random ;
             
             asteroidBeltDistanceMax = randomSeed.NextDouble(habitableZone_min * 0.3, habitableZone_max * 10) + ((habitableZone_max-habitableZone_min)/2);
 
@@ -271,7 +271,7 @@ namespace MainGame.Applicazione.DataModel
                
                 c++;
 
-                Random_Extension re = new Random_Extension();
+                Random_Extension re = SimulationEngine.random ;
 
                 if (re.Next(0, 10) >= 7)
                 {
@@ -425,7 +425,7 @@ namespace MainGame.Applicazione.DataModel
 
             formattedInfo = this.stars.getFullName();
 
-            formattedInfo = "\n Distance A-B: " + this.stars.getDistances()[0] + " - " + this.stars.getDistances()[1];
+            //formattedInfo = "\n Distance A-B: " + this.stars.getDistances()[0] + " - " + this.stars.getDistances()[1];
 
 
             foreach(Planet planet in this.planets)

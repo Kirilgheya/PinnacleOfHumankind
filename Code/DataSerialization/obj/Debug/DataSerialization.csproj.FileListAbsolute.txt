@@ -1,0 +1,17 @@
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\obj\Debug\DataSerialization.csprojAssemblyReference.cache
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\obj\Debug\DataSerialization.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\App.config
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\LocalData.config
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Risorse Extra\ElementTable.csv
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Risorse Extra\PeriodicTable.csv
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Risorse Extra\stardata.csv
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\DataSerialization.exe.config
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\DataSerialization.exe
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\DataSerialization.pdb
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Game_V4.exe
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\MathParser.org-mXparser.Net472.dll
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Game_V4.pdb
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\bin\Debug\Game_V4.exe.config
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\obj\Debug\DataSerialization.csproj.CopyComplete
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\obj\Debug\DataSerialization.exe
+C:\Users\user\source\repos\PinnacleOfHumankind\Code\DataSerialization\obj\Debug\DataSerialization.pdb

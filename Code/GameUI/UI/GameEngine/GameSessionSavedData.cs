@@ -12,8 +12,8 @@ namespace GameUI.UI.GameEngine
     {
 
         public double TimePassed { get; set; }
-
-        public List<StarSystem> GameSessionSystems { get; set; }
+        public int seed { get; set; }
+        
         
     }
 }

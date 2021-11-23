@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainGame.Applicazione.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,7 +45,7 @@ namespace GameUI.Artificial
             }
         }
 
-        public static Random r = new Random();
+        public static Random r = SimulationEngine.random;
 
         public ShipSector(string c, int _HP = 1)
         {

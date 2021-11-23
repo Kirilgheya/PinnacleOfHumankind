@@ -1,6 +1,7 @@
 ﻿using org.mariuszgromada.math.mxparser;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Windows.Forms;
 
@@ -9,9 +10,9 @@ namespace MainGame.Applicazione
     public static class ParametriUtente
     {
         public static string exeRootFodler = Application.StartupPath;
+		public static int userSeed = Convert.ToInt32(ConfigurationManager.AppSettings.Get("UserRandomSeed"));
 
-
-        public static class Science
+		public static class Science
 		{
 
 			public const string TemperatureGradientModifierName = "Heat distribution";

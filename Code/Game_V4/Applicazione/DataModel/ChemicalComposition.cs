@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainGame.Applicazione.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace MainGame.Applicazione.DataModel
 
         //lista di oggetti nella forma elemento, percentuale
         public List<element_percentage> elements_percentage_list = new List<element_percentage>();
-        static Random randomElementNumber = new Random();
+        static Random randomElementNumber = SimulationEngine.random;
         //server solo per istanziale l'oggetto
         public ChemicalComposition()
         {

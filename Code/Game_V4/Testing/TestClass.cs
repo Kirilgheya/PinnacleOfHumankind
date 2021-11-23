@@ -20,6 +20,7 @@ namespace MainGame.Applicazione
             SimulationEngine.mustShowInfo = true;
 
             PeriodicTable.init();
+            SimulationEngine.init();
             TestClass.createEarth();
             TestClass.createSun();
             List<double> percentageList = new List<double>();
@@ -43,7 +44,7 @@ namespace MainGame.Applicazione
             system.createStarSystem();
 
 
-            PlanetColor color = new PlanetColor(System.Drawing.Color.Blue);
+            PlanetColor color = new PlanetColor(System.Drawing.Color.Blue);     
             double ggg = color.getAlbedo();
 
             outputFile = string.Concat(outputFile,system.toString());

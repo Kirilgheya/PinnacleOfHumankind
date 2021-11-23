@@ -13,13 +13,14 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using GameCore = MainGame.Applicazione.DataModel;
+using MainGame.Applicazione.Engine;
 
 namespace GameUI.UI.Utilities
 {
     public static class UIStaticClass
     {
-      
-        private static Random random = new Random();
+
+        private static Random random = SimulationEngine.random;
 
         //ritorna true se devi refreshare lo schermo (sennò non ricaricava i pianeti levando loro il selezionato);
         public static bool Show_body_info(object to_show)

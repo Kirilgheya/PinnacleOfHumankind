@@ -3,6 +3,7 @@ using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
 using GameUI.UI.GameEngine;
 using GameUI.UI.Utilities;
+using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,10 +33,6 @@ namespace GameUI.UI
     public partial class EditorMap : Window
     {
 
-        double checkLocationX;
-        double checkLocationY;
-        double UADistance;
-        double UnitLocation;
 
         private List<StarSystem> System_List { get { return GameEngine.GameEngine.GameSessionSystems; }  }
 
@@ -119,6 +116,12 @@ namespace GameUI.UI
                 }
                 n++;
             }
+        }
+
+        private void clearTree()
+        {
+
+            SystemTree.Items.Clear();
         }
 
 
@@ -235,8 +238,6 @@ namespace GameUI.UI
 
             int n = 0;
 
-            lbl_delta.Content = "";
-
             createCenter();
 
             List<IBodyTreeViewItem> StarList = sy.Children.Where(x => x is Star).ToList();
@@ -330,9 +331,10 @@ namespace GameUI.UI
                 n++;
             }
 
-            Random rnd = new Random();
+            Random rnd = SimulationEngine.random;
 
-          
+
+
             foreach (Planet planet in PlanetList)
             {
 
@@ -344,12 +346,7 @@ namespace GameUI.UI
                 originCoordPlanet.X = (get_x_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
                 originCoordPlanet.Y = (get_y_center() - planetShape.Width / 2 - (planet.relatedPlanet.distance_from_star * this.scale_UAtoCanvasUnit ));
 
-                checkLocationX = originCoordPlanet.X;
-                checkLocationX = originCoordPlanet.Y;
-
-              
-                UADistance = planet.relatedPlanet.distance_from_star;
-
+            
                 cv_backspace.Children.Add(planetShape);
 
                 planet.setPosition(originCoordPlanet);
@@ -477,8 +474,7 @@ namespace GameUI.UI
 
                         cv_backspace.Children.Remove((art as Ship).Shape);
                         cv_backspace.Children.Add((art as Ship).Shape);
-
-                        txtShip.Text = (art as Ship).position.X + " " + (art as Ship).position.Y;
+ 
                     }
                 }
             }
@@ -568,26 +564,6 @@ namespace GameUI.UI
             add_starSystem_to_Tree();
 
             GameSessionHandler.artificialList = new List<artificialObj>();
-        }
-
-        private void txt_scale_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
-            {
-                scale = Double.Parse(txt_scale.Text.Trim());
-
-               
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (txt_scale.Text != null && txt_scale.Text != String.Empty)
-            {
-                scale = Double.Parse(txt_scale.Text.Trim());
-
-                draw_system(selected_SS);
-            }
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -716,7 +692,7 @@ namespace GameUI.UI
         private void cv_backspace_MouseMove(object sender, MouseEventArgs e)
         {
          
-            lbl_mouse_pos.Content = "X " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).X) + " Y " + Math.Round(e.GetPosition((FrameworkElement)cv_backspace).Y);
+       
 
             Point pointOnMove = e.GetPosition((FrameworkElement)cv_backspace.Parent);
 
@@ -865,14 +841,17 @@ namespace GameUI.UI
             MessageBox.Show("Empire");
         }
 
-        private void ScienceCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void CreateCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
-        private void ScienceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CreateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Scince");
+            MessageBox.Show("Creation of system under way");
+            generate_Star_System(true);
+            clearTree();
+            add_starSystem_to_Tree();
         }
 
         private void LogCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using GameUI.UI.GameEngine;
+using MainGame.Applicazione.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -528,7 +529,7 @@ namespace GameUI.Artificial
                 throw new Exception("Ship already destroyed");
             }
 
-            var random = new Random();
+            var random = SimulationEngine.random;
 
             int a = random.Next(validList.Count);
 

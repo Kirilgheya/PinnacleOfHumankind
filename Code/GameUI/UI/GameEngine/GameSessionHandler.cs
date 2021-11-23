@@ -1,6 +1,7 @@
 ﻿using GameUI.Artificial;
 using GameUI.UI.DataSource;
 using GameUI.UI.DataSource.UIItems_DS;
+using MainGame.Applicazione;
 using Polenter.Serialization;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,13 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace GameUI.UI.GameEngine
 {
@@ -150,25 +153,38 @@ namespace GameUI.UI.GameEngine
         public static void saveGame()
         {
 
-            SharpSerializer formatter = new SharpSerializer();
-
+            //SharpSerializer formatter = new SharpSerializer();
+            DataContractSerializer formatter = new DataContractSerializer(typeof(GameSessionSavedData));
             int directoryCount;
 
             String fileExtension = ".bin";
 
             directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
             Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
-            using (FileStream fs = File.Create(filepath + "\\" + folder + (directoryCount + 1) + "\\" + filename + fileExtension))
+            if (GameSessionHandler.GameSessionSystems != null)
             {
+                string xmlPath = filepath + "\\" + folder + (directoryCount + 1) + "\\" + filename + fileExtension;
 
-                if (GameSessionHandler.GameSessionSystems != null)
+                System.Xml.Serialization.XmlSerializer writer =
+                      new System.Xml.Serialization.XmlSerializer(typeof(GameSessionSavedData));
+                using (XmlWriter xw = XmlWriter.Create(xmlPath))
                 {
+                    writer.Serialize(xw, GameSessionHandler.saveDataInto());
+                    //formatter.WriteObject(xw, GameSessionHandler.saveDataInto());
 
-                    formatter.Serialize(GameSessionHandler.saveDataInto(), fs);
 
                 }
+                //formatter.Serialize( GameSessionHandler.saveDataInto());
 
             }
+            /*using (FileStream fs = File.Create(filepath + "\\" + folder + (directoryCount + 1) + "\\" + filename + fileExtension))
+            {
+
+
+
+                
+
+            }*/
         }
 
         public static void loadGame()
@@ -187,7 +203,11 @@ namespace GameUI.UI.GameEngine
                     SharpSerializer binaryFormatter = new SharpSerializer(true);
                     if (openFileDialog.OpenFile().Length > 0)
                     {
-                        GameSessionSavedData saveData = (GameSessionSavedData)binaryFormatter.Deserialize(openFileDialog.OpenFile());
+                        System.Xml.Serialization.XmlSerializer reader =
+                           new System.Xml.Serialization.XmlSerializer(typeof(GameSessionSavedData));
+     
+                        GameSessionSavedData saveData = (GameSessionSavedData)reader.Deserialize(openFileDialog.OpenFile());
+                        //GameSessionSavedData saveData = (GameSessionSavedData)binaryFormatter.Deserialize(openFileDialog.OpenFile());
                         //Read the contents of the file into a stream
 
                         if (GameSessionHandler.loadDataInto(saveData))
@@ -211,7 +231,8 @@ namespace GameUI.UI.GameEngine
             Boolean result = true;
             try
             {
-                GameSessionHandler.GameSessionSystems = _savedData.GameSessionSystems;
+                //   GameSessionHandler.GameSessionSystems = _savedData.GameSessionSystems;
+                ParametriUtente.userSeed = _savedData.seed;
                 GameSessionHandler.TimePassed = _savedData.TimePassed;
             }
             catch (Exception e)
@@ -233,7 +254,8 @@ namespace GameUI.UI.GameEngine
 
             GameSessionSavedData saveData = new GameSessionSavedData();
 
-            saveData.GameSessionSystems = GameSessionHandler.GameSessionSystems;
+            //saveData.GameSessionSystems = GameSessionHandler.GameSessionSystems;
+            saveData.seed = ParametriUtente.userSeed;
             saveData.TimePassed = GameSessionHandler.TimePassed;
 
             return saveData;
