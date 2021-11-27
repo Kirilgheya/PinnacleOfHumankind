@@ -157,7 +157,7 @@ namespace GameUI.UI.GameEngine
             DataContractSerializer formatter = new DataContractSerializer(typeof(GameSessionSavedData));
             int directoryCount;
 
-            String fileExtension = ".bin";
+            String fileExtension = ".xml";
 
             directoryCount = System.IO.Directory.GetDirectories(filepath).Length;
             Directory.CreateDirectory(filepath + "\\" + folder + (directoryCount + 1));
