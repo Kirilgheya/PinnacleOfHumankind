@@ -22,3 +22,5 @@
 /Code/GameUI/Config/*
 /Code/GameUI/Res/load2.gif
 /Code/GameUI/Res/matrix.gif
+/Code/DataSerialization/obj/Debug
+/Code/DataSerialization/bin/Debug
